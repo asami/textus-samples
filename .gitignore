@@ -1,0 +1,50 @@
+*~
+bin
+gen
+lib_managed
+lib
+*.bak
+/target/
+/project/**/target/
+boot
+.tmp-sbt
+WARP.md
+.scala-build
+dist
+server.log
+.cache
+maven-local
+.sbt
+
+### Metals (VS Code Scala extension) ###
+.metals/
+project/**/.metals/
+
+# metals.sbt をすべての階層で無視
+metals.sbt
+project/**/metals.sbt
+
+### BSP / bloop ###
+.bloop/
+project/**/.bloop/
+.bsp/
+
+### VSCode ###
+.vscode/
+
+### BSP logs ###
+bsp.log
+project/**/bsp.log
+
+# OS / env
+.DS_Store
+.env
+
+### IntelliJ IDEA ###
+.idea/
+
+# Local sqlite artifacts (script/test runtime)
+*.sqlite
+*.db
+StringValue(*.sqlite)
+StringValue(*.db)
