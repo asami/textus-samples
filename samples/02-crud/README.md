@@ -2,26 +2,74 @@
 
 ## Overview
 
-This is a CRUD sample that includes Entity, Repository, Command, and Query.
+This sample follows the same method as `textus-user-account`.
 
-## Structure
+- define the model in CML
+- use `cozy`
+- let CNCF tooling expose the CRUD surface
 
-- Entity
-- Repository
-- Command + Query
+It is intentionally simpler than later samples.
 
-## How To Run
+## Requirements
 
-The execution steps for `createItem`, `getItem`, and `listItems` will be documented after implementation.
+- `cozy` is required
+- `src/main/cozy/crud.cml` uses the same Dox-style model input as `textus-user-account`
+- the sample is model-driven rather than hand-written CRUD repository logic
+- entity service and aggregate service are the main point
 
-## Example Commands
+## Model
+
+- entity: `Item`
+- service: `Item`
+- operations:
+  - `createItem`
+  - `getItem`
+  - `listItems`
+
+## How To Use
+
+The CRUD surface comes from CML + CNCF tooling.
+
+Even though the file extension is `.cml`, the content is written in the Dox-style structure expected by the Cozy modeler.
+
+Generation/build commands:
 
 ```bash
-sbt run
+sbt cozyGenerate
+sbt clean compile
+sbt cozyBuildCAR
+sbt cozyBuildSAR
 ```
 
-## Key Learnings
+Runtime help can be inspected through `CncfMain` by injecting the generated component factory:
 
-- Entity lifecycle
-- Repository
-- The basics of Command / Query separation
+```bash
+sbt --batch "runMain org.goldenport.cncf.CncfMain --component-factory-class=org.sample.crud.CrudComponent\$Factory command help Crud"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --component-factory-class=org.sample.crud.CrudComponent\$Factory command help Crud.Item"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --component-factory-class=org.sample.crud.CrudComponent\$Factory command help Crud.Item.createItem"
+```
+
+Observed runtime surface:
+
+- component: `Crud`
+- service: `Crud.Item`
+- operation: `Crud.Item.createItem`
+- additional generated services: `aggregate`, `entity`, `view`
+- framework services: `meta`, `system`
+
+## Design Goal
+
+This sample should show that the CRUD API surface comes from the model and CNCF tooling.
+
+It should not mainly show:
+
+- a custom repository
+- a custom TSV store
+- hand-written CRUD business logic
+
+It should mainly show:
+
+- CML model definition
+- entity service
+- aggregate service
+- command/API usage produced from that model
