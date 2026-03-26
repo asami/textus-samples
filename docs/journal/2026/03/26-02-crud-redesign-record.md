@@ -32,7 +32,7 @@ Observed result:
 - the cozy backend generated 9 Scala source files
 - `sbt clean compile` succeeded
 - compile produced warnings only; no errors remained
-- `CncfMain` was extended to accept `--component-factory-class`
+- `CncfMain` class discovery was refined so generated components can expose their runtime surface through `--discover=classes`
 - the generated `CrudComponent$Factory` was injected at runtime through `CncfMain`
 
 Generated source files:
@@ -68,5 +68,5 @@ Runtime probe results after the `CncfMain` extension:
 - the first blocker was the compact DSL model
 - the second blocker was generated source compile issues
 - the third blocker was that `02-crud` had no direct runtime entry point for the generated component factory
-- that gap was resolved by extending `CncfMain` with `--component-factory-class`
+- that gap was resolved by refining CNCF class discovery so generated companion factories are applied correctly
 - runtime command-style CRUD help confirmation is now verified

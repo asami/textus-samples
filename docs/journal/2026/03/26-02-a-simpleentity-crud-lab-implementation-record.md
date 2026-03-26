@@ -56,7 +56,7 @@ Generated CRUD surface observed in `SimpleEntityCrudLabComponent.scala`:
 
 Runtime probe results:
 
-- `command help SimpleEntityCrudLab` succeeded through `CncfMain --component-factory-class=org.sample.simpleentitycrudlab.SimpleEntityCrudLabComponent$Factory`
+- `command help SimpleEntityCrudLab` succeeded through `CncfMain --discover=classes`
 - `command help SimpleEntityCrudLab.Item` succeeded and exposed `createItem`, `getItem`, and `listItems`
 - `command help SimpleEntityCrudLab.Item.createItem` succeeded and exposed the generated operation target
 - `command help SimpleEntityCrudLab.system` succeeded and showed `health`, `ping`, and `status`
@@ -65,7 +65,7 @@ Runtime probe results:
 ## Notes
 
 - the sample is a `SimpleEntity` variation of `02-crud`
-- runtime confirmation uses `CncfMain --component-factory-class=...` in the same way as `02-crud`
+- runtime confirmation uses `CncfMain --discover=classes` in the same way as `02-crud`
 - component, service, and operation selectors are all confirmed
 - there is no hand-written CRUD repository logic in this sample
 - the original compile failure came from `simplemodeler 1.1.10-SNAPSHOT` generating `docSummary` / `docDescription` calls inside component/service/operation builder code

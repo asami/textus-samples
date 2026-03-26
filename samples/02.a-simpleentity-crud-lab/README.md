@@ -40,12 +40,12 @@ sbt cozyGenerate
 sbt clean compile
 ```
 
-Runtime help can be inspected through `CncfMain` by discovering classes:
+Runtime help can be inspected through `CncfMain` with class discovery:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --component-factory-class=org.sample.simpleentitycrudlab.SimpleEntityCrudLabComponent\$Factory command help SimpleEntityCrudLab"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --component-factory-class=org.sample.simpleentitycrudlab.SimpleEntityCrudLabComponent\$Factory command help SimpleEntityCrudLab.Item"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --component-factory-class=org.sample.simpleentitycrudlab.SimpleEntityCrudLabComponent\$Factory command help SimpleEntityCrudLab.Item.createItem"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help SimpleEntityCrudLab"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help SimpleEntityCrudLab.Item"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help SimpleEntityCrudLab.Item.createItem"
 ```
 
 Observed runtime surface:

@@ -41,12 +41,12 @@ sbt cozyBuildCAR
 sbt cozyBuildSAR
 ```
 
-Runtime help can be inspected through `CncfMain` by injecting the generated component factory:
+Runtime help can be inspected through `CncfMain` with class discovery:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --component-factory-class=org.sample.crud.CrudComponent\$Factory command help Crud"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --component-factory-class=org.sample.crud.CrudComponent\$Factory command help Crud.Item"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --component-factory-class=org.sample.crud.CrudComponent\$Factory command help Crud.Item.createItem"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help Crud"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help Crud.Item"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help Crud.Item.createItem"
 ```
 
 Observed runtime surface:
