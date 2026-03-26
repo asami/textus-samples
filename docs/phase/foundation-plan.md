@@ -111,6 +111,12 @@ Reference:
 
 - `docs/phase/samples/02-crud.md`
 
+### Subphase 2.6a 02.a-simpleentity-crud-lab
+
+Reference:
+
+- `docs/phase/samples/02.a-simpleentity-crud-lab.md`
+
 ### Subphase 2.7 03-cqrs
 
 Reference:

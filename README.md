@@ -16,12 +16,13 @@ Its initial goal is to build a catalog of patterns, not to recreate complex busi
 4. `01.c-builtin-and-help-lab`
 5. `01.d-component-script`
 6. `02-crud`
-7. `03-cqrs`
-8. `04-event-driven`
-9. `05-job`
-10. `06-subsystem`
-11. `07-subsystem-wiring`
-12. `101-distributed`
+7. `02.a-simpleentity-crud-lab`
+8. `03-cqrs`
+9. `04-event-driven`
+10. `05-job`
+11. `06-subsystem`
+12. `07-subsystem-wiring`
+13. `101-distributed`
 
 ## AI Directive
 

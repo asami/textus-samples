@@ -1,0 +1,195 @@
+# COMPONENT
+
+## SimpleEntityCrudLab
+
+### PACKAGE
+
+org.sample.simpleentitycrudlab
+
+### DESCRIPTION
+
+CRUD sample component for item management.
+
+### SPECIFICATION
+
+This component demonstrates a model-driven CRUD surface using the same Cozy method as `textus-user-account`.
+The source is intentionally executable as model input and readable as domain documentation.
+
+### DOMAIN_INTENT
+
+Two domain viewpoints are modeled:
+1. Item lifecycle (`Item` service): create, read, and list item records.
+2. Model-driven CRUD surface: the generated output should expose the CRUD-shaped API from the model.
+
+### LIFECYCLE
+
+Typical item flow:
+1. `createItem`
+2. `getItem`
+3. `listItems`
+
+### DOC_USAGE
+
+Descriptions under `COMPONENT`, `SERVICE`, and `OPERATION` are intended to be reused for generated program comments and user-facing artifacts.
+
+# SERVICE
+
+## Item
+
+### DESCRIPTION
+
+Item-facing operations for a SimpleEntity-based CRUD surface.
+
+### OPERATION
+
+#### createItem
+
+##### DESCRIPTION
+
+Creates a new item record.
+
+##### IN
+
+Item creation payload.
+
+##### OUT
+
+Result of item creation.
+
+#### getItem
+
+##### DESCRIPTION
+
+Returns a single item by identifier.
+
+##### IN
+
+Identifier of the item to retrieve.
+
+##### OUT
+
+Item lookup result.
+
+#### listItems
+
+##### DESCRIPTION
+
+Lists item records with optional filters.
+
+##### IN
+
+Filter and pagination fields for item listing.
+
+##### OUT
+
+List/search result projection.
+
+# ENTITY
+
+## SimpleEntity
+
+### DESCRIPTION
+
+Shared identity base for domain entities.
+
+### ATTRIBUTE
+
+| name  | type     | multiplicity |
+|-------+----------+--------------|
+| id    | entityid | 1            |
+| name  | name     | 1            |
+| title | string   | 1            |
+
+## Item
+
+### features
+
+extends = ["SimpleEntity"]
+
+### DESCRIPTION
+
+Core item record used by the SimpleEntity CRUD sample.
+
+### ATTRIBUTE
+
+| name        | type   | multiplicity |
+|-------------+--------+--------------|
+| name        | name   | 1            |
+| title       | string | 1            |
+
+# COMMAND
+
+## CreateItem
+
+### DESCRIPTION
+
+Command to create an item record.
+
+### ATTRIBUTE
+
+| name        | type   | multiplicity |
+|-------------+--------+--------------|
+| name        | name   | 1            |
+| title       | string | 1            |
+
+# QUERY
+
+## GetItem
+
+### DESCRIPTION
+
+Query to obtain a single item record.
+
+### ATTRIBUTE
+
+| name | type     | multiplicity |
+|------|----------|--------------|
+| id   | entityid | 1            |
+
+## ListItems
+
+### DESCRIPTION
+
+Query to list item records.
+
+### ATTRIBUTE
+
+| name   | type   | multiplicity |
+|--------|--------|--------------|
+| offset | int    | ?            |
+| limit  | int    | ?            |
+
+# OPERATION
+
+## createItem
+
+### TYPE
+COMMAND
+
+### INPUT
+CreateItem
+
+### OUTPUT
+CreateItemResult
+
+## getItem
+
+### TYPE
+QUERY
+
+### INPUT
+GetItem
+
+### OUTPUT
+ItemResult
+
+## listItems
+
+### TYPE
+QUERY
+
+### INPUT
+ListItems
+
+### OUTPUT
+ListItemsResult

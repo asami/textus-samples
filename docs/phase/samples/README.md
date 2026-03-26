@@ -17,6 +17,7 @@ Current sample documents:
 - `01.c-builtin-and-help-lab.md`
 - `01.d-component-script.md`
 - `02-crud.md`
+- `02.a-simpleentity-crud-lab.md`
 - `03-cqrs.md`
 - `04-event-driven.md`
 - `05-job.md`
