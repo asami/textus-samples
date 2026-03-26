@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "01.d-component-script is a documentation-first learning sample." >&2
-echo "See guide/script/component-script-examples.md and the sample README." >&2
-exit 1
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+exec ./script/main.scala "$@"
