@@ -1,5 +1,15 @@
 # 01-minimal Recovery Instruction
 
+Status: `Superseded`
+
+This document records an earlier recovery phase for `01-minimal`.
+It is no longer the active work-order document.
+
+Use these instead:
+
+- [`docs/journal/2026/03/01-minimal-completion-instruction.md`](/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/01-minimal-completion-instruction.md) for the active instruction
+- [`docs/phase/samples/01-minimal.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/01-minimal.md) for current status
+
 ## Purpose
 
 Recover `01-minimal` to a truly completed state under the current execution model.
@@ -13,7 +23,7 @@ This document exists to drive the remaining work to closure.
 The following has already been confirmed:
 
 - the sample compiles
-- `samples/01-minimal/src/main/scala/minimal/minimal.scala` exists
+- `samples/01-minimal/src/main/scala/minimal/MinimalComponent.scala` exists
 - the command path is intended to be `minimal.main.hello`
 - `run.sh` and `invoke.sh` are both defined
 
@@ -77,11 +87,11 @@ Interpretation:
 Investigation should focus on these areas first:
 
 1. class discovery contract
-   - whether the current `minimal` / provider layout matches what `CncfMain --discover=classes` expects
+   - whether the current `MinimalComponent` / provider layout exposes the CNCF component name `minimal` in the way `CncfMain --discover=classes` expects
 2. ServiceLoader registration
    - whether the provider file and implementation class align with CNCF discovery rules
 3. package prefix / discovery scope
-   - whether `minimal` classes are inside the discovery scope used by CNCF
+   - whether `MinimalComponent` classes are inside the discovery scope used by CNCF
 4. virtual repository layout
    - whether `samples/component-repository.d` contains the structure needed for `component-dir` loading
 5. repository artifact preparation
@@ -125,7 +135,7 @@ Do not turn this recovery effort into:
 
 ## Files Most Likely To Change
 
-- `samples/01-minimal/src/main/scala/minimal/minimal.scala`
+- `samples/01-minimal/src/main/scala/minimal/MinimalComponent.scala`
 - `samples/01-minimal/component.d/...`
 - `samples/01-minimal/run.sh`
 - `samples/01-minimal/invoke.sh`

@@ -4,17 +4,17 @@ import org.goldenport.Consequence
 import org.goldenport.protocol.Request
 import org.goldenport.protocol.operation.OperationResponse
 import org.goldenport.protocol.spec.*
-import org.goldenport.cncf.action.{Action, ActionCall}
+import org.goldenport.cncf.action.{ActionCall, QueryAction}
 import org.goldenport.cncf.component.{Component, ComponentCreate, ComponentId}
 
-final class minimal extends Component
+final class MinimalComponent extends Component
 
-object minimal extends Component.Factory {
+object MinimalComponent extends Component.Factory {
   val name = "minimal"
   val componentId = ComponentId(name)
 
   protected def create_Components(params: ComponentCreate): Vector[Component] =
-    Vector(minimal())
+    Vector(MinimalComponent())
 
   protected def create_Core(
     params: ComponentCreate,
@@ -44,7 +44,7 @@ object MainService extends ServiceDefinition {
 
 final case class HelloQuery(
   request: Request
-) extends Action {
+) extends QueryAction() {
   override def createCall(core: ActionCall.Core): ActionCall =
     HelloActionCall(core, this)
 }

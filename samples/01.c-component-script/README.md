@@ -1,4 +1,4 @@
-# 01.b-component-script
+# 01.c-component-script
 
 ## Overview
 

@@ -11,15 +11,16 @@ Its initial goal is to build a catalog of patterns, not to recreate complex busi
 開発順序は `docs/journal/2026/03/cncf-samples-project.md` に記録された以下の段階に従います。
 
 1. `01-minimal`
-2. `01.a-minimal-lab`
-3. `01.b-component-script`
-4. `02-crud`
-5. `03-cqrs`
-6. `04-event-driven`
-7. `05-job`
-8. `06-subsystem`
-9. `07-subsystem-wiring`
-10. `101-distributed`
+2. `01.a-selector-and-invocation-lab`
+3. `01.b-builtin-and-help-lab`
+4. `01.c-component-script`
+5. `02-crud`
+6. `03-cqrs`
+7. `04-event-driven`
+8. `05-job`
+9. `06-subsystem`
+10. `07-subsystem-wiring`
+11. `101-distributed`
 
 ## AI Directive
 
@@ -59,8 +60,9 @@ AI behavior is interpreted in the following order.
 │  └─ invocation/
 ├─ samples/
 │  ├─ 01-minimal/
-│  ├─ 01.a-minimal-lab/
-│  ├─ 01.b-component-script/
+│  ├─ 01.a-selector-and-invocation-lab/
+│  ├─ 01.b-builtin-and-help-lab/
+│  ├─ 01.c-component-script/
 │  ├─ 02-crud/
 │  ├─ 03-cqrs/
 │  ├─ 04-event-driven/
@@ -79,6 +81,8 @@ Each sample follows this baseline layout.
 
 ```text
 sample-name/
+├─ AGENT.md
+├─ RULE.md
 ├─ README.md
 ├─ build.sbt
 ├─ component.d/
@@ -86,6 +90,7 @@ sample-name/
 ```
 
 From `04-event-driven` onward, `docker/` may be added when needed.
+Each sample-level `AGENT.md` and `RULE.md` is a symlink back to the repository-level directive so that the same AI contract remains visible even when a sample is opened on its own.
 
 ## How To Work
 
@@ -95,6 +100,27 @@ From `04-event-driven` onward, `docker/` may be added when needed.
 - The root `build.sbt` only carries repository-level metadata
 - Implementation and execution are handled per sample directory
 - Shared code may live under `shared/` only when sample independence is preserved
+
+For sample-status documents, use this split:
+
+- `docs/phase/samples/<sample>.md`
+  - the only progress and completion authority
+- `docs/journal/.../*completion-instruction.md`
+  - the active work-order document when one exists
+- `docs/journal/.../*implementation-record.md`
+  - implementation history only, not status authority
+
+Operational rule:
+
+- never rewrite a `*completion-instruction.md` file into a completion note or result report
+- record results by appending to an implementation record or by creating a separate completion record file
+- never treat an implementation record as the authority over a phase checklist
+
+Directive policy:
+
+- use `ai/directive` as the default operating rule set
+- do not add project-local AI rules unless there is a concrete repository-specific reason
+- prefer documenting sample facts, work orders, and status over creating local AI behavior rules
 
 ## Running Samples
 

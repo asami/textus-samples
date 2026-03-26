@@ -1,5 +1,7 @@
 # 01-minimal Checklist
 
+Status authority: `This file is the only progress and completion authority for 01-minimal.`
+
 ## Purpose
 
 Deliver the smallest executable CNCF unit with one Component, one user-defined Service, and one user-defined Operation, while making the CNCF execution model visible.

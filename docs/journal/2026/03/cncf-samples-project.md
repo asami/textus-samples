@@ -14,8 +14,9 @@ cncf-samples/
 
   samples/
     01-minimal/
-    01.a-minimal-lab/
-    01.b-component-script/
+    01.a-selector-and-invocation-lab/
+    01.b-builtin-and-help-lab/
+    01.c-component-script/
     02-crud/
     03-cqrs/
     04-event-driven/
@@ -64,6 +65,18 @@ cncf-samples/
 - `docs/` is reserved for sample development documentation
 - user-facing documentation belongs under `guide/`
 
+7. Status Document Rule
+- `docs/phase/samples/<sample>.md` is the only progress and completion authority
+- `...completion-instruction.md` is the active work-order document
+- `...implementation-record.md` is implementation history only and MUST NOT be treated as the status authority
+- `...completion-instruction.md` MUST NOT be rewritten into a completion note or result report
+- completion reporting MUST be written in an implementation record or in a separate completion record file
+
+8. Directive Usage Rule
+- `ai/directive` is the default operating rule set for this repository
+- project-local AI rules SHOULD NOT be added unless there is a concrete repository-specific reason
+- sample facts, work orders, and completion records SHOULD be written as sample documentation, not as replacement AI rules
+
 --------------------------------------------------
 
 [Sample Standard Layout]
@@ -104,23 +117,38 @@ Concepts:
 - Component / Service / Operation
 
 ----------------------------------------
-01.a-minimal-lab — Guided Learning Lab
+01.a-selector-and-invocation-lab — Selector And Invocation Lab
 
 Purpose:
-- Learn the execution model by exercising `01-minimal`
+- Learn selector usage and invocation differences by exercising `01-minimal`
 
 Structure:
 - Small lab sample or companion material
-- Focused on observation and manual experimentation
+- Focused on invocation comparison and manual experimentation
 
 Concepts:
 - selector practice
 - run vs invoke
 - class discovery vs repository loading
-- observation through hands-on steps
+- command vs server vs client
 
 ----------------------------------------
-01.b-component-script — Component Script Example
+01.b-builtin-and-help-lab — Builtin And Help Lab
+
+Purpose:
+- Learn how builtin Components and help-oriented surfaces appear in CNCF
+
+Structure:
+- Lab focused on runtime-provided surfaces
+- Observation of builtin and framework-provided command areas
+
+Concepts:
+- builtin Components
+- meta/help surfaces
+- runtime discovery commands
+
+----------------------------------------
+01.c-component-script — Component Script Example
 
 Purpose:
 - Learn how to build small management commands on top of Component operations
@@ -272,15 +300,16 @@ docker compose up
 [Development Order]
 
 1. 01-minimal
-2. 01.a-minimal-lab
-3. 01.b-component-script
-4. 02-crud
-5. 03-cqrs
-6. 04-event-driven
-7. 05-job
-8. 06-subsystem
-9. 07-subsystem-wiring
-10. 101-distributed
+2. 01.a-selector-and-invocation-lab
+3. 01.b-builtin-and-help-lab
+4. 01.c-component-script
+5. 02-crud
+6. 03-cqrs
+7. 04-event-driven
+8. 05-job
+9. 06-subsystem
+10. 07-subsystem-wiring
+11. 101-distributed
 
 --------------------------------------------------
 

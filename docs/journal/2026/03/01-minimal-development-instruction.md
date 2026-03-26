@@ -1,5 +1,15 @@
 # 01-minimal Development Instruction
 
+Status: `Superseded`
+
+This document records the original start instruction for `01-minimal`.
+It is no longer the active work-order document.
+
+Use these instead:
+
+- [`docs/journal/2026/03/01-minimal-completion-instruction.md`](/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/01-minimal-completion-instruction.md) for the active instruction
+- [`docs/phase/samples/01-minimal.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/01-minimal.md) for current status
+
 ## Purpose
 
 Implement the first executable CNCF sample as the smallest possible unit that still demonstrates:
@@ -87,6 +97,7 @@ Out of scope:
 
 Define one component named to support the command path:
 
+- Scala implementation class: `MinimalComponent`
 - component: `minimal`
 
 ### Service

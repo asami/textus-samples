@@ -81,55 +81,61 @@ Reference:
 
 - `docs/phase/samples/01-minimal.md`
 
-### Subphase 2.2 01.a-minimal-lab
+### Subphase 2.2 01.a-selector-and-invocation-lab
 
 Reference:
 
-- `docs/phase/samples/01.a-minimal-lab.md`
+- `docs/phase/samples/01.a-selector-and-invocation-lab.md`
 
-### Subphase 2.3 01.b-component-script
+### Subphase 2.3 01.b-builtin-and-help-lab
 
 Reference:
 
-- `docs/phase/samples/01.b-component-script.md`
+- `docs/phase/samples/01.b-builtin-and-help-lab.md`
 
-### Subphase 2.4 02-crud
+### Subphase 2.4 01.c-component-script
+
+Reference:
+
+- `docs/phase/samples/01.c-component-script.md`
+
+### Subphase 2.5 02-crud
 
 Reference:
 
 - `docs/phase/samples/02-crud.md`
 
-### Subphase 2.5 03-cqrs
+### Subphase 2.6 03-cqrs
 
 Reference:
 
 - `docs/phase/samples/03-cqrs.md`
 
-### Subphase 2.6 04-event-driven
+### Subphase 2.7 04-event-driven
 
 Reference:
 
 - `docs/phase/samples/04-event-driven.md`
 
-### Subphase 2.7 05-job
+### Subphase 2.8 05-job
 
 Reference:
 
 - `docs/phase/samples/05-job.md`
 
-### Subphase 2.8 06-subsystem
+### Subphase 2.9 06-subsystem
 
 Reference:
 
 - `docs/phase/samples/06-subsystem.md`
 
-### Subphase 2.9 07-subsystem-wiring
+### Subphase 2.10 07-subsystem-wiring
 
 Reference:
 
 - `docs/phase/samples/07-subsystem-wiring.md`
 
-### Subphase 2.10 101-distributed
+### Subphase 2.11 101-distributed
 
 Reference:
 
@@ -139,7 +145,7 @@ Reference:
 
 Checklist:
 
-- [ ] `01-minimal` through `101-distributed` are completed in order, including `01.a-minimal-lab` and `01.b-component-script`
+- [ ] `01-minimal` through `101-distributed` are completed in order, including the `01.*` learning samples
 - [ ] Each sample satisfies independently buildable and executable
 - [ ] No sample violates the reverse-dependency prohibition
 - [ ] Each sample README satisfies Overview, Structure, How to Run, Example Commands, and Key Learnings
