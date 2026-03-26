@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "01.c-builtin-and-help-lab does not define a separate deployment contract yet." >&2
-echo "Use samples/01-minimal/invoke.sh as the executable reference." >&2
-exit 1
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+sbt package >/dev/null
+PACKAGE_JAR="$(find target -name '*.jar' | sort | tail -n 1)"
+mkdir -p "$SCRIPT_DIR/../component-repository.d"
+cp "$PACKAGE_JAR" "$SCRIPT_DIR/../component-repository.d/MinimalComponent.jar"
+exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
+  --script-path "$SCRIPT_DIR/invoke.sh" \
+  --component-repository "component-dir:../component-repository.d" \
+  --command-path minimal.main.hello \
+  -- \
+  "$@"
