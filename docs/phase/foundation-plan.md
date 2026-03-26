@@ -81,61 +81,67 @@ Reference:
 
 - `docs/phase/samples/01-minimal.md`
 
-### Subphase 2.2 01.a-selector-and-invocation-lab
+### Subphase 2.2 01.a-invocation-source-lab
 
 Reference:
 
-- `docs/phase/samples/01.a-selector-and-invocation-lab.md`
+- `docs/phase/samples/01.a-invocation-source-lab.md`
 
-### Subphase 2.3 01.b-builtin-and-help-lab
-
-Reference:
-
-- `docs/phase/samples/01.b-builtin-and-help-lab.md`
-
-### Subphase 2.4 01.c-component-script
+### Subphase 2.3 01.b-startup-shapes-lab
 
 Reference:
 
-- `docs/phase/samples/01.c-component-script.md`
+- `docs/phase/samples/01.b-startup-shapes-lab.md`
 
-### Subphase 2.5 02-crud
+### Subphase 2.4 01.c-builtin-and-help-lab
+
+Reference:
+
+- `docs/phase/samples/01.c-builtin-and-help-lab.md`
+
+### Subphase 2.5 01.d-component-script
+
+Reference:
+
+- `docs/phase/samples/01.d-component-script.md`
+
+### Subphase 2.6 02-crud
 
 Reference:
 
 - `docs/phase/samples/02-crud.md`
 
-### Subphase 2.6 03-cqrs
+### Subphase 2.7 03-cqrs
 
 Reference:
 
 - `docs/phase/samples/03-cqrs.md`
 
-### Subphase 2.7 04-event-driven
+### Subphase 2.8 04-event-driven
 
 Reference:
 
 - `docs/phase/samples/04-event-driven.md`
 
-### Subphase 2.8 05-job
+### Subphase 2.9 05-job
 
 Reference:
 
 - `docs/phase/samples/05-job.md`
 
-### Subphase 2.9 06-subsystem
+### Subphase 2.10 06-subsystem
 
 Reference:
 
 - `docs/phase/samples/06-subsystem.md`
 
-### Subphase 2.10 07-subsystem-wiring
+### Subphase 2.11 07-subsystem-wiring
 
 Reference:
 
 - `docs/phase/samples/07-subsystem-wiring.md`
 
-### Subphase 2.11 101-distributed
+### Subphase 2.12 101-distributed
 
 Reference:
 

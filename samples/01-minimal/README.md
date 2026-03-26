@@ -155,17 +155,20 @@ If you want to understand the surrounding execution and deployment model, contin
 
 ### Learn By Operating The Sample
 
-- `../01.a-selector-and-invocation-lab/README.md`
+- `../01.a-invocation-source-lab/README.md`
   - guided hands-on learning path based on `01-minimal`
-  - focuses on selector usage and invocation differences
+  - focuses on `run.sh` vs `invoke.sh`
+  - explains development-time class loading vs deployment-style repository loading
+
+- `../01.b-startup-shapes-lab/README.md`
   - compares `command`, `server`, and `client` startup styles
 
-- `../01.b-builtin-and-help-lab/README.md`
+- `../01.c-builtin-and-help-lab/README.md`
   - explains builtin Components and help-oriented command surfaces
 
 ### Learn How Component Commands Become Small Scripts
 
-- `../01.c-component-script/README.md`
+- `../01.d-component-script/README.md`
   - management-command style usage based on Component operations
 
 ### Learn Invocation And Deployment Patterns
@@ -198,11 +201,12 @@ Use this order if you want a structured learning path:
 
 1. Read this README
 2. Run `./run.sh` and `./invoke.sh`
-3. Read `../01.a-selector-and-invocation-lab/README.md`
-4. Read `../01.b-builtin-and-help-lab/README.md`
-5. Read `../../guide/invocation/component-and-subsystem-invocation-guide.md`
-6. Read `../01.c-component-script/README.md`
-7. Read `../../guide/script/component-script-examples.md`
+3. Read `../01.a-invocation-source-lab/README.md`
+4. Read `../01.b-startup-shapes-lab/README.md`
+5. Read `../01.c-builtin-and-help-lab/README.md`
+6. Read `../../guide/invocation/component-and-subsystem-invocation-guide.md`
+7. Read `../01.d-component-script/README.md`
+8. Read `../../guide/script/component-script-examples.md`
 
 ## Key Learnings
 

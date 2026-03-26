@@ -14,9 +14,10 @@ cncf-samples/
 
   samples/
     01-minimal/
-    01.a-selector-and-invocation-lab/
-    01.b-builtin-and-help-lab/
-    01.c-component-script/
+    01.a-invocation-source-lab/
+    01.b-startup-shapes-lab/
+    01.c-builtin-and-help-lab/
+    01.d-component-script/
     02-crud/
     03-cqrs/
     04-event-driven/
@@ -117,23 +118,38 @@ Concepts:
 - Component / Service / Operation
 
 ----------------------------------------
-01.a-selector-and-invocation-lab — Selector And Invocation Lab
+01.a-invocation-source-lab — Invocation Source Lab
 
 Purpose:
-- Learn selector usage and invocation differences by exercising `01-minimal`
+- Learn development-time vs deployment-style invocation by exercising `01-minimal`
 
 Structure:
 - Small lab sample or companion material
-- Focused on invocation comparison and manual experimentation
+- Focused on `run.sh` vs `invoke.sh`
+- Focused on loading-source comparison and manual experimentation
 
 Concepts:
 - selector practice
 - run vs invoke
 - class discovery vs repository loading
-- command vs server vs client
 
 ----------------------------------------
-01.b-builtin-and-help-lab — Builtin And Help Lab
+01.b-startup-shapes-lab — Startup Shapes Lab
+
+Purpose:
+- Learn `command`, `server`, and `client` startup shapes by exercising `01-minimal`
+
+Structure:
+- Small lab sample or companion material
+- Focused on startup-shape comparison and manual experimentation
+
+Concepts:
+- selector practice
+- command vs server vs client
+- startup mode comparison
+
+----------------------------------------
+01.c-builtin-and-help-lab — Builtin And Help Lab
 
 Purpose:
 - Learn how builtin Components and help-oriented surfaces appear in CNCF
@@ -148,7 +164,7 @@ Concepts:
 - runtime discovery commands
 
 ----------------------------------------
-01.c-component-script — Component Script Example
+01.d-component-script — Component Script Example
 
 Purpose:
 - Learn how to build small management commands on top of Component operations
@@ -300,10 +316,11 @@ docker compose up
 [Development Order]
 
 1. 01-minimal
-2. 01.a-selector-and-invocation-lab
-3. 01.b-builtin-and-help-lab
-4. 01.c-component-script
-5. 02-crud
+2. 01.a-invocation-source-lab
+3. 01.b-startup-shapes-lab
+4. 01.c-builtin-and-help-lab
+5. 01.d-component-script
+6. 02-crud
 6. 03-cqrs
 7. 04-event-driven
 8. 05-job

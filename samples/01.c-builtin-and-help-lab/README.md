@@ -1,4 +1,4 @@
-# 01.b-builtin-and-help-lab
+# 01.c-builtin-and-help-lab
 
 ## Overview
 

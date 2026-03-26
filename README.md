@@ -11,16 +11,17 @@ Its initial goal is to build a catalog of patterns, not to recreate complex busi
 開発順序は `docs/journal/2026/03/cncf-samples-project.md` に記録された以下の段階に従います。
 
 1. `01-minimal`
-2. `01.a-selector-and-invocation-lab`
-3. `01.b-builtin-and-help-lab`
-4. `01.c-component-script`
-5. `02-crud`
-6. `03-cqrs`
-7. `04-event-driven`
-8. `05-job`
-9. `06-subsystem`
-10. `07-subsystem-wiring`
-11. `101-distributed`
+2. `01.a-invocation-source-lab`
+3. `01.b-startup-shapes-lab`
+4. `01.c-builtin-and-help-lab`
+5. `01.d-component-script`
+6. `02-crud`
+7. `03-cqrs`
+8. `04-event-driven`
+9. `05-job`
+10. `06-subsystem`
+11. `07-subsystem-wiring`
+12. `101-distributed`
 
 ## AI Directive
 
@@ -60,9 +61,10 @@ AI behavior is interpreted in the following order.
 │  └─ invocation/
 ├─ samples/
 │  ├─ 01-minimal/
-│  ├─ 01.a-selector-and-invocation-lab/
-│  ├─ 01.b-builtin-and-help-lab/
-│  ├─ 01.c-component-script/
+│  ├─ 01.a-invocation-source-lab/
+│  ├─ 01.b-startup-shapes-lab/
+│  ├─ 01.c-builtin-and-help-lab/
+│  ├─ 01.d-component-script/
 │  ├─ 02-crud/
 │  ├─ 03-cqrs/
 │  ├─ 04-event-driven/
