@@ -2,7 +2,11 @@
 
 ## Overview
 
-This is a guided hands-on lab built on top of `01-minimal`.
+This is a guided hands-on lab derived from `01-minimal`.
+It intentionally carries the same minimal source locally so the learner can focus on one question:
+
+- how does the startup line change between `command`, `server`, and `client`?
+
 Its role is to help a learner understand how CNCF uses different startup shapes for different runtime roles, especially:
 
 - `command`
@@ -11,20 +15,24 @@ Its role is to help a learner understand how CNCF uses different startup shapes 
 
 ## Structure
 
-- Companion lab for `01-minimal`
+- Local working copy of the `01-minimal` source
 - Focused on startup mode comparison
-- No new core pattern beyond the `01-minimal` base
 - Compares runtime entry shapes rather than loading sources
 
 ## How To Run
 
-This lab depends on `01-minimal`.
-Use this README as a guided observation sequence.
+Run the commands from this directory.
+This lab keeps the same `minimal.main.hello` sample so the startup-shape differences are easier to see.
 
-Prerequisite:
+Verification order for this lab is sequential:
 
-- `../01-minimal` must already be available and runnable
-- the examples below should be executed from this repository checkout
+1. start `server`
+2. confirm server startup is complete
+3. probe the server with `curl`
+4. check `client`
+5. check `command`
+
+Do not run these checks in parallel.
 
 ## Lab Goals
 
@@ -36,91 +44,127 @@ By the end of this lab, the learner should understand:
 
 ## Guided Steps
 
-### 1. Start With The Command Mode Shape
+### 1. Inspect The Local Files
 
-Run the command mode explicitly:
+Open these files:
+
+- `src/main/scala/minimal/MinimalComponent.scala`
+- `run-command.sh`
+- `run-server.sh`
+- `run-client.sh`
+
+Confirm this first:
+
+- the selector used for the command path is still `minimal.main.hello`
+- the sample logic stays the same
+- only the startup shape changes
+
+### 2. Start The Server Shape First
+
+Run:
 
 ```bash
-cd ../01-minimal
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command minimal.main.hello"
+./run-server.sh
+```
+
+Observe:
+
+- the process starts in server mode
+- the startup line no longer contains a selector
+- the process is intended to keep serving rather than finish immediately
+
+Wait until server startup is complete before moving to the next step.
+Do not run `client`, `command`, or `invoke` in parallel with server startup.
+
+To stop the process:
+
+- use `Ctrl-C`
+
+Conceptual shape:
+
+```bash
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes server"
+```
+
+### 3. Probe The Running Server With `curl`
+
+Run:
+
+```bash
+curl -i http://localhost:8080/minimal/main/hello
+```
+
+Observe:
+
+- the request is sent from outside the server terminal
+- the server shape is observable through HTTP
+- `http://localhost:8080/` is still the correct base URL in the current default setup
+- `/` is the test-oriented top page for this default server behavior
+- the `curl` probe should target the current sample component through the canonical path `/component/service/operation`
+- for this sample, that path is `/minimal/main/hello`
+
+Record:
+
+- request URL
+- HTTP method
+- request body if any
+- response status
+- response body
+
+### 4. Run The Client Shape After Server Confirmation
+
+Run:
+
+```bash
+./run-client.sh
+```
+
+Observe:
+
+- by default this lab uses `client --help` so the startup form is visible without requiring a second setup path
+- the startup line again contains no selector
+- the mode is for remote interaction rather than immediate local command execution
+
+Conceptual shape:
+
+```bash
+sbt --batch "runMain org.goldenport.cncf.CncfMain client --help"
+```
+
+### 5. Run The Command Shape Last
+
+Run:
+
+```bash
+./run-command.sh
 ```
 
 Observe:
 
 - one selector is executed directly
 - the process ends after the command result is produced
+- the visible output is `Hello CNCF`
 
-Question to answer:
-
-- which part of the startup line is the selector?
-
-Expected answer:
-
-- `minimal.main.hello`
-
-### 2. Start The Server Shape
-
-Run:
-
-```bash
-cd ../01-minimal
-sbt --batch "runMain org.goldenport.cncf.CncfMain server"
-```
-
-Observe:
-
-- the startup line no longer contains a selector
-- the process is intended to keep serving rather than finish immediately
-
-Question to answer:
-
-- what disappeared from startup compared with command mode?
-
-Expected answer:
-
-- the explicit selector disappeared from the startup line
-
-### 3. Start The Client Shape
-
-Run:
-
-```bash
-cd ../01-minimal
-sbt --batch "runMain org.goldenport.cncf.CncfMain client"
-```
-
-Observe:
-
-- the startup line again contains no selector
-- the process enters a client-side interaction mode instead of running one command and exiting
-
-### 4. Compare The Startup Shapes
-
-The command-mode startup is conceptually:
+Conceptual shape:
 
 ```bash
 sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command minimal.main.hello"
 ```
 
-The server-mode startup is conceptually:
+### 6. Compare The Startup Shapes
 
-```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain server"
-```
-
-The client-mode startup is conceptually:
-
-```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain client"
-```
-
-At this stage, the important comparison is structural:
+Compare the three helpers:
 
 - `command`
-  - executes one selector directly
+  - includes a selector
+  - executes one target and exits
 - `server`
+  - does not include a selector at startup
+  - the startup line no longer contains a selector
   - starts a serving process
+  - can be observed through HTTP requests such as `curl`
 - `client`
+  - does not include a selector at startup
   - starts a client-side interaction mode
 
 The internal model is intended to remain aligned even though the startup form differs.
@@ -132,7 +176,7 @@ Suggested comparison questions:
 - Which mode is most useful while implementing one operation?
 - Which mode best resembles an interactive tool?
 
-### 5. Compare What Changes And What Stays Stable
+### 7. Compare What Changes And What Stays Stable
 
 What should remain stable:
 
@@ -150,9 +194,10 @@ What should not change:
 
 - the logical target `minimal.main.hello`
 - the meaning of the selector tokens
-- the sample contract established by `01-minimal`
+- the sample contract established by the minimal source
+- the local implementation in `src/main/scala/minimal/MinimalComponent.scala`
 
-### 6. Continue To The Next Labs
+### 8. Continue To The Next Labs
 
 After understanding `command` / `server` / `client`, continue to:
 
@@ -164,10 +209,9 @@ Those labs explain builtin/help surfaces and script-style operational usage.
 ## Example Commands
 
 ```bash
-cd ../01-minimal
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command minimal.main.hello"
-sbt --batch "runMain org.goldenport.cncf.CncfMain server"
-sbt --batch "runMain org.goldenport.cncf.CncfMain client"
+./run-command.sh
+./run-server.sh
+./run-client.sh
 ```
 
 Recommended reading order after running the commands:
@@ -183,4 +227,5 @@ Recommended reading order after running the commands:
 
 - selector format
 - command vs server vs client startup comparison
+- one local source tree can be started through multiple runtime shapes
 - stable selector semantics across execution modes
