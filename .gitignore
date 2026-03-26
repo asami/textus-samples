@@ -5,6 +5,8 @@ lib_managed
 lib
 *.bak
 /target/
+/samples/**/target/
+/samples/component-repository.d/
 /project/**/target/
 boot
 .tmp-sbt

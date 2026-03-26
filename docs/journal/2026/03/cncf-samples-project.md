@@ -14,6 +14,8 @@ cncf-samples/
 
   samples/
     01-minimal/
+    01.a-minimal-lab/
+    01.b-component-script/
     02-crud/
     03-cqrs/
     04-event-driven/
@@ -29,6 +31,9 @@ cncf-samples/
   docs/
     patterns/
     architecture/
+
+  guide/
+    invocation/
 
 --------------------------------------------------
 
@@ -54,6 +59,10 @@ cncf-samples/
 - CLI execution required
 - Server mode optional
 - Docker from level 04+
+
+6. Documentation Split
+- `docs/` is reserved for sample development documentation
+- user-facing documentation belongs under `guide/`
 
 --------------------------------------------------
 
@@ -84,11 +93,46 @@ Structure:
 - 1 Operation (hello)
 
 Behavior:
-run command minimal.main.hello
+./run.sh
 → "Hello CNCF"
+
+Note:
+- `01-minimal` depends on the published `org.goldenport %% goldenport-cncf % 0.3.14-SNAPSHOT` artifact.
+- In this workspace, the artifact is also available locally via `publishLocal` from the CNCF framework repo.
 
 Concepts:
 - Component / Service / Operation
+
+----------------------------------------
+01.a-minimal-lab — Guided Learning Lab
+
+Purpose:
+- Learn the execution model by exercising `01-minimal`
+
+Structure:
+- Small lab sample or companion material
+- Focused on observation and manual experimentation
+
+Concepts:
+- selector practice
+- run vs invoke
+- class discovery vs repository loading
+- observation through hands-on steps
+
+----------------------------------------
+01.b-component-script — Component Script Example
+
+Purpose:
+- Learn how to build small management commands on top of Component operations
+
+Structure:
+- Script-oriented companion sample
+- Focused on thin shell wrappers over command paths
+
+Concepts:
+- script-style management command
+- thin wrapper design
+- command path as operational contract
 
 ----------------------------------------
 02-crud — Entity & Repository
@@ -228,13 +272,15 @@ docker compose up
 [Development Order]
 
 1. 01-minimal
-2. 02-crud
-3. 03-cqrs
-4. 04-event-driven
-5. 05-job
-6. 06-subsystem
-7. 07-subsystem-wiring
-8. 101-distributed
+2. 01.a-minimal-lab
+3. 01.b-component-script
+4. 02-crud
+5. 03-cqrs
+6. 04-event-driven
+7. 05-job
+8. 06-subsystem
+9. 07-subsystem-wiring
+10. 101-distributed
 
 --------------------------------------------------
 

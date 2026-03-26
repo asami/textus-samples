@@ -1,36 +1,38 @@
 # cncf-samples
 
-CNCF の実行可能なサンプルパターン集を段階的に構築するリポジトリです。
-各サンプルはドメインではなく構造パターンを示し、独立して build / run できることを前提にします。
+This repository incrementally builds a catalog of executable CNCF sample patterns.
+Each sample demonstrates a structural pattern rather than a business domain and is expected to remain independently buildable and runnable.
 
 ## Overview
 
-このリポジトリは、CNCF の構造パターンを小さなサンプルとして並べて比較しやすくするための土台です。
-最初の目的はサンプルのカタログ化であり、複雑な業務ドメインの再現ではありません。
+This repository is a foundation for arranging CNCF structural patterns as small samples that are easy to compare.
+Its initial goal is to build a catalog of patterns, not to recreate complex business domains.
 
 開発順序は `docs/journal/2026/03/cncf-samples-project.md` に記録された以下の段階に従います。
 
 1. `01-minimal`
-2. `02-crud`
-3. `03-cqrs`
-4. `04-event-driven`
-5. `05-job`
-6. `06-subsystem`
-7. `07-subsystem-wiring`
-8. `101-distributed`
+2. `01.a-minimal-lab`
+3. `01.b-component-script`
+4. `02-crud`
+5. `03-cqrs`
+6. `04-event-driven`
+7. `05-job`
+8. `06-subsystem`
+9. `07-subsystem-wiring`
+10. `101-distributed`
 
 ## AI Directive
 
-このプロジェクトは `ai/directive` を AI の共通契約として採用します。
-`AGENT.md` と `RULE.md` は `ai/directive/core` へのシンボリックリンクとして公開します。
+This project adopts `ai/directive` as the shared AI contract.
+`AGENT.md` and `RULE.md` are exposed as symbolic links to `ai/directive/core`.
 
-AI の優先順位は次の通りです。
+AI behavior is interpreted in the following order.
 
 1. `ai/directive/core`
-2. 利用中プロファイル
+2. Active profile
    - `ai/directive/chatgpt-desktop`
    - `ai/directive/codex`
-3. プロジェクト固有ドキュメント
+3. Project-specific development documents
    - `docs/rules`
    - `docs/spec`
    - `docs/design`
@@ -53,8 +55,12 @@ AI の優先順位は次の通りです。
 │  ├─ patterns/
 │  ├─ rules/
 │  └─ spec/
+├─ guide/
+│  └─ invocation/
 ├─ samples/
 │  ├─ 01-minimal/
+│  ├─ 01.a-minimal-lab/
+│  ├─ 01.b-component-script/
 │  ├─ 02-crud/
 │  ├─ 03-cqrs/
 │  ├─ 04-event-driven/
@@ -69,7 +75,7 @@ AI の優先順位は次の通りです。
 
 ## Sample Standard
 
-各 sample は次のレイアウトを基本とします。
+Each sample follows this baseline layout.
 
 ```text
 sample-name/
@@ -79,16 +85,77 @@ sample-name/
 └─ src/main/scala/
 ```
 
-`04-event-driven` 以降は必要に応じて `docker/` を追加します。
+From `04-event-driven` onward, `docker/` may be added when needed.
 
 ## How To Work
 
-- 各 sample は他 sample に依存しません
-- ルートの `build.sbt` はメタ情報のみを持ちます
-- 実装と実行は各 sample ディレクトリ単位で進めます
-- 共有コードは `shared/` に置けますが、sample の独立性を壊さない範囲に限定します
+- `docs/` is for sample development documentation
+- `guide/` is for user-facing documentation
+- Each sample must not depend on other samples
+- The root `build.sbt` only carries repository-level metadata
+- Implementation and execution are handled per sample directory
+- Shared code may live under `shared/` only when sample independence is preserved
+
+## Running Samples
+
+Stage-oriented execution model:
+
+- Programming time: run from the sample directory through `sbt`
+- Local verification: use `run.sh` or `run-sample.sh`
+- Local deployment: use `invoke.sh` with local repository assumptions when needed
+- Final deployment: prefer remote Component Repository loading
+
+Use the root dispatcher to run a sample:
+
+```bash
+./run-sample.sh 01-minimal
+```
+
+Each sample also owns its local runner:
+
+```bash
+cd samples/01-minimal
+./run.sh
+```
+
+For development, the preferred working style is to run from the sample directory so that `cwd/component.d` is the active local component source.
+
+Programming-time example:
+
+```bash
+cd samples/01-minimal
+sbt --batch "runMain org.goldenport.cncf.CncfMain command minimal.main.hello"
+```
+
+Deployment-style invocation can also be separated from local verification through `invoke.sh` per sample.
+
+Shared shell utilities live under `scripts/`:
+
+- `scripts/cncf-run-main.sh`
+  - runs `org.goldenport.cncf.CncfMain` by default with sample-local `sbt runMain`
+  - can fall back to a sample-local main class only when needed
+- `scripts/sample-runner.sh`
+  - resolves the sample directory from the calling script and delegates to `cncf-run-main.sh`
+
+Preferred pattern:
+
+- Use the CNCF library main first
+- Introduce a sample-local main only when the CNCF main is insufficient
+
+User-facing invocation guidance lives under:
+
+- `guide/invocation/component-and-subsystem-invocation-guide.md`
+- `guide/script/component-script-examples.md`
+
+Deployment guidance in this repository assumes:
+
+- default final deployment from a remote Component Repository
+- optional deployment from a local repository or shared component directory
+- sample-level deployment simulation from `samples/component-repository.d`
+
+If a sample is not implemented yet, its `run.sh` exits with a clear message until the sample-specific command path is defined.
 
 ## Current Status
 
-現時点では、実装より先にサンプルの配置と AI/ドキュメントの土台を整えています。
-最初の実装対象は `samples/01-minimal` です。
+At the current stage, the repository foundation is ahead of the actual sample implementations.
+The first implementation target is `samples/01-minimal`.
