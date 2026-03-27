@@ -126,6 +126,9 @@ Query to read the current visible effect.
 ### TYPE
 COMMAND
 
+### IMPLEMENTATION
+event-emit
+
 ### INPUT
 EmitEvent
 
@@ -140,6 +143,9 @@ COMMAND
 ### EXECUTION
 sync
 
+### IMPLEMENTATION
+event-effect-record
+
 ### INPUT
 RecordEffect
 
@@ -150,6 +156,9 @@ RecordEffectResult
 
 ### TYPE
 QUERY
+
+### IMPLEMENTATION
+event-effect-load
 
 ### INPUT
 LoadEffect
