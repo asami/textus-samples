@@ -1,4 +1,4 @@
-# 02.a-simpleentity-crud-lab Implementation Record
+# 02.b-simpleentity-crud-lab Implementation Record
 
 Status: `Completed`
 
@@ -6,7 +6,7 @@ Reviewed and updated on 2026-03-26.
 
 ## Summary
 
-`02.a-simpleentity-crud-lab` is a `SimpleEntity` follow-up to `02-crud`.
+`02.b-simpleentity-crud-lab` is a `SimpleEntity` follow-up to `02-crud`.
 
 It keeps the same Cozy/CML method as `textus-user-account`:
 
@@ -16,7 +16,7 @@ It keeps the same Cozy/CML method as `textus-user-account`:
 
 ## Changes Made
 
-- created `samples/02.a-simpleentity-crud-lab`
+- created `samples/02.b-simpleentity-crud-lab`
 - added `src/main/cozy/crud.cml` in Dox-style model form
 - added `build.sbt` using the Cozy plugin pattern and shared CNCF dependency version
 - rewrote the README to describe the `SimpleEntity` variation of `02-crud`
@@ -24,7 +24,7 @@ It keeps the same Cozy/CML method as `textus-user-account`:
 
 ## Verification
 
-`sbt cozyGenerate` and `sbt clean compile` were run in `samples/02.a-simpleentity-crud-lab`.
+`sbt cozyGenerate` and `sbt clean compile` were run in `samples/02.b-simpleentity-crud-lab`.
 
 Observed result:
 

@@ -1,0 +1,9 @@
+entitystore:
+  - collection: major.minor.item
+    records:
+      - id: major-minor-entity-item-20260327000000-aaa111
+        name: alpha
+        title: Alpha
+      - id: major-minor-entity-item-20260327000000-bbb222
+        name: beta
+        title: Beta

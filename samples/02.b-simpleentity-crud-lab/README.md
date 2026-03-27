@@ -1,4 +1,4 @@
-# 02.a-simpleentity-crud-lab
+# 02.b-simpleentity-crud-lab
 
 ## Overview
 

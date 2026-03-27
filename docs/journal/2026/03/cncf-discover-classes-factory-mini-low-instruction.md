@@ -8,7 +8,7 @@ Reviewed and updated on 2026-03-26.
 
 Improve CNCF class discovery so that model-driven generated components can run with `--discover=classes` alone.
 
-Today, generated samples such as `02-crud` and `02.a-simpleentity-crud-lab` work when `CncfMain` is given:
+Today, generated samples such as `02-crud` and `02.b-simpleentity-crud-lab` work when `CncfMain` is given:
 
 - `--component-factory-class=org.sample.crud.CrudComponent$Factory`
 - `--component-factory-class=org.sample.simpleentitycrudlab.SimpleEntityCrudLabComponent$Factory`
@@ -21,14 +21,14 @@ The desired behavior is that `--discover=classes` can discover the component and
   - `/Users/asami/src/dev2025/cloud-native-component-framework`
 - Reference samples:
   - `/Users/asami/src/dev2026/cncf-samples/samples/02-crud`
-  - `/Users/asami/src/dev2026/cncf-samples/samples/02.a-simpleentity-crud-lab`
+  - `/Users/asami/src/dev2026/cncf-samples/samples/02.b-simpleentity-crud-lab`
 
 ## Read First
 
 - `/Users/asami/src/dev2025/cloud-native-component-framework/src/main/scala/org/goldenport/cncf/CncfMain.scala`
 - `/Users/asami/src/dev2025/cloud-native-component-framework/src/main/scala/org/goldenport/cncf/component/repository/ComponentProvider.scala`
 - `/Users/asami/src/dev2026/cncf-samples/samples/02-crud/README.md`
-- `/Users/asami/src/dev2026/cncf-samples/samples/02.a-simpleentity-crud-lab/README.md`
+- `/Users/asami/src/dev2026/cncf-samples/samples/02.b-simpleentity-crud-lab/README.md`
 
 ## Problem Statement
 
@@ -89,7 +89,7 @@ The goal is:
   - `Crud`
   - `Crud.Item`
   - `Crud.Item.createItem`
-- `02.a-simpleentity-crud-lab` works with `--discover=classes` only for:
+- `02.b-simpleentity-crud-lab` works with `--discover=classes` only for:
   - `SimpleEntityCrudLab`
   - `SimpleEntityCrudLab.Item`
   - `SimpleEntityCrudLab.Item.createItem`
@@ -103,5 +103,5 @@ Report only these facts:
 - what prevented companion-factory discovery from working
 - what files were changed in CNCF
 - whether `02-crud` now works with `--discover=classes`
-- whether `02.a-simpleentity-crud-lab` now works with `--discover=classes`
+- whether `02.b-simpleentity-crud-lab` now works with `--discover=classes`
 - what still remains, if anything

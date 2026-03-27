@@ -1,4 +1,4 @@
-# 02.a-simpleentity-crud-lab Development Instruction
+# 02.b-simpleentity-crud-lab Development Instruction
 
 Status: `Active Instruction`
 
@@ -9,13 +9,13 @@ Reviewed and updated on 2026-03-26.
 Create a follow-up lab after `02-crud` that demonstrates CRUD generation with `SimpleEntity`.
 
 `02-crud` already shows the minimum CML-driven CRUD flow.
-`02.a-simpleentity-crud-lab` should show what changes when the model is explicitly based on `SimpleEntity`.
+`02.b-simpleentity-crud-lab` should show what changes when the model is explicitly based on `SimpleEntity`.
 
 ## Position In The Sequence
 
 - `02-crud`
   - minimum model-driven CRUD
-- `02.a-simpleentity-crud-lab`
+- `02.b-simpleentity-crud-lab`
   - `SimpleEntity`-based CRUD
 - `03-cqrs`
   - next structural step after CRUD

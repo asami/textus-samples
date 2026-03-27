@@ -16,13 +16,14 @@ Its initial goal is to build a catalog of patterns, not to recreate complex busi
 4. `01.c-builtin-and-help-lab`
 5. `01.d-component-script`
 6. `02-crud`
-7. `02.a-simpleentity-crud-lab`
-8. `03-cqrs`
-9. `04-event-driven`
-10. `05-job`
-11. `06-subsystem`
-12. `07-subsystem-wiring`
-13. `101-distributed`
+7. `02.a-crud-seed-import-lab`
+8. `02.b-simpleentity-crud-lab`
+9. `03-cqrs`
+10. `04-event-driven`
+11. `05-job`
+12. `06-subsystem`
+13. `07-subsystem-wiring`
+14. `101-distributed`
 
 ## AI Directive
 
@@ -67,6 +68,8 @@ AI behavior is interpreted in the following order.
 │  ├─ 01.c-builtin-and-help-lab/
 │  ├─ 01.d-component-script/
 │  ├─ 02-crud/
+│  ├─ 02.a-crud-seed-import-lab/
+│  ├─ 02.b-simpleentity-crud-lab/
 │  ├─ 03-cqrs/
 │  ├─ 04-event-driven/
 │  ├─ 05-job/

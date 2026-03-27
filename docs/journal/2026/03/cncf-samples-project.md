@@ -19,7 +19,8 @@ cncf-samples/
     01.c-builtin-and-help-lab/
     01.d-component-script/
     02-crud/
-    02.a-simpleentity-crud-lab/
+    02.a-crud-seed-import-lab/
+    02.b-simpleentity-crud-lab/
     03-cqrs/
     04-event-driven/
     05-job/
@@ -182,7 +183,8 @@ Concepts:
 ----------------------------------------
 02-crud — Entity & Repository
 
-02.a-simpleentity-crud-lab — SimpleEntity CRUD
+02.a-crud-seed-import-lab — CRUD seed import
+02.b-simpleentity-crud-lab — SimpleEntity CRUD
 
 Purpose:
 - Basic data handling
@@ -324,7 +326,8 @@ docker compose up
 4. 01.c-builtin-and-help-lab
 5. 01.d-component-script
 6. 02-crud
-7. 02.a-simpleentity-crud-lab
+7. 02.a-crud-seed-import-lab
+8. 02.b-simpleentity-crud-lab
 8. 03-cqrs
 9. 04-event-driven
 10. 05-job
