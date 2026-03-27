@@ -14,7 +14,8 @@ It uses the same model-driven Cozy/CML direction as `02-crud`.
 - `cozy` is required
 - `src/main/cozy/cqrs.cml` is the model source
 - the sample is model-driven rather than hand-written repository logic
-- framework/runtime parameters use the `cncf.*` namespace
+- framework/runtime parameters use the `textus.*` namespace
+- `cncf.*` remains accepted as a compatibility alias
 - query control parameters use the `query.*` namespace
 - unprefixed parameters are reserved for domain attributes
 
@@ -40,20 +41,20 @@ sbt clean compile
 Runtime help can be inspected through `CncfMain` with class discovery:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help Cqrs"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help Cqrs.Item"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help Cqrs.Item.createItem"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help Cqrs.entity"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help Cqrs.entity.loadItem"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help Cqrs.entity.searchItemRecord"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help cqrs"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help cqrs.item"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help cqrs.item.create-item"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help cqrs.entity"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help cqrs.entity.load-item"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help cqrs.entity.search-item-record"
 ```
 
 Runtime examples:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command Cqrs.Item.createItem --name beta --title Beta"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command Cqrs.entity.loadItem --id org-sample-entity-item-20260327000000-aaa111"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command Cqrs.entity.searchItemRecord --name alpha"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command cqrs.item.create-item --name beta --title Beta"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command cqrs.entity.load-item --id org-sample-entity-item-20260327000000-aaa111"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command cqrs.entity.search-item-record --name alpha"
 ```
 
 ## Runtime Difference
@@ -80,4 +81,5 @@ That is the point of this sample.
 - command target: `Cqrs.Item.createItem`
 - query target: `Cqrs.entity.loadItem`
 - search target: `Cqrs.entity.searchItemRecord`
+- CLI selector examples: `cqrs`, `cqrs.item`, `cqrs.item.create-item`, `cqrs.entity`, `cqrs.entity.load-item`, `cqrs.entity.search-item-record`
 - seeded item id: `org-sample-entity-item-20260327000000-aaa111`

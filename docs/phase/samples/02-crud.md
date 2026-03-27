@@ -15,7 +15,7 @@ Stage Status:
 - entity service
 - aggregate service
 - `cozy`-driven flow
-- `cncf.*` / `query.*` / domain parameter split
+- `textus.*` / `query.*` / domain parameter split
 
 ## Step
 

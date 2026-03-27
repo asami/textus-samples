@@ -1,0 +1,96 @@
+# COMPONENT
+
+## TestSync
+
+### PACKAGE
+
+org.sample.testsync
+
+### DESCRIPTION
+
+CQRS-derived sample component for test/local synchronous command override.
+
+### SPECIFICATION
+
+This component demonstrates one command that stays async by default but can be
+forced into a synchronous execution path for test or local verification.
+
+### DOMAIN_INTENT
+
+Two execution shapes are compared for the same command target:
+1. Default command side (`Item` service): create an item through the job-backed command path.
+2. Override path (`Item` service): run the same command synchronously for test/local/debug use.
+
+### LIFECYCLE
+
+Typical flow:
+1. `createItem` with the default async/job-backed path
+2. `createItem` again with runtime execution override
+
+# SERVICE
+
+## Item
+
+### DESCRIPTION
+
+Item-facing command operations used to compare default and overridden execution.
+
+### OPERATION
+
+#### createItem
+
+##### DESCRIPTION
+
+Creates a new item through the command side.
+
+##### IN
+
+Item creation payload.
+
+##### OUT
+
+Default command job result.
+
+# ENTITY
+
+## Item
+
+### DESCRIPTION
+
+Shared item entity used by the command target.
+
+### ATTRIBUTE
+
+| name  | type     | multiplicity |
+|-------+----------+--------------|
+| id    | entityid | 1            |
+| name  | name     | 1            |
+| title | string   | 1            |
+
+# COMMAND
+
+## CreateItem
+
+### DESCRIPTION
+
+Command to create an item.
+
+### ATTRIBUTE
+
+| name  | type   | multiplicity |
+|-------+--------+--------------|
+| name  | name   | 1            |
+| title | string | 1            |
+
+# OPERATION
+
+## createItem
+
+### TYPE
+COMMAND
+
+### INPUT
+CreateItem
+
+### OUTPUT
+CreateItemResult

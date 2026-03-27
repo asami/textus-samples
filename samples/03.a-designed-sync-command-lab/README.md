@@ -18,7 +18,8 @@ operation contract in the model: `createItem` is marked with `EXECUTION=sync`.
 - `src/main/cozy/cqrs.cml` is the model source
 - the designed-sync behavior is defined in the CML operation metadata
 - runtime help and execution use `CncfMain --discover=classes`
-- framework/runtime parameters use the `cncf.*` namespace
+- framework/runtime parameters use the `textus.*` namespace
+- `cncf.*` remains accepted as a compatibility alias
 - query control parameters use the `query.*` namespace
 - unprefixed parameters are reserved for domain attributes
 
@@ -41,15 +42,15 @@ sbt clean compile
 Runtime help can be inspected through `CncfMain`.
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help DesignedSync"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help DesignedSync.Item"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help DesignedSync.Item.createItem"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help designed-sync"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help designed-sync.item"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help designed-sync.item.create-item"
 ```
 
 Runtime examples:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command DesignedSync.Item.createItem --name beta --title Beta"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command designed-sync.item.create-item --name beta --title Beta"
 ```
 
 ## Runtime Difference
@@ -75,3 +76,4 @@ sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command Des
 - command target: `DesignedSync.Item.createItem`
 - runtime result: immediate item record
 - modeled directive: `EXECUTION=sync`
+- CLI selector examples: `designed-sync`, `designed-sync.item`, `designed-sync.item.create-item`

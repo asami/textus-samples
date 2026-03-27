@@ -25,8 +25,9 @@ Current verification state:
 
 - `load` is confirmed against imported seed data
 - `search` is confirmed against imported seed data
-- transport/runtime parameters use the `cncf.*` namespace so domain attributes
-  such as `name` do not collide with output controls such as `cncf.format`
+- transport/runtime parameters use the `textus.*` namespace so domain attributes
+  such as `name` do not collide with output controls such as `textus.format`
+  (`cncf.*` remains accepted as a compatibility alias)
 
 ## Intended Shape
 
@@ -47,34 +48,42 @@ Current verification state:
 The following commands are the current verification set:
 
 - `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help Crud"`
-- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help Crud.entity"`
-- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help Crud.entity.loadItem"`
-- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help Crud.entity.searchItemRecord"`
-- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command Crud.entity.loadItem --id org-sample-entity-item-20260327000000-aaa111"`
-- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command Crud.entity.searchItemRecord"`
-- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command Crud.entity.searchItemRecord --name alpha"`
-- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command --cncf.format yaml Crud.entity.searchItemRecord --name alpha"`
+- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud.entity"`
+- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud.entity.load-item"`
+- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud.entity.search-item-record"`
+- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command crud.entity.load-item --id org-sample-entity-item-20260327000000-aaa111"`
+- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command crud.entity.search-item-record"`
+- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command crud.entity.search-item-record --name alpha"`
+- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command --textus.format yaml crud.entity.search-item-record --name alpha"`
 
 The help commands should be run from this sample directory so CNCF can resolve
 the local `car.d` and `entity.d` layout.
 
 The target runtime checks are:
 
-- `Crud.entity.loadItem --id major-minor-entity-item-20260327000000-aaa111`
-- `Crud.entity.searchItemRecord`
-- `Crud.entity.searchItemRecord --name alpha`
-- `command --cncf.format yaml Crud.entity.searchItemRecord --name alpha`
+- `crud.entity.load-item --id major-minor-entity-item-20260327000000-aaa111`
+- `crud.entity.search-item-record`
+- `crud.entity.search-item-record --name alpha`
+- `command --textus.format yaml crud.entity.search-item-record --name alpha`
+
+Help output now distinguishes the formal model name from runtime selectors:
+
+- `name`: formal model name such as `searchItemRecord`
+- `selector.canonical`: formal selector such as `Crud.Entity.searchItemRecord`
+- `selector.cli`: CLI selector such as `crud.entity.search-item-record`
+- `selector.rest`: REST selector such as `/crud/entity/search-item-record`
+- `usage`: prefers the kebab-case selector form
 
 Observed results:
 
-- `Crud.entity.loadItem --id major-minor-entity-item-20260327000000-aaa111`
+- `crud.entity.load-item --id major-minor-entity-item-20260327000000-aaa111`
   returns the seeded `alpha` item
-- `Crud.entity.searchItemRecord`
+- `crud.entity.search-item-record`
   returns the two imported items
-- `Crud.entity.searchItemRecord --name alpha`
+- `crud.entity.search-item-record --name alpha`
   returns the seeded `alpha` item only
-- `command --cncf.format yaml Crud.entity.searchItemRecord --name alpha`
-  still applies the domain filter and does not leak `cncf.format` into the
+- `command --textus.format yaml crud.entity.search-item-record --name alpha`
+  still applies the domain filter and does not leak `textus.format` into the
   query condition
 
 The phase checklist can be treated as complete for this lab.

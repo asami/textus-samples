@@ -17,7 +17,8 @@ The CNCF dependency version is controlled by `../../versions/cncf-version.conf`,
 - `src/main/cozy/crud.cml` uses the same Dox-style model input as `textus-user-account`
 - the sample is model-driven rather than hand-written CRUD repository logic
 - the generated `SimpleEntity` attribute groups are the main point
-- framework/runtime parameters use the `cncf.*` namespace
+- framework/runtime parameters use the `textus.*` namespace
+- `cncf.*` remains accepted as a compatibility alias
 - query control parameters use the `query.*` namespace
 - unprefixed parameters are reserved for domain attributes
 
@@ -46,16 +47,16 @@ sbt clean compile
 Runtime help can be inspected through `CncfMain` with class discovery:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help SimpleEntityCrudLab"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help SimpleEntityCrudLab.Item"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help SimpleEntityCrudLab.Item.createItem"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help simple-entity-crud-lab"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help simple-entity-crud-lab.item"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help simple-entity-crud-lab.item.create-item"
 ```
 
-When a framework/runtime parameter is needed, use the `cncf.*` namespace.
+When a framework/runtime parameter is needed, use the `textus.*` namespace.
 For example:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command --cncf.format yaml help SimpleEntityCrudLab.Item.createItem"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command --textus.format yaml help simple-entity-crud-lab.item.create-item"
 ```
 
 Observed runtime surface:
@@ -63,6 +64,7 @@ Observed runtime surface:
 - component: `SimpleEntityCrudLab`
 - generated service: `Item`
 - generated operation: `SimpleEntityCrudLab.Item.createItem`
+- CLI selector examples: `simple-entity-crud-lab`, `simple-entity-crud-lab.item`, `simple-entity-crud-lab.item.create-item`
 - framework services: `meta`, `system`
 - the generated Scala under `target/scala-3.3.7/src_managed/main` exposes the `SimpleEntity`-shaped CRUD surface through `ItemService`, `AggregateService`, `ViewService`, and the `entity/*` value types
 
@@ -75,7 +77,7 @@ It keeps:
 
 - CML/Cozy generation
 - `--discover=classes` runtime inspection
-- parameter namespace usage (`cncf.*`, `query.*`, domain attributes)
+- parameter namespace usage (`textus.*`, `query.*`, domain attributes)
 
 Compared with the earlier steps:
 

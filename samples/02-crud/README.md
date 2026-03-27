@@ -47,16 +47,17 @@ sbt cozyBuildSAR
 Runtime help can be inspected through `CncfMain` with class discovery:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help Crud"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help Crud.Item"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help Crud.Item.createItem"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud.item"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud.item.create-item"
 ```
 
-When a framework/runtime parameter is needed, use the `cncf.*` namespace.
+When a framework/runtime parameter is needed, use the `textus.*` namespace.
+`cncf.*` remains accepted as a compatibility alias.
 For example:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command --cncf.format yaml help Crud.Item.createItem"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command --cncf.format yaml help crud.item.create-item"
 ```
 
 Observed runtime surface:
@@ -64,6 +65,7 @@ Observed runtime surface:
 - component: `Crud`
 - service: `Crud.Item`
 - operation: `Crud.Item.createItem`
+- CLI selector examples: `crud`, `crud.item`, `crud.item.create-item`
 - additional generated services: `aggregate`, `entity`, `view`
 - framework services: `meta`, `system`
 
