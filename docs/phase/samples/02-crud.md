@@ -15,6 +15,7 @@ Stage Status:
 - entity service
 - aggregate service
 - `cozy`-driven flow
+- `cncf.*` / `query.*` / domain parameter split
 
 ## Step
 
@@ -29,6 +30,7 @@ Stage Status:
 - [x] The sample no longer reads as hand-written CRUD repository logic
 - [x] `samples/02-crud/README.md` is updated to match the redesign
 - [x] The CML-driven CRUD flow is implemented
+- [x] The sample documents the parameter namespace rule carried forward into `02.a`
 
 ## Exit Criteria
 

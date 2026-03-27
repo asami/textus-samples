@@ -16,6 +16,9 @@ It is intentionally simpler than later samples.
 - `src/main/cozy/crud.cml` uses the same Dox-style model input as `textus-user-account`
 - the sample is model-driven rather than hand-written CRUD repository logic
 - entity service and aggregate service are the main point
+- framework/runtime parameters use the `cncf.*` namespace
+- query control parameters use the `query.*` namespace
+- unprefixed parameters are reserved for domain attributes
 
 ## Model
 
@@ -49,6 +52,13 @@ sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command hel
 sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help Crud.Item.createItem"
 ```
 
+When a framework/runtime parameter is needed, use the `cncf.*` namespace.
+For example:
+
+```bash
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command --cncf.format yaml help Crud.Item.createItem"
+```
+
 Observed runtime surface:
 
 - component: `Crud`
@@ -56,6 +66,23 @@ Observed runtime surface:
 - operation: `Crud.Item.createItem`
 - additional generated services: `aggregate`, `entity`, `view`
 - framework services: `meta`, `system`
+
+## Relationship To 02.a
+
+`02-crud` is the base model-driven CRUD sample.
+
+It shows:
+
+- CML/Cozy generation
+- generated component/service/operation surfaces
+- `--discover=classes` runtime inspection
+- parameter namespace usage (`cncf.*`, `query.*`, domain attributes)
+
+The next lab, `02.a-crud-seed-import-lab`, builds on this base and adds:
+
+- descriptor-first runtime metadata through `car.d/meta/component-descriptor.yaml`
+- seed data import from `entity.d`
+- runtime `load` / `search` verification against preloaded data
 
 ## Design Goal
 

@@ -3,6 +3,7 @@
 Status: `Completed`
 
 Reviewed and updated on 2026-03-26.
+Extended after `02.a-crud-seed-import-lab` on 2026-03-27.
 
 ## Summary
 
@@ -33,7 +34,7 @@ Observed result:
 - `sbt clean compile` succeeded
 - compile produced warnings only; no errors remained
 - `CncfMain` class discovery was refined so generated components can expose their runtime surface through `--discover=classes`
-- the generated `CrudComponent$Factory` was injected at runtime through `CncfMain`
+- the generated component now works through `--discover=classes` without requiring an explicit factory argument
 
 Generated source files:
 
@@ -62,11 +63,23 @@ Runtime probe results after the `CncfMain` extension:
 - the component help exposed `Item`, `aggregate`, `entity`, `meta`, `system`, and `view`
 - the generated/runtime CRUD surface is therefore confirmed
 
+## Follow-up From 02.a
+
+The next lab (`02.a-crud-seed-import-lab`) confirmed two points that also
+apply back to `02-crud`:
+
+- runtime/framework parameters should use the `cncf.*` namespace
+- unprefixed parameters should remain available for domain attributes
+
+`02-crud` itself remains the base sample for generated CRUD surface discovery.
+Descriptor-first runtime metadata and seed-driven `load` / `search` verification
+are intentionally moved to `02.a`.
+
 ## Notes
 
 - the redesign direction is correct
 - the first blocker was the compact DSL model
 - the second blocker was generated source compile issues
-- the third blocker was that `02-crud` had no direct runtime entry point for the generated component factory
+- the third blocker was that `02-crud` had no reliable direct runtime entry point for the generated component
 - that gap was resolved by refining CNCF class discovery so generated companion factories are applied correctly
 - runtime command-style CRUD help confirmation is now verified
