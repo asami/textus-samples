@@ -57,6 +57,14 @@ Test/local synchronous override:
 sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes --textus.runtime.command.execution-mode sync-job-async-interface command test-sync.item.create-item --name beta --title Beta"
 ```
 
+Observable envelope output:
+
+```bash
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command test-sync.item.create-item --name beta --title Beta --textus.output.shape envelope --textus.output.format yaml"
+
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command test-sync.item.create-item --name beta --title Beta --textus.runtime.command.execution-mode sync-job-async-interface --textus.output.shape envelope --textus.output.format yaml"
+```
+
 ## Runtime Difference
 
 - Default execution returns a job-shaped result such as `cncf-job-...`.
@@ -65,6 +73,12 @@ sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes --textus.ru
 - The override comes from runtime execution mode, not from CML `EXECUTION=sync`.
 - The external interface is intentionally unchanged in `03.b`.
 - The purpose of the override is to keep the job-oriented contract while making test/local execution wait for command completion internally.
+- When `--textus.output.shape envelope` is used, the result exposes `textus-execution` and `data`.
+- The default envelope shows:
+  - `textus-execution.interface-shape: job`
+- The override envelope shows:
+  - `textus-execution.interface-shape: job`
+  - `textus-execution.requested-mode: sync-job-async-interface`
 
 ## Relationship To 03.a
 
@@ -85,4 +99,7 @@ sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes --textus.ru
 - command target: `TestSync.Item.createItem`
 - default result: job-shaped response
 - override result: job-shaped response with synchronous internal completion semantics
+- envelope observation:
+  - default shows `textus-execution.interface-shape: job`
+  - override shows `textus-execution.requested-mode: sync-job-async-interface`
 - CLI selector examples: `test-sync`, `test-sync.item`, `test-sync.item.create-item`

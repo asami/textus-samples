@@ -1,6 +1,6 @@
 # 03.b-test-sync-command-lab Implementation Record
 
-Status: `In Progress`
+Status: `Completed`
 
 ## Summary
 
@@ -19,6 +19,14 @@ execution override for test/local/debug use.
   - `--textus.runtime.command.execution-mode sync-job-async-interface`
 - The sample now uses the existing runtime override mode rather than `sync` / `sync-direct`.
 - CNCF needed a small command-path wiring fix so framework parameters survive subsystem initialization in command mode.
+- Envelope output succeeds with:
+  - `--textus.output.shape envelope`
+  - `--textus.output.format yaml`
+- The default envelope shows:
+  - `textus-execution.interface-shape: job`
+- The override envelope shows:
+  - `textus-execution.interface-shape: job`
+  - `textus-execution.requested-mode: sync-job-async-interface`
 
 ## Notes
 
@@ -26,5 +34,4 @@ execution override for test/local/debug use.
 - The phase checklist remains the status authority.
 - `03.b` keeps the external interface job-based on both paths.
 - The override is about synchronous internal completion for test/local/debug, not about changing the visible result shape.
-- What is still not directly visible from the CLI output is the internal completion timing itself.
-- That timing guarantee currently comes from the existing `SyncJobAsyncInterface` implementation in CNCF rather than from a distinct output shape.
+- The envelope path makes the requested override visible without changing the external job-shaped contract.
