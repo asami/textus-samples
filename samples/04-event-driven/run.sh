@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-sample_name="$(basename "$(cd "$(dirname "$0")" && pwd)")"
-echo "Run command is not configured for $sample_name yet." >&2
-echo "Wire this script to scripts/sample-runner.sh once the sample main class is defined." >&2
-exit 1
+dir="$(cd "$(dirname "$0")" && pwd)"
+cd "$dir"
+
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help event-driven"

@@ -1,0 +1,167 @@
+# COMPONENT
+
+## EventDriven
+
+### PACKAGE
+
+org.sample.eventdriven
+
+### DESCRIPTION
+
+Minimal event-driven sample component.
+
+### SPECIFICATION
+
+This component emits one event, receives it through CNCF event reception,
+and exposes the visible effect through a query.
+
+# SERVICE
+
+## Event
+
+### DESCRIPTION
+
+Event emission and observation operations.
+
+### OPERATION
+
+#### emitEvent
+
+##### DESCRIPTION
+
+Emits the `item.changed` event.
+
+##### IN
+
+name, title
+
+##### OUT
+
+Event emission result.
+
+#### recordEffect
+
+##### DESCRIPTION
+
+Receives the emitted event and records the visible effect.
+
+##### IN
+
+event payload
+
+##### OUT
+
+Recorded effect.
+
+#### loadEffect
+
+##### DESCRIPTION
+
+Reads the current post-event effect.
+
+##### IN
+
+None.
+
+##### OUT
+
+Recorded effect.
+
+# ENTITY
+
+## Item
+
+### DESCRIPTION
+
+Minimal entity used so the sample remains a generated component rather than a handwritten provider.
+
+### ATTRIBUTE
+
+| name  | type     | multiplicity |
+|-------+----------+--------------|
+| id    | entityid | 1            |
+| name  | name     | 1            |
+| title | string   | 1            |
+
+# COMMAND
+
+## EmitEvent
+
+### DESCRIPTION
+
+Command to emit the `item.changed` event.
+
+### ATTRIBUTE
+
+| name  | type   | multiplicity |
+|-------+--------+--------------|
+| name  | name   | 1            |
+| title | string | 1            |
+
+## RecordEffect
+
+### DESCRIPTION
+
+Command to record the received event effect.
+
+### ATTRIBUTE
+
+| name  | type   | multiplicity |
+|-------+--------+--------------|
+| name  | name   | 1            |
+| title | string | 1            |
+
+# QUERY
+
+## LoadEffect
+
+### DESCRIPTION
+
+Query to read the current visible effect.
+
+# OPERATION
+
+## emitEvent
+
+### TYPE
+COMMAND
+
+### INPUT
+EmitEvent
+
+### OUTPUT
+EmitEventResult
+
+## recordEffect
+
+### TYPE
+COMMAND
+
+### EXECUTION
+sync
+
+### INPUT
+RecordEffect
+
+### OUTPUT
+RecordEffectResult
+
+## loadEffect
+
+### TYPE
+QUERY
+
+### INPUT
+LoadEffect
+
+### OUTPUT
+LoadEffectResult
+
+# EVENT
+
+## item.changed
+- CATEGORY :: ActionEvent
+- KIND :: changed
+- SELECTOR :: source=event-driven
+- ACTION_NAME :: event-driven.event.record-effect
+- PRIORITY :: 0
