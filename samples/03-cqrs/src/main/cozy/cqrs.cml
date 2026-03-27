@@ -1,0 +1,134 @@
+# COMPONENT
+
+## Cqrs
+
+### PACKAGE
+
+org.sample.cqrs
+
+### DESCRIPTION
+
+CQRS sample component for item management.
+
+### SPECIFICATION
+
+This component demonstrates a visible split between a command side and a query side.
+
+### DOMAIN_INTENT
+
+Two runtime surfaces are modeled:
+1. Command side (`Item` service): create an item through the job-backed command path.
+2. Query side (`Item` service): read item state through the immediate query path.
+
+### LIFECYCLE
+
+Typical flow:
+1. `createItem` on the command side
+2. `getItem` on the query side
+
+# SERVICE
+
+## Item
+
+### DESCRIPTION
+
+Item-facing CQRS operations.
+
+### OPERATION
+
+#### createItem
+
+##### DESCRIPTION
+
+Creates a new item through the command side.
+
+##### IN
+
+Item creation payload.
+
+##### OUT
+
+Command job result.
+
+#### getItem
+
+##### DESCRIPTION
+
+Reads an item through the query side.
+
+##### IN
+
+Identifier of the item to retrieve.
+
+##### OUT
+
+Current item state.
+
+# ENTITY
+
+## Item
+
+### DESCRIPTION
+
+Shared item entity used by both command and query sides.
+
+### ATTRIBUTE
+
+| name  | type     | multiplicity |
+|-------+----------+--------------|
+| id    | entityid | 1            |
+| name  | name     | 1            |
+| title | string   | 1            |
+
+# COMMAND
+
+## CreateItem
+
+### DESCRIPTION
+
+Command to create an item.
+
+### ATTRIBUTE
+
+| name  | type   | multiplicity |
+|-------+--------+--------------|
+| name  | name   | 1            |
+| title | string | 1            |
+
+# QUERY
+
+## GetItem
+
+### DESCRIPTION
+
+Query to read an item.
+
+### ATTRIBUTE
+
+| name | type     | multiplicity |
+|------|----------|--------------|
+| id   | entityid | 1            |
+
+# OPERATION
+
+## createItem
+
+### TYPE
+COMMAND
+
+### INPUT
+CreateItem
+
+### OUTPUT
+CreateItemResult
+
+## getItem
+
+### TYPE
+QUERY
+
+### INPUT
+GetItem
+
+### OUTPUT
+ItemResult
