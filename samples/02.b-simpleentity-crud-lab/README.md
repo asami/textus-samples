@@ -17,6 +17,9 @@ The CNCF dependency version is controlled by `../../versions/cncf-version.conf`,
 - `src/main/cozy/crud.cml` uses the same Dox-style model input as `textus-user-account`
 - the sample is model-driven rather than hand-written CRUD repository logic
 - the generated `SimpleEntity` attribute groups are the main point
+- framework/runtime parameters use the `cncf.*` namespace
+- query control parameters use the `query.*` namespace
+- unprefixed parameters are reserved for domain attributes
 
 ## Model
 
@@ -48,6 +51,13 @@ sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command hel
 sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help SimpleEntityCrudLab.Item.createItem"
 ```
 
+When a framework/runtime parameter is needed, use the `cncf.*` namespace.
+For example:
+
+```bash
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command --cncf.format yaml help SimpleEntityCrudLab.Item.createItem"
+```
+
 Observed runtime surface:
 
 - component: `SimpleEntityCrudLab`
@@ -55,6 +65,25 @@ Observed runtime surface:
 - generated operation: `SimpleEntityCrudLab.Item.createItem`
 - framework services: `meta`, `system`
 - the generated Scala under `target/scala-3.3.7/src_managed/main` exposes the `SimpleEntity`-shaped CRUD surface through `ItemService`, `AggregateService`, `ViewService`, and the `entity/*` value types
+
+## Relationship To 02-crud And 02.a
+
+`02.b-simpleentity-crud-lab` is the `SimpleEntity` variation of the base
+model-driven CRUD flow.
+
+It keeps:
+
+- CML/Cozy generation
+- `--discover=classes` runtime inspection
+- parameter namespace usage (`cncf.*`, `query.*`, domain attributes)
+
+Compared with the earlier steps:
+
+- `02-crud` shows the base generated CRUD surface
+- `02.a-crud-seed-import-lab` adds descriptor-first runtime metadata and
+  seed-driven `load` / `search`
+- `02.b-simpleentity-crud-lab` focuses on the `SimpleEntity` attribute groups
+  and the generated CRUD surface that comes with them
 
 ## Design Goal
 

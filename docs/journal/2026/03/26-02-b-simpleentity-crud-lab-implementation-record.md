@@ -3,6 +3,7 @@
 Status: `Completed`
 
 Reviewed and updated on 2026-03-26.
+Extended after `02.a-crud-seed-import-lab` on 2026-03-27.
 
 ## Summary
 
@@ -61,11 +62,26 @@ Runtime probe results:
 - `command help SimpleEntityCrudLab.Item.createItem` succeeded and exposed the generated operation target
 - `command help SimpleEntityCrudLab.system` succeeded and showed `health`, `ping`, and `status`
 - `command help SimpleEntityCrudLab.meta` succeeded and showed the built-in meta service
+- `command --cncf.format yaml help SimpleEntityCrudLab.Item.createItem` follows the
+  framework-parameter namespace rule without changing the domain selector
+
+## Follow-up From 02.a
+
+The later `02.a-crud-seed-import-lab` established two shared rules that also
+apply to `02.b`:
+
+- runtime/framework parameters should use the `cncf.*` namespace
+- unprefixed parameters should remain available for domain attributes
+
+`02.b` intentionally does not add descriptor-first seed import. That role now
+belongs to `02.a`. `02.b` remains focused on the `SimpleEntity`-specific CRUD
+shape and generated attribute groups.
 
 ## Notes
 
 - the sample is a `SimpleEntity` variation of `02-crud`
 - runtime confirmation uses `CncfMain --discover=classes` in the same way as `02-crud`
+- runtime/framework parameters now follow the same `cncf.*` namespace rule as `02-crud` and `02.a`
 - component, service, and operation selectors are all confirmed
 - there is no hand-written CRUD repository logic in this sample
 - the original compile failure came from `simplemodeler 1.1.10-SNAPSHOT` generating `docSummary` / `docDescription` calls inside component/service/operation builder code
