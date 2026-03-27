@@ -21,9 +21,11 @@ Its initial goal is to build a catalog of patterns, not to recreate complex busi
 9. `03-cqrs`
 10. `04-event-driven`
 11. `05-job`
-12. `06-subsystem`
-13. `07-subsystem-wiring`
-14. `101-distributed`
+12. `05.a-job-control-lab`
+13. `05.b-job-control-demo-lab`
+14. `06-subsystem`
+15. `07-subsystem-wiring`
+16. `101-distributed`
 
 ## AI Directive
 
@@ -73,6 +75,8 @@ AI behavior is interpreted in the following order.
 │  ├─ 03-cqrs/
 │  ├─ 04-event-driven/
 │  ├─ 05-job/
+│  ├─ 05.a-job-control-lab/
+│  ├─ 05.b-job-control-demo-lab/
 │  ├─ 06-subsystem/
 │  ├─ 07-subsystem-wiring/
 │  └─ 101-distributed/
