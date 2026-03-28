@@ -3,11 +3,11 @@
 ## Overview
 
 This sample follows the same model-driven CRUD direction as `02-crud`, but it
-shows explicit synchronous execution as a runtime option.
+shows explicit synchronous execution as a runtime option in a server/client runtime.
 
 This is not hidden sync:
 
-- the caller explicitly requests sync with a runtime option
+- the create route explicitly requests sync execution
 - the create command returns the actual result immediately
 - the result is not a job id
 
@@ -25,9 +25,9 @@ This is not hidden sync:
 ## Model
 
 - entity: `Item`
-- service: `Item`
+- service: `entity`
 - command target:
-  - `Crud.Item.createItem`
+  - `crud.entity.create-item`
 
 ## How To Use
 
@@ -42,29 +42,39 @@ Help:
 
 ```bash
 sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud.item"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud.item.create-item"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud.entity"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud.entity.create-item"
 ```
 
-Explicit sync create:
-
-```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes --textus.runtime.command.execution-mode sync-direct-no-job command crud.item.create-item --name alpha --title Alpha"
-```
-
-Server/client confirmation:
+Start the server:
 
 ```bash
 bash run-server.sh
+```
+
+Client create:
+
+```bash
 bash run-client-create.sh
-bash run-client-search.sh
+```
+
+Client confirmation with the returned id:
+
+```bash
+bash run-client-search.sh <entity-id>
+```
+
+End-to-end demo:
+
+```bash
+bash run-demo.sh
 ```
 
 ## Runtime Difference
 
 - Normal CRUD/job-backed command use remains the default elsewhere.
 - `03.b-test-sync-command-lab` uses a runtime override while keeping the job-shaped interface.
-- This lab uses an explicit runtime option to request synchronous execution and returns the result immediately.
+- This lab uses an explicit runtime option on the create route to request synchronous execution and returns the result immediately.
 
 ## Relationship To 02-crud
 
@@ -74,13 +84,24 @@ bash run-client-search.sh
 
 - explicit synchronous runtime execution
 - immediate result instead of a job id
-- a follow-up load/search confirmation route
+- a same-server-session follow-up load confirmation route
 
 ## Observed Surface
 
 - component: `Crud`
-- service: `Crud.Item`
-- command target: `Crud.Item.createItem`
-- explicit sync runtime option: `--textus.runtime.command.execution-mode sync-direct-no-job`
+- service: `Crud.entity`
+- command target: `Crud.entity.createItem`
+- explicit sync runtime option: `textus.runtime.command.execution-mode=sync-direct-no-job`
 - runtime result: immediate item record
-- CLI selector examples: `crud`, `crud.item`, `crud.item.create-item`
+- CLI selector examples: `crud`, `crud.entity`, `crud.entity.create-item`
+
+## Notes
+
+The mainline confirmation path for this lab is:
+
+1. server start in normal server mode
+2. client `crud.entity.create-item` with `textus.runtime.command.execution-mode=sync-direct-no-job`
+3. immediate `id` in the returned record
+4. same-server-session `crud.entity.load-item`
+
+`run-demo.sh` starts the server, captures the immediate create result, and uses that `id` for the follow-up load.
