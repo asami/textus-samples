@@ -62,7 +62,7 @@ bash run-client-create.sh
 Read the created entity id from the job result:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain client http get /job-control/job/await-job-result id=<job-id>"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes client job-control.job.await-job-result --id <job-id>"
 ```
 
 Load the created item from the client:

@@ -31,8 +31,8 @@ It is not a distributed broker or queue lab.
 ## How It Works
 
 - `run-server.sh` starts the CNCF server shape
-- `run-client-emit.sh` sends `name=alpha title=Alpha` to `client http post /event-driven/event/emit-event`
-- `run-client-load.sh` reads the effect back through `client http get /event-driven/event/load-effect`
+- `run-client-emit.sh` sends `--name alpha --title Alpha` to `client event-driven.event.emit-event`
+- `run-client-load.sh` reads the effect back through `client event-driven.event.load-effect`
 
 ## How This Differs From Earlier Labs
 

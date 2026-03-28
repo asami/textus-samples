@@ -12,7 +12,7 @@
   - `bash run-client-create.sh`
   - actual operation: `crud.entity.create-item`
 - client job-result route:
-  - `client http get /job-control/job/await-job-result id=<job-id>`
+  - `client job-control.job.await-job-result --id <job-id>`
 - client confirmation route:
   - `bash run-client-load.sh <entity-id>`
   - actual operation: `crud.entity.load-item`

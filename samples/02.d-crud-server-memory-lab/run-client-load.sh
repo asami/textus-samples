@@ -11,4 +11,4 @@ fi
 
 item_id="$1"
 
-exec sbt --batch "runMain org.goldenport.cncf.CncfMain client http get /crud/entity/load-item id=${item_id}"
+exec sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes client crud.entity.load-item --id ${item_id}"
