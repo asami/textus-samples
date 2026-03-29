@@ -15,35 +15,41 @@ This file is for implementation progress management across:
 ## Cozy
 
 - [x] confirm aggregate source-of-truth shape (`EntityDef.aggregate` / `AggregateDef`)
-- [ ] confirm `Order` / `OrderLine` can be expressed in the current model
-- [ ] confirm first-line behavior/invariant shape can be expressed
-- [ ] confirm aggregate-related generated output needed by `06-aggregate`
-- [ ] confirm metadata needed for delegated `AggregateBehavior` binding
+- [x] confirm `Order` / `OrderLine` can be expressed in the current model
+- [x] confirm first-line behavior/invariant shape can be expressed
+- [x] confirm aggregate-related generated output needed by `06-aggregate`
+- [x] confirm metadata needed for delegated `AggregateBehavior` binding
 
 ## CNCF
 
 - [x] freeze first-line runtime contract for `Behavior` / `AggregateBehavior` / `ActionCall`
-- [ ] add `Behavior` abstraction with protected DSL
-- [ ] align protected-method naming to `snake_case`
-- [ ] add `AggregateBehavior`
-- [ ] make `ActionCall` able to resolve delegated `AggregateBehavior`
-- [ ] make `ActionCall` able to invoke delegated `AggregateBehavior` and continue its own logic
-- [ ] add Factory-based `AggregateBehavior` binding/lookup
-- [ ] confirm aggregate read path works for application-join aggregate construction
-- [ ] confirm first-line invariant failure can be surfaced correctly
+- [x] add `Behavior` abstraction with protected DSL
+- [x] align protected-method naming to `snake_case`
+- [x] add `AggregateBehavior`
+- [x] make `ActionCall` able to resolve delegated `AggregateBehavior`
+- [x] make `ActionCall` able to invoke delegated `AggregateBehavior` and continue its own logic
+- [x] add Factory-based `AggregateBehavior` binding/lookup
+- [x] add Factory-based aggregate collection binding hook for future aggregate read extension
+- [x] confirm aggregate read path works for application-join aggregate construction
+- [x] confirm first-line invariant failure can be surfaced correctly
+- [x] add aggregate-internal visibility as a dedicated framework execution-context rule
+- [x] confirm generated aggregate load/search mainline can use aggregate collection binding
 
 ## Sample
 
 - [x] create `samples/06-aggregate/` runnable skeleton
-- [ ] define `Order` aggregate root
-- [ ] define `OrderLine` member entity
-- [ ] verify aggregate-load
-- [ ] verify aggregate-search
-- [ ] verify `addLine` behavior
-- [ ] verify invalid quantity failure
-- [ ] update README with application-join aggregate explanation
-- [ ] update implementation record
-- [ ] update phase checklist with confirmed facts only
+- [x] define `Order` aggregate root
+- [x] define `OrderLine` member entity
+- [x] verify aggregate-load
+- [x] verify aggregate-search
+- [x] verify `addLine` behavior
+- [x] verify invalid quantity failure
+- [x] make sample join logic consume generated aggregate member metadata
+- [x] make generated aggregate read type include aggregate members
+- [x] update README with application-join aggregate explanation
+- [x] update implementation record
+- [x] update phase checklist with confirmed facts only
+- [x] remove request-side content-manager workaround from the demo and rely on aggregate-internal visibility
 
 ## Out Of Scope For First Line
 

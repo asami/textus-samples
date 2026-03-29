@@ -1,8 +1,220 @@
-# 06-aggregate first-line placeholder
-#
-# The first executable line will use:
-# - Order
-# - OrderLine
-# - application-join aggregate construction
-# - addLine behavior
-# - quantity > 0 invariant
+# COMPONENT
+
+## AggregateSample
+
+### PACKAGE
+
+org.sample.aggregate
+
+### DESCRIPTION
+
+Aggregate-oriented sample component.
+
+### SPECIFICATION
+
+This sample demonstrates the application-join aggregate pattern.
+
+### DOMAIN_INTENT
+
+The sample keeps `Entity` as persisted source-of-truth and constructs
+an aggregate-shaped read model from multiple entities at runtime.
+
+The first line focuses on:
+1. aggregate load
+2. aggregate search
+3. one delegated aggregate behavior line to be added next
+
+# SERVICE
+
+## Order
+
+### DESCRIPTION
+
+Order-facing operations for aggregate-oriented access.
+
+### OPERATION
+
+#### loadOrderAggregate
+
+##### DESCRIPTION
+
+Loads one order aggregate.
+
+##### IN
+
+Aggregate identifier.
+
+##### OUT
+
+Aggregate projection.
+
+#### searchOrderAggregate
+
+##### DESCRIPTION
+
+Searches order aggregates.
+
+##### IN
+
+Aggregate search condition.
+
+##### OUT
+
+Aggregate search result.
+
+#### addLine
+
+##### DESCRIPTION
+
+Adds one line to an order aggregate.
+
+##### IN
+
+Order aggregate mutation command.
+
+##### OUT
+
+Updated aggregate projection.
+
+# ENTITY
+
+## Order
+
+### DESCRIPTION
+
+Order root entity.
+
+### ATTRIBUTE
+
+| name   | type     | multiplicity |
+|--------+----------+--------------|
+| id     | entityid | 1            |
+| name   | name     | 1            |
+| status | string   | 1            |
+
+### AGGREGATE
+
+#### MEMBER
+
+| name  | entity    | kind        | multiplicity | join_field |
+|-------+-----------+-------------+--------------+------------|
+| lines | OrderLine | composition | *            | orderId    |
+
+#### COMMAND
+
+##### addLine
+- INPUT.orderId :: entityid
+- INPUT.lineName :: name
+- INPUT.quantity :: int
+- VALIDATE :: quantity > 0
+
+#### STATE
+
+| name   | type     | multiplicity |
+|--------+----------+--------------|
+| id     | entityid | 1            |
+| name   | name     | 1            |
+| status | string   | 1            |
+
+#### INVARIANT
+
+##### quantityPositive
+- EXPRESSION :: quantity > 0
+
+## OrderLine
+
+### DESCRIPTION
+
+Order line entity used as an aggregate member.
+
+### ATTRIBUTE
+
+| name    | type     | multiplicity |
+|---------+----------+--------------|
+| id      | entityid | 1            |
+| orderId | entityid | 1            |
+| name    | name     | 1            |
+| quantity| int      | 1            |
+
+# QUERY
+
+## LoadOrderAggregate
+
+### DESCRIPTION
+
+Query to load an order aggregate.
+
+### ATTRIBUTE
+
+| name | type     | multiplicity |
+|------|----------|--------------|
+| id   | entityid | 1            |
+
+## SearchOrderAggregate
+
+### DESCRIPTION
+
+Query to search order aggregates.
+
+### ATTRIBUTE
+
+| name | type | multiplicity |
+|------|------|--------------|
+| name | name | ?            |
+
+# COMMAND
+
+## AddLine
+
+### DESCRIPTION
+
+Command to add one order line.
+
+### ATTRIBUTE
+
+| name     | type     | multiplicity |
+|----------+----------+--------------|
+| orderId  | entityid | 1            |
+| lineName | name     | 1            |
+| quantity | int      | 1            |
+
+# OPERATION
+
+## loadOrderAggregate
+
+### TYPE
+QUERY
+
+### IMPLEMENTATION
+aggregate-load
+
+### INPUT
+LoadOrderAggregate
+
+### OUTPUT
+LoadOrderAggregateResult
+
+## searchOrderAggregate
+
+### TYPE
+QUERY
+
+### IMPLEMENTATION
+aggregate-search
+
+### INPUT
+SearchOrderAggregate
+
+### OUTPUT
+SearchOrderAggregateResult
+
+## addLine
+
+### TYPE
+COMMAND
+
+### INPUT
+AddLine
+
+### OUTPUT
+AddLineResult
