@@ -141,17 +141,17 @@ Reference:
 
 - `docs/phase/samples/05-job.md`
 
-### Subphase 2.10 06-subsystem
+### Subphase 2.10 08-subsystem
 
 Reference:
 
-- `docs/phase/samples/06-subsystem.md`
+- `docs/phase/samples/08-subsystem.md`
 
-### Subphase 2.11 07-subsystem-wiring
+### Subphase 2.11 09-subsystem-wiring
 
 Reference:
 
-- `docs/phase/samples/07-subsystem-wiring.md`
+- `docs/phase/samples/09-subsystem-wiring.md`
 
 ### Subphase 2.12 101-distributed
 

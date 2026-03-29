@@ -24,8 +24,8 @@ cncf-samples/
     03-cqrs/
     04-event-driven/
     05-job/
-    06-subsystem/
-    07-subsystem-wiring/
+    08-subsystem/
+    09-subsystem-wiring/
     101-distributed/
 
   shared/
@@ -251,7 +251,7 @@ Concepts:
 - retry / failure
 
 ----------------------------------------
-06-subsystem — Minimum Subsystem
+08-subsystem — Minimum Subsystem
 
 Purpose:
 - Show the minimum subsystem structure
@@ -266,7 +266,7 @@ Concepts:
 - minimal composition
 
 ----------------------------------------
-07-subsystem-wiring — Two-Component Subsystem
+09-subsystem-wiring — Two-Component Subsystem
 
 Purpose:
 - Show how one subsystem wires two components
@@ -328,12 +328,23 @@ docker compose up
 6. 02-crud
 7. 02.a-crud-seed-import-lab
 8. 02.b-simpleentity-crud-lab
-8. 03-cqrs
-9. 04-event-driven
-10. 05-job
-11. 06-subsystem
-12. 07-subsystem-wiring
-13. 101-distributed
+9. 02.c-crud-sqlite-lab
+10. 02.d-crud-server-memory-lab
+11. 02.e-crud-explicit-sync-lab
+12. 03-cqrs
+13. 03.a-designed-sync-command-lab
+14. 03.b-test-sync-command-lab
+15. 04-event-driven
+16. 04.a-event-job-trace-lab
+17. 04.b-event-job-server-client-lab
+18. 05-job
+19. 05.a-job-control-lab
+20. 05.b-job-control-demo-lab
+21. 06-aggregate
+22. 07-view
+23. 08-subsystem
+24. 09-subsystem-wiring
+25. 101-distributed
 
 --------------------------------------------------
 

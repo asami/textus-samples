@@ -1,4 +1,4 @@
-# 06-subsystem Checklist
+# 08-subsystem Checklist
 
 ## Purpose
 
@@ -25,7 +25,7 @@ Stage Status:
 - [ ] The minimum subsystem composition is explicitly implemented and verified
 - [ ] The minimum subsystem approach is explained in the README
 - [ ] If needed, `docker/` is updated to executable contents
-- [ ] `samples/06-subsystem/README.md` is updated to match the implementation
+- [ ] `samples/08-subsystem/README.md` is updated to match the implementation
 
 ## Exit Criteria
 

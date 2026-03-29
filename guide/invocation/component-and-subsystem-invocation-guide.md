@@ -261,8 +261,8 @@ So the practical distinction is:
 
 This becomes especially important in later samples:
 
-- `06-subsystem`
-- `07-subsystem-wiring`
+- `08-subsystem`
+- `09-subsystem-wiring`
 - `101-distributed`
 
 In deployed environments, the repository model applies to both:

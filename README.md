@@ -21,12 +21,15 @@ Its initial goal is to build a catalog of patterns, not to recreate complex busi
 9. `03-cqrs`
 10. `04-event-driven`
 11. `04.a-event-job-trace-lab`
-12. `05-job`
-13. `05.a-job-control-lab`
-14. `05.b-job-control-demo-lab`
-15. `06-subsystem`
-16. `07-subsystem-wiring`
-17. `101-distributed`
+12. `04.b-event-job-server-client-lab`
+13. `05-job`
+14. `05.a-job-control-lab`
+15. `05.b-job-control-demo-lab`
+16. `06-aggregate`
+17. `07-view`
+18. `08-subsystem`
+19. `09-subsystem-wiring`
+20. `101-distributed`
 
 ## AI Directive
 
@@ -76,11 +79,14 @@ AI behavior is interpreted in the following order.
 │  ├─ 03-cqrs/
 │  ├─ 04-event-driven/
 │  ├─ 04.a-event-job-trace-lab/
+│  ├─ 04.b-event-job-server-client-lab/
 │  ├─ 05-job/
 │  ├─ 05.a-job-control-lab/
 │  ├─ 05.b-job-control-demo-lab/
-│  ├─ 06-subsystem/
-│  ├─ 07-subsystem-wiring/
+│  ├─ 06-aggregate/
+│  ├─ 07-view/
+│  ├─ 08-subsystem/
+│  ├─ 09-subsystem-wiring/
 │  └─ 101-distributed/
 └─ shared/
    ├─ common-lib/

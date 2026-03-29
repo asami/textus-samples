@@ -22,6 +22,8 @@ Current sample documents:
 - `03-cqrs.md`
 - `04-event-driven.md`
 - `05-job.md`
-- `06-subsystem.md`
-- `07-subsystem-wiring.md`
+- `06-aggregate.md`
+- `07-view.md`
+- `08-subsystem.md`
+- `09-subsystem-wiring.md`
 - `101-distributed.md`

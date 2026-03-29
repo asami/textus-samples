@@ -1,4 +1,4 @@
-# 07-subsystem-wiring Checklist
+# 09-subsystem-wiring Checklist
 
 ## Purpose
 
@@ -25,7 +25,7 @@ Stage Status:
 - [ ] The wiring between the two components is explicitly implemented and verified
 - [ ] The subsystem assembly approach is explained in the README
 - [ ] If needed, `docker/` is updated to executable contents
-- [ ] `samples/07-subsystem-wiring/README.md` is updated to match the implementation
+- [ ] `samples/09-subsystem-wiring/README.md` is updated to match the implementation
 
 ## Exit Criteria
 

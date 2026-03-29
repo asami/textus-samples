@@ -1,0 +1,8 @@
+# 06-aggregate first-line placeholder
+#
+# The first executable line will use:
+# - Order
+# - OrderLine
+# - application-join aggregate construction
+# - addLine behavior
+# - quantity > 0 invariant
