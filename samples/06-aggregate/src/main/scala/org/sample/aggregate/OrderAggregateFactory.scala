@@ -161,13 +161,11 @@ final class OrderAggregateFactory extends AggregateSampleComponent.Factory {
         quantity <- exec_pure(Consequence.successOrRecordNotFound[Int]("quantity", target).TAKE)
         _ <- exec_from(_validate_quantity_positive(quantity))
         entity <- exec_pure(
-          org.sample.aggregate.entity.create.OrderLine.create(
-            Record.data(
-              _order_line_join_field_name -> orderId.print,
-              "name" -> lineName,
-              "quantity" -> quantity
-            )
-        )
+          org.sample.aggregate.entity.create.OrderLine.Builder()
+            .withOrderId(orderId)
+            .withName(lineName)
+            .withQuantity(quantity)
+            .build()
         )
         created <- entity_create(entity)
       } yield OperationResponse.RecordResponse(Record.data("id" -> created.id.print))
