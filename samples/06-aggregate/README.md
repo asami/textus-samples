@@ -13,7 +13,7 @@ not only as a side note of CRUD or CQRS.
 - aggregate load access
 - aggregate search access
 - comparison with plain entity-oriented access when useful
-- application-provided aggregate join logic through component factory override
+- application-provided delegated aggregate behavior
 
 This slot is intended to use the application-join aggregate pattern:
 
@@ -31,10 +31,11 @@ The current first line is:
 3. `searchOrderAggregate` works
 4. `addLine` runs through delegated `AggregateBehavior`
 5. invalid quantity is surfaced as invariant failure
-6. application-join aggregate construction is provided by an application factory override
-7. generated aggregate metadata for members/commands/invariants is consumed by that override
+6. application-provided logic remains in delegated `AggregateBehavior`
+7. generated aggregate metadata for members/commands/invariants is consumed by the framework mainline
 8. aggregate-internal visibility is used so draft root/member entities remain observable during aggregate construction
-9. generated aggregate load/search mainline uses framework aggregate collection binding
+9. generated aggregate load/search mainline uses framework default aggregate collection binding
+10. generated aggregate companion implements `AggregateAssembler`, so member attach is structural rather than reflection-based
 
 ## How To Run
 
@@ -62,7 +63,7 @@ The current output is one JSON object with:
 
 `addLine` and `load` show the joined aggregate shape: root order plus member lines.
 `invalidAddLine` shows the surfaced invariant failure.
-The current implementation also uses generated aggregate metadata to resolve:
+The current implementation uses generated aggregate metadata to resolve:
 
 - member entity name
 - member join field name
@@ -77,13 +78,14 @@ This sample is not plain CRUD because the read surface is not an entity record.
 - `Order`
 - `OrderLine`
 
-The first line intentionally keeps persistence truth in entities and performs the aggregate join in application logic.
-Generated aggregate metadata now supplies the join/member description, and the sample resolves members through `ExecutionContext.entitySpace` first with `EntityStore` fallback.
+The first line intentionally keeps persistence truth in entities and performs the aggregate join in framework aggregate collection logic.
+Generated aggregate metadata now supplies the join/member description, and the framework resolves members through `ExecutionContext.entitySpace` first with `EntityStore` fallback.
 The current first-line demo uses aggregate-internal visibility so draft root/member entities remain observable during aggregate construction without broadening normal entity search visibility.
+Aggregate member attach is now handled through generated `AggregateAssembler` instead of runtime reflection.
 
 ## Status
 
-Implemented to the first aggregate line including one delegated behavior, one invariant failure, generated aggregate metadata consumption, `entitySpace`-based application join, and aggregate-internal visibility.
+Implemented to the first aggregate line including one delegated behavior, one invariant failure, generated aggregate metadata consumption, framework default aggregate collection binding, `entitySpace`-based member resolution, aggregate-internal visibility, and structural `AggregateAssembler`-based member attach.
 
 The active work order is:
 

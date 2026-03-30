@@ -1,7 +1,7 @@
 # 06-aggregate Implementation Record
 
 date=2026-03-30
-status=in-progress
+status=done
 
 ## Confirmed
 
@@ -10,10 +10,14 @@ status=in-progress
 - `command help aggregate-sample.order.load-order-aggregate` resolves
 - `bash run.sh` succeeds
 - `addLine` executes through delegated `AggregateBehavior`
-- invalid quantity fails with `Conclusion(quantity must be > 0)`
+- invalid quantity fails with `Conclusion(quantityPositive: quantity must be > 0)`
 - generated `entity.aggregate.Order` now includes `lines: Vector[OrderLine]`
 - `load` returns joined member `lines`
 - `search` returns one aggregate hit through aggregate-internal visibility
+- direct entity search with explicit lifecycle constraints is now consistent again
+- reflection-based aggregate attach is removed
+- generated aggregate companion now implements `AggregateAssembler`
+- framework default aggregate collection test passes again after the structural change
 
 ## Current First Line
 
@@ -29,11 +33,11 @@ The current first line uses:
   - `members`
   - `commands`
   - `invariants`
+- framework default aggregate collection binding for aggregate read construction
 
-The join is application-side for now.
-
-Framework-side preparation also now includes a custom aggregate collection binding hook.
-This is intended for a later step where aggregate read construction can be supplied through factory wiring instead of only sample-local read action overrides.
+Aggregate read construction is no longer sample-local.
+The sample factory remains responsible for delegated behavior only.
+Aggregate member attach is no longer reflection-based; it now goes through generated `AggregateAssembler`.
 
 ## Observed Result
 
@@ -53,7 +57,7 @@ This confirms:
 - invariant failure visibility
 - generated aggregate metadata is usable from application-side aggregate logic
 
-## Known Limit
+## Current Limit
 
 Current generated aggregate metadata is richer and now includes:
 
@@ -62,19 +66,20 @@ Current generated aggregate metadata is richer and now includes:
 - `state`
 - `invariants`
 
-The remaining limit is no longer sample-local join state.
 Current member resolution uses `ExecutionContext.entitySpace` first and falls back to `EntityStore`.
 This restores resident-entity application join without going directly through `DataStoreSpace`.
 
-The remaining framework limit is now narrower:
+The current first-line framework state is:
 
 - aggregate-internal visibility exists as a dedicated execution-context flag
 - the sample no longer needs content-manager privilege just to build one aggregate from draft root/member entities
-- aggregate load/search now go through framework aggregate collection binding in the generated mainline
-- the remaining gap is aggregate member identity/join-key consistency, which still needs closer runtime inspection
+- aggregate load/search go through framework default aggregate collection binding in the generated mainline
+- direct entity search with explicit lifecycle parameters is consistent again
+
+What remains is broader generalization work, not a first-line blocker.
 
 ## Next
 
+- generalize aggregate collection binding beyond the current first-line sample shape
 - refine the minimal runtime rule for aggregate-internal visibility without overexposing normal entity search
-- tighten aggregate member identity/join-key consistency in runtime construction
-- decide the minimal runtime contract needed beyond the current aggregate collection bindings
+- extend framework tests for more aggregate member shapes if needed

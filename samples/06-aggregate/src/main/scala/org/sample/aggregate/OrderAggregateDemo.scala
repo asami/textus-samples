@@ -15,8 +15,7 @@ object OrderAggregateDemo {
     val subsystem = runtime.initializeForEmbedding(modeHint = Some(RunMode.Command)).TAKE
     val customFactory = new OrderAggregateFactory
     val initialized = customFactory.create(ComponentCreate(subsystem, ComponentOrigin.Builtin))
-    val component = ComponentFactory().bootstrap(initialized.head)
-    val _ = subsystem.add(Vector(component))
+    val _ = subsystem.add(Vector(ComponentFactory().bootstrap(initialized.head)))
     try {
       val orderId = _create_order(subsystem)
       val addLineText = _add_line(subsystem, orderId, "Widget", 2)

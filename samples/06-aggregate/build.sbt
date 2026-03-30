@@ -16,8 +16,11 @@ lazy val root = (project in file("."))
       Resolver.mavenLocal,
       "SimpleModeling.org" at "https://www.simplemodeling.org/maven"
     ),
-    libraryDependencies +=
+    libraryDependencies ++= Seq(
       "org.goldenport" %% "goldenport-cncf" % cncfVersion(baseDirectory.value),
+      "org.goldenport" %% "goldenport-core" % "0.3.1-SNAPSHOT",
+      "org.simplemodeling" %% "simplemodeling-model" % "0.1.1-SNAPSHOT"
+    ),
     cozyManifestMetadata ++= Map(
       "component" -> "aggregate-sample",
       "boundedContext" -> "orders",

@@ -34,6 +34,8 @@ This file is for implementation progress management across:
 - [x] confirm first-line invariant failure can be surfaced correctly
 - [x] add aggregate-internal visibility as a dedicated framework execution-context rule
 - [x] confirm generated aggregate load/search mainline can use aggregate collection binding
+- [x] generalize aggregate collection binding enough to remove sample-local aggregate read builder/query
+- [x] remove runtime reflection from aggregate member attach via generated `AggregateAssembler`
 
 ## Sample
 
@@ -50,6 +52,7 @@ This file is for implementation progress management across:
 - [x] update implementation record
 - [x] update phase checklist with confirmed facts only
 - [x] remove request-side content-manager workaround from the demo and rely on aggregate-internal visibility
+- [x] confirm `06-aggregate` still runs after the structural `AggregateAssembler` change
 
 ## Out Of Scope For First Line
 
