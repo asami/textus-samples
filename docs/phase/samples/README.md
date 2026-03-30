@@ -19,6 +19,10 @@ Current sample documents:
 - `02-crud.md`
 - `02.a-crud-seed-import-lab.md`
 - `02.b-simpleentity-crud-lab.md`
+- `02.c-crud-sqlite-lab.md`
+- `02.d-crud-server-memory-lab.md`
+- `02.e-crud-explicit-sync-lab.md`
+- `02.f-crud-nested-value-lab.md`
 - `03-cqrs.md`
 - `04-event-driven.md`
 - `05-job.md`

@@ -1,0 +1,74 @@
+# COMPONENT
+
+## CrudNestedValueSample
+
+### PACKAGE
+
+org.sample.crudnestedvalue
+
+### DESCRIPTION
+
+CRUD sample component for nested value object persistence.
+
+### SPECIFICATION
+
+This sample stays in the plain CRUD line.
+It demonstrates one entity record that contains a value object, and that value object itself contains another value object.
+
+### DOMAIN_INTENT
+
+`Person` is the persisted `Entity`.
+`Address` is a `Value Object` embedded inside `Person`.
+`CountryCode` is a `Value Object` embedded inside `Address`.
+
+# VALUE
+
+## CountryCode
+
+### DESCRIPTION
+
+Leaf value object inside `Address`.
+
+### ATTRIBUTE
+
+| name  | type   | multiplicity |
+|-------+--------+--------------|
+| value | string | 1            |
+
+## Address
+
+### DESCRIPTION
+
+Address value object embedded inside `Person`.
+
+### ATTRIBUTE
+
+| name    | type        | multiplicity |
+|---------+-------------+--------------|
+| street  | string      | 1            |
+| city    | string      | 1            |
+| country | CountryCode | 1            |
+
+# ENTITY
+
+## Person
+
+### DESCRIPTION
+
+Plain CRUD entity with nested value object attributes.
+
+### ATTRIBUTE
+
+| name    | type      | multiplicity |
+|---------+-----------+--------------|
+| id      | entityid  | 1            |
+| name    | name      | 1            |
+| address | Address   | 1            |
+
+# SERVICE
+
+## Person
+
+### DESCRIPTION
+
+Person-facing CRUD surface for nested value object persistence.

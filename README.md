@@ -18,19 +18,23 @@ Its initial goal is to build a catalog of patterns, not to recreate complex busi
 6. `02-crud`
 7. `02.a-crud-seed-import-lab`
 8. `02.b-simpleentity-crud-lab`
-9. `03-cqrs`
-10. `04-event-driven`
-11. `04.a-event-job-trace-lab`
-12. `04.b-event-job-server-client-lab`
-13. `05-job`
-14. `05.a-job-control-lab`
-15. `05.b-job-control-demo-lab`
-16. `06-aggregate`
-17. `06.a-aggregate-single-record-lab`
-18. `07-view`
-19. `08-subsystem`
-20. `09-subsystem-wiring`
-21. `101-distributed`
+9. `02.c-crud-sqlite-lab`
+10. `02.d-crud-server-memory-lab`
+11. `02.e-crud-explicit-sync-lab`
+12. `02.f-crud-nested-value-lab`
+13. `03-cqrs`
+14. `04-event-driven`
+15. `04.a-event-job-trace-lab`
+16. `04.b-event-job-server-client-lab`
+17. `05-job`
+18. `05.a-job-control-lab`
+19. `05.b-job-control-demo-lab`
+20. `06-aggregate`
+21. `06.a-aggregate-single-record-lab`
+22. `07-view`
+23. `08-subsystem`
+24. `09-subsystem-wiring`
+25. `101-distributed`
 
 ## AI Directive
 
@@ -77,6 +81,10 @@ AI behavior is interpreted in the following order.
 │  ├─ 02-crud/
 │  ├─ 02.a-crud-seed-import-lab/
 │  ├─ 02.b-simpleentity-crud-lab/
+│  ├─ 02.c-crud-sqlite-lab/
+│  ├─ 02.d-crud-server-memory-lab/
+│  ├─ 02.e-crud-explicit-sync-lab/
+│  ├─ 02.f-crud-nested-value-lab/
 │  ├─ 03-cqrs/
 │  ├─ 04-event-driven/
 │  ├─ 04.a-event-job-trace-lab/
