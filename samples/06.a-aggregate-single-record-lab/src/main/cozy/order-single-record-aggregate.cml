@@ -1,0 +1,61 @@
+# COMPONENT
+
+## SingleRecordSample
+
+### PACKAGE
+
+org.sample.aggregatesinglerecord
+
+### DESCRIPTION
+
+Single-record aggregate sample component.
+
+### SPECIFICATION
+
+This sample demonstrates the encoded single-record aggregate pattern.
+
+### DOMAIN_INTENT
+
+`Order` is the persisted `Entity`.
+`OrderLine` is a `Value Object` embedded inside `Order`.
+The aggregate is restored from one record rather than application-joined from multiple entities.
+
+# VALUE
+
+## OrderLine
+
+### DESCRIPTION
+
+Value object stored inside `Order`.
+
+### ATTRIBUTE
+
+| name     | type | multiplicity |
+|----------+------+--------------|
+| name     | name | 1            |
+| quantity | int  | 1            |
+
+# ENTITY
+
+## Order
+
+### DESCRIPTION
+
+Order aggregate encoded in one entity record.
+
+### ATTRIBUTE
+
+| name   | type      | multiplicity |
+|--------+-----------+--------------|
+| id     | entityid  | 1            |
+| name   | name      | 1            |
+| status | string    | 1            |
+| lines  | OrderLine | *            |
+
+# SERVICE
+
+## Order
+
+### DESCRIPTION
+
+Order-facing operations for the single-record aggregate pattern.

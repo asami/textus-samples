@@ -21,6 +21,8 @@ This slot is intended to use the application-join aggregate pattern:
 
 This sample is not intended to use the single-record encoded-object pattern as its main line.
 That pattern is also valid in real applications, but it is not the primary explanatory shape here.
+The companion sample [06.a-aggregate-single-record-lab](/Users/asami/src/dev2026/cncf-samples/samples/06.a-aggregate-single-record-lab/README.md)
+shows that single-record shape directly.
 
 ## Current Line
 
