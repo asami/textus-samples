@@ -31,10 +31,12 @@ Its initial goal is to build a catalog of patterns, not to recreate complex busi
 19. `05.b-job-control-demo-lab`
 20. `06-aggregate`
 21. `06.a-aggregate-single-record-lab`
-22. `07-view`
-23. `08-subsystem`
-24. `09-subsystem-wiring`
-25. `101-distributed`
+22. `06.b-aggregate-relation-boundary-model`
+23. `06.c-aggregate-external-update-semantics`
+24. `07-view`
+25. `08-subsystem`
+26. `09-subsystem-wiring`
+27. `101-distributed`
 
 ## AI Directive
 
@@ -94,6 +96,8 @@ AI behavior is interpreted in the following order.
 │  ├─ 05.b-job-control-demo-lab/
 │  ├─ 06-aggregate/
 │  ├─ 06.a-aggregate-single-record-lab/
+│  ├─ 06.b-aggregate-relation-boundary-model/
+│  ├─ 06.c-aggregate-external-update-semantics/
 │  ├─ 07-view/
 │  ├─ 08-subsystem/
 │  ├─ 09-subsystem-wiring/

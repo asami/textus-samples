@@ -39,6 +39,13 @@ The current first line is:
 9. generated aggregate load/search mainline uses framework default aggregate collection binding
 10. generated aggregate companion implements `AggregateAssembler`, so member attach is structural rather than reflection-based
 
+Preparatory note for the next extension line:
+
+- `06.b-aggregate-relation-boundary-model` will document relation and boundary as separate axes
+- relation categories: `composition`, `aggregation`, `association`
+- boundary categories: `internal`, `external`
+- the example mapping will distinguish `OrderLine`, `ShipmentOrder`, and `User`
+
 ## How To Run
 
 Use:
@@ -93,3 +100,7 @@ The active work order is:
 
 - `/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/06-aggregate-development-instruction.md`
 - `/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/06-aggregate-work-checklist.md`
+
+Planned extension slot:
+
+- `/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/06-b-aggregate-relation-boundary-model-mini-low-instruction.md`

@@ -28,6 +28,8 @@ Current sample documents:
 - `05-job.md`
 - `06-aggregate.md`
 - `06.a-aggregate-single-record-lab.md`
+- `06.b-aggregate-relation-boundary-model.md`
+- `06.c-aggregate-external-update-semantics.md`
 - `07-view.md`
 - `08-subsystem.md`
 - `09-subsystem-wiring.md`

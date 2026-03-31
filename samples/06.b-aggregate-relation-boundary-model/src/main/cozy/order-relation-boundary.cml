@@ -1,0 +1,120 @@
+# COMPONENT
+
+## AggregateRelationBoundarySample
+
+### PACKAGE
+
+org.sample.aggregaterelationboundary
+
+### DESCRIPTION
+
+Aggregate sample for relation/boundary separation.
+
+# SERVICE
+
+## Order
+
+### DESCRIPTION
+
+Order-facing operations for relation/boundary aggregate access.
+
+# VALUE
+
+## OrderLine
+
+### ATTRIBUTE
+
+| name     | type | multiplicity |
+|----------+------+--------------|
+| name     | name | 1            |
+| quantity | int  | 1            |
+
+# ENTITY
+
+## Order
+
+### ATTRIBUTE
+
+| name   | type      | multiplicity |
+|--------+-----------+--------------|
+| id     | entityid  | 1            |
+| userId | entityid  | 1            |
+| name   | name      | 1            |
+| status | string    | 1            |
+| lines  | OrderLine | *            |
+
+### AGGREGATE
+
+#### MEMBER
+
+| name           | entity         | kind        | boundary | join    | multiplicity | join_field |
+|----------------+----------------+-------------+----------+---------+--------------+------------|
+| shipmentOrders | ShipmentOrder  | aggregation | external | reverse | *            | orderId    |
+| user           | User           | association | external | direct  | ?            | userId     |
+
+## ShipmentOrder
+
+### ATTRIBUTE
+
+| name    | type     | multiplicity |
+|---------+----------+--------------|
+| id      | entityid | 1            |
+| orderId | entityid | 1            |
+| title   | name     | 1            |
+
+## User
+
+### ATTRIBUTE
+
+| name | type     | multiplicity |
+|------+----------+--------------|
+| id   | entityid | 1            |
+| name | name     | 1            |
+
+# QUERY
+
+## LoadOrderAggregate
+
+### ATTRIBUTE
+
+| name | type     | multiplicity |
+|------|----------+--------------|
+| id   | entityid | 1            |
+
+## SearchOrderAggregate
+
+### ATTRIBUTE
+
+| name | type | multiplicity |
+|------|------|--------------|
+| name | name | ?            |
+
+# OPERATION
+
+## loadOrderAggregate
+
+### TYPE
+QUERY
+
+### IMPLEMENTATION
+aggregate-load
+
+### INPUT
+LoadOrderAggregate
+
+### OUTPUT
+LoadOrderAggregateResult
+
+## searchOrderAggregate
+
+### TYPE
+QUERY
+
+### IMPLEMENTATION
+aggregate-search
+
+### INPUT
+SearchOrderAggregate
+
+### OUTPUT
+SearchOrderAggregateResult
