@@ -73,7 +73,7 @@ bash run-demo.sh
 ## Runtime Difference
 
 - Normal CRUD/job-backed command use remains the default elsewhere.
-- `03.b-test-sync-command-lab` uses a runtime override while keeping the job-shaped interface.
+- `04.b-test-sync-command-lab` uses a runtime override while keeping the job-shaped interface.
 - This lab uses an explicit runtime option on the create route to request synchronous execution and returns the result immediately.
 
 ## Relationship To 02-crud

@@ -1,0 +1,105 @@
+# COMPONENT
+
+## OperationCommandContractSample
+
+### PACKAGE
+
+org.sample.operationcommand
+
+### DESCRIPTION
+
+Operation command contract grammar sample.
+
+# SERVICE
+
+## Greeting
+
+### DESCRIPTION
+
+Greeting command contract sample.
+
+### OPERATION
+
+#### submitGreeting
+
+Accepts a greeting request through the command path.
+
+##### TYPE
+
+COMMAND
+
+##### SUMMARY
+
+Submit a greeting request.
+
+##### DESCRIPTION
+
+Accepts a greeting request payload and returns a command result contract.
+
+##### INPUT
+
+Greeting command payload.
+
+###### SUMMARY
+
+Greeting command payload.
+
+###### DESCRIPTION
+
+Structured command input accepted by submitGreeting.
+
+###### VALUE
+
+####### GreetingCommand
+
+######## SUMMARY
+
+Greeting command payload.
+
+######## DESCRIPTION
+
+Typed command input for submitGreeting.
+
+######## EXTENDS
+
+CommandAction
+
+######## ATTRIBUTE
+
+| name | type | multiplicity |
+|------+------|--------------|
+| name | name | 1            |
+
+##### OUTPUT
+
+Command result payload.
+
+###### SUMMARY
+
+Greeting command result.
+
+###### DESCRIPTION
+
+Structured command result returned by submitGreeting.
+
+###### VALUE
+
+####### GreetingAccepted
+
+######## SUMMARY
+
+Greeting command result.
+
+######## DESCRIPTION
+
+Typed result returned by submitGreeting.
+
+######## EXTENDS
+
+OperationResult
+
+######## ATTRIBUTE
+
+| name      | type   | multiplicity |
+|-----------+--------+--------------|
+| status    | string | 1            |

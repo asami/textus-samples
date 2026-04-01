@@ -22,21 +22,26 @@ Its initial goal is to build a catalog of patterns, not to recreate complex busi
 10. `02.d-crud-server-memory-lab`
 11. `02.e-crud-explicit-sync-lab`
 12. `02.f-crud-nested-value-lab`
-13. `03-cqrs`
-14. `04-event-driven`
-15. `04.a-event-job-trace-lab`
-16. `04.b-event-job-server-client-lab`
-17. `05-job`
-18. `05.a-job-control-lab`
-19. `05.b-job-control-demo-lab`
-20. `06-aggregate`
-21. `06.a-aggregate-single-record-lab`
-22. `06.b-aggregate-relation-boundary-model`
-23. `06.c-aggregate-external-update-semantics`
-24. `07-view`
-25. `08-subsystem`
-26. `09-subsystem-wiring`
-27. `101-distributed`
+13. `03-operation`
+14. `03.a-operation-command-lab`
+15. `03.b-operation-entity-lab`
+16. `04-cqrs`
+17. `04.a-designed-sync-command-lab`
+18. `04.b-test-sync-command-lab`
+19. `05-event-driven`
+20. `05.a-event-job-trace-lab`
+21. `05.b-event-job-server-client-lab`
+22. `06-job`
+23. `06.a-job-control-lab`
+24. `06.b-job-control-demo-lab`
+25. `07-aggregate`
+26. `07.a-aggregate-single-record-lab`
+27. `07.b-aggregate-relation-boundary-model`
+28. `07.c-aggregate-external-update-semantics`
+29. `08-view`
+30. `09-subsystem`
+31. `10-subsystem-wiring`
+32. `101-distributed`
 
 ## AI Directive
 
@@ -87,20 +92,25 @@ AI behavior is interpreted in the following order.
 │  ├─ 02.d-crud-server-memory-lab/
 │  ├─ 02.e-crud-explicit-sync-lab/
 │  ├─ 02.f-crud-nested-value-lab/
-│  ├─ 03-cqrs/
-│  ├─ 04-event-driven/
-│  ├─ 04.a-event-job-trace-lab/
-│  ├─ 04.b-event-job-server-client-lab/
-│  ├─ 05-job/
-│  ├─ 05.a-job-control-lab/
-│  ├─ 05.b-job-control-demo-lab/
-│  ├─ 06-aggregate/
-│  ├─ 06.a-aggregate-single-record-lab/
-│  ├─ 06.b-aggregate-relation-boundary-model/
-│  ├─ 06.c-aggregate-external-update-semantics/
-│  ├─ 07-view/
-│  ├─ 08-subsystem/
-│  ├─ 09-subsystem-wiring/
+│  ├─ 03-operation/
+│  ├─ 03.a-operation-command-lab/
+│  ├─ 03.b-operation-entity-lab/
+│  ├─ 04-cqrs/
+│  ├─ 04.a-designed-sync-command-lab/
+│  ├─ 04.b-test-sync-command-lab/
+│  ├─ 05-event-driven/
+│  ├─ 05.a-event-job-trace-lab/
+│  ├─ 05.b-event-job-server-client-lab/
+│  ├─ 06-job/
+│  ├─ 06.a-job-control-lab/
+│  ├─ 06.b-job-control-demo-lab/
+│  ├─ 07-aggregate/
+│  ├─ 07.a-aggregate-single-record-lab/
+│  ├─ 07.b-aggregate-relation-boundary-model/
+│  ├─ 07.c-aggregate-external-update-semantics/
+│  ├─ 08-view/
+│  ├─ 09-subsystem/
+│  ├─ 10-subsystem-wiring/
 │  └─ 101-distributed/
 └─ shared/
    ├─ common-lib/
@@ -121,7 +131,7 @@ sample-name/
 └─ src/main/scala/
 ```
 
-From `04-event-driven` onward, `docker/` may be added when needed.
+From `05-event-driven` onward, `docker/` may be added when needed.
 Each sample-level `AGENT.md` and `RULE.md` is a symlink back to the repository-level directive so that the same AI contract remains visible even when a sample is opened on its own.
 
 ## How To Work

@@ -35,7 +35,7 @@ Meaning:
 
 This is useful for:
 
-- `05-job`
+- `06-job`
 - minimal demos
 - testing command/job paths without custom repository logic
 
@@ -69,6 +69,6 @@ Implemented:
   - `view-load`
   - `view-search`
 
-This is enough to make the generated `05-job` command body executable without a
-sample-local handwritten action body, and to let `04-event-driven` bind its
+This is enough to make the generated `06-job` command body executable without a
+sample-local handwritten action body, and to let `05-event-driven` bind its
 event-oriented operation meanings from CML instead of handwritten hooks.

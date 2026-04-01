@@ -36,4 +36,4 @@ First line for plain CRUD nested value object persistence.
 
 - this lab stays in the plain CRUD line
 - this is not an aggregate sample
-- unlike `06.a-aggregate-single-record-lab`, the point here is nested value object persistence for an entity attribute
+- unlike `07.a-aggregate-single-record-lab`, the point here is nested value object persistence for an entity attribute

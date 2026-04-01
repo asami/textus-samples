@@ -1,0 +1,105 @@
+# COMPONENT
+
+## OperationContractSample
+
+### PACKAGE
+
+org.sample.operationcontract
+
+### DESCRIPTION
+
+Operation contract grammar sample.
+
+# SERVICE
+
+## Greeting
+
+### DESCRIPTION
+
+Greeting operation contract sample.
+
+### OPERATION
+
+#### greeting
+
+Returns a hello-world style greeting through the query path.
+
+##### TYPE
+
+QUERY
+
+##### SUMMARY
+
+Return a greeting.
+
+##### DESCRIPTION
+
+Returns a greeting message for the supplied name.
+
+##### INPUT
+
+Greeting query payload.
+
+###### SUMMARY
+
+Greeting query payload.
+
+###### DESCRIPTION
+
+Structured query input accepted by greeting.
+
+###### VALUE
+
+####### GreetingQuery
+
+######## SUMMARY
+
+Greeting query payload.
+
+######## DESCRIPTION
+
+Typed query input for greeting.
+
+######## EXTENDS
+
+QueryAction
+
+######## ATTRIBUTE
+
+| name  | type | multiplicity |
+|-------+------+--------------|
+| name  | name | 1            |
+
+##### OUTPUT
+
+Greeting message.
+
+###### SUMMARY
+
+Greeting result payload.
+
+###### DESCRIPTION
+
+Structured result returned by greeting.
+
+###### VALUE
+
+####### GreetingResult
+
+######## SUMMARY
+
+Greeting result payload.
+
+######## DESCRIPTION
+
+Typed result returned by greeting.
+
+######## EXTENDS
+
+OperationResult
+
+######## ATTRIBUTE
+
+| name    | type   | multiplicity |
+|---------+--------+--------------|
+| message | string | 1            |

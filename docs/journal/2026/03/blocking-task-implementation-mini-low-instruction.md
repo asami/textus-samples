@@ -6,7 +6,7 @@ Read first:
 - /Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/cml-operation-implementation-blocking-task-direction.md
 - /Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/05-a-job-control-lab-development-instruction.md
 - /Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/05-a-job-control-lab-mini-low-instruction.md
-- /Users/asami/src/dev2026/cncf-samples/samples/05-job/README.md
+- /Users/asami/src/dev2026/cncf-samples/samples/06-job/README.md
 
 ## Goal
 

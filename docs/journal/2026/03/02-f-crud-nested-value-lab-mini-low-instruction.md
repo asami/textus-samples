@@ -66,7 +66,7 @@ Do not require aggregate semantics.
 
 Clarify the distinction:
 
-- `06.a-aggregate-single-record-lab`
+- `07.a-aggregate-single-record-lab`
   - embedded value objects inside a single-record aggregate
 - `02.f-crud-nested-value-lab`
   - plain CRUD entity with nested value object attributes

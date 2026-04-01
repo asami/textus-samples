@@ -73,7 +73,7 @@ They are two observation surfaces over the same lifecycle fact.
 
 ## Sample Impact
 
-### `05-job`
+### `06-job`
 
 Application-facing job sample:
 
@@ -81,7 +81,7 @@ Application-facing job sample:
 - status/result
 - timeline/debug
 
-### `05.a-job-control-lab`
+### `06.a-job-control-lab`
 
 Admin-facing control lab:
 

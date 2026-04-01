@@ -21,11 +21,11 @@ cncf-samples/
     02-crud/
     02.a-crud-seed-import-lab/
     02.b-simpleentity-crud-lab/
-    03-cqrs/
-    04-event-driven/
-    05-job/
-    08-subsystem/
-    09-subsystem-wiring/
+    04-cqrs/
+    05-event-driven/
+    06-job/
+    09-subsystem/
+    10-subsystem-wiring/
     101-distributed/
 
   shared/
@@ -205,7 +205,7 @@ Concepts:
 - Command/Query
 
 ----------------------------------------
-03-cqrs — CQRS
+04-cqrs — CQRS
 
 Purpose:
 - Separate command and query
@@ -223,7 +223,7 @@ Concepts:
 - job integration
 
 ----------------------------------------
-04-event-driven — Event
+05-event-driven — Event
 
 Purpose:
 - Event-based execution
@@ -237,7 +237,7 @@ Concepts:
 - sync/async events
 
 ----------------------------------------
-05-job — Job Management
+06-job — Job Management
 
 Purpose:
 - Job lifecycle
@@ -251,7 +251,7 @@ Concepts:
 - retry / failure
 
 ----------------------------------------
-08-subsystem — Minimum Subsystem
+09-subsystem — Minimum Subsystem
 
 Purpose:
 - Show the minimum subsystem structure
@@ -266,7 +266,7 @@ Concepts:
 - minimal composition
 
 ----------------------------------------
-09-subsystem-wiring — Two-Component Subsystem
+10-subsystem-wiring — Two-Component Subsystem
 
 Purpose:
 - Show how one subsystem wires two components
@@ -331,19 +331,19 @@ docker compose up
 9. 02.c-crud-sqlite-lab
 10. 02.d-crud-server-memory-lab
 11. 02.e-crud-explicit-sync-lab
-12. 03-cqrs
-13. 03.a-designed-sync-command-lab
-14. 03.b-test-sync-command-lab
-15. 04-event-driven
-16. 04.a-event-job-trace-lab
-17. 04.b-event-job-server-client-lab
-18. 05-job
-19. 05.a-job-control-lab
-20. 05.b-job-control-demo-lab
-21. 06-aggregate
-22. 07-view
-23. 08-subsystem
-24. 09-subsystem-wiring
+12. 04-cqrs
+13. 04.a-designed-sync-command-lab
+14. 04.b-test-sync-command-lab
+15. 05-event-driven
+16. 05.a-event-job-trace-lab
+17. 05.b-event-job-server-client-lab
+18. 06-job
+19. 06.a-job-control-lab
+20. 06.b-job-control-demo-lab
+21. 07-aggregate
+22. 08-view
+23. 09-subsystem
+24. 10-subsystem-wiring
 25. 101-distributed
 
 --------------------------------------------------

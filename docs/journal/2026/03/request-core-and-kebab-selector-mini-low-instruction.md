@@ -18,7 +18,7 @@ This instruction is for `mini low`. Keep the work narrow and factual.
 - [/Users/asami/src/dev2025/cloud-native-component-framework/src/main/scala/org/goldenport/cncf/directive/Query.scala](/Users/asami/src/dev2025/cloud-native-component-framework/src/main/scala/org/goldenport/cncf/directive/Query.scala)
 - [/Users/asami/src/dev2025/cloud-native-component-framework/src/main/scala/org/goldenport/cncf/subsystem/resolver/OperationResolver.scala](/Users/asami/src/dev2025/cloud-native-component-framework/src/main/scala/org/goldenport/cncf/subsystem/resolver/OperationResolver.scala)
 - [/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab/README.md](/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab/README.md)
-- [/Users/asami/src/dev2026/cncf-samples/samples/03-cqrs/README.md](/Users/asami/src/dev2026/cncf-samples/samples/03-cqrs/README.md)
+- [/Users/asami/src/dev2026/cncf-samples/samples/04-cqrs/README.md](/Users/asami/src/dev2026/cncf-samples/samples/04-cqrs/README.md)
 
 ## Required Outcome
 

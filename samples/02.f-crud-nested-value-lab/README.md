@@ -66,5 +66,5 @@ The current first line confirms:
 ## Relation To Other Samples
 
 - `02-crud` shows the base CRUD line
-- `06.a-aggregate-single-record-lab` shows a single-record aggregate pattern
+- `07.a-aggregate-single-record-lab` shows a single-record aggregate pattern
 - `02.f-crud-nested-value-lab` stays in plain CRUD and focuses on nested value object persistence

@@ -1,0 +1,108 @@
+# COMPONENT
+
+## OperationEntitySample
+
+### PACKAGE
+
+org.sample.operationentity
+
+### DESCRIPTION
+
+Operation and entity integration sample.
+
+# ENTITY
+
+## Person
+
+### SUMMARY
+
+Person entity.
+
+### DESCRIPTION
+
+Minimal entity used by an operation-oriented service.
+
+### ATTRIBUTE
+
+| name | type     | multiplicity |
+|------+----------+--------------|
+| id   | entityid | 1            |
+| name | name     | 1            |
+
+# SERVICE
+
+## PersonApp
+
+### DESCRIPTION
+
+User-facing operation layer that sits beside the entity service.
+
+### OPERATION
+
+#### getPersonCard
+
+Returns a typed person card contract for a person id.
+
+##### TYPE
+
+QUERY
+
+##### SUMMARY
+
+Return a person card.
+
+##### DESCRIPTION
+
+Shows a query-oriented operation contract in a component that also owns an entity.
+
+##### INPUT
+
+Person lookup payload.
+
+###### SUMMARY
+
+Person lookup payload.
+
+###### DESCRIPTION
+
+Structured query input accepted by getPersonCard.
+
+###### VALUE
+
+####### PersonLookup
+
+######## EXTENDS
+
+QueryAction
+
+######## ATTRIBUTE
+
+| name     | type     | multiplicity |
+|----------+----------+--------------|
+| personId | entityid | 1            |
+
+##### OUTPUT
+
+Person card payload.
+
+###### SUMMARY
+
+Person card payload.
+
+###### DESCRIPTION
+
+Structured result returned by getPersonCard.
+
+###### VALUE
+
+####### PersonCard
+
+######## EXTENDS
+
+OperationResult
+
+######## ATTRIBUTE
+
+| name | type | multiplicity |
+|------+------|--------------|
+| name | name | 1            |

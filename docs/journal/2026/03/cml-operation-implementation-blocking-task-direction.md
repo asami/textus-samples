@@ -2,7 +2,7 @@
 
 ## Intent
 
-`05.a-job-control-lab` needs a controllable long-running job without falling back to
+`06.a-job-control-lab` needs a controllable long-running job without falling back to
 sample-local handwritten `JobTask` code.
 
 The right place for that typical behavior is the `IMPLEMENTATION` directive.

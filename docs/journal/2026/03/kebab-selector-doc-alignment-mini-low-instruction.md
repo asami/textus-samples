@@ -21,9 +21,9 @@ concrete bug is discovered.
 - [/Users/asami/src/dev2026/cncf-samples/samples/02-crud/README.md](/Users/asami/src/dev2026/cncf-samples/samples/02-crud/README.md)
 - [/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab/README.md](/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab/README.md)
 - [/Users/asami/src/dev2026/cncf-samples/samples/02.b-simpleentity-crud-lab/README.md](/Users/asami/src/dev2026/cncf-samples/samples/02.b-simpleentity-crud-lab/README.md)
-- [/Users/asami/src/dev2026/cncf-samples/samples/03-cqrs/README.md](/Users/asami/src/dev2026/cncf-samples/samples/03-cqrs/README.md)
-- [/Users/asami/src/dev2026/cncf-samples/samples/03.a-designed-sync-command-lab/README.md](/Users/asami/src/dev2026/cncf-samples/samples/03.a-designed-sync-command-lab/README.md)
-- [/Users/asami/src/dev2026/cncf-samples/samples/03.b-test-sync-command-lab/README.md](/Users/asami/src/dev2026/cncf-samples/samples/03.b-test-sync-command-lab/README.md)
+- [/Users/asami/src/dev2026/cncf-samples/samples/04-cqrs/README.md](/Users/asami/src/dev2026/cncf-samples/samples/04-cqrs/README.md)
+- [/Users/asami/src/dev2026/cncf-samples/samples/04.a-designed-sync-command-lab/README.md](/Users/asami/src/dev2026/cncf-samples/samples/04.a-designed-sync-command-lab/README.md)
+- [/Users/asami/src/dev2026/cncf-samples/samples/04.b-test-sync-command-lab/README.md](/Users/asami/src/dev2026/cncf-samples/samples/04.b-test-sync-command-lab/README.md)
 
 ## Required Outcome
 

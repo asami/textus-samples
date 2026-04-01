@@ -51,7 +51,7 @@ Checklist:
 - [x] Root `build.sbt` and `project/build.properties` exist
 - [x] Each sample has its own `build.sbt`
 - [x] Each sample has its own `project/build.properties`
-- [x] `04-event-driven` and later samples have a `docker/` location
+- [x] `05-event-driven` and later samples have a `docker/` location
 - [ ] The CLI execution path and expected output for `01-minimal` have been verified against the implementation
 - [x] Exit criteria for each sample are explicitly defined in per-sample checklist documents under `docs/phase/samples`
 
@@ -123,37 +123,97 @@ Reference:
 
 - `docs/phase/samples/02.b-simpleentity-crud-lab.md`
 
-### Subphase 2.7 03-cqrs
+### Subphase 2.6c 02.f-crud-nested-value-lab
 
 Reference:
 
-- `docs/phase/samples/03-cqrs.md`
+- `docs/phase/samples/02.f-crud-nested-value-lab.md`
 
-### Subphase 2.8 04-event-driven
-
-Reference:
-
-- `docs/phase/samples/04-event-driven.md`
-
-### Subphase 2.9 05-job
+### Subphase 2.7 03-operation
 
 Reference:
 
-- `docs/phase/samples/05-job.md`
+- `docs/phase/samples/03-operation.md`
 
-### Subphase 2.10 08-subsystem
-
-Reference:
-
-- `docs/phase/samples/08-subsystem.md`
-
-### Subphase 2.11 09-subsystem-wiring
+### Subphase 2.8 04-cqrs
 
 Reference:
 
-- `docs/phase/samples/09-subsystem-wiring.md`
+- `docs/phase/samples/04-cqrs.md`
 
-### Subphase 2.12 101-distributed
+### Subphase 2.8a 04.a-designed-sync-command-lab
+
+Reference:
+
+- `docs/phase/samples/04.a-designed-sync-command-lab.md`
+
+### Subphase 2.8b 04.b-test-sync-command-lab
+
+Reference:
+
+- `docs/phase/samples/04.b-test-sync-command-lab.md`
+
+### Subphase 2.9 05-event-driven
+
+Reference:
+
+- `docs/phase/samples/05-event-driven.md`
+
+### Subphase 2.9a 05.a-event-job-trace-lab
+
+Reference:
+
+- `docs/phase/samples/05.a-event-job-trace-lab.md`
+
+### Subphase 2.9b 05.b-event-job-server-client-lab
+
+Reference:
+
+- `docs/phase/samples/05.b-event-job-server-client-lab.md`
+
+### Subphase 2.10 06-job
+
+Reference:
+
+- `docs/phase/samples/06-job.md`
+
+### Subphase 2.10a 06.a-job-control-lab
+
+Reference:
+
+- `docs/phase/samples/06.a-job-control-lab.md`
+
+### Subphase 2.10b 06.b-job-control-demo-lab
+
+Reference:
+
+- `docs/phase/samples/06.b-job-control-demo-lab.md`
+
+### Subphase 2.11 07-aggregate
+
+Reference:
+
+- `docs/phase/samples/07-aggregate.md`
+
+### Subphase 2.12 08-view
+
+Reference:
+
+- `docs/phase/samples/08-view.md`
+
+### Subphase 2.13 09-subsystem
+
+Reference:
+
+- `docs/phase/samples/09-subsystem.md`
+
+### Subphase 2.14 10-subsystem-wiring
+
+Reference:
+
+- `docs/phase/samples/10-subsystem-wiring.md`
+
+### Subphase 2.15 101-distributed
 
 Reference:
 

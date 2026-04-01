@@ -10,7 +10,7 @@ This lab is different from:
 - `02.d-crud-server-memory-lab`
   - standard server/client CRUD path
   - command create remains job-backed
-- `03.b-test-sync-command-lab`
+- `04.b-test-sync-command-lab`
   - hidden sync behind an async/job-shaped interface
 
 `02.e` is for the other shape:

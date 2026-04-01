@@ -17,7 +17,7 @@ Create a follow-up lab after `02-crud` that demonstrates CRUD generation with `S
   - minimum model-driven CRUD
 - `02.b-simpleentity-crud-lab`
   - `SimpleEntity`-based CRUD
-- `03-cqrs`
+- `04-cqrs`
   - next structural step after CRUD
 
 ## Main Point

@@ -6,7 +6,7 @@ Design note.
 
 ## Problem
 
-`03.a-designed-sync-command-lab` currently proves that a command can return an
+`04.a-designed-sync-command-lab` currently proves that a command can return an
 immediate result, but the synchronous behavior is implemented in hand-written
 Scala code.
 
@@ -89,7 +89,7 @@ If an operation is:
 - `EXECUTION = async`
 
 or no explicit sync directive is present, then runtime behavior should remain
-the standard job-backed command path used by `03-cqrs`.
+the standard job-backed command path used by `04-cqrs`.
 
 ## Generator Responsibility
 
@@ -109,7 +109,7 @@ The runtime should:
 
 ## 03.a Implication
 
-`03.a-designed-sync-command-lab` should only be considered complete when:
+`04.a-designed-sync-command-lab` should only be considered complete when:
 
 - the command sync behavior is expressed in CML
 - the generated/runtime surface preserves that behavior
