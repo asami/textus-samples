@@ -39,9 +39,10 @@ Its initial goal is to build a catalog of patterns, not to recreate complex busi
 27. `07.b-aggregate-relation-boundary-model`
 28. `07.c-aggregate-external-update-semantics`
 29. `08-view`
-30. `09-subsystem`
-31. `10-subsystem-wiring`
-32. `101-distributed`
+30. `08.a-view-definition-lab`
+31. `09-subsystem`
+32. `10-subsystem-wiring`
+33. `101-distributed`
 
 ## AI Directive
 
@@ -109,6 +110,7 @@ AI behavior is interpreted in the following order.
 │  ├─ 07.b-aggregate-relation-boundary-model/
 │  ├─ 07.c-aggregate-external-update-semantics/
 │  ├─ 08-view/
+│  ├─ 08.a-view-definition-lab/
 │  ├─ 09-subsystem/
 │  ├─ 10-subsystem-wiring/
 │  └─ 101-distributed/

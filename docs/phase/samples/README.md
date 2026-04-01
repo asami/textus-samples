@@ -40,6 +40,7 @@ Current sample documents:
 - `07.b-aggregate-relation-boundary-model.md`
 - `07.c-aggregate-external-update-semantics.md`
 - `08-view.md`
+- `08.a-view-definition-lab.md`
 - `09-subsystem.md`
 - `10-subsystem-wiring.md`
 - `101-distributed.md`
