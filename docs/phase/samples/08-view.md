@@ -1,8 +1,8 @@
 # 08-view
 
 - [ ] sample source exists
-- [ ] build succeeds
-- [ ] view help path resolves
-- [ ] one view load route works
-- [ ] one view search route works
-- [ ] README explains the view-oriented point
+- [x] build succeeds
+- [x] view help path resolves
+- [x] one view load route works
+- [x] one view search route works
+- [x] README explains the view-oriented point

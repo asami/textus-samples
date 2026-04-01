@@ -1,0 +1,48 @@
+# COMPONENT
+
+## ViewSample
+
+### PACKAGE
+
+org.sample.view
+
+### DESCRIPTION
+
+Dedicated view/read-model sample component.
+
+### SPECIFICATION
+
+This component demonstrates a view-oriented read surface generated from `ENTITY > VIEW`.
+It keeps the runtime small and uses the generated view service rather than a handwritten repository layer.
+
+# ENTITY
+
+## Person
+
+### DESCRIPTION
+
+Person record used as the source entity for the first view sample.
+
+### ATTRIBUTE
+
+| name  | type     | multiplicity |
+|-------+----------+--------------|
+| id    | entityid | 1            |
+| name  | name     | 1            |
+| city  | string   | 1            |
+| title | string   | 1            |
+
+### VIEW
+
+#### DESCRIPTION
+
+Read-model view for loading and searching people as presentation-facing cards.
+
+#### ATTRIBUTE
+
+| name  | type     | multiplicity |
+|-------+----------+--------------|
+| id    | entityid | 1            |
+| name  | name     | 1            |
+| city  | string   | 1            |
+| title | string   | 1            |
