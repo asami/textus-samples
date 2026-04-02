@@ -37,10 +37,10 @@ The first completion target was:
 ## Observed Results
 
 - help resolves for `load-person-summary`
-- `view.summary.Person` and `view.detail.Person` are generated
-- `load-person-summary` returns the seeded `Alice` row through `view.summary.Person`
-- `load-person-detail` returns the seeded `Alice` row through `view.detail.Person`
-- `search-person-summary --city Tokyo` returns the Tokyo row through `view.summary.Person`
+- `entity.view.summary.Person` and `entity.view.detail.Person` are generated
+- `load-person-summary` returns the seeded `Alice` row through `entity.view.summary.Person`
+- `load-person-detail` returns the seeded `Alice` row through `entity.view.detail.Person`
+- `search-person-summary --city Tokyo` returns the Tokyo row through `entity.view.summary.Person`
 - `search-person --view search_by_city --city Tokyo` returns the Tokyo row through the custom query alias
 - `meta.describe` exposes:
   - `viewNames = detail, summary`
@@ -51,8 +51,8 @@ The first completion target was:
 ## Notes
 
 - At this line, predefined named projections also have generated Scala types:
-  - `view.summary.<Type>`
-  - `view.detail.<Type>`
+  - `entity.view.summary.<Type>`
+  - `entity.view.detail.<Type>`
 - runtime behavior now supports projection-fixed load/search by binding named browsers to projection-specific generated modules
 - `VIEW > QUERY`, `EVENTS`, and `REBUILDABLE` are now carried through generated metadata and projection surfaces
 - `VIEW > QUERY` runtime semantics currently work by registering query names as browser aliases and filtering the search record to the `query.*` fields referenced by the query expression

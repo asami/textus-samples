@@ -67,14 +67,14 @@ At this line, named views are exposed in two ways:
 - dynamic alias selection through `--view summary`
 - projection-fixed operations such as `load-person-summary` and `load-person-detail`
 
-The structural point is that named view aliases and explicit query/source-event metadata are now part of the component metadata, while predefined projections also have dedicated generated Scala types under `view.summary.*` and `view.detail.*`.
+The structural point is that named view aliases and explicit query/source-event metadata are now part of the component metadata, while predefined projections also have dedicated generated Scala types under `entity.view.summary.*` and `entity.view.detail.*`.
 
 Observed results:
 
-- `load-person-summary` returns the seeded `Alice` row through `view.summary.Person`
-- `search-person-summary --city Tokyo` returns projected rows through `view.summary.Person`
+- `load-person-summary` returns the seeded `Alice` row through `entity.view.summary.Person`
+- `search-person-summary --city Tokyo` returns projected rows through `entity.view.summary.Person`
 - `search-person --view search_by_city --city Tokyo` returns only rows selected by the custom view-query alias
-- `load-person-detail` returns the seeded `Alice` row through `view.detail.Person`
+- `load-person-detail` returns the seeded `Alice` row through `entity.view.detail.Person`
 - `meta.describe` exposes:
   - `viewNames`
   - `queries`
