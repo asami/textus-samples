@@ -76,25 +76,64 @@ if [[ -n "$sample_main_class" ]]; then
   main_class="$sample_main_class"
 fi
 
-sbt_args=(--batch "runMain ${main_class}")
+runtime_cp_file="target/cncf.d/runtime-classpath.txt"
+class_dir="$(find target -path '*/classes' -type d 2>/dev/null | sort | tail -n 1)"
+
+needs_prepare="0"
+if [[ ! -f "$runtime_cp_file" || -z "$class_dir" || ! -d "$class_dir" ]]; then
+  needs_prepare="1"
+elif find src/main build.sbt project/plugins.sbt -type f -newer "$runtime_cp_file" -print -quit 2>/dev/null | grep -q .; then
+  needs_prepare="1"
+fi
+
+if [[ "$needs_prepare" == "1" ]]; then
+  mkdir -p "$(dirname "$runtime_cp_file")"
+  prepare_log="$(mktemp)"
+  if sbt --batch cozyPrepareRuntime >"$prepare_log" 2>&1; then
+    cat "$prepare_log"
+  else
+    cat "$prepare_log" >&2
+    if grep -q "Not a valid command: cozyPrepareRuntime" "$prepare_log"; then
+      cp_log="$(mktemp)"
+      trap 'rm -f "$prepare_log" "$cp_log"' EXIT
+      sbt --batch "Compile / compile" "export Compile / fullClasspath" >"$cp_log" 2>&1
+      sed '$d' "$cp_log"
+      classpath_line="$(grep -v '^\[' "$cp_log" | tail -n 1)"
+      if [[ -z "$classpath_line" ]]; then
+        echo "Failed to extract runtime classpath from plain sbt project." >&2
+        exit 1
+      fi
+      printf '%s' "$classpath_line" | tr ':' '\n' >"$runtime_cp_file"
+    else
+      exit 1
+    fi
+  fi
+  rm -f "$prepare_log"
+fi
+
+if [[ ! -f "$runtime_cp_file" ]]; then
+  echo "Runtime classpath file not found: $runtime_cp_file" >&2
+  exit 1
+fi
+
+classpath="$(paste -sd: "$runtime_cp_file")"
+java_args=("$main_class")
 if [[ "$discover_classes" == "1" ]]; then
-  sbt_args[1]+=" --discover=classes"
+  java_args+=(--discover=classes)
 fi
 if [[ -n "$workspace" ]]; then
-  sbt_args[1]+=" --workspace ${workspace}"
+  java_args+=(--workspace "$workspace")
 fi
 if [[ ${#component_repositories[@]} -gt 0 ]]; then
   for repo in "${component_repositories[@]}"; do
-    sbt_args[1]+=" --component-repository=${repo}"
+    java_args+=(--component-repository="$repo")
   done
 fi
 if [[ -n "$command_path" ]]; then
-  sbt_args[1]+=" command ${command_path}"
+  java_args+=(command "$command_path")
 fi
 if [[ $# -gt 0 ]]; then
-  for arg in "$@"; do
-    sbt_args[1]+=" ${arg}"
-  done
+  java_args+=("$@")
 fi
 
-exec sbt "${sbt_args[@]}"
+exec java -cp "$classpath" "${java_args[@]}"

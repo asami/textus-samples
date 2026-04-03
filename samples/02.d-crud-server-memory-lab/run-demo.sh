@@ -23,6 +23,12 @@ for _ in $(seq 1 30); do
 done
 
 job_id="$(bash run-client-create.sh | rg '^cncf-job-' | tail -n 1)"
-item_json="$(sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes client job-control.job.await-job-result --id ${job_id}" | rg '^\{' | tail -n 1)"
+item_json="$(bash "$dir/../../scripts/sample-runner.sh" \
+  --script-path "$0" \
+  --discover-classes \
+  -- \
+  client \
+  job-control.job.await-job-result \
+  --id "${job_id}" | rg '^\{' | tail -n 1)"
 item_id="$(printf '%s\n' "$item_json" | python3 -c 'import json,sys; print(json.loads(sys.stdin.read())["id"])')"
 bash run-client-load.sh "$item_id"

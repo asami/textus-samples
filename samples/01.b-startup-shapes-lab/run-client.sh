@@ -5,12 +5,15 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
 
 if [[ $# -eq 0 ]]; then
-  exec sbt --batch "runMain org.goldenport.cncf.CncfMain client --help"
+  exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
+    --script-path "$0" \
+    -- \
+    client \
+    --help
 fi
 
-sbt_command="runMain org.goldenport.cncf.CncfMain client"
-for arg in "$@"; do
-  sbt_command+=" ${arg}"
-done
-
-exec sbt --batch "$sbt_command"
+exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
+  --script-path "$0" \
+  -- \
+  client \
+  "$@"

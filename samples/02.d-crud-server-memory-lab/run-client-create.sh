@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-dir="$(cd "$(dirname "$0")" && pwd)"
-cd "$dir"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
 
-exec sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes client crud.entity.create-item --name alpha --title Alpha"
+exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
+  --script-path "$0" \
+  --discover-classes \
+  -- \
+  client \
+  crud.entity.create-item \
+  --name alpha \
+  --title Alpha
