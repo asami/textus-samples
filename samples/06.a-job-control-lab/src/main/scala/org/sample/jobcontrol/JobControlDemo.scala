@@ -134,7 +134,7 @@ object JobControlDemo {
       subsystem,
       component = "job_control",
       service = "job",
-      operation = "load_job",
+      operation = "get_job_status",
       arguments = List(Argument("id", jobId.value))
     )
 

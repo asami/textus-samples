@@ -1,6 +1,0 @@
-package org.sample.aggregaterelationboundary
-
-class AggregateRelationBoundarySampleComponent extends AggregateRelationBoundarySampleC
-
-object AggregateRelationBoundarySampleComponent:
-  type Factory = AggregateRelationBoundarySampleC.Factory

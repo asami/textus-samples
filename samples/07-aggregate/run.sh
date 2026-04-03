@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
-set -eu
+set -euo pipefail
 
-sbt --batch "runMain org.sample.aggregate.OrderAggregateDemo"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
+  --script-path "$SCRIPT_DIR/run.sh" \
+  --sample-main-class org.sample.aggregate.OrderAggregateDemo

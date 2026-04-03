@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-exec sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help TestSync.Item.createItem"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
+  --script-path "$SCRIPT_DIR/run.sh" \
+  --discover-classes \
+  -- \
+  command help test-sync.item.create-item

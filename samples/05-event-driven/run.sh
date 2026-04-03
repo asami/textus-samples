@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-dir="$(cd "$(dirname "$0")" && pwd)"
-cd "$dir"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help event-driven"
+exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
+  --script-path "$SCRIPT_DIR/run.sh" \
+  --discover-classes \
+  -- \
+  command help event-driven

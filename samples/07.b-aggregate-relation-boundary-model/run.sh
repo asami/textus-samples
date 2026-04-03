@@ -1,5 +1,8 @@
-#!/bin/bash
-set -eu
-cd "$(dirname "$0")"
-sbt --batch clean compile
-sbt --batch "runMain org.sample.aggregaterelationboundary.RelationBoundaryAggregateDemo"
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
+  --script-path "$SCRIPT_DIR/run.sh" \
+  --sample-main-class org.sample.aggregaterelationboundary.RelationBoundaryAggregateDemo
