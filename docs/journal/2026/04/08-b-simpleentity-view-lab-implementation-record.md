@@ -25,3 +25,6 @@ This sample is the `Entity extends SimpleEntity` variant of `08-view`.
   - `name`
   - `title`
   - `city`
+- Runtime note:
+  - view load/search uses the shared runtime view cache
+  - entity writes invalidate cached view results

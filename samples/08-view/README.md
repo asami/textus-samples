@@ -61,6 +61,14 @@ Observed results:
 - `load-person` returns the seeded `Alice` view record
 - `search-person-record --name Alice` returns one matching view record
 
+## Runtime Cache
+
+The current runtime line now includes view cache behavior:
+
+- repeated view load/search may be served from an in-memory view cache
+- entity create/save/update/delete invalidates the view cache
+- the cache is a runtime optimization only and does not change the view surface
+
 ## Why This Is View-Oriented
 
 This sample is not aggregate-oriented because the runtime surface is a read-model projection.

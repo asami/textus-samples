@@ -56,4 +56,5 @@ The first completion target was:
 - runtime behavior now supports projection-fixed load/search by binding named browsers to projection-specific generated modules
 - `VIEW > QUERY`, `EVENTS`, and `REBUILDABLE` are now carried through generated metadata and projection surfaces
 - `VIEW > QUERY` runtime semantics currently work by registering query names as browser aliases and filtering the search record to the `query.*` fields referenced by the query expression
+- runtime view cache now applies to named view load/search paths as well, and entity writes invalidate cached view results
 - the next natural line is event-driven projection / rebuild flow

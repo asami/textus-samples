@@ -81,6 +81,14 @@ Observed results:
   - `sourceEvents`
   - `rebuildable`
 
+## Runtime Cache
+
+The current runtime line also includes view cache behavior:
+
+- repeated summary/detail load and search may be served from the runtime view cache
+- entity writes invalidate the cached view results
+- named view aliases and custom view queries keep the same external surface
+
 The next line after this sample is:
 
 - event-driven projection / rebuild flow

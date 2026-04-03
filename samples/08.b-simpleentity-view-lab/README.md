@@ -46,6 +46,14 @@ Observed results:
 - `search-person-record --name Alice` returns one matching view record
 - help selector resolves as `simple-entity-view-sample.view.load-person`
 
+## Runtime Cache
+
+The current runtime line includes the same view cache behavior as the other `08` samples:
+
+- repeated view load/search may be served from cache
+- entity writes invalidate the cached view results
+- inherited `SimpleEntity` fields do not change the cache contract
+
 ## Why This Matters
 
 This line confirms that `ENTITY > VIEW` is not limited to flat entities.

@@ -42,3 +42,9 @@ The first line required a framework mainline fix:
 
 - default view bootstrap now projects source entity records into generated `entity.view.*` objects
 - default view browser now supports query-based search instead of `Browser.query is not supported`
+
+The current runtime line also includes:
+
+- view load cache
+- view query cache
+- invalidation of cached view results on entity write operations
