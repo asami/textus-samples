@@ -1,0 +1,129 @@
+# COMPONENT
+
+## AggregateExternalUpdateSample
+
+### PACKAGE
+
+org.sample.aggregateexternalupdate
+
+### DESCRIPTION
+
+Aggregate sample for external update-side semantics.
+
+# SERVICE
+
+## Order
+
+### DESCRIPTION
+
+Order-facing operations for external update semantics.
+
+### OPERATION
+
+#### cancelOrder
+
+##### DESCRIPTION
+
+Cancels an order aggregate and applies follow-up updates to external aggregated members.
+
+##### IN
+
+Aggregate cancellation command.
+
+##### OUT
+
+Updated aggregate projection.
+
+# ENTITY
+
+## Order
+
+### ATTRIBUTE
+
+| name   | type      | multiplicity |
+|--------+-----------+--------------|
+| id     | entityid  | 1            |
+| userId | entityid  | 1            |
+| name   | name      | 1            |
+| status | string    | 1            |
+
+### AGGREGATE
+
+#### MEMBER
+
+| name           | entity         | kind        | boundary | join    | multiplicity | join_field |
+|----------------+----------------+-------------+----------+---------+--------------+------------|
+| shipmentOrders | ShipmentOrder  | aggregation | external | reverse | *            | orderId    |
+| user           | User           | association | external | direct  | ?            | userId     |
+
+#### COMMAND
+
+##### cancelOrder
+- INPUT.orderId :: entityid
+
+## ShipmentOrder
+
+### ATTRIBUTE
+
+| name    | type     | multiplicity |
+|---------+----------+--------------|
+| id      | entityid | 1            |
+| orderId | entityid | 1            |
+| title   | name     | 1            |
+| status  | string   | 1            |
+
+## User
+
+### ATTRIBUTE
+
+| name | type     | multiplicity |
+|------+----------+--------------|
+| id   | entityid | 1            |
+| name | name     | 1            |
+
+# QUERY
+
+## LoadOrderAggregate
+
+### ATTRIBUTE
+
+| name | type     | multiplicity |
+|------|----------+--------------|
+| id   | entityid | 1            |
+
+# COMMAND
+
+## CancelOrder
+
+### ATTRIBUTE
+
+| name    | type     | multiplicity |
+|---------+----------+--------------|
+| orderId | entityid | 1            |
+
+# OPERATION
+
+## loadOrderAggregate
+
+### TYPE
+QUERY
+
+### IMPLEMENTATION
+aggregate-load
+
+### INPUT
+LoadOrderAggregate
+
+### OUTPUT
+LoadOrderAggregateResult
+
+## cancelOrder
+
+### TYPE
+COMMAND
+
+### INPUT
+CancelOrder
+
+### OUTPUT
+CancelOrderResult
