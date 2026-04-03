@@ -10,7 +10,8 @@ lazy val root = (project in file("."))
     name := "cncf-samples-02a-crud-seed-import-lab",
     scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked"),
     cozyGeneratorBackend := "cozy",
-    cozyDelegateProjectDir := Some(file("/Users/asami/src/dev2025/cozy")),
+    cozyDelegateProjectDir := None,
+    cozyDelegateCommand := Seq(baseDirectory.value.toPath.getParent.getParent.resolve("bin/cozy").toFile.getAbsolutePath),
     resolvers ++= Seq(
       Resolver.defaultLocal,
       Resolver.mavenLocal,

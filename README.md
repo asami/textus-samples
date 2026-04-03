@@ -214,6 +214,43 @@ Preferred pattern:
 - Use the CNCF library main first
 - Introduce a sample-local main only when the CNCF main is insufficient
 
+## Cozy Generation
+
+Sample generation is fixed to the following shape for now:
+
+- sample-local `project/plugins.sbt`
+  - reads the `sbt-cozy` version from [sbt-cozy-version.conf](/Users/asami/src/dev2026/cncf-samples/versions/sbt-cozy-version.conf)
+- sample-local `build.sbt`
+  - uses `cozyDelegateCommand`
+  - calls [bin/cozy](/Users/asami/src/dev2026/cncf-samples/bin/cozy)
+- [bin/cozy](/Users/asami/src/dev2026/cncf-samples/bin/cozy)
+  - reads the target `cozy` version from [cozy-version.conf](/Users/asami/src/dev2026/cncf-samples/versions/cozy-version.conf)
+  - finds a local `cozy` workspace whose `build.sbt` version matches that value
+  - executes `cozy.Cozy` through `sbt runMain`
+
+Current intent:
+
+- keep sample-side dependency versions fixed in one place
+- avoid hard-wiring sample builds to a specific development path
+- keep development turnaround fast while `cozy` is still used from a local workspace
+
+Current resolution order for `bin/cozy`:
+
+1. `COZY_PROJECT_DIR`
+2. `~/src/dev2025/cozy`
+3. `~/src/dev2026/cozy`
+
+The selected workspace must have the same version as [cozy-version.conf](/Users/asami/src/dev2026/cncf-samples/versions/cozy-version.conf).
+
+This is a development-stage operating mode.
+The intended later path is:
+
+1. local command wrapper
+2. local published artifact or equivalent packaged runtime
+3. Docker-based `cozy` command
+
+The purpose of the current stage is to preserve development efficiency without coupling each sample directly to one handwritten `cozyDelegateProjectDir` setting.
+
 User-facing invocation guidance lives under:
 
 - `guide/invocation/component-and-subsystem-invocation-guide.md`

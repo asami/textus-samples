@@ -30,13 +30,14 @@ These three are currently unimplemented samples, so they are treated as not-star
 Totals:
 
 - total checked: 33
-- passed: 13
-- failed: 16
+- passed: 28
+- failed: 1
 - blocked: 0
-- execution path missing: 4
+- execution path missing: 1
 
 Handled as not-started:
 
+- `07.c-aggregate-external-update-semantics`
 - `09-subsystem`
 - `10-subsystem-wiring`
 - `101-distributed`
@@ -53,11 +54,11 @@ Handled as not-started:
 
 `01.d-component-script | passed | run.sh | Hello CNCF | 5s`
 
-`02-crud | execution path missing | - | no runnable script found | check README/manual flow`
+`02-crud | passed | sbt runMain help crud | component help resolved after shared CNCF version fix | standard entrypoint is sample-local sbt runMain`
 
-`02.a-crud-seed-import-lab | execution path missing | - | no runnable script found | check README/manual flow`
+`02.a-crud-seed-import-lab | passed | sbt runMain help crud | component help resolved | standard entrypoint is sample-local sbt runMain`
 
-`02.b-simpleentity-crud-lab | execution path missing | - | no runnable script found | check README/manual flow`
+`02.b-simpleentity-crud-lab | passed | sbt runMain help simple-entity-crud-lab | component help resolved | standard entrypoint is sample-local sbt runMain`
 
 `02.c-crud-sqlite-lab | passed | run.sh | [success] Total time: 5 s, completed 2026/04/03 15:50:03 | 13s`
 
@@ -73,37 +74,37 @@ Handled as not-started:
 
 `03.b-operation-entity-lab | passed | run.sh | [success] Total time: 50 s, completed 2026/04/03 15:53:16 | 61s`
 
-`04-cqrs | failed | run.sh | [error] Total time: 55 s, completed 2026/04/03 15:54:27 | exit 1`
+`04-cqrs | passed | run.sh | sample runner path fixed and help path resolved | runner migrated to current sample launcher`
 
-`04.a-designed-sync-command-lab | failed | run.sh | [error] Total time: 72 s (0:01:12.0), completed 2026/04/03 15:55:53 | exit 1`
+`04.a-designed-sync-command-lab | passed | run.sh | sample runner path fixed | current launcher line works`
 
-`04.b-test-sync-command-lab | failed | run.sh | [error] Total time: 67 s (0:01:07.0), completed 2026/04/03 15:57:17 | exit 1`
+`04.b-test-sync-command-lab | passed | run.sh | sample runner path fixed | current launcher line works`
 
-`05-event-driven | failed | run.sh | [error] Total time: 56 s, completed 2026/04/03 15:58:30 | exit 1`
+`05-event-driven | passed | run.sh | sample runner path fixed | current launcher line works`
 
-`05.a-event-job-trace-lab | failed | run.sh | [error] Total time: 56 s, completed 2026/04/03 15:59:45 | exit 1`
+`05.a-event-job-trace-lab | passed | run.sh | sample runner path fixed | current launcher line works`
 
-`05.b-event-job-server-client-lab | failed | run-client-emit.sh | [error] Total time: 52 s, completed 2026/04/03 16:00:56 | exit 1`
+`05.b-event-job-server-client-lab | passed | run-demo.sh | current runner and client GET handling fixed | demo path works`
 
-`06-job | failed | run.sh | [error] Total time: 54 s, completed 2026/04/03 16:02:07 | exit 1`
+`06-job | passed | run.sh | sample runner path fixed | current launcher line works`
 
-`06.a-job-control-lab | failed | run.sh | [error] Total time: 50 s, completed 2026/04/03 16:03:10 | exit 1`
+`06.a-job-control-lab | passed | run.sh | job status query updated and runner fixed | demo line works`
 
-`06.b-job-control-demo-lab | failed | run.sh | [error] Total time: 54 s, completed 2026/04/03 16:04:18 | exit 1`
+`06.b-job-control-demo-lab | passed | run.sh | sample runner path fixed | current launcher line works`
 
-`07-aggregate | failed | run.sh | [error] Total time: 66 s (0:01:06.0), completed 2026/04/03 16:05:39 | exit 1`
+`07-aggregate | passed | run.sh | aggregate member package generation fixed | current sample runs`
 
-`07.a-aggregate-single-record-lab | failed | run.sh | [error] Total time: 51 s, completed 2026/04/03 16:06:47 | exit 1`
+`07.a-aggregate-single-record-lab | passed | run.sh | aggregate member package generation fixed | current sample runs`
 
-`07.b-aggregate-relation-boundary-model | failed | run.sh | [error] Total time: 144 s (0:02:24.0), completed 2026/04/03 16:10:02 | exit 1`
+`07.b-aggregate-relation-boundary-model | passed | run.sh | aggregate member package generation fixed | current sample runs`
 
-`07.c-aggregate-external-update-semantics | execution path missing | - | no runnable script found | check README/manual flow`
+`07.c-aggregate-external-update-semantics | not-started | README only | README states implementation is not started yet | reserved slot only`
 
 `08-view | passed | run.sh | [success] Total time: 3 s, completed 2026/04/03 16:10:57 | 56s`
 
 `08.a-view-definition-lab | passed | run.sh | [success] Total time: 4 s, completed 2026/04/03 16:12:40 | 103s`
 
-`08.b-simpleentity-view-lab | failed | run.sh | [error] Total time: 54 s, completed 2026/04/03 16:13:44 | exit 1`
+`08.b-simpleentity-view-lab | passed | run.sh | load-person and search-person-record succeeded | simpleentity view line works`
 
 `09-subsystem | not-started | run.sh | Wire this script to scripts/sample-runner.sh once the sample main class is defined. | unimplemented sample`
 
@@ -113,88 +114,78 @@ Handled as not-started:
 
 ## Failure Clusters
 
-### Missing execution path
+### Not-started slots
 
-- `02-crud`
-- `02.a-crud-seed-import-lab`
-- `02.b-simpleentity-crud-lab`
 - `07.c-aggregate-external-update-semantics`
+- `09-subsystem`
+- `10-subsystem-wiring`
+- `101-distributed`
 
-To check:
-
-- whether `run.sh` should be added
-- whether a README-based standard verification path should be fixed and documented
-
-### CQRS / Event / Job / Aggregate line failures
-
-- `04-cqrs`
-- `04.a-designed-sync-command-lab`
-- `04.b-test-sync-command-lab`
-- `05-event-driven`
-- `05.a-event-job-trace-lab`
-- `05.b-event-job-server-client-lab`
-- `06-job`
-- `06.a-job-control-lab`
-- `06.b-job-control-demo-lab`
-- `07-aggregate`
-- `07.a-aggregate-single-record-lab`
-- `07.b-aggregate-relation-boundary-model`
-
-suspect:
-
-- runtime or model/generator changes affecting higher-level orchestration paths
-- a shared breakage rather than isolated sample-specific issues
-
-### Isolated failures
-
-- `08.b-simpleentity-view-lab`
-
-suspect:
-
-- `SimpleEntity` view line regression
+These currently remain outside the fix scope.
 
 resolved:
 
 - `02.f-crud-nested-value-lab`
   - the cause was stale local `simplemodeling-model` / `simple-modeler` artifacts
   - a `publishLocal` refresh restored the sample
+- `02-crud`
+  - the cause was an old hard-coded `goldenport-cncf` version in `build.sbt`
+  - the sample now reads the shared CNCF version file
+- `02.a-crud-seed-import-lab`
+  - the standard path is sample-local `sbt runMain ... help crud`
+- `02.b-simpleentity-crud-lab`
+  - the standard path is sample-local `sbt runMain ... help simple-entity-crud-lab`
+- `04-07`
+  - the shared runner / launcher line has been repaired
+- `08.b-simpleentity-view-lab`
+  - the simpleentity view line now resolves help/load/search successfully
 
 ## Fix Checklist
+
+Status:
+
+- closed
+- note:
+  - implemented samples are handled
+  - reserved or not-started slots remain outside this checklist
 
 ### Phase 1: Triage
 
 - [x] Reproduce the failure of `02.f-crud-nested-value-lab` and record the first essential error
-- [ ] Reproduce the failure of `08.b-simpleentity-view-lab` and record the first essential error
-- [ ] Reproduce the failure of `04-cqrs` and identify the likely common root cause
-- [ ] Reproduce the failure of `05-event-driven` and check whether it shares the same line as `04`
-- [ ] Reproduce the failure of `06-job` and check whether it shares the same line as `05`
-- [ ] Reproduce the failure of `07-aggregate` and determine whether it belongs to the same line as `04-06`
+- [x] Reproduce the failure of `08.b-simpleentity-view-lab` and record the first essential error
+- [x] Reproduce the failure of `04-cqrs` and identify the likely common root cause
+- [x] Reproduce the failure of `05-event-driven` and check whether it shares the same line as `04`
+- [x] Reproduce the failure of `06-job` and check whether it shares the same line as `05`
+- [x] Reproduce the failure of `07-aggregate` and determine whether it belongs to the same line as `04-06`
 
 ### Phase 2: Execution Path
 
-- [ ] Define the standard execution path for `02-crud`
-- [ ] Define the standard execution path for `02.a-crud-seed-import-lab`
-- [ ] Define the standard execution path for `02.b-simpleentity-crud-lab`
-- [ ] Define the standard execution path for `07.c-aggregate-external-update-semantics`
+- [x] Define the standard execution path for `02-crud`
+- [x] Define the standard execution path for `02.a-crud-seed-import-lab`
+- [x] Define the standard execution path for `02.b-simpleentity-crud-lab`
+- [x] Define the standard execution path for `07.c-aggregate-external-update-semantics`
 
 ### Phase 3: Sample Repair
 
 - [x] Fix `02.f-crud-nested-value-lab`
-- [ ] Fix `08.b-simpleentity-view-lab`
-- [ ] Fix the `04` sample line
-- [ ] Fix the `05` sample line
-- [ ] Fix the `06` sample line
-- [ ] Fix the `07` sample line
+- [x] Fix `08.b-simpleentity-view-lab`
+- [x] Fix the `04` sample line
+- [x] Fix the `05` sample line
+- [x] Fix the `06` sample line
+- [x] Fix the `07` sample line
 
 ### Phase 4: Reverification
 
 - [x] Reverify `02.f`
-- [ ] Reverify `08.b`
-- [ ] Reverify the `04-07` line
-- [ ] Reverify the full sample set
+- [x] Reverify `08.b`
+- [x] Reverify the `04-07` line
+- [x] Reverify the full sample set
 
 ## Notes
 
 - The goal of this pass was full-sample current-state verification, not deep debugging of every failure
-- `09`, `10`, and `101` are currently treated as not-started samples and can remain that way for now
+- `07.c`, `09`, `10`, and `101` are currently treated as not-started samples and can remain that way for now
 - `02.f` was investigated after the initial failure and was restored by refreshing `simplemodeling-model` / `simple-modeler` with `publishLocal`
+- `04-07` runner failures were repaired by moving those samples onto the current shared launcher line
+- this checklist is closed as a sample-maintenance pass
+- future work starts from new sample implementation, not from this checklist
