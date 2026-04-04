@@ -1,0 +1,57 @@
+# COMPONENT
+
+## ViewCacheSample
+
+### PACKAGE
+
+org.sample.viewcache
+
+### DESCRIPTION
+
+Paged view-search sample for UI list rendering.
+
+### SPECIFICATION
+
+This component demonstrates that the primary UI list path is view search with paging.
+The runtime line adds cache-aware chunk reuse for repeated nearby pages.
+
+# ENTITY
+
+## Person
+
+### DESCRIPTION
+
+Person record used as the source entity for paged view search.
+
+### ATTRIBUTE
+
+| name  | type     | multiplicity |
+|-------+----------+--------------|
+| id    | entityid | 1            |
+| name  | name     | 1            |
+| city  | string   | 1            |
+| title | string   | 1            |
+
+### VIEW
+
+- VIEWS :: summary
+- REBUILDABLE :: true
+
+#### DESCRIPTION
+
+The view line is shaped for repeated list access with nearby offsets.
+
+#### ATTRIBUTE
+
+| name  | type     | multiplicity |
+|-------+----------+--------------|
+| id    | entityid | 1            |
+| name  | name     | 1            |
+| city  | string   | 1            |
+| title | string   | 1            |
+
+#### QUERY
+
+##### searchByCity
+
+- EXPRESSION :: person.city == query.city

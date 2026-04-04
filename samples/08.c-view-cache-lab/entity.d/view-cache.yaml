@@ -1,0 +1,27 @@
+entitystore:
+  - collection: tokyo.sales.person
+    records:
+      - id: tokyo-sales-entity-person-1742198400000-aa01
+        name: Alice
+        city: Tokyo
+        title: Reader
+      - id: tokyo-sales-entity-person-1742198400000-aa02
+        name: Bella
+        city: Tokyo
+        title: Analyst
+      - id: tokyo-sales-entity-person-1742198400000-aa03
+        name: Chloe
+        city: Tokyo
+        title: Planner
+      - id: tokyo-sales-entity-person-1742198400000-aa04
+        name: Diana
+        city: Tokyo
+        title: Designer
+      - id: tokyo-sales-entity-person-1742198400000-aa05
+        name: Emma
+        city: Tokyo
+        title: Lead
+      - id: tokyo-sales-entity-person-1742198400000-bb01
+        name: Bob
+        city: Osaka
+        title: Editor

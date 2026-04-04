@@ -95,7 +95,7 @@ if [[ ${#extra_repo_args[@]} -gt 0 ]]; then
   forward_args+=("${extra_repo_args[@]}")
 fi
 
-exec bash "$SCRIPT_DIR/cncf-run-main.sh" \
+exec bash "$repo_root/bin/cncf" \
   "${forward_args[@]}" \
   -- \
   "$@"
