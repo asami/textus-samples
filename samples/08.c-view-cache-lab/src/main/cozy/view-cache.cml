@@ -35,7 +35,6 @@ Person record used as the source entity for paged view search.
 ### VIEW
 
 - VIEWS :: summary
-- REBUILDABLE :: true
 
 #### DESCRIPTION
 

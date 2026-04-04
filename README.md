@@ -223,9 +223,12 @@ Sample generation is fixed to the following shape for now:
 - sample-local `build.sbt`
   - uses `cozyDelegateCommand`
   - calls [bin/cozy](/Users/asami/src/dev2026/cncf-samples/bin/cozy)
+- [bin/setup](/Users/asami/src/dev2026/cncf-samples/bin/setup)
+  - prepares the cozy launcher for the configured version
+  - verifies dependency resolution before samples use it
 - [bin/cozy](/Users/asami/src/dev2026/cncf-samples/bin/cozy)
   - reads the target `cozy` version from [cozy-version.conf](/Users/asami/src/dev2026/cncf-samples/versions/cozy-version.conf)
-  - finds a local `cozy` workspace whose `build.sbt` version matches that value
+  - uses the prepared launcher created by [bin/setup](/Users/asami/src/dev2026/cncf-samples/bin/setup)
   - executes `cozy.Cozy` through `sbt runMain`
 
 Current intent:
@@ -234,13 +237,19 @@ Current intent:
 - avoid hard-wiring sample builds to a specific development path
 - keep development turnaround fast while `cozy` is still used from a local workspace
 
-Current resolution order for `bin/cozy`:
+Current operating rule:
 
-1. `COZY_PROJECT_DIR`
-2. `~/src/dev2025/cozy`
-3. `~/src/dev2026/cozy`
+1. run `bin/setup cozy`
+2. run sample build or sample script
+3. `bin/cozy` uses the prepared launcher
 
-The selected workspace must have the same version as [cozy-version.conf](/Users/asami/src/dev2026/cncf-samples/versions/cozy-version.conf).
+Resolver policy:
+
+- release version
+  - resolve from the normal published repositories
+- `-SNAPSHOT` version
+  - resolve from Ivy local first
+  - this assumes the matching `cozy` version has already been `publishLocal`ed
 
 This is a development-stage operating mode.
 The intended later path is:

@@ -1,0 +1,93 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+COZY_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cozy-version.conf")"
+LAUNCHER_ROOT="${TMPDIR:-/tmp}/cncf-samples/cozy-launcher/$COZY_VERSION"
+STATE_FILE="$LAUNCHER_ROOT/.setup-complete"
+
+usage() {
+  cat <<'EOF'
+Usage:
+  bin/setup cozy
+  bin/setup all
+
+Current responsibilities:
+  - prepare the cozy launcher used by bin/cozy
+  - verify cozy dependency resolution for the configured version
+EOF
+}
+
+cozy_dependency_coords() {
+  printf '"org.simplemodeling" %%%% "cozy" %% "%s"' "$COZY_VERSION"
+}
+
+is_snapshot() {
+  [[ "$COZY_VERSION" == *-SNAPSHOT ]]
+}
+
+write_launcher_files() {
+  mkdir -p "$LAUNCHER_ROOT/project"
+  local resolver_block
+  local dependency_coords
+  dependency_coords="$(cozy_dependency_coords)"
+  if is_snapshot; then
+    resolver_block='  resolvers += Resolver.defaultLocal,
+  resolvers += "GitHab releases 2020" at "https://raw.github.com/asami/maven-repository/2020/releases",
+  resolvers += "GitHab releases 2025" at "https://raw.github.com/asami/maven-repository/2025/releases",
+  resolvers += "GitHub Packages" at "https://maven.pkg.github.com/asami/maven-repository",
+  credentials += Credentials(Path.userHome / ".sbt" / ".credentials"),'
+  else
+    resolver_block='  resolvers += "GitHab releases 2020" at "https://raw.github.com/asami/maven-repository/2020/releases",
+  resolvers += "GitHab releases 2025" at "https://raw.github.com/asami/maven-repository/2025/releases",
+  resolvers += "GitHub Packages" at "https://maven.pkg.github.com/asami/maven-repository",
+  credentials += Credentials(Path.userHome / ".sbt" / ".credentials"),'
+  fi
+  cat > "$LAUNCHER_ROOT/build.sbt" <<EOF
+ThisBuild / scalaVersion := "2.12.18"
+ThisBuild / evictionErrorLevel := Level.Warn
+
+lazy val root = (project in file(".")).settings(
+$resolver_block
+  libraryDependencies += $dependency_coords,
+  Compile / run / mainClass := Some("cozy.Cozy")
+)
+EOF
+  cat > "$LAUNCHER_ROOT/project/build.properties" <<'EOF'
+sbt.version=1.11.7
+EOF
+}
+
+prepare_cozy() {
+  rm -f "$STATE_FILE"
+  write_launcher_files
+  (
+    cd "$LAUNCHER_ROOT"
+    sbt \
+      --batch \
+      -Dsbt.server.autostart=false \
+      -Dsbt.supershell=false \
+      update
+  )
+  printf '%s\n' "$COZY_VERSION" > "$STATE_FILE"
+  echo "prepared cozy launcher: $LAUNCHER_ROOT"
+  echo "cozy version: $COZY_VERSION"
+}
+
+main() {
+  case "${1:-all}" in
+    cozy|all)
+      prepare_cozy
+      ;;
+    -h|--help|help)
+      usage
+      ;;
+    *)
+      usage >&2
+      exit 1
+      ;;
+  esac
+}
+
+main "$@"

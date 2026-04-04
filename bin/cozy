@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+EXPECTED_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cozy-version.conf")"
+LAUNCHER_ROOT="${TMPDIR:-/tmp}/cncf-samples/cozy-launcher/$EXPECTED_VERSION"
+SETUP_STATE_FILE="$LAUNCHER_ROOT/.setup-complete"
+
+quoted_args=()
+for arg in "$@"; do
+  quoted_args+=("$(printf '%q' "$arg")")
+done
+
+command="runMain cozy.Cozy ${quoted_args[*]}"
+
+if [[ -n "${COZY_PROJECT_DIR:-}" ]]; then
+  cd "$COZY_PROJECT_DIR"
+  exec sbt \
+    --batch \
+    -Dsbt.server.autostart=false \
+    -Dsbt.supershell=false \
+    "$command"
+fi
+
+if [[ ! -f "$SETUP_STATE_FILE" ]]; then
+  echo "cozy launcher is not prepared for $EXPECTED_VERSION" >&2
+  echo "run: $REPO_ROOT/bin/setup cozy" >&2
+  exit 1
+fi
+
+cd "$LAUNCHER_ROOT"
+exec sbt \
+  --batch \
+  -Dsbt.server.autostart=false \
+  -Dsbt.supershell=false \
+  "$command"

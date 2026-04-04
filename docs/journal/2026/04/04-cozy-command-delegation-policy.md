@@ -23,8 +23,9 @@ The current repository-wide rule is:
 3. each sample uses:
    - `cozyDelegateProjectDir := None`
    - `cozyDelegateCommand := Seq(<repo>/bin/cozy)`
-4. [bin/cozy](/Users/asami/src/dev2026/cncf-samples/bin/cozy) resolves the actual execution target
-5. `sbt-cozy` delegated generation executes the command directly when `cozyDelegateProjectDir` is not set
+4. [bin/setup](/Users/asami/src/dev2026/cncf-samples/bin/setup) prepares the actual execution target
+5. [bin/cozy](/Users/asami/src/dev2026/cncf-samples/bin/cozy) uses the prepared launcher
+6. `sbt-cozy` delegated generation executes the command directly when `cozyDelegateProjectDir` is not set
 
 ## Why This Shape Is Fixed For Now
 
@@ -46,25 +47,35 @@ In other words:
 - the execution boundary is now a command
 - the implementation behind that command is still optimized for development efficiency
 
-## Current `bin/cozy` Resolution
+## Current `bin/setup` And `bin/cozy` Shape
 
-`bin/cozy` currently chooses a local `cozy` workspace in this order:
+`bin/setup` currently prepares a versioned launcher under:
 
-1. `COZY_PROJECT_DIR`
-2. `~/src/dev2025/cozy`
-3. `~/src/dev2026/cozy`
+- `${TMPDIR:-/tmp}/cncf-samples/cozy-launcher/<cozy-version>`
 
-The selected workspace must satisfy:
+The launcher always reads the target version from:
 
-- it exists
-- it has a `build.sbt`
-- its `version := ...` matches [cozy-version.conf](/Users/asami/src/dev2026/cncf-samples/versions/cozy-version.conf)
+- [cozy-version.conf](/Users/asami/src/dev2026/cncf-samples/versions/cozy-version.conf)
 
-Once matched, the script runs:
+Resolver policy is:
 
-- `sbt --batch "runMain cozy.Cozy ..."`
+- release version
+  - use normal published repositories
+- `-SNAPSHOT` version
+  - include `Resolver.defaultLocal`
+  - use Ivy local first for development builds
 
-inside that workspace.
+`bin/cozy` no longer generates launcher state.
+It only:
+
+1. checks that `bin/setup cozy` has already prepared the launcher
+2. runs:
+   - `sbt --batch "runMain cozy.Cozy ..."`
+   inside that prepared launcher
+
+Optional direct project mode remains available through:
+
+- `COZY_PROJECT_DIR`
 
 ## Intended Future Stages
 
@@ -72,7 +83,8 @@ The intended progression is:
 
 1. current stage
    - command boundary exists
-   - local workspace execution is allowed
+   - setup and execution are split
+   - local workspace execution is allowed only as explicit override
 2. next stage
    - command boundary remains
    - packaged local runtime or published artifact becomes the default implementation
@@ -90,7 +102,7 @@ The key rule is:
 
 For current development:
 
-- changing `cozy` source code can still be reflected quickly
+- changing `cozy` source code can still be reflected quickly through `publishLocal` plus `bin/setup cozy`
 - sample-side `plugins.sbt` and `build.sbt` stay stable
 - `sbt-cozy` development can use `publishLocal` and `Resolver.defaultLocal`
 

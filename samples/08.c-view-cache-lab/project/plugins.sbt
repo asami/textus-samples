@@ -13,6 +13,6 @@ def sbtCozyVersion: String = {
   if (version.nonEmpty) version else sys.error("sbt-cozy version is empty")
 }
 
-resolvers += Resolver.defaultLocal
+resolvers += "GitHab releases 2025" at "https://raw.github.com/asami/maven-repository/2025/releases"
 
 addSbtPlugin("org.goldenport" % "sbt-cozy" % sbtCozyVersion)
