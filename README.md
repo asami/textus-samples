@@ -8,7 +8,7 @@ Each sample demonstrates a structural pattern rather than a business domain and 
 This repository is a foundation for arranging CNCF structural patterns as small samples that are easy to compare.
 Its initial goal is to build a catalog of patterns, not to recreate complex business domains.
 
-開発順序は `docs/journal/2026/03/cncf-samples-project.md` に記録された以下の段階に従います。
+Development order follows the stages recorded in `docs/journal/2026/03/cncf-samples-project.md`.
 
 1. `01-minimal`
 2. `01.a-invocation-source-lab`
@@ -250,6 +250,27 @@ The intended later path is:
 3. Docker-based `cozy` command
 
 The purpose of the current stage is to preserve development efficiency without coupling each sample directly to one handwritten `cozyDelegateProjectDir` setting.
+
+## Using sbt-cozy
+
+`cncf-samples` consumes `sbt-cozy` as a normal published sbt plugin.
+
+Each sample-local `project/plugins.sbt` reads the version from [sbt-cozy-version.conf](/Users/asami/src/dev2026/cncf-samples/versions/sbt-cozy-version.conf) and adds:
+
+- `Resolver.defaultLocal`
+- `addSbtPlugin("org.goldenport" % "sbt-cozy" % sbtCozyVersion)`
+
+In practice, sample users only need two things:
+
+1. the desired `sbt-cozy` version in [sbt-cozy-version.conf](/Users/asami/src/dev2026/cncf-samples/versions/sbt-cozy-version.conf)
+2. a repository path that can resolve that version
+
+Operationally this means:
+
+- released `sbt-cozy` versions are resolved from the normal Maven/sbt plugin repositories
+- during `sbt-cozy` development, `Resolver.defaultLocal` allows an Ivy-local `publishLocal` build to override that resolution
+
+This keeps `sbt-cozy` version management centralized while keeping sample usage the same as any other sbt plugin dependency.
 
 User-facing invocation guidance lives under:
 

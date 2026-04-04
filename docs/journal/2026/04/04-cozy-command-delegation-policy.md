@@ -37,6 +37,8 @@ The reason for fixing it now is:
 - `sbt-cozy` version drift across samples is removed
 - `cozy` version drift across samples is removed
 - developers can still edit `cozy` locally and immediately re-run samples
+- released `sbt-cozy` can be resolved as a normal published plugin
+- development-time plugin resolution can override that through Ivy local publish
 
 In other words:
 
@@ -90,6 +92,12 @@ For current development:
 
 - changing `cozy` source code can still be reflected quickly
 - sample-side `plugins.sbt` and `build.sbt` stay stable
+- `sbt-cozy` development can use `publishLocal` and `Resolver.defaultLocal`
+
+For normal consumption:
+
+- released `sbt-cozy` versions should come from Maven/sbt plugin repositories
+- sample users do not need a local `sbt-cozy` workspace
 
 For future distribution:
 

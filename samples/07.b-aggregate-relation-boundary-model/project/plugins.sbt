@@ -14,6 +14,5 @@ def sbtCozyVersion: String = {
 }
 
 resolvers += Resolver.defaultLocal
-resolvers += Resolver.mavenLocal
 
 addSbtPlugin("org.goldenport" % "sbt-cozy" % sbtCozyVersion)
