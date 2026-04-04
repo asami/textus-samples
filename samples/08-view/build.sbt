@@ -14,13 +14,12 @@ lazy val root = (project in file("."))
     cozyDelegateCommand := Seq(baseDirectory.value.toPath.getParent.getParent.resolve("bin/cozy").toFile.getAbsolutePath),
     resolvers ++= Seq(
       Resolver.defaultLocal,
-      Resolver.mavenLocal,
       "SimpleModeling.org" at "https://www.simplemodeling.org/maven"
     ),
     libraryDependencies ++= Seq(
       "org.goldenport" %% "goldenport-cncf" % cncfVersion(baseDirectory.value),
       "org.goldenport" %% "goldenport-core" % "0.3.1-SNAPSHOT",
-      "org.simplemodeling" %% "simplemodeling-model" % "0.1.1-SNAPSHOT"
+      "org.simplemodeling" %% "simplemodeling-model" % "0.1.2-SNAPSHOT"
     ),
     cozyManifestMetadata ++= Map(
       "component" -> "view-sample",

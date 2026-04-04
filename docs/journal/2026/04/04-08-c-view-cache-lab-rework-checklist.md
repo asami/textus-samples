@@ -46,50 +46,68 @@ The following should move to `cozy` scripted:
 
 ### A. Scope split
 
-- [ ] list what remains in the sample
-- [ ] list what moves to `cozy` scripted
-- [ ] confirm the split before editing
+- [x] list what remains in the sample
+- [x] list what moves to `cozy` scripted
+- [x] confirm the split before editing
 
 ### B. Sample redesign
 
-- [ ] remove the Scala demo main as the primary user path
-- [ ] define the shell-first execution sequence
-- [ ] decide whether `command` is enough or `server/client` is needed
-- [ ] keep Scala code to the minimum practical level
+- [x] remove the Scala demo main as the primary user path
+- [x] define the shell-first execution sequence
+- [x] decide whether `command` is enough or `server/client` is needed
+- [x] keep Scala code to the minimum practical level
 
 ### C. Sample implementation
 
-- [ ] update CML if needed
-- [ ] add or reduce Scala code to the minimum needed for the sample purpose
-- [ ] rewrite `run.sh` as a batch wrapper for explicit shell commands
+- [x] update CML if needed
+- [x] add or reduce Scala code to the minimum needed for the sample purpose
+- [x] rewrite `run.sh` as a batch wrapper for explicit shell commands
 
 ### D. Sample documentation
 
-- [ ] README explains the user-facing purpose
-- [ ] README shows the exact shell commands
-- [ ] README explains expected output
-- [ ] README makes it clear that `run.sh` is convenience only
-- [ ] journal is updated
+- [x] README explains the user-facing purpose
+- [x] README shows the exact shell commands
+- [x] README explains expected output
+- [x] README makes it clear that `run.sh` is convenience only
+- [x] journal is updated
 
 ### E. Scripted relocation
 
-- [ ] create a new `cozy` scripted case for `08.c` cache assertions
-- [ ] move chunk-cache checks there
-- [ ] move small-result-cache checks there
-- [ ] move metrics checks there
+- [x] create a new `cozy` scripted case for `08.c` cache assertions
+- [x] move chunk-cache checks there
+- [x] move small-result-cache checks there
+- [x] move metrics checks there
 
 ### F. Verification
 
-- [ ] sample commands run successfully
-- [ ] sample `run.sh` runs successfully
-- [ ] scripted test runs successfully
+- [x] sample commands run successfully
+- [x] sample `run.sh` runs successfully
+- [ ] fresh `scripted` test runs successfully
+- [x] scripted proof steps run successfully by manual two-step verification
 
 ### G. Close
 
-- [ ] sample remains user-facing
-- [ ] internal runtime checks no longer live in the sample
-- [ ] related documents updated
-- [ ] commit completed
+- [x] sample remains user-facing
+- [x] internal runtime checks no longer live in the sample
+- [x] related documents updated
+- [x] commit completed
+
+## Current Status
+
+### Sample side
+
+- [x] shell-first sample path completed
+- [x] `bin/cncf` command flow documented
+- [x] README synchronized with actual output
+- [x] internal demo Scala removed from the sample
+
+### Scripted side
+
+- [x] `cozy` scripted proof fixture created
+- [x] chunk reuse proof moved to scripted
+- [x] small-result cache proof moved to scripted
+- [x] metrics proof moved to scripted
+- [ ] fresh `scripted cozy/view-cache-metrics` pass still pending
 
 ## Proposed First Split
 
@@ -123,12 +141,10 @@ The following should move to `cozy` scripted:
 ### Add on scripted side
 
 - new `cozy` scripted case under `src/sbt-test/cozy/...`
-  - move cache-proof logic there
-  - include metrics assertions there
+  - [x] move cache-proof logic there
+  - [x] include metrics assertions there
 
-## Next confirmation point
+## Current blocker
 
-Before implementation, confirm this split:
-
-1. sample keeps only user-facing shell usage
-2. scripted takes over cache-proof assertions
+- `check-view-cache.sh` now passes with `VIEW_CACHE_OK`
+- a fresh `sbt --batch scripted cozy/view-cache-metrics` confirmation is still pending because scripted filtering is broader than expected in the current cozy setup

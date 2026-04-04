@@ -48,3 +48,10 @@ The current runtime line is:
 This sample is not an aggregate line.
 It is the first view sample explicitly shaped for repeated list access in a UI.
 Internal cache-proof logic is being moved out of the sample path and into `cozy` scripted verification.
+
+Current scripted status:
+
+- `view-cache-metrics` now contains the direct `ViewCollection` cache proof
+- fixture generation succeeds
+- `check-view-cache.sh` succeeds and prints `VIEW_CACHE_OK`
+- a fresh full `scripted` pass is still being verified separately from the sample rework
