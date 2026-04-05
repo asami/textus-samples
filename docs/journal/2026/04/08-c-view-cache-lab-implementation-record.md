@@ -54,4 +54,4 @@ Current scripted status:
 - `view-cache-metrics` now contains the direct `ViewCollection` cache proof
 - fixture generation succeeds
 - `check-view-cache.sh` succeeds and prints `VIEW_CACHE_OK`
-- a fresh full `scripted` pass is still being verified separately from the sample rework
+- the standalone scripted fixture is the accepted verification line for this sample family

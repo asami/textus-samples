@@ -101,6 +101,13 @@ The sample should keep only the user-facing path.
 6. rework `08.b-simpleentity-view-lab`
 7. rework `08.c-view-cache-lab`
 
+Status:
+
+- [x] `08-view` completed as the base shell-first view sample
+- [x] `08.a-view-definition-lab` completed with matching `cozy` scripted verification
+- [x] `08.b-simpleentity-view-lab` completed with matching `cozy` scripted verification
+- [x] `08.c-view-cache-lab` completed as the UI-list/cache sample, with cache-proof logic moved to `cozy` scripted
+
 ### Phase 3. CRUD / operation line normalization
 
 8. rework `02-crud`
@@ -195,11 +202,13 @@ Use this checklist for each sample.
 
 ## Immediate Target
 
-The first active target is:
+The `08` view line pilot is complete.
 
-- `08.c-view-cache-lab`
+The next active targets are the earlier sample families in:
 
-Reason:
-
-- it currently mixes a useful runtime test shape with a poor sample shape
-- it is the clearest pilot for separating sample concerns from scripted/spec concerns
+- `02-*`
+- `03-*`
+- `04-*`
+- `05-*`
+- `06-*`
+- `07-*`

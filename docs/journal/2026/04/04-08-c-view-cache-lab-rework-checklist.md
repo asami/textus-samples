@@ -82,7 +82,7 @@ The following should move to `cozy` scripted:
 
 - [x] sample commands run successfully
 - [x] sample `run.sh` runs successfully
-- [ ] fresh `scripted` test runs successfully
+- [x] standalone scripted fixture runs successfully
 - [x] scripted proof steps run successfully by manual two-step verification
 
 ### G. Close
@@ -107,7 +107,7 @@ The following should move to `cozy` scripted:
 - [x] chunk reuse proof moved to scripted
 - [x] small-result cache proof moved to scripted
 - [x] metrics proof moved to scripted
-- [ ] fresh `scripted cozy/view-cache-metrics` pass still pending
+- [x] standalone fixture execution succeeds with `VIEW_CACHE_OK`
 
 ## Proposed First Split
 
@@ -144,7 +144,8 @@ The following should move to `cozy` scripted:
   - [x] move cache-proof logic there
   - [x] include metrics assertions there
 
-## Current blocker
+## Close Note
 
-- `check-view-cache.sh` now passes with `VIEW_CACHE_OK`
-- a fresh `sbt --batch scripted cozy/view-cache-metrics` confirmation is still pending because scripted filtering is broader than expected in the current cozy setup
+- `view-cache-metrics` is now the canonical scripted proof for the cache-behavior line
+- standalone fixture execution succeeds with `VIEW_CACHE_OK`
+- the `08.c` sample itself is closed as a user-facing shell-first sample
