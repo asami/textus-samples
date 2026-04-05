@@ -2,103 +2,226 @@
 
 ## Overview
 
-This sample follows the same method as `textus-user-account`.
+`02-crud` is the first model-driven CRUD sample in the CNCF sample line.
 
-- define the model in CML
-- use `cozy`
-- let CNCF tooling expose the CRUD surface
+It shows the base generated surface that comes from:
 
-It is intentionally simpler than later samples.
+- one CML model
+- `cozy` code generation
+- CNCF command discovery
 
-## Requirements
+This sample stays on the inspection line.
+It does not preload seed data and it does not focus on stateful runtime verification.
+Those lines come later in `02.a` and after.
 
-- `cozy` is required
-- `src/main/cozy/crud.cml` uses the same Dox-style model input as `textus-user-account`
-- the sample is model-driven rather than hand-written CRUD repository logic
-- entity service and aggregate service are the main point
-- framework/runtime parameters use the `cncf.*` namespace
-- query control parameters use the `query.*` namespace
-- unprefixed parameters are reserved for domain attributes
+## Position
 
-## Model
+This sample is the base CRUD/reference point for the `02-*` family.
 
-- entity: `Item`
-- service: `Item`
-- operations:
-  - `createItem`
-  - `getItem`
-  - `listItems`
+It is meant to show:
 
-## How To Use
+- how one entity model becomes a component
+- how one generated service exposes CRUD-oriented operations
+- how to inspect the generated surface through `bin/cncf`
 
-The CRUD surface comes from CML + CNCF tooling.
+It is not meant to show:
 
-Even though the file extension is `.cml`, the content is written in the Dox-style structure expected by the Cozy modeler.
+- seed import
+- server/client interaction
+- storage-specific behavior
 
-Generation/build commands:
+## Intended Use Case
 
-```bash
-sbt cozyGenerate
-sbt clean compile
-sbt cozyBuildCAR
-sbt cozyBuildSAR
-```
+Use this sample when you want to confirm the first generated CRUD surface before moving to later labs.
 
-Runtime help can be inspected through `CncfMain` with class discovery:
+Typical use cases are:
 
-```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud.item"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud.item.create-item"
-```
+- checking the generated component name, service name, and operation names
+- confirming the CLI selector shape for a generated CRUD service
+- inspecting the metadata that CNCF exposes from the model
 
-When a framework/runtime parameter is needed, use the `textus.*` namespace.
-`cncf.*` remains accepted as a compatibility alias.
-For example:
+## Files
+
+- [crud.cml](/Users/asami/src/dev2026/cncf-samples/samples/02-crud/src/main/cozy/crud.cml)
+  - the source model
+- [build.sbt](/Users/asami/src/dev2026/cncf-samples/samples/02-crud/build.sbt)
+  - enables `sbt-cozy` generation for the sample
+- [run.sh](/Users/asami/src/dev2026/cncf-samples/samples/02-crud/run.sh)
+  - batch wrapper for the documented shell commands
+
+## How To Run
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command --cncf.format yaml help crud.item.create-item"
+$ cd samples/02-crud
+$ ../../bin/setup cozy
+$ sbt --batch clean compile
+$ bash run.sh
 ```
 
-Observed runtime surface:
+## Command Walkthrough
 
-- component: `Crud`
-- service: `Crud.Item`
-- operation: `Crud.Item.createItem`
-- CLI selector examples: `crud`, `crud.item`, `crud.item.create-item`
-- additional generated services: `aggregate`, `entity`, `view`
-- framework services: `meta`, `system`
+### Component Help
+
+This command shows the generated component surface.
+
+```bash
+$ bash ../../bin/cncf --discover=classes command help crud
+```
+
+Parameters:
+
+- `--discover=classes`
+  - tells `bin/cncf` to load the generated classes from the sample build output
+- `command`
+  - uses the ordinary CNCF command path
+- `help`
+  - asks CNCF to describe the selected runtime target
+- `crud`
+  - selects the generated component
+
+Output example:
+
+```yaml
+type: component
+name: Crud
+children:
+  - Item
+  - aggregate
+  - entity
+  - meta
+  - system
+  - view
+operationDefinitions:
+  - createItem
+  - getItem
+  - listItems
+```
+
+This confirms that the model generated:
+
+- one component: `Crud`
+- one domain service: `Item`
+- one basic CRUD-oriented operation set
+
+### Service Help
+
+This command shows the generated service surface.
+
+```bash
+$ bash ../../bin/cncf --discover=classes command help crud.item
+```
+
+Parameters:
+
+- `crud.item`
+  - selects the generated `Item` service under the `Crud` component
+
+Output example:
+
+```yaml
+type: service
+name: Item
+component: Crud
+children:
+  - createItem
+  - getItem
+  - listItems
+operations:
+  - createItem
+  - getItem
+  - listItems
+```
+
+This is the first point where the generated service contract becomes visible.
+
+### Operation Help
+
+This command shows one generated operation.
+
+```bash
+$ bash ../../bin/cncf --discover=classes command help crud.item.create-item
+```
+
+Parameters:
+
+- `crud.item.create-item`
+  - selects the generated operation in CLI form
+
+Output example:
+
+```yaml
+type: operation
+name: createItem
+component: Crud
+service: Item
+selector:
+  canonical: Crud.Item.createItem
+  cli: crud.item.create-item
+  rest: /crud/item/create-item
+returns:
+  - CreateItemResult
+```
+
+This confirms:
+
+- the canonical selector
+- the CLI selector
+- the REST path shape
+- the generated return type
+
+### Metadata Describe
+
+This command shows the generated component metadata.
+
+```bash
+$ bash ../../bin/cncf --discover=classes command crud.meta.describe --format yaml
+```
+
+Parameters:
+
+- `crud.meta.describe`
+  - invokes the generated metadata service
+- `--format yaml`
+  - asks for structured YAML output
+
+Output example:
+
+```yaml
+services:
+- type: service
+  name: Item
+  runtime_name: item
+aggregates:
+- name: item
+  entity_name: item
+views:
+- name: item
+  entity_name: item
+operation_definitions:
+- name: createItem
+  kind: COMMAND
+- name: getItem
+  kind: QUERY
+- name: listItems
+  kind: QUERY
+```
+
+This is useful when you want to confirm the generated runtime contract without reading generated Scala directly.
 
 ## Relationship To 02.a
 
-`02-crud` is the base model-driven CRUD sample.
+`02-crud` stops at generated CRUD surface inspection.
 
-It shows:
+`02.a-crud-seed-import-lab` extends this line with:
 
-- CML/Cozy generation
-- generated component/service/operation surfaces
-- `--discover=classes` runtime inspection
-- parameter namespace usage (`cncf.*`, `query.*`, domain attributes)
+- descriptor-first runtime metadata
+- seed data import
+- runtime `load` / `search` verification
 
-The next lab, `02.a-crud-seed-import-lab`, builds on this base and adds:
+## Summary
 
-- descriptor-first runtime metadata through `car.d/meta/component-descriptor.yaml`
-- seed data import from `entity.d`
-- runtime `load` / `search` verification against preloaded data
+Use `02-crud` as the first checkpoint for the `02-*` line:
 
-## Design Goal
-
-This sample should show that the CRUD API surface comes from the model and CNCF tooling.
-
-It should not mainly show:
-
-- a custom repository
-- a custom TSV store
-- hand-written CRUD business logic
-
-It should mainly show:
-
-- CML model definition
-- entity service
-- aggregate service
-- command/API usage produced from that model
+- the model generates the CRUD surface
+- `bin/cncf` exposes that surface directly
+- later labs add data, runtime behavior, and storage-specific concerns
