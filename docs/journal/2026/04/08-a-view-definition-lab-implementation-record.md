@@ -19,6 +19,7 @@ The first completion target was:
 - sample source under `/Users/asami/src/dev2026/cncf-samples/samples/08.a-view-definition-lab`
 - shell-first command flow under `bin/cncf`
 - `run.sh` as a batch wrapper around explicit shell commands
+- scripted fixture under `/Users/asami/src/dev2025/cozy/src/sbt-test/cozy/named-view-definition`
 - explicit `VIEW` metadata:
   - `VIEWS :: summary, detail`
   - `EVENTS :: person.created, person.updated`
@@ -35,6 +36,10 @@ The first completion target was:
   - `command named-view-sample.view.search-person --view search_by_city --city Tokyo`
 - metadata projection
   - `command named-view-sample.meta.describe --format yaml`
+- direct scripted generation path
+  - `runMain cozy.Cozy modeler-scala src/main/cozy/test.dox --save=out.d`
+- scripted verification
+  - `sh check-named-view.sh`
 
 ## Observed Results
 
@@ -51,6 +56,8 @@ The first completion target was:
   - `queries = search_by_city`
   - `source_events = person.created, person.updated`
   - `rebuildable = true`
+- scripted fixture completes with:
+  - `NAMED_VIEW_OK`
 
 ## Notes
 
@@ -62,4 +69,6 @@ The first completion target was:
 - `VIEW > QUERY` runtime semantics now normalize typed query conditions before source-entity search so the alias route stays shell-visible without leaking runtime internals into the sample
 - generated query models now use `RecordPresentable`, and custom query output is normalized to structured record form instead of internal typed-condition strings
 - runtime view cache now applies to named view load/search paths as well, and entity writes invalidate cached view results
+- direct `modeler-scala --save` previously emitted `PackageName(...)` into implementation package paths; that generator bug is now fixed at the source
+- the scripted fixture now runs without `delegate-launcher`; the fixture root itself acts as the published `cozy` launcher
 - the next natural line is event-driven projection / rebuild flow

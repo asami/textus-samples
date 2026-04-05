@@ -44,8 +44,18 @@ Rework `08.a-view-definition-lab` so that:
 - [x] metadata describe runs successfully
 - [x] `run.sh` runs successfully
 
+### E. Scripted relocation
+
+- [x] add a `cozy` scripted fixture for named view definition
+- [x] use direct `cozy.Cozy modeler-scala --save=out.d` in the fixture
+- [x] avoid delegate recursion without introducing a separate launcher project
+- [x] compile the generated fixture successfully
+- [x] assert help / summary load / summary search / custom query / detail load / metadata describe
+- [x] assert custom query output does not leak `Any` / `Is(...)`
+
 ## Completion condition
 
 - [x] `08.a` can be used directly by sample users as the first named-view reference
 - [x] the shell command flow is explicit and reproducible
 - [x] the README shows named view aliases and custom query aliases through CNCF commands
+- [x] the same verification line is covered by `cozy` scripted
