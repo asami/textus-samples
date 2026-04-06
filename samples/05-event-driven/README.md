@@ -2,117 +2,173 @@
 
 ## Overview
 
-This is the first minimal event-oriented sample after `04-cqrs`.
+`05-event-driven` is the first sample that makes event-oriented modeling visible in CNCF.
 
 It shows three things:
 
-- one action emits an event
-- one CNCF event-reception path receives it
-- one visible post-event effect can be observed afterwards
+- one command is modeled as an event emitter
+- one command is modeled as the event reception target
+- one query is modeled as the observable post-event effect
 
-This sample is not a distributed messaging lab.
-It stays inside a small local CNCF runtime and uses the same model-driven direction as the earlier samples.
+This sample is intentionally the base event sample.
+It focuses on the visible shell surface rather than on internal same-JVM proof code.
 
-## Model
+## Event-Driven Context In CNCF
 
-- component: `event-driven`
-- service: `event`
-- emitting command: `emitEvent`
-- receiver action: `recordEffect`
-- observation query: `loadEffect`
-- emitted event: `item.changed`
+After `04-cqrs`, the next step is to move from:
 
-The model source is:
+- command/query split
 
-- `src/main/cozy/event.cml`
+to:
 
-## How It Works
+- command
+- event emission
+- event reception
+- observable effect
 
-- `event.cml` now generates a discoverable `EventDriven` component and `Event` service.
-- event metadata for `item.changed` is present in the generated component metadata.
-- the `event-driven.event.*` help surface is now visible through `CncfMain --discover=classes`.
-- CNCF now provides the minimal built-in runtime path used by this sample:
-  - `emitEvent` emits `item.changed`
-  - `recordEffect` records the received payload
-  - `loadEffect` returns the recorded effect
+CNCF approaches this by making event-related structure part of the model:
 
-The event reception is not a message bus or external broker.
-It is the CNCF event-reception path inside the sample runtime.
+- event-producing operations
+- event definitions
+- reception targets
+- post-event query surfaces
 
-## How This Differs From `04-cqrs`
+So the framework direction is not "call another method after a command".
+It is:
+
+- emit an event as part of runtime behavior
+- let CNCF route and receive it
+- expose the effect through a user-facing read path
+
+## Position
 
 - `04-cqrs`
-  - makes command and query paths visibly different
-  - `createItem` is job-backed
-  - `loadItem` / `searchItemRecord` are read-oriented
-
+  - makes the command/query split visible
 - `05-event-driven`
-  - makes event emission and event reception visible
-  - `emitEvent` produces an event
-  - `recordEffect` reacts to the event
-  - `loadEffect` proves the reaction happened
+  - makes event emission and reception visible
+- later `05.*`
+  - will show richer event/job/server-client behavior
 
-So the point is not just request/response.
-The point is that a runtime reaction happens after an emitted event.
+## Intended Use Case
+
+Use this sample when you want to confirm:
+
+- how event-related operations appear in the generated shell surface
+- that event emission, reception, and observation are modeled separately
+- how CNCF names the event-facing command and query selectors
+
+Typical use cases are:
+
+- introducing the event-driven part of the model
+- checking generated selectors before adding larger runtime topology
+- understanding how event emission and observation are separated in CNCF
+
+## Files
+
+- `src/main/cozy/event.cml`
+  - the source model
+- `build.sbt`
+  - enables `sbt-cozy` generation for the sample
+- `run.sh`
+  - batch wrapper for the documented shell commands
 
 ## How To Run
 
-Build/generate:
+```bash
+$ cd samples/05-event-driven
+$ ../../bin/setup cozy
+$ sbt --batch clean compile
+$ bash run.sh
+```
+
+## Command Walkthrough
+
+### Component Help
 
 ```bash
-sbt cozyGenerate
-sbt clean compile
+$ bash ../../bin/cncf --discover=classes command help event-driven
 ```
 
-Runtime help:
+Output example:
+
+```yaml
+type: component
+name: EventDriven
+children:
+  - Event
+operationDefinitions:
+  - emitEvent
+  - loadEffect
+  - recordEffect
+```
+
+This confirms that the generated component exposes an event-facing service.
+
+### Emit Event Help
 
 ```bash
-./run.sh
-./run-demo.sh
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help event-driven.event"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help event-driven.event.emit-event"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help event-driven.event.load-effect"
+$ bash ../../bin/cncf --discover=classes command help event-driven.event.emit-event
 ```
 
-Command-path help checks:
+Output example:
+
+```yaml
+type: operation
+name: emitEvent
+service: Event
+selector:
+  cli: event-driven.event.emit-event
+returns:
+  - EmitEventResult
+```
+
+### Load Effect Help
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help event-driven"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help event-driven.event"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help event-driven.event.emit-event"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help event-driven.event.load-effect"
+$ bash ../../bin/cncf --discover=classes command help event-driven.event.load-effect
 ```
 
-End-to-end demo check:
+Output example:
+
+```yaml
+type: operation
+name: loadEffect
+service: Event
+selector:
+  cli: event-driven.event.load-effect
+returns:
+  - LoadEffectResult
+```
+
+### Metadata Describe
 
 ```bash
-./run-demo.sh
+$ bash ../../bin/cncf --discover=classes command event-driven.meta.describe --format yaml
 ```
 
-Observed flow:
+This lets you inspect the modeled event-facing runtime surface in one place.
 
-- `emitEvent` runs as the event-producing command
-- CNCF event reception dispatches `recordEffect`
-- `loadEffect` returns the recorded effect in the same JVM
+## What This Sample Shows
 
-Example effect payload:
+`05-event-driven` is the first event sample, so it deliberately stays small.
 
-```json
-{
-  "cncf.event.kind": "changed",
-  "cncf.event.name": "item.changed",
-  "name": "alpha",
-  "source": "event-driven",
-  "title": "Alpha"
-}
-```
+It shows:
 
-The demo keeps emission and observation in one JVM so the visible effect can be checked without introducing server/client infrastructure in this first event sample.
+- there is an explicit event-emission command
+- there is an explicit event-reception action
+- there is an explicit effect-loading query
 
-## Status
+It does not try to show the full visible effect from shell-only commands in this sample.
+That runtime proof is kept in `cozy` scripted, where internal same-JVM verification belongs.
 
-This sample is complete.
+## What This Sample Does Not Try To Show
 
-The active work order is:
+The sample intentionally avoids:
 
-- [04-event Development Instruction](/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/04-event-development-instruction.md)
+- handwritten `Subsystem` bootstrapping in the user-facing path
+- same-JVM internal demo code
+- distributed broker integration
+- server/client event topology
+- event-job tracing details
+
+Those concerns belong to the later `05.*` samples and to `cozy` scripted verification.

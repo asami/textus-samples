@@ -1,10 +1,8 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/sh
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+set -eu
 
-exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
-  --script-path "$SCRIPT_DIR/run.sh" \
-  --discover-classes \
-  -- \
-  command help event-driven
+bash ../../bin/cncf --discover=classes command help event-driven
+bash ../../bin/cncf --discover=classes command help event-driven.event.emit-event
+bash ../../bin/cncf --discover=classes command help event-driven.event.load-effect
+bash ../../bin/cncf --discover=classes command event-driven.meta.describe --format yaml
