@@ -132,6 +132,10 @@ Command to create an item record.
 | name  | name   | 1            |
 | title | string | 1            |
 
+#
+# QUERY
+#
+
 ## GetItem
 
 ### DESCRIPTION

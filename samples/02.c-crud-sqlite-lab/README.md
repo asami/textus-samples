@@ -2,85 +2,284 @@
 
 ## Overview
 
-This sample follows the same model-driven CRUD method as `02-crud`, but the
-point of this lab is SQLite-backed persistence.
+`02.c-crud-sqlite-lab` is the SQLite-backed persistence variant of the `02` CRUD line.
 
-It is intentionally small:
+It keeps the same generated CRUD surface as `02-crud` and `02.a`, but adds a file-backed datastore path so state can be observed across separate shell commands.
 
-- define the CRUD model in CML
-- let CNCF generate the CRUD surface
-- point CNCF at a SQLite datastore path
+In practice, SQLite is a good default for:
 
-## Requirements
+- local development
+- test environments
+- CI/CD verification
 
-- `cozy` is required
-- `src/main/cozy/crud.cml` uses the same Dox-style model input as `textus-user-account`
-- the sample is model-driven rather than hand-written CRUD repository logic
-- the backing store is SQLite, configured through `cncf.datastore.sqlite.path`
-- the sample also uses the standard CNCF `entity.d` seed-import path so the
-  SQLite-backed read path can be observed immediately
-- framework/runtime parameters use the `cncf.*` namespace
-- query control parameters use the `query.*` namespace
-- unprefixed parameters are reserved for domain attributes
+For a small application, SQLite may also remain a reasonable production choice.
 
-## Model
+## Position
 
-- entity: `Item`
-- service: `Item`
-- operations:
-  - `createItem`
-  - `getItem`
-  - `listItems`
+Compared with the earlier CRUD samples:
+
+- `02-crud`
+  - shows the generated CRUD surface
+- `02.a-crud-seed-import-lab`
+  - shows descriptor-first metadata and seed import verification
+- `02.b-simpleentity-crud-lab`
+  - shows the `SimpleEntity` inspection variant
+- `02.c-crud-sqlite-lab`
+  - shows persistence across separate commands through a SQLite datastore path
+
+## Intended Use Case
+
+Use this sample when you want to confirm:
+
+- that a generated CRUD component can use SQLite as its backing datastore
+- that seeded records are visible through the SQLite-backed entity load/search path
+- that a created record can be loaded in a later command by reusing the same SQLite file
+
+Typical use cases are:
+
+- using SQLite as the first datastore in development
+- running generated CRUD verification in CI/CD with a disposable file-backed database
+- keeping SQLite as-is for a simpler application
+- preparing for a later switch to MySQL or another SQL datastore without changing the model, as long as the application does not depend on SQLite-specific SQL behavior
+
+## Files
+
+- [crud.cml](/Users/asami/src/dev2026/cncf-samples/samples/02.c-crud-sqlite-lab/src/main/cozy/crud.cml)
+  - the source model
+- [crud.yaml](/Users/asami/src/dev2026/cncf-samples/samples/02.c-crud-sqlite-lab/entity.d/crud.yaml)
+  - imported seed data
+- [build.sbt](/Users/asami/src/dev2026/cncf-samples/samples/02.c-crud-sqlite-lab/build.sbt)
+  - enables `sbt-cozy` generation for the sample
+- [run.sh](/Users/asami/src/dev2026/cncf-samples/samples/02.c-crud-sqlite-lab/run.sh)
+  - batch wrapper for the documented shell commands
 
 ## SQLite Path
 
-The sample uses a file-backed SQLite datastore so create and read operations can be observed across separate commands.
-
-Default path:
+The sample uses this datastore file:
 
 ```bash
 target/cncf.d/02c-crud-sqlite-lab.sqlite
 ```
 
-## How To Use
+Reusing the same file across commands is the point of the lab.
 
-Build:
+That also makes the sample convenient for automation and CI, because the datastore can be created, observed, and discarded inside the sample workspace.
 
-```bash
-sbt cozyGenerate
-sbt clean compile
-```
-
-Create an item in SQLite:
+## How To Run
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command --cncf.datastore.sqlite.path=target/cncf.d/02c-crud-sqlite-lab.sqlite crud.entity.create-item --name alpha --title Alpha"
+$ cd samples/02.c-crud-sqlite-lab
+$ ../../bin/setup cozy
+$ sbt --batch clean compile
+$ bash run.sh
 ```
 
-Load or search against the same SQLite-backed data:
+## Command Walkthrough
+
+### Load Help
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command --cncf.datastore.sqlite.path=target/cncf.d/02c-crud-sqlite-lab.sqlite crud.entity.load-item --id alpha"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command --cncf.datastore.sqlite.path=target/cncf.d/02c-crud-sqlite-lab.sqlite crud.entity.search-item-record --name alpha"
+$ bash ../../bin/cncf --discover=classes command help crud.entity.load-item
 ```
 
-Help can be inspected through `CncfMain` with class discovery:
+Parameters:
+
+- `--discover=classes`
+  - tells `bin/cncf` to load the generated classes from the sample build output
+- `command`
+  - uses the ordinary CNCF command path
+- `help`
+  - asks CNCF to describe the selected runtime target
+- `crud.entity.load-item`
+  - selects the generated entity load operation
+
+Output example:
+
+```yaml
+type: operation
+name: loadItem
+component: Crud
+service: entity
+selector:
+  cli: crud.entity.load-item
+returns:
+  - Option[Item]
+```
+
+### Search Help
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud.entity"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud.entity.create-item"
+$ bash ../../bin/cncf --discover=classes command help crud.entity.search-item-record
 ```
 
-## Difference From 02-crud
+Parameters:
 
-`02-crud` shows the base model-driven CRUD surface.
+- `--discover=classes`
+  - tells `bin/cncf` to load the generated classes from the sample build output
+- `command`
+  - uses the ordinary CNCF command path
+- `help`
+  - asks CNCF to describe the selected runtime target
+- `crud.entity.search-item-record`
+  - selects the generated entity search operation
 
-This lab keeps that same model and adds one thing:
+### Load Seeded Record Through SQLite
 
-- SQLite is the backing store, wired through `cncf.datastore.sqlite.path`
-- `entity.d` preloads data so the SQLite-backed read path can be observed
+```bash
+$ bash ../../bin/cncf --discover=classes command \
+    --cncf.datastore.sqlite.path=target/cncf.d/02c-crud-sqlite-lab.sqlite \
+    crud.entity.load-item \
+    --id major-minor-entity-item-20260328000000-aaa111
+```
 
-It is not a server/client lab.
-It is not a handwritten repository lab.
-It is a persistence-variation lab.
+Parameters:
+
+- `--cncf.datastore.sqlite.path=...`
+  - selects the SQLite-backed datastore file
+- `crud.entity.load-item`
+  - invokes the generated entity load operation
+- `--id ...`
+  - selects the seeded record from [crud.yaml](/Users/asami/src/dev2026/cncf-samples/samples/02.c-crud-sqlite-lab/entity.d/crud.yaml)
+
+Output example:
+
+```yaml
+id: major-minor-entity-item-20260328000000-aaa111
+name_attributes:
+  name: alpha
+  title: Alpha
+```
+
+This confirms that the seeded record is available through the SQLite-backed read path.
+
+### Search Seeded Record Through SQLite
+
+```bash
+$ bash ../../bin/cncf --discover=classes command \
+    --cncf.datastore.sqlite.path=target/cncf.d/02c-crud-sqlite-lab.sqlite \
+    crud.entity.search-item-record \
+    --name alpha
+```
+
+Parameters:
+
+- `--cncf.datastore.sqlite.path=...`
+  - selects the SQLite-backed datastore file
+- `crud.entity.search-item-record`
+  - invokes the generated entity search operation
+- `--name alpha`
+  - filters by the domain attribute `name`
+
+Output example:
+
+```yaml
+query:
+  condition:
+    name: alpha
+data:
+- id: major-minor-entity-item-20260328000000-aaa111
+  name_attributes:
+    name: alpha
+    title: Alpha
+total_count: 1
+fetched_count: 1
+```
+
+### Create A Record And Re-Load It Through SQLite
+
+```bash
+$ created_id=$(
+    bash ../../bin/cncf --discover=classes command \
+      --textus.runtime.command.execution-mode sync-direct-no-job \
+      --cncf.datastore.sqlite.path=target/cncf.d/02c-crud-sqlite-lab.sqlite \
+      crud.entity.create-item \
+      --name delta \
+      --title Delta \
+      | awk '/^id: / {print $2}'
+  )
+
+$ bash ../../bin/cncf --discover=classes command \
+    --cncf.datastore.sqlite.path=target/cncf.d/02c-crud-sqlite-lab.sqlite \
+    crud.entity.load-item \
+    --id "$created_id"
+```
+
+Parameters:
+
+- `--textus.runtime.command.execution-mode sync-direct-no-job`
+  - forces immediate command completion instead of returning a job id
+- `--cncf.datastore.sqlite.path=...`
+  - reuses the same SQLite-backed datastore file
+- `crud.entity.create-item`
+  - creates the new record
+- `--name delta`
+  - domain attribute for the created record
+- `--title Delta`
+  - another domain attribute for the created record
+- `created_id`
+  - captures the created entity id from the command output
+
+Output example:
+
+```yaml
+id: major-minor-entity-item-...
+name_attributes:
+  name: delta
+  title: Delta
+```
+
+This is the central persistence check of the sample:
+
+- one command creates a record
+- a later command loads the same record
+- both commands use the same SQLite file path
+
+## SQLite In Practice
+
+This sample treats SQLite as a practical datastore choice, not only as a demo backend.
+
+That matters in three common cases:
+
+- development
+  - no external database process is needed
+- CI/CD
+  - the database can be created inside the workspace and discarded after verification
+- small production systems
+  - SQLite may be sufficient without introducing a separate database service
+
+It is also acceptable for many small environments that have some concurrent updates.
+In that kind of usage, the question is usually not maximum write throughput but whether the system remains safe and operational without data corruption.
+SQLite is often good enough for that level of concurrency.
+
+It also gives a reasonable migration path.
+If the application stays within ordinary generated CRUD behavior and does not depend on SQLite-specific SQL, the same model can later be retargeted to MySQL or another SQL datastore mainly through configuration and datastore selection rather than model redesign.
+
+The natural point to move away from SQLite is when concurrent writes become a major operational concern, not merely when the application has any concurrency at all.
+
+### Metadata Describe
+
+```bash
+$ bash ../../bin/cncf --discover=classes command crud.meta.describe --format yaml
+```
+
+Parameters:
+
+- `--discover=classes`
+  - tells `bin/cncf` to load the generated classes from the sample build output
+- `command`
+  - uses the ordinary CNCF command path
+- `crud.meta.describe`
+  - invokes the generated metadata service
+- `--format yaml`
+  - requests YAML output
+
+## Summary
+
+Use `02.c-crud-sqlite-lab` as the first persistence-variation sample in the `02` line.
+
+It shows:
+
+- the same generated CRUD surface
+- a SQLite-backed datastore path
+- load/search against seeded data
+- create in one command and load in another command through the same SQLite file
