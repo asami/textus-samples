@@ -1,10 +1,7 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/sh
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+set -eu
 
-exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
-  --script-path "$SCRIPT_DIR/run.sh" \
-  --discover-classes \
-  -- \
-  command designed-sync.item.create-item --name beta --title Beta
+bash ../../bin/cncf --discover=classes command help designed-sync.item.create-item
+bash ../../bin/cncf --discover=classes command designed-sync.meta.describe --format yaml
+bash ../../bin/cncf --discover=classes command designed-sync.item.create-item --name beta --title Beta

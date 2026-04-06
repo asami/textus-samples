@@ -2,78 +2,207 @@
 
 ## Overview
 
-This sample shows a command which is synchronous by design in CNCF.
+`04.a-designed-sync-command-lab` shows a command that is synchronous by design.
 
-It differs from `04-cqrs` in one important way:
+It is the direct contrast to `04-cqrs`:
 
-- `04-cqrs` shows a job-backed command side
-- `04.a-designed-sync-command-lab` makes one command return its result immediately by design
+- `04-cqrs`
+  - the default command shape is job-backed and asynchronous
+- `04.a-designed-sync-command-lab`
+  - one command is explicitly modeled as synchronous
 
-It starts from the same Cozy/CML source shape as `04-cqrs`, but changes one
-operation contract in the model: `createItem` is marked with `EXECUTION=sync`.
+The key point is that this is not a runtime hack.
+The synchronous behavior is part of the application contract.
 
-## Requirements
+## CQRS Context
 
-- `cozy` is required
-- `src/main/cozy/cqrs.cml` is the model source
-- the designed-sync behavior is defined in the CML operation metadata
-- runtime help and execution use `CncfMain --discover=classes`
-- framework/runtime parameters use the `textus.*` namespace
-- `cncf.*` remains accepted as a compatibility alias
-- query control parameters use the `query.*` namespace
-- unprefixed parameters are reserved for domain attributes
+In CNCF, the normal command-side default is:
 
-## Model
+- submit a state-changing request
+- receive a job id
+- observe completion through job control
 
-- entity: `Item`
-- service: `Item`
-- command target:
-  - `DesignedSync.Item.createItem`
+That default exists because cloud architecture usually benefits from:
 
-## How To Use
+- asynchronous writes
+- eventual consistency
+- independent scaling of write and read paths
 
-Generation/build commands:
+But not every command should behave that way.
+
+Some commands are intentionally designed to return their result immediately.
+CNCF supports that by letting the model declare the execution style explicitly.
+
+This sample shows that narrower point:
+
+- a command still belongs to the command side
+- but its execution is deliberately synchronous
+- so the caller receives the result directly instead of a job id
+
+## Position
+
+- `04-cqrs`
+  - shows the default job-backed command shape
+- `04.a-designed-sync-command-lab`
+  - shows an explicitly synchronous command
+- later samples
+  - will show richer command, event, and job behavior
+
+## Intended Use Case
+
+Use this sample when you want to confirm:
+
+- how to declare a synchronous command in CML
+- how CNCF exposes that command at the shell
+- that the result comes back immediately
+- how this differs from the default CQRS command path
+
+Typical use cases are:
+
+- explaining when a command should not become a job
+- showing that execution style is part of the modeled contract
+- comparing immediate command completion with job-backed completion
+
+## Files
+
+- `src/main/cozy/cqrs.cml`
+  - the source model
+- `build.sbt`
+  - enables `sbt-cozy` generation for the sample
+- `run.sh`
+  - batch wrapper for the documented shell commands
+
+## How To Run
 
 ```bash
-sbt cozyGenerate
-sbt clean compile
+$ cd samples/04.a-designed-sync-command-lab
+$ ../../bin/setup cozy
+$ sbt --batch clean compile
+$ bash run.sh
 ```
 
-Runtime help can be inspected through `CncfMain`.
+## Command Walkthrough
+
+### Command Help
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help designed-sync"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help designed-sync.item"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help designed-sync.item.create-item"
+$ bash ../../bin/cncf --discover=classes command help designed-sync.item.create-item
 ```
 
-Runtime examples:
+Output example:
+
+```yaml
+type: operation
+name: createItem
+service: Item
+selector:
+  cli: designed-sync.item.create-item
+returns:
+  - CreateItemResult
+```
+
+This confirms the command contract and selector.
+
+### Metadata Describe
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command designed-sync.item.create-item --name beta --title Beta"
+$ bash ../../bin/cncf --discover=classes command designed-sync.meta.describe --format yaml
 ```
 
-## Runtime Difference
+Output example:
 
-- `createItem` returns the created item immediately.
-- The result is not a job id.
-- The synchronous behavior comes from the CML execution directive, not from a test-only override or a config switch.
+```yaml
+operation_definitions:
+- name: createItem
+  kind: COMMAND
+  input_type: CreateItem
+  output_type: CreateItemResult
+  input_value_kind: COMMAND_VALUE
+```
 
-## Relationship To 02-crud
+This shows that the operation is still modeled as a command.
 
-`04-cqrs` shows the job-backed command / immediate query split.
+### Execute The Designed-Sync Command
 
-`04.a-designed-sync-command-lab` shows a different point:
+```bash
+$ bash ../../bin/cncf --discover=classes command designed-sync.item.create-item --name beta --title Beta
+```
 
-- a command can be synchronous by design
-- the caller receives the result directly
-- the application contract, not a test override, chooses the sync behavior
+Output example:
 
-## Observed Surface
+```yaml
+name: beta
+title: Beta
+```
 
-- component: `DesignedSync`
-- service: `DesignedSync.Item`
-- command target: `DesignedSync.Item.createItem`
-- runtime result: immediate item record
-- modeled directive: `EXECUTION=sync`
-- CLI selector examples: `designed-sync`, `designed-sync.item`, `designed-sync.item.create-item`
+This is the point of the sample:
+
+- the operation is a command
+- but the caller receives the result immediately
+- there is no job id
+- there is no `await-job-result` step
+
+## Why This Matters
+
+`04.a` shows that CNCF does not force all commands into one execution style.
+
+The normal cloud-oriented default is still:
+
+- asynchronous command execution
+- job control
+- eventual consistency
+
+But when the application contract requires an immediate result, the model can say so directly.
+
+Use sync when the caller really needs the completed result as part of the same interaction.
+
+Typical cases are:
+
+- validation-heavy command APIs where the caller must receive the created or normalized value immediately
+- administrative or setup operations where the work is small and bounded
+- local coordination commands where eventual consistency would only add noise
+- synchronous UI flows where the next step depends on the returned value itself
+
+Do not use designed sync just because the implementation is currently simple.
+
+The default async command shape is still better when:
+
+- the write may become slower later
+- the write can fan out to other components
+- retries, tracing, and operational visibility matter
+- the read side may lag behind by design
+
+## Choosing The Sync Style
+
+Use these samples as a practical guide:
+
+- `04-cqrs`
+  - use this when the command should stay job-backed
+  - this is the normal cloud-oriented default
+- `04.a-designed-sync-command-lab`
+  - use this when the command contract itself should be synchronous
+  - the model declares the sync behavior explicitly
+- `04.b-test-sync-command-lab`
+  - use this when you want synchronous execution mainly for testing or local verification
+  - this is not the same as making sync part of the application contract
+
+So the rough rule is:
+
+- business contract says immediate result is required
+  - use designed sync
+- production architecture should stay async/job-backed
+  - use the default CQRS command path
+- tests or local experiments need simpler observation
+  - use test sync
+
+## What This Sample Does Not Try To Show
+
+The sample intentionally avoids:
+
+- job management
+- server/client flow
+- read-side projection
+- event routing
+- handwritten runtime customization
+
+Those concerns belong to neighboring samples.
