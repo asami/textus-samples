@@ -2,105 +2,254 @@
 
 ## Overview
 
-This sample follows the same method as `textus-user-account`.
+`02.b-simpleentity-crud-lab` is the `SimpleEntity` variant of the base CRUD line.
 
-- define the model in CML
-- use `cozy`
-- let CNCF tooling expose the CRUD surface
+It keeps the same model-driven CRUD surface as `02-crud`, but the entity model is based on `SimpleEntity`.
 
-It is the `SimpleEntity` follow-up to `02-crud`.
-The CNCF dependency version is controlled by `../../versions/cncf-version.conf`, with `CNCF_VERSION` as an override.
+This sample stays on the inspection line.
+Its main purpose is to show how the generated CRUD surface looks when common `SimpleEntity` attributes are inherited by the model.
 
-## Requirements
+In practical enterprise application development, this line is often closer to the default case than the plain `02-crud` line.
 
-- `cozy` is required
-- `src/main/cozy/crud.cml` uses the same Dox-style model input as `textus-user-account`
-- the sample is model-driven rather than hand-written CRUD repository logic
-- the generated `SimpleEntity` attribute groups are the main point
-- framework/runtime parameters use the `textus.*` namespace
-- `cncf.*` remains accepted as a compatibility alias
-- query control parameters use the `query.*` namespace
-- unprefixed parameters are reserved for domain attributes
+## Position
 
-## Model
+Compared with the earlier CRUD samples:
 
-- entity: `Item` based on `SimpleEntity`
-- service: `Item`
-- operations:
-  - `createItem`
-  - `getItem`
-  - `listItems`
+- `02-crud`
+  - shows the base generated CRUD surface
+- `02.a-crud-seed-import-lab`
+  - adds descriptor-first metadata and imported seed verification
+- `02.b-simpleentity-crud-lab`
+  - focuses on the `SimpleEntity` inheritance variant of the same generated CRUD surface
 
-## How To Use
+## Intended Use Case
 
-The CRUD surface comes from CML + CNCF tooling.
+Use this sample when you want to confirm:
 
-Even though the file extension is `.cml`, the content is written in the Dox-style structure expected by the Cozy modeler.
+- how a `SimpleEntity`-based model still generates the same component/service/operation shape
+- how the generated selectors look for the `SimpleEntity` variant
+- how the runtime metadata still exposes the same CRUD line through CNCF
 
-Generation/build commands:
+Typical enterprise-oriented use cases are:
 
-```bash
-sbt cozyGenerate
-sbt clean compile
-```
+- starting from an entity base class that already carries common lifecycle and audit-related fields
+- keeping CRUD modeling simple while still assuming organizational defaults for business records
+- using a shared entity shape that can later connect to publication, security, resource, and audit concerns without redesigning the model
+- starting from a model shape that can absorb non-functional requirements and quality attributes without forcing a later entity redesign
 
-Runtime help can be inspected through `CncfMain` with class discovery:
+## Files
 
-```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help simple-entity-crud-lab"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help simple-entity-crud-lab.item"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help simple-entity-crud-lab.item.create-item"
-```
+- [crud.cml](/Users/asami/src/dev2026/cncf-samples/samples/02.b-simpleentity-crud-lab/src/main/cozy/crud.cml)
+  - the source model
+- [build.sbt](/Users/asami/src/dev2026/cncf-samples/samples/02.b-simpleentity-crud-lab/build.sbt)
+  - enables `sbt-cozy` generation for the sample
+- [run.sh](/Users/asami/src/dev2026/cncf-samples/samples/02.b-simpleentity-crud-lab/run.sh)
+  - batch wrapper for the documented shell commands
 
-When a framework/runtime parameter is needed, use the `textus.*` namespace.
-For example:
+## How To Run
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command --textus.format yaml help simple-entity-crud-lab.item.create-item"
+$ cd samples/02.b-simpleentity-crud-lab
+$ ../../bin/setup cozy
+$ sbt --batch clean compile
+$ bash run.sh
 ```
 
-Observed runtime surface:
+## Command Walkthrough
 
-- component: `SimpleEntityCrudLab`
-- generated service: `Item`
-- generated operation: `SimpleEntityCrudLab.Item.createItem`
-- CLI selector examples: `simple-entity-crud-lab`, `simple-entity-crud-lab.item`, `simple-entity-crud-lab.item.create-item`
-- framework services: `meta`, `system`
-- the generated Scala under `target/scala-3.3.7/src_managed/main` exposes the `SimpleEntity`-shaped CRUD surface through `ItemService`, `AggregateService`, `ViewService`, and the `entity/*` value types
+### Component Help
 
-## Relationship To 02-crud And 02.a
+This command shows the generated component surface.
 
-`02.b-simpleentity-crud-lab` is the `SimpleEntity` variation of the base
-model-driven CRUD flow.
+```bash
+$ bash ../../bin/cncf --discover=classes command help simple-entity-crud-lab
+```
 
-It keeps:
+Parameters:
 
-- CML/Cozy generation
-- `--discover=classes` runtime inspection
-- parameter namespace usage (`textus.*`, `query.*`, domain attributes)
+- `--discover=classes`
+  - tells `bin/cncf` to load the generated classes from the sample build output
+- `command`
+  - uses the ordinary CNCF command path
+- `help`
+  - asks CNCF to describe the selected runtime target
+- `simple-entity-crud-lab`
+  - selects the generated component
 
-Compared with the earlier steps:
+Output example:
 
-- `02-crud` shows the base generated CRUD surface
-- `02.a-crud-seed-import-lab` adds descriptor-first runtime metadata and
-  seed-driven `load` / `search`
-- `02.b-simpleentity-crud-lab` focuses on the `SimpleEntity` attribute groups
-  and the generated CRUD surface that comes with them
+```yaml
+type: component
+name: SimpleEntityCrudLab
+children:
+  - Item
+  - aggregate
+  - entity
+  - meta
+  - system
+  - view
+operationDefinitions:
+  - createItem
+  - getItem
+  - listItems
+```
 
-## Design Goal
+### Service Help
 
-This sample should show that the CRUD API surface comes from the model and CNCF tooling.
+This command shows the generated service surface.
 
-It should not mainly show:
+```bash
+$ bash ../../bin/cncf --discover=classes command help simple-entity-crud-lab.item
+```
 
-- a custom repository
-- a custom TSV store
-- hand-written CRUD business logic
-- a second model layer that hides the `SimpleEntity` attribute groups
+Parameters:
 
-It should mainly show:
+- `--discover=classes`
+  - tells `bin/cncf` to load the generated classes from the sample build output
+- `command`
+  - uses the ordinary CNCF command path
+- `help`
+  - asks CNCF to describe the selected runtime target
+- `simple-entity-crud-lab.item`
+  - selects the generated `Item` service
 
-- CML model definition
-- entity service
-- aggregate service
-- command/API usage produced from that model
+Output example:
+
+```yaml
+type: service
+name: Item
+component: SimpleEntityCrudLab
+children:
+  - createItem
+  - getItem
+  - listItems
+operations:
+  - createItem
+  - getItem
+  - listItems
+```
+
+### Operation Help
+
+This command shows one generated operation.
+
+```bash
+$ bash ../../bin/cncf --discover=classes command help simple-entity-crud-lab.item.create-item
+```
+
+Parameters:
+
+- `--discover=classes`
+  - tells `bin/cncf` to load the generated classes from the sample build output
+- `command`
+  - uses the ordinary CNCF command path
+- `help`
+  - asks CNCF to describe the selected runtime target
+- `simple-entity-crud-lab.item.create-item`
+  - selects the generated operation in CLI form
+
+Output example:
+
+```yaml
+type: operation
+name: createItem
+component: SimpleEntityCrudLab
+service: Item
+selector:
+  canonical: SimpleEntityCrudLab.Item.createItem
+  cli: simple-entity-crud-lab.item.create-item
+  rest: /simple-entity-crud-lab/item/create-item
+returns:
+  - CreateItemResult
+```
+
+### Metadata Describe
+
+This command shows the generated component metadata.
+
+```bash
+$ bash ../../bin/cncf --discover=classes command simple-entity-crud-lab.meta.describe --format yaml
+```
+
+Parameters:
+
+- `--discover=classes`
+  - tells `bin/cncf` to load the generated classes from the sample build output
+- `command`
+  - uses the ordinary CNCF command path
+- `simple-entity-crud-lab.meta.describe`
+  - invokes the generated metadata service
+- `--format yaml`
+  - asks for structured YAML output
+
+Output example:
+
+```yaml
+services:
+- type: service
+  name: Item
+  runtime_name: item
+aggregates:
+- name: item
+  entity_name: item
+views:
+- name: item
+  entity_name: item
+operation_definitions:
+- name: createItem
+  kind: COMMAND
+- name: getItem
+  kind: QUERY
+- name: listItems
+  kind: QUERY
+```
+
+## SimpleEntity Note
+
+`SimpleEntity` matters because many production systems do not model business records as isolated bare objects.
+
+They usually need shared attributes and policies such as:
+
+- stable identity
+- lifecycle state
+- publication-related fields
+- security-related fields
+- resource and media-related fields
+- audit-related fields
+
+In that kind of application, starting from `SimpleEntity` is often the practical default.
+It gives the model a reusable enterprise-shaped base without forcing the sample to jump immediately into storage or workflow details.
+
+This is not only about common attributes.
+It is also about non-functional requirements and quality attributes that become important in real systems, such as:
+
+- traceability
+- auditability
+- security reviewability
+- operational consistency
+- maintainability of shared record policies
+- extensibility when lifecycle or publication rules are added later
+
+Without a shared base such as `SimpleEntity`, those concerns tend to be reintroduced ad hoc in each entity model.
+This sample exists to show the simpler starting point.
+
+It also matters that CNCF can make practical use of these shared attributes when the application grows.
+Once those fields are present in a consistent shape, CNCF-side capabilities can rely on them as needed for:
+
+- metadata exposure
+- view generation
+- search and filtering behavior
+- lifecycle-oriented handling
+- future policy-driven extensions around publication, security, and auditing
+
+This sample is not about seed import or stateful CRUD verification.
+
+Its role is narrower:
+
+- keep the generated CRUD surface visible
+- keep the shell-first command flow visible
+- show the `SimpleEntity` inheritance variant without adding runtime noise
+
+## Summary
+
+Use `02.b-simpleentity-crud-lab` as the `SimpleEntity` variant of the base `02-crud` line.
