@@ -130,6 +130,9 @@ Status:
 - [x] `02.d-crud-server-memory-lab` completed as the server/client memory-backed CRUD sample with matching `cozy` scripted verification
 - [x] `02.e-crud-explicit-sync-lab` completed as the explicit sync CRUD sample with matching `cozy` scripted verification
 - [x] `02.f-crud-nested-value-lab` completed as the nested-value CRUD sample with matching `cozy` scripted verification
+- [x] `03-operation` completed as the base shell-first operation contract sample
+- [x] `03.a-operation-command-lab` completed with matching `cozy` scripted verification, including job submit and await-result
+- [x] `03.b-operation-entity-lab` completed with matching `cozy` scripted verification
 
 ### Phase 4. CQRS / event / job / aggregate normalization
 
@@ -214,9 +217,8 @@ Use this checklist for each sample.
 
 The `08` view line pilot is complete.
 
-The next active targets are the earlier sample families in:
+The next active targets are the later sample families in:
 
-- `03-*`
 - `04-*`
 - `05-*`
 - `06-*`
