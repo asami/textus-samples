@@ -113,6 +113,12 @@ $ bash ../../bin/cncf --discover=classes command help crud.item
 
 Parameters:
 
+- `--discover=classes`
+  - tells `bin/cncf` to load the generated classes from the sample build output
+- `command`
+  - uses the ordinary CNCF command path
+- `help`
+  - asks CNCF to describe the selected runtime target
 - `crud.item`
   - selects the generated `Item` service under the `Crud` component
 
@@ -144,6 +150,12 @@ $ bash ../../bin/cncf --discover=classes command help crud.item.create-item
 
 Parameters:
 
+- `--discover=classes`
+  - tells `bin/cncf` to load the generated classes from the sample build output
+- `command`
+  - uses the ordinary CNCF command path
+- `help`
+  - asks CNCF to describe the selected runtime target
 - `crud.item.create-item`
   - selects the generated operation in CLI form
 
@@ -179,6 +191,10 @@ $ bash ../../bin/cncf --discover=classes command crud.meta.describe --format yam
 
 Parameters:
 
+- `--discover=classes`
+  - tells `bin/cncf` to load the generated classes from the sample build output
+- `command`
+  - uses the ordinary CNCF command path
 - `crud.meta.describe`
   - invokes the generated metadata service
 - `--format yaml`

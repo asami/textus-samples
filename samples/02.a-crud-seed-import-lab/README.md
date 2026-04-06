@@ -2,88 +2,240 @@
 
 ## Overview
 
-This lab is reserved for the CNCF initial data import flow.
+`02.a-crud-seed-import-lab` is the first runtime CRUD sample after `02-crud`.
 
-It is intended to sit between `02-crud` and `02.b-simpleentity-crud-lab`.
+It adds:
 
-## Status
+- descriptor-first runtime metadata under `car.d/meta`
+- seed import under `entity.d`
+- runtime verification through generated entity operations
 
-This lab is wired to import seed data from `entity.d`.
+This sample moves from surface inspection to imported-data verification.
 
-The static runtime metadata is supplied through:
+## Position
 
-- `car.d/meta/component-descriptor.yaml`
+`02-crud` shows the generated CRUD surface.
 
-This is the local development/test form of the same `ComponentDescriptor`
-concept that is intended to live in CAR by default.
+`02.a` extends that line by showing:
 
-The generated runtime surface is present, and the descriptor-first wiring now
-comes from `car.d/meta/component-descriptor.yaml` instead of a sample-local
-Scala wrapper factory.
+- how seed data is supplied to the generated component
+- how imported records can be verified through CNCF commands
+- how descriptor-first layout works in the sample directory
 
-Current verification state:
+## Intended Use Case
 
-- `load` is confirmed against imported seed data
-- `search` is confirmed against imported seed data
-- transport/runtime parameters use the `textus.*` namespace so domain attributes
-  such as `name` do not collide with output controls such as `textus.format`
-  (`cncf.*` remains accepted as a compatibility alias)
+Use this sample when you want to confirm that:
 
-## Intended Shape
+- seed data placed in `entity.d` is imported at runtime
+- the generated entity service can `load` a known seeded record
+- the generated entity search can filter imported records
 
-- model-driven sample
-- Cozy/CML input under `src/main/cozy`
-- `ComponentDescriptor` under `car.d/meta`
-- preloaded seed data before runtime verification
-- runtime focus on `load` and `search`
+## Files
 
-## Difference from the Other CRUD Labs
+- [crud.cml](/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab/src/main/cozy/crud.cml)
+  - the source model
+- [component-descriptor.yaml](/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab/car.d/meta/component-descriptor.yaml)
+  - descriptor-first runtime metadata
+- [crud.yaml](/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab/entity.d/crud.yaml)
+  - imported seed data
+- [run.sh](/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab/run.sh)
+  - batch wrapper for the documented shell commands
 
-- `02-crud` focuses on the base CRUD model surface
-- `02.a` focuses on initial data import plus `load` / `search`
-- `02.b` focuses on the `SimpleEntity` variation
+## How To Run
 
-## Expected Commands
+```bash
+$ cd samples/02.a-crud-seed-import-lab
+$ ../../bin/setup cozy
+$ sbt --batch clean compile
+$ bash run.sh
+```
 
-The following commands are the current verification set:
+## Command Walkthrough
 
-- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help Crud"`
-- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud.entity"`
-- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud.entity.load-item"`
-- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud.entity.search-item-record"`
-- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command crud.entity.load-item --id org-sample-entity-item-20260327000000-aaa111"`
-- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command crud.entity.search-item-record"`
-- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command crud.entity.search-item-record --name alpha"`
-- `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command --textus.format yaml crud.entity.search-item-record --name alpha"`
+### Load Help
 
-The help commands should be run from this sample directory so CNCF can resolve
-the local `car.d` and `entity.d` layout.
+This command shows the generated entity load operation.
 
-The target runtime checks are:
+```bash
+$ bash ../../bin/cncf --discover=classes command help crud.entity.load-item
+```
 
-- `crud.entity.load-item --id major-minor-entity-item-20260327000000-aaa111`
+Parameters:
+
+- `--discover=classes`
+  - tells `bin/cncf` to load the generated classes from the sample build output
+- `command`
+  - uses the ordinary CNCF command path
+- `help`
+  - asks CNCF to describe the selected runtime target
+- `crud.entity.load-item`
+  - selects the generated entity load operation
+
+Output example:
+
+```yaml
+type: operation
+name: loadItem
+component: Crud
+service: entity
+selector:
+  cli: crud.entity.load-item
+returns:
+  - Option[Item]
+```
+
+This confirms that the generated entity service exposes a load route for the imported records.
+
+### Search Help
+
+This command shows the generated entity search operation.
+
+```bash
+$ bash ../../bin/cncf --discover=classes command help crud.entity.search-item-record
+```
+
+Parameters:
+
+- `--discover=classes`
+  - tells `bin/cncf` to load the generated classes from the sample build output
+- `command`
+  - uses the ordinary CNCF command path
+- `help`
+  - asks CNCF to describe the selected runtime target
 - `crud.entity.search-item-record`
-- `crud.entity.search-item-record --name alpha`
-- `command --textus.format yaml crud.entity.search-item-record --name alpha`
+  - selects the generated record-oriented entity search operation
 
-Help output now distinguishes the formal model name from runtime selectors:
+Output example:
 
-- `name`: formal model name such as `searchItemRecord`
-- `selector.canonical`: formal selector such as `Crud.Entity.searchItemRecord`
-- `selector.cli`: CLI selector such as `crud.entity.search-item-record`
-- `selector.rest`: REST selector such as `/crud/entity/search-item-record`
-- `usage`: prefers the kebab-case selector form
+```yaml
+type: operation
+name: searchItemRecord
+component: Crud
+service: entity
+selector:
+  cli: crud.entity.search-item-record
+returns:
+  - SearchResult[Item]
+```
 
-Observed results:
+### Load Seeded Item
 
-- `crud.entity.load-item --id major-minor-entity-item-20260327000000-aaa111`
-  returns the seeded `alpha` item
+This command loads one known seeded record by id.
+
+```bash
+$ bash ../../bin/cncf --discover=classes command crud.entity.load-item --id major-minor-entity-item-20260327000000-aaa111
+```
+
+Parameters:
+
+- `--discover=classes`
+  - tells `bin/cncf` to load the generated classes from the sample build output
+- `command`
+  - uses the ordinary CNCF command path
+- `crud.entity.load-item`
+  - invokes the generated entity load operation directly
+- `--id`
+  - the seeded entity id from [crud.yaml](/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab/entity.d/crud.yaml)
+
+Output example:
+
+```yaml
+id: major-minor-entity-item-20260327000000-aaa111
+name_attributes:
+  name: alpha
+  title: Alpha
+```
+
+This confirms that the seed import ran and that the imported `alpha` item is available through the generated entity load route.
+
+### Search Seeded Item
+
+This command searches the imported records by domain attribute.
+
+```bash
+$ bash ../../bin/cncf --discover=classes command crud.entity.search-item-record --name alpha
+```
+
+Parameters:
+
+- `--discover=classes`
+  - tells `bin/cncf` to load the generated classes from the sample build output
+- `command`
+  - uses the ordinary CNCF command path
 - `crud.entity.search-item-record`
-  returns the two imported items
-- `crud.entity.search-item-record --name alpha`
-  returns the seeded `alpha` item only
-- `command --textus.format yaml crud.entity.search-item-record --name alpha`
-  still applies the domain filter and does not leak `textus.format` into the
-  query condition
+  - invokes the generated entity search operation directly
+- `--name alpha`
+  - filters the imported records by the domain attribute `name`
 
-The phase checklist can be treated as complete for this lab.
+Output example:
+
+```yaml
+query:
+  condition:
+    name: alpha
+data:
+- id: major-minor-entity-item-20260327000000-aaa111
+  name_attributes:
+    name: alpha
+    title: Alpha
+total_count: 1
+fetched_count: 1
+```
+
+This confirms that:
+
+- the seed import produced searchable records
+- the domain filter is preserved in `query.condition`
+- the `alpha` record is the only match
+
+### Metadata Describe
+
+This command shows the generated component metadata.
+
+```bash
+$ bash ../../bin/cncf --discover=classes command crud.meta.describe --format yaml
+```
+
+Parameters:
+
+- `--discover=classes`
+  - tells `bin/cncf` to load the generated classes from the sample build output
+- `command`
+  - uses the ordinary CNCF command path
+- `crud.meta.describe`
+  - invokes the metadata service for the generated component
+- `--format yaml`
+  - requests YAML output
+
+Output example:
+
+```yaml
+services:
+- type: service
+  name: entity
+  runtime_name: entity
+aggregates:
+- name: item
+  entity_name: item
+views:
+- name: item
+  entity_name: item
+operation_definitions:
+- name: createItem
+- name: getItem
+- name: listItems
+```
+
+## Relationship To 02-crud
+
+`02-crud` stops at generated surface inspection.
+
+`02.a` adds:
+
+- runtime descriptor layout
+- imported seed data
+- load/search confirmation against imported records
+
+## Summary
+
+Use `02.a-crud-seed-import-lab` as the first CRUD sample that verifies actual imported data through CNCF commands.
