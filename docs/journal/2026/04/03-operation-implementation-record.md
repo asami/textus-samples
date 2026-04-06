@@ -1,56 +1,42 @@
-# 03-operation Implementation Record
+# 03 Operation Implementation Record
 
-- date: 2026-04-01
-- status: done
+## Summary
 
-## Internal Verification
+`03-operation` was normalized as the base operation contract sample.
 
-Verified:
+The sample is intentionally inspection-oriented.
+It shows the generated help and metadata surface for one minimal `QUERY` operation contract.
 
-- `SERVICE > OPERATION`
-- `INPUT > TYPE`
-- `OUTPUT > TYPE`
-- `SUMMARY`
-- `DESCRIPTION`
-- operation-level `TYPE = COMMAND | QUERY`
+## What Changed
 
-Observed through the Cozy/Kaleidox parser-model and generation test path.
-The user-facing sample was kept free of direct parser/model runner dependencies.
+- rewrote the README as a shell-first inspection sample
+- simplified `run.sh` to direct `bin/cncf` commands
+- made the main verification line:
+  - operation help
+  - metadata describe
 
-## Verification
+## Verified Commands
 
-- Cozy/Kaleidox parser-model tests
-- Cozy `modeler-scala` on `service-operation-contract.dox`
+- `bash ../../bin/cncf --discover=classes command help operation-contract-sample.greeting.greeting`
+- `bash ../../bin/cncf --discover=classes command operation-contract-sample.meta.describe --format yaml`
+- `bash run.sh`
 
-Confirmed generated `operationDefinitions` for `SERVICE > OPERATION` with:
+## Observed Output
 
-- `name = "greeting"`
-- `kind = "QUERY"`
-- `inputType = "GreetingQuery"`
-- `outputType = "GreetingResult"`
-- `inputSummary`
-- `inputDescription`
-- `outputSummary`
-- `outputDescription`
+Help confirms:
 
-Confirmed runnable sample path:
-
-- `command help operation-contract-sample.greeting.greeting`
+- `service: Greeting`
+- `name: greeting`
 - `returns: GreetingResult`
 
-The generated component is discovered through `--discover=classes` after:
+Metadata confirms:
 
-- class discovery support for `Component.Factory`
-- generator suppression of empty generated services for operation-only components
+- `runtime_name: greeting`
+- `kind: QUERY`
+- `input_type: GreetingQuery`
+- `output_type: GreetingResult`
 
-The sample now uses inline operation-local values:
+## Main Point
 
-- `INPUT > VALUE`
-- `OUTPUT > VALUE`
-
-## Closure
-
-The `03` line is continued and now closed by:
-
-- `03.a-operation-command-lab`
-- `03.b-operation-entity-lab`
+`03-operation` is the user-facing contract-definition sample.
+It stays minimal on purpose so the later `03.a`, `03.b`, and `04-*` samples can build on a clear operation-modeling baseline.
