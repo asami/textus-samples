@@ -150,6 +150,10 @@ Status:
 29. rework `07.b-aggregate-relation-boundary-model`
 30. rework `07.c-aggregate-external-update-semantics`
 
+Status:
+
+- [x] `04-cqrs` completed as the first explicit CQRS sample with matching `cozy` scripted verification
+
 ### Phase 5. Future lines
 
 31. `09-subsystem`

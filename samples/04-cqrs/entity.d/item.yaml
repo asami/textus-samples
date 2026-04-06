@@ -1,6 +1,0 @@
-entitystore:
-  - collection: major.minor.item
-    records:
-      - id: org-sample-entity-item-20260327000000-aaa111
-        name: alpha
-        title: Alpha
