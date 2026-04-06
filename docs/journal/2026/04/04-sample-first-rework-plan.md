@@ -157,6 +157,7 @@ Status:
 - [x] `04.b-test-sync-command-lab` completed as the runtime test-sync counterpart with matching `cozy` scripted verification
 - [x] `05-event-driven` completed as the base shell-first event surface sample, with the same-JVM effect proof moved to `cozy` scripted
 - [x] `05.a-event-job-trace-lab` completed as the shell-first event/job trace bridge sample with matching `cozy` scripted verification
+- [x] `05.b-event-job-server-client-lab` completed as the practical server/client event flow sample with matching `cozy` scripted verification
 
 ### Phase 5. Future lines
 

@@ -79,16 +79,64 @@ That means:
 
 So this lab is useful for runtime-shape verification, but not for durable persistence checks.
 
-## How To Run
+## Setup
+
+### 1. Prepare the `cozy` command
+
+Prepare the local `cozy` launcher that `sbt-cozy` delegates to during generation.
 
 ```bash
 $ cd samples/02.d-crud-server-memory-lab
 $ ../../bin/setup cozy
+```
+
+### 2. Build the generated sample
+
+Compile the sample and generate the runtime classes that `cncf --discover=classes` will use later.
+
+```bash
+$ cd samples/02.d-crud-server-memory-lab
 $ sbt --batch clean compile
+```
+
+## Run The Whole Scenario
+
+```bash
+$ cd samples/02.d-crud-server-memory-lab
 $ bash run.sh
 ```
 
+`run.sh` is only a convenience batch runner.
+
+It is the batch form of the walkthrough below.
+
+The main learning path is still the explicit shell sequence in `Command Walkthrough`.
+
 ## Command Walkthrough
+
+This sample uses:
+
+```bash
+bash ../../bin/cncf --discover=classes ...
+```
+
+Common points:
+
+- `cncf`:
+  - the standard CNCF command-line entry point
+  - in this sample repository it is invoked through `../../bin/cncf`
+  - after a normal CNCF installation, the same command is expected to be available as `cncf`
+- `--discover=classes`:
+  - use the locally compiled generated classes under `target/`
+  - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
+- `command`:
+  - run one-shot CNCF command execution without starting a persistent server
+- `server`:
+  - start CNCF in persistent server mode
+- `client`:
+  - send a request to a running CNCF server
+- `help`:
+  - ask CNCF to describe the selected component, service, or operation instead of executing it
 
 ### Component Help
 
@@ -97,13 +145,12 @@ $ bash ../../bin/cncf --discover=classes command help crud
 ```
 
 Parameters:
-
-- `--discover=classes`
-  - tells `bin/cncf` to load the generated classes from the sample build output
 - `command`
-  - uses the ordinary CNCF command path
+  - uses ordinary one-shot CNCF command execution for this step
+
 - `help`
-  - asks CNCF to describe the selected runtime target
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
+
 - `crud`
   - selects the generated component
 
@@ -129,6 +176,11 @@ $ bash ../../bin/cncf --discover=classes command help crud.entity
 ```
 
 Parameters:
+- `command`
+  - uses ordinary one-shot CNCF command execution for this step
+
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
 
 - `crud.entity`
   - selects the generated entity service
@@ -153,6 +205,11 @@ $ bash ../../bin/cncf --discover=classes command help crud.entity.create-item
 ```
 
 Parameters:
+- `command`
+  - uses ordinary one-shot CNCF command execution for this step
+
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
 
 - `crud.entity.create-item`
   - selects the generated create operation
@@ -175,6 +232,11 @@ $ bash ../../bin/cncf --discover=classes command help job-control.job.await-job-
 ```
 
 Parameters:
+- `command`
+  - uses ordinary one-shot CNCF command execution for this step
+
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
 
 - `job-control.job.await-job-result`
   - selects the builtin job result wait operation
@@ -198,8 +260,6 @@ $ bash run-server.sh
 
 Parameters:
 
-- `server`
-  - starts the generated component in CNCF server mode
 
 Observed readiness line:
 
@@ -215,8 +275,6 @@ $ bash run-client-create.sh
 
 Parameters:
 
-- `client`
-  - uses the CNCF client path instead of local command execution
 - `crud.entity.create-item`
   - sends the generated create command to the running server
 - `--name alpha`
@@ -286,6 +344,11 @@ $ bash ../../bin/cncf --discover=classes command crud.meta.describe --format yam
 ```
 
 Parameters:
+- `command`
+  - uses ordinary one-shot CNCF command execution for this step
+
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
 
 - `crud.meta.describe`
   - invokes the generated metadata route

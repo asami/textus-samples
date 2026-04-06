@@ -67,9 +67,9 @@ The first completion line is:
 
 Implemented as the first user-facing UI-list view-search sample.
 
-## How To Run
+## Setup
 
-### 1. Prepare The Cozy Command
+### 1. Prepare the `cozy` command
 
 Before running the sample, prepare the `cozy` launcher that sample generation uses.
 This step resolves the configured `cozy` version and records a runnable launcher for `bin/cozy`.
@@ -79,7 +79,16 @@ $ cd samples/08.c-view-cache-lab
 $ ../../bin/setup cozy
 ```
 
-### 2. Run The Whole Scenario
+### 2. Build the generated sample
+
+Compile the sample and generate the runtime classes that `cncf --discover=classes` will use later.
+
+```bash
+$ cd samples/08.c-view-cache-lab
+$ sbt --batch clean compile
+```
+
+## Run The Whole Scenario
 
 If you want the entire scenario in one shot, use:
 
@@ -88,11 +97,33 @@ $ cd samples/08.c-view-cache-lab
 $ bash run.sh
 ```
 
-This executes the same command sequence described below.
+`run.sh` is only a convenience batch runner.
+
+It is the batch form of the walkthrough below.
+
+The main learning path is still the explicit shell sequence in `Command Walkthrough`.
 
 ## Command Walkthrough
 
-The sections below explain the shell commands that `run.sh` executes.
+This sample uses:
+
+```bash
+bash ../../bin/cncf --discover=classes ...
+```
+
+Common points:
+
+- `cncf`:
+  - the standard CNCF command-line entry point
+  - in this sample repository it is invoked through `../../bin/cncf`
+  - after a normal CNCF installation, the same command is expected to be available as `cncf`
+- `--discover=classes`:
+  - use the locally compiled generated classes under `target/`
+  - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
+- `command`:
+  - run one-shot CNCF command execution without starting a persistent server
+- `help`:
+  - ask CNCF to describe the selected component, service, or operation instead of executing it
 
 ### 1. Inspect The Available View Search Command
 
@@ -135,12 +166,12 @@ usage:
 
 Command parameters:
 
-- `--discover=classes`
-  - tells CNCF to discover the generated classes from the sample build
 - `command`
-  - selects CNCF command execution mode
+  - uses ordinary one-shot CNCF command execution for this step
+
 - `help`
-  - asks CNCF to describe the target command instead of executing the business operation
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
+
 - `view-cache-sample.view.search-person-summary-record`
   - identifies the specific operation to describe
   - `view-cache-sample`
@@ -196,7 +227,11 @@ fetched_count: 2
 Command parameters:
 
 - `command`
-  - selects CNCF command execution mode
+  - uses ordinary one-shot CNCF command execution for this step
+
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
+
 - `view-cache-sample.view.search-person-summary-record`
   - selects the summary view search operation
 - `--city Tokyo`
@@ -252,7 +287,11 @@ fetched_count: 2
 Command parameters:
 
 - `command`
-  - keeps the invocation in CNCF command mode
+  - uses ordinary one-shot CNCF command execution for this step
+
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
+
 - `view-cache-sample.view.search-person-summary-record`
   - keeps the same search route as page 1
 - `--city Tokyo`
@@ -308,7 +347,11 @@ fetched_count: 2
 Command parameters:
 
 - `command`
-  - keeps the invocation in CNCF command mode
+  - uses ordinary one-shot CNCF command execution for this step
+
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
+
 - `view-cache-sample.view.search-person-summary-record`
   - keeps the same search route as the earlier pages
 - `--city Tokyo`
@@ -378,12 +421,16 @@ operation_definitions: [
 
 Command parameters:
 
+- `command`
+  - uses ordinary one-shot CNCF command execution for this step
+
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
+
 - `view-cache-sample.meta.describe`
   - asks the component to describe itself
 - `--format yaml`
   - makes the description easier to inspect from the shell
-- `command`
-  - selects CNCF command execution mode
 - `view-cache-sample.meta.describe`
   - targets the metadata description operation
   - `view-cache-sample`

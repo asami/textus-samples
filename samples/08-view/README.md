@@ -46,9 +46,9 @@ The current first line is:
 3. one view search route works
 4. the README explains why this is view-oriented rather than aggregate-oriented access
 
-## How To Run
+## Setup
 
-### 1. Prepare The Cozy Command
+### 1. Prepare the `cozy` command
 
 Before running the sample, prepare the `cozy` launcher that sample generation uses.
 
@@ -57,7 +57,16 @@ $ cd samples/08-view
 $ ../../bin/setup cozy
 ```
 
-### 2. Run The Whole Scenario
+### 2. Build the generated sample
+
+Compile the sample and generate the runtime classes that `cncf --discover=classes` will use later.
+
+```bash
+$ cd samples/08-view
+$ sbt --batch clean compile
+```
+
+## Run The Whole Scenario
 
 If you want the entire scenario in one shot, use:
 
@@ -66,11 +75,33 @@ $ cd samples/08-view
 $ bash run.sh
 ```
 
-This executes the same command sequence described below.
+`run.sh` is only a convenience batch runner.
+
+It is the batch form of the walkthrough below.
+
+The main learning path is still the explicit shell sequence in `Command Walkthrough`.
 
 ## Command Walkthrough
 
-The sections below explain the shell commands that `run.sh` executes.
+This sample uses:
+
+```bash
+bash ../../bin/cncf --discover=classes ...
+```
+
+Common points:
+
+- `cncf`:
+  - the standard CNCF command-line entry point
+  - in this sample repository it is invoked through `../../bin/cncf`
+  - after a normal CNCF installation, the same command is expected to be available as `cncf`
+- `--discover=classes`:
+  - use the locally compiled generated classes under `target/`
+  - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
+- `command`:
+  - run one-shot CNCF command execution without starting a persistent server
+- `help`:
+  - ask CNCF to describe the selected component, service, or operation instead of executing it
 
 ### 1. Inspect The Available View Load Command
 
@@ -113,12 +144,12 @@ This confirms:
 
 Command parameters:
 
-- `--discover=classes`
-  - tells CNCF to discover the generated classes from the sample build
 - `command`
-  - selects CNCF command execution mode
+  - uses ordinary one-shot CNCF command execution for this step
+
 - `help`
-  - asks CNCF to describe the target command instead of executing the operation
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
+
 - `view-sample.view.load-person`
   - identifies the specific operation to describe
   - `view-sample`
@@ -176,10 +207,12 @@ This demonstrates:
 
 Command parameters:
 
-- `--discover=classes`
-  - tells CNCF to discover the generated classes from the sample build
 - `command`
-  - selects CNCF command execution mode
+  - uses ordinary one-shot CNCF command execution for this step
+
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
+
 - `view-sample.view.load-person`
   - selects the generated view load operation
 - `--id ...`
@@ -228,10 +261,12 @@ This demonstrates:
 
 Command parameters:
 
-- `--discover=classes`
-  - tells CNCF to discover the generated classes from the sample build
 - `command`
-  - selects CNCF command execution mode
+  - uses ordinary one-shot CNCF command execution for this step
+
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
+
 - `view-sample.view.search-person-record`
   - selects the generated view search operation
 - `--name Alice`

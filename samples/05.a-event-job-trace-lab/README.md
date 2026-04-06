@@ -45,6 +45,14 @@ This sample covers the middle of that flow:
 - inspect job status and history
 - verify the visible effect
 
+## Intended Use Case
+
+Use this sample when you want to explain:
+
+- how an event-triggered reaction appears as job-managed work
+- how to trace event-driven execution from the shell
+- how CNCF lets you move from event emission to job inspection before going into fuller job-management samples
+
 ## Files
 
 - `src/main/cozy/event.cml`
@@ -60,13 +68,19 @@ This sample covers the middle of that flow:
 - observation query: `loadEffect`
 - emitted event: `item.changed`
 
-## Prepare The Cozy Command
+## Setup
+
+### 1. Prepare the `cozy` command
+
+Prepare the local `cozy` launcher that `sbt-cozy` delegates to during generation.
 
 ```bash
 ../../bin/setup cozy
 ```
 
-## Build
+### 2. Build the generated sample
+
+Compile the sample and generate the runtime classes that `cncf --discover=classes` will use later.
 
 ```bash
 sbt clean compile
@@ -78,7 +92,37 @@ sbt clean compile
 bash run.sh
 ```
 
+`run.sh` is only a convenience batch runner.
+
+It is the batch form of the walkthrough below.
+
+The main learning path is still the explicit shell sequence in `Command Walkthrough`.
+
 ## Command Walkthrough
+
+This sample uses:
+
+```bash
+bash ../../bin/cncf --discover=classes ...
+```
+
+Common points:
+
+- `cncf`:
+  - the standard CNCF command-line entry point
+  - in this sample repository it is invoked through `../../bin/cncf`
+  - after a normal CNCF installation, the same command is expected to be available as `cncf`
+- `--discover=classes`:
+  - use the locally compiled generated classes under `target/`
+  - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
+- `command`:
+  - run one-shot CNCF command execution without starting a persistent server
+- `server`:
+  - start CNCF in persistent server mode
+- `client`:
+  - send a request to a running CNCF server
+- `help`:
+  - ask CNCF to describe the selected component, service, or operation instead of executing it
 
 ### 1. Inspect the event surface
 
@@ -96,9 +140,12 @@ bash ../../bin/cncf --discover=classes command help event-driven.event.emit-even
 ```
 
 Parameters:
+- `command`
+  - uses ordinary one-shot CNCF command execution for this step
 
-- `--discover=classes`: use the locally compiled generated component
-- `command`: run one-shot shell inspection instead of server/client mode
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
+
 - `help event-driven`: inspect the component-level surface
 - `help event-driven.event.emit-event`: inspect the emitting operation
 
@@ -135,6 +182,11 @@ bash ../../bin/cncf --discover=classes command help job-control.job.load-job-his
 ```
 
 Parameters:
+- `command`
+  - uses ordinary one-shot CNCF command execution for this step
+
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
 
 - `help job-control.job.await-job-result`: inspect the waiting operation
 - `help job-control.job.load-job-history`: inspect the timeline-loading operation
@@ -158,6 +210,11 @@ bash ../../bin/cncf --discover=classes command event-driven.meta.describe --form
 ```
 
 Parameters:
+- `command`
+  - uses ordinary one-shot CNCF command execution for this step
+
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
 
 - `event-driven.meta.describe`: describe the generated runtime metadata
 - `--format yaml`: request structured YAML output
@@ -179,8 +236,9 @@ bash ../../bin/cncf --discover=classes server
 ```
 
 Parameters:
+- `server`
+  - starts CNCF in persistent server mode so job state and routed effects stay available across requests
 
-- `server`: start the local CNCF HTTP server for multi-step observation
 
 ### 5. Emit the event
 
@@ -195,8 +253,9 @@ bash ../../bin/cncf --discover=classes client event-driven.event.emit-event --na
 ```
 
 Parameters:
+- `client`
+  - sends the request to the running local CNCF server
 
-- `client`: send the request to the running local server
 - `event-driven.event.emit-event`: emitting command selector
 - `--name alpha`: logical item name carried by the emitted event
 - `--title Alpha`: extra payload carried by the emitted event
@@ -224,6 +283,8 @@ bash ../../bin/cncf --discover=classes client job-control.job.await-job-result -
 ```
 
 Parameters:
+- `client`
+  - sends the request to the running local CNCF server
 
 - `job-control.job.await-job-result`: wait until the submitted job reaches a final result
 - `--id ...`: the job id returned by `emit-event`
@@ -253,6 +314,8 @@ bash ../../bin/cncf --discover=classes client job-control.job.get-job-status --i
 ```
 
 Parameters:
+- `client`
+  - sends the request to the running local CNCF server
 
 - `job-control.job.get-job-status`: fetch the summarized job state
 - `--id ...`: target job id
@@ -283,6 +346,8 @@ bash ../../bin/cncf --discover=classes client job-control.job.load-job-history -
 ```
 
 Parameters:
+- `client`
+  - sends the request to the running local CNCF server
 
 - `job-control.job.load-job-history`: fetch the detailed job timeline
 - `--id ...`: target job id
@@ -324,6 +389,8 @@ bash ../../bin/cncf --discover=classes client event-driven.event.load-effect
 ```
 
 Parameters:
+- `client`
+  - sends the request to the running local CNCF server
 
 - `event-driven.event.load-effect`: read the visible post-event effect
 - no explicit arguments: this sample keeps only the latest visible effect payload
@@ -385,11 +452,3 @@ At this point you have seen the whole shell-visible path:
 
 - `05-event-driven` stops at event surface and visible effect
 - `05.a-event-job-trace-lab` adds `job-control` observation of the routed reaction
-
-## Intended Use Case
-
-Use this sample when you want to explain:
-
-- how an event-triggered reaction appears as job-managed work
-- how to trace event-driven execution from the shell
-- how CNCF lets you move from event emission to job inspection before going into fuller job-management samples

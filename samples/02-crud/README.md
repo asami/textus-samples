@@ -49,16 +49,60 @@ Typical use cases are:
 - `run.sh`
   - batch wrapper for the documented shell commands
 
-## How To Run
+## Setup
+
+### 1. Prepare the `cozy` command
+
+Prepare the local `cozy` launcher that `sbt-cozy` delegates to during generation.
 
 ```bash
 $ cd samples/02-crud
 $ ../../bin/setup cozy
+```
+
+### 2. Build the generated sample
+
+Compile the sample and generate the runtime classes that `cncf --discover=classes` will use later.
+
+```bash
+$ cd samples/02-crud
 $ sbt --batch clean compile
+```
+
+## Run The Whole Scenario
+
+```bash
+$ cd samples/02-crud
 $ bash run.sh
 ```
 
+`run.sh` is only a convenience batch runner.
+
+It is the batch form of the walkthrough below.
+
+The main learning path is still the explicit shell sequence in `Command Walkthrough`.
+
 ## Command Walkthrough
+
+This sample uses:
+
+```bash
+bash ../../bin/cncf --discover=classes ...
+```
+
+Common points:
+
+- `cncf`:
+  - the standard CNCF command-line entry point
+  - in this sample repository it is invoked through `../../bin/cncf`
+  - after a normal CNCF installation, the same command is expected to be available as `cncf`
+- `--discover=classes`:
+  - use the locally compiled generated classes under `target/`
+  - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
+- `command`:
+  - run one-shot CNCF command execution without starting a persistent server
+- `help`:
+  - ask CNCF to describe the selected component, service, or operation instead of executing it
 
 ### Component Help
 
@@ -69,13 +113,12 @@ $ bash ../../bin/cncf --discover=classes command help crud
 ```
 
 Parameters:
-
-- `--discover=classes`
-  - tells `bin/cncf` to load the generated classes from the sample build output
 - `command`
-  - uses the ordinary CNCF command path
+  - uses ordinary one-shot CNCF command execution for this step
+
 - `help`
-  - asks CNCF to describe the selected runtime target
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
+
 - `crud`
   - selects the generated component
 
@@ -112,13 +155,12 @@ $ bash ../../bin/cncf --discover=classes command help crud.item
 ```
 
 Parameters:
-
-- `--discover=classes`
-  - tells `bin/cncf` to load the generated classes from the sample build output
 - `command`
-  - uses the ordinary CNCF command path
+  - uses ordinary one-shot CNCF command execution for this step
+
 - `help`
-  - asks CNCF to describe the selected runtime target
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
+
 - `crud.item`
   - selects the generated `Item` service under the `Crud` component
 
@@ -149,13 +191,12 @@ $ bash ../../bin/cncf --discover=classes command help crud.item.create-item
 ```
 
 Parameters:
-
-- `--discover=classes`
-  - tells `bin/cncf` to load the generated classes from the sample build output
 - `command`
-  - uses the ordinary CNCF command path
+  - uses ordinary one-shot CNCF command execution for this step
+
 - `help`
-  - asks CNCF to describe the selected runtime target
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
+
 - `crud.item.create-item`
   - selects the generated operation in CLI form
 
@@ -190,11 +231,12 @@ $ bash ../../bin/cncf --discover=classes command crud.meta.describe --format yam
 ```
 
 Parameters:
-
-- `--discover=classes`
-  - tells `bin/cncf` to load the generated classes from the sample build output
 - `command`
-  - uses the ordinary CNCF command path
+  - uses ordinary one-shot CNCF command execution for this step
+
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
+
 - `crud.meta.describe`
   - invokes the generated metadata service
 - `--format yaml`

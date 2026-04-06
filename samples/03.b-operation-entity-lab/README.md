@@ -52,16 +52,59 @@ Typical use cases are:
 - `run.sh`
   - batch wrapper for the documented shell commands
 
-## How To Run
+## Setup
+
+### 1. Prepare the `cozy` command
+
+Prepare the local `cozy` launcher that `sbt-cozy` delegates to during generation.
 
 ```bash
 $ cd samples/03.b-operation-entity-lab
 $ ../../bin/setup cozy
+```
+
+### 2. Build the generated sample
+
+Compile the sample and generate the runtime classes that `cncf --discover=classes` will use later.
+
+```bash
+$ cd samples/03.b-operation-entity-lab
 $ sbt --batch clean compile
+```
+
+## Run The Whole Scenario
+
+```bash
+$ cd samples/03.b-operation-entity-lab
 $ bash run.sh
 ```
 
+`run.sh` is only a convenience batch runner.
+
+It is the batch form of the walkthrough below.
+
+The main learning path is still the explicit shell sequence in `Command Walkthrough`.
+
 ## Command Walkthrough
+
+This sample uses:
+
+```bash
+bash ../../bin/cncf --discover=classes ...
+```
+
+Common points:
+
+- `cncf`:
+  - the standard CNCF command-line entry point
+  - in this sample repository it is invoked through `../../bin/cncf`
+  - after a normal CNCF installation, the same command is expected to be available as `cncf`
+- `--component-factory-class ...`:
+  - use the sample-specific factory that provides executable behavior for the minimal walkthrough
+- `command`:
+  - run one-shot CNCF command execution without starting a persistent server
+- `help`:
+  - ask CNCF to describe the selected component, service, or operation instead of executing it
 
 ### Operation Help
 
@@ -70,13 +113,14 @@ $ bash ../../bin/cncf --component-factory-class org.sample.operationentity.Opera
 ```
 
 Parameters:
+- `command`
+  - uses ordinary one-shot CNCF command execution for this step
+
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
 
 - `--component-factory-class org.sample.operationentity.OperationEntitySampleFactory`
   - uses the sample-specific factory that provides the executable query behavior
-- `command`
-  - uses the ordinary CNCF command path
-- `help`
-  - asks CNCF to describe the selected runtime target
 - `operation-entity-sample.person-app.get-person-card`
   - selects the generated query operation
 
@@ -107,6 +151,11 @@ $ bash ../../bin/cncf --component-factory-class org.sample.operationentity.Opera
 ```
 
 Parameters:
+- `command`
+  - uses ordinary one-shot CNCF command execution for this step
+
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
 
 - `operation-entity-sample.meta.describe`
   - invokes the generated metadata service
@@ -136,6 +185,11 @@ $ bash ../../bin/cncf --component-factory-class org.sample.operationentity.Opera
 ```
 
 Parameters:
+- `command`
+  - uses ordinary one-shot CNCF command execution for this step
+
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
 
 - `operation-entity-sample.person-app.get-person-card`
   - invokes the application-facing query operation
