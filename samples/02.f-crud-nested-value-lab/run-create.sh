@@ -1,17 +1,11 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/sh
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-cd "$SCRIPT_DIR"
+set -eu
 
 dbpath="target/cncf.d/02f-crud-nested-value-lab.sqlite"
 mkdir -p target/cncf.d
 
-exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
-  --script-path "$0" \
-  --discover-classes \
-  -- \
-  command \
+exec bash ../../bin/cncf --discover=classes command \
   "--cncf.datastore.sqlite.path=$dbpath" \
   --textus.runtime.command.execution-mode sync-direct-no-job \
   crud-nested-value-sample.entity.create-person \

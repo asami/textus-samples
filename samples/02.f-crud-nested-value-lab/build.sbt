@@ -17,9 +17,8 @@ lazy val root = (project in file("."))
       Resolver.mavenLocal,
       "SimpleModeling.org" at "https://www.simplemodeling.org/maven"
     ),
-    libraryDependencies ++= Seq(
-      "org.goldenport" %% "goldenport-cncf" % "0.4.1-SNAPSHOT"
-    ),
+    libraryDependencies +=
+      "org.goldenport" %% "goldenport-cncf" % cncfVersion(baseDirectory.value),
     cozyManifestMetadata ++= Map(
       "component" -> "crud-nested-value",
       "boundedContext" -> "profile",
@@ -27,3 +26,16 @@ lazy val root = (project in file("."))
     ),
     Test / fork := false
   )
+
+def cncfVersion(base: java.io.File): String = {
+  sys.env.get("CNCF_VERSION")
+    .orElse {
+      val versionFile = base.toPath.getParent.getParent.resolve("versions/cncf-version.conf").toFile
+      if (versionFile.isFile) {
+        Some(IO.read(versionFile).trim).filter(_.nonEmpty)
+      } else {
+        None
+      }
+    }
+    .getOrElse(sys.error("CNCF_VERSION or versions/cncf-version.conf is required"))
+}

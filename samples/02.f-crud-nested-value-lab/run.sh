@@ -1,9 +1,8 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/sh
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-cd "$SCRIPT_DIR"
+set -eu
 
-exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
-  --script-path "$0" \
-  --sample-main-class org.sample.crudnestedvalue.NestedValueDemo
+bash ../../bin/cncf --discover=classes command help crud-nested-value-sample.entity.create-person
+bash ../../bin/cncf --discover=classes command help crud-nested-value-sample.entity.load-person
+bash ../../bin/cncf --discover=classes command crud-nested-value-sample.meta.describe --format yaml
+bash run-datastore.sh
