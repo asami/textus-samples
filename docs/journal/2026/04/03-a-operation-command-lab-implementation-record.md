@@ -1,34 +1,54 @@
-# 03.a-operation-command-lab Implementation Record
+# 03.a Operation Command Lab Implementation Record
 
-- date: 2026-04-01
-- status: done
+## Summary
 
-## Purpose
+`03.a-operation-command-lab` was normalized as the first command-oriented contract sample.
 
-Fix the first command-oriented operation contract line after `03-operation`.
+The sample now verifies both:
 
-## Target
+- the generated help and metadata surface for one minimal `COMMAND` operation contract
+- the minimal async command flow of `job id -> await-job-result`
 
-- `SERVICE > OPERATION`
-- `TYPE = COMMAND`
-- `INPUT/OUTPUT > VALUE`
-- `SUMMARY`
-- `DESCRIPTION`
+## What Changed
 
-## Verification
+- rewrote the README as a shell-first command sample
+- added a sample-specific factory to provide the smallest executable command behavior
+- updated `run.sh` to cover:
+  - operation help
+  - metadata describe
+  - command submission
+  - job await
 
+## Verified Commands
+
+- `bash ../../bin/cncf --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory command help operation-command-contract-sample.greeting.submit-greeting`
+- `bash ../../bin/cncf --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory command operation-command-contract-sample.meta.describe --format yaml`
+- `bash ../../bin/cncf --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory client operation-command-contract-sample.greeting.submit-greeting --name Alice`
+- `bash ../../bin/cncf --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory client job-control.job.await-job-result --id <job-id>`
 - `bash run.sh`
-- `command help operation-command-contract-sample.greeting.submit-greeting`
 
-Confirmed:
+## Observed Output
 
-- `SERVICE > OPERATION`
-- `TYPE = COMMAND`
-- `INPUT > VALUE`
-- `OUTPUT > VALUE`
-- help surface through `--discover=classes`
+Help confirms:
+
+- `service: Greeting`
+- `name: submitGreeting`
 - `returns: GreetingAccepted`
 
-## Follow-up
+Metadata confirms:
 
-- entity-integrated command operation can be added later if needed
+- `runtime_name: greeting`
+- `kind: COMMAND`
+- `input_type: GreetingCommand`
+- `output_type: GreetingAccepted`
+- `input_value_kind: COMMAND_VALUE`
+
+Command execution confirms:
+
+- submit returns a job id first
+- await returns `{"status":"accepted","name":"Alice"}`
+
+## Main Point
+
+`03.a` is the first CQRS-`C` sample.
+It makes the command-oriented operation surface explicit and shows why CNCF treats command execution as an async job-backed path by default.
