@@ -2,106 +2,319 @@
 
 ## Overview
 
-This sample follows the same model-driven CRUD direction as `02-crud`, but it
-shows explicit synchronous execution as a runtime option in a server/client runtime.
+`02.e-crud-explicit-sync-lab` is the explicit synchronous execution variant of the `02` CRUD line.
 
-This is not hidden sync:
+It keeps the same generated CRUD surface as `02.d`, but changes the command completion shape:
 
-- the create route explicitly requests sync execution
-- the create command returns the actual result immediately
+- the component still runs in server mode
+- the client still calls that server over the normal CNCF client path
+- the create route explicitly requests synchronous execution
+- the create command returns immediately
 - the result is not a job id
+- the returned `id` can be used immediately for a follow-up load
 
-## Requirements
+This sample is not about durable persistence.
+It is about showing that a generated server/client CRUD component can opt into an explicit synchronous command path.
 
-- `cozy` is required
-- `src/main/cozy/crud.cml` is the model source
-- the sample is model-driven rather than hand-written CRUD repository logic
-- runtime help and execution use `CncfMain --discover=classes`
-- framework/runtime parameters use the `textus.*` namespace
-- `cncf.*` remains accepted as a compatibility alias
-- query control parameters use the `query.*` namespace
-- unprefixed parameters are reserved for domain attributes
+## Position
 
-## Model
+Compared with the earlier CRUD samples:
 
-- entity: `Item`
-- service: `entity`
-- command target:
-  - `crud.entity.create-item`
+- `02-crud`
+  - shows the generated CRUD surface itself
+- `02.a-crud-seed-import-lab`
+  - shows seed import and descriptor-first metadata
+- `02.b-simpleentity-crud-lab`
+  - shows the `SimpleEntity` CRUD variation
+- `02.c-crud-sqlite-lab`
+  - shows persistence across separate commands through SQLite
+- `02.d-crud-server-memory-lab`
+  - shows the normal server/client runtime path with memory-backed state and job-based completion
+- `02.e-crud-explicit-sync-lab`
+  - shows the server/client runtime path with memory-backed state and explicit synchronous completion
 
-## How To Use
+## Intended Use Case
 
-Build:
+Use this sample when you want to confirm:
+
+- that a generated CRUD component can be started in server mode
+- that a command route can explicitly request synchronous execution
+- that the client receives an immediate create result instead of a job id
+- that the returned `id` can be used right away for a same-server-session follow-up load
+
+Typical use cases are:
+
+- confirming an explicit sync route before introducing async job handling
+- demonstrating the runtime difference between:
+  - default job-backed command execution
+  - explicit synchronous command execution
+- checking a development-time server/client flow where immediate completion is preferable
+
+## Files
+
+- `src/main/cozy/crud.cml`
+  - the source model
+- `build.sbt`
+  - enables `sbt-cozy` generation for the sample
+- `run-server.sh`
+  - starts the generated component in server mode
+- `run-client-create.sh`
+  - sends the create command through the client path with explicit synchronous execution
+- `run-client-search.sh`
+  - loads the created entity from the same server-held memory state
+- `run-demo.sh`
+  - starts the server, runs the client flow, and stops the server
+- `run.sh`
+  - batch wrapper for the documented shell commands
+
+## Explicit Sync Runtime
+
+This sample uses the same in-memory server runtime as `02.d`.
+
+The difference is the route-level runtime parameter:
 
 ```bash
-sbt cozyGenerate
-sbt clean compile
+--textus.runtime.command.execution-mode sync-direct-no-job
 ```
 
-Help:
+That means:
+
+- the command still goes through the server/client path
+- the command is not converted into a background job
+- the result comes back immediately
+- the returned `id` can be used immediately for a follow-up load
+
+This makes the sample useful for confirming the runtime behavior of an explicit synchronous route without switching to a local-only execution path.
+
+## How To Run
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud.entity"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud.entity.create-item"
+$ cd samples/02.e-crud-explicit-sync-lab
+$ ../../bin/setup cozy
+$ sbt --batch clean compile
+$ bash run.sh
 ```
 
-Start the server:
+## Command Walkthrough
+
+### Component Help
 
 ```bash
-bash run-server.sh
+$ bash ../../bin/cncf --discover=classes command help crud
 ```
 
-Client create:
+Parameters:
+
+- `--discover=classes`
+  - tells `bin/cncf` to load the generated classes from the sample build output
+- `command`
+  - uses the ordinary CNCF command path
+- `help`
+  - asks CNCF to describe the selected runtime target
+- `crud`
+  - selects the generated component
+
+Output example:
+
+```yaml
+type: component
+name: Crud
+selector:
+  cli: crud
+children:
+  - entity
+operation_definitions:
+  - createItem
+  - getItem
+  - listItems
+```
+
+### Entity Service Help
 
 ```bash
-bash run-client-create.sh
+$ bash ../../bin/cncf --discover=classes command help crud.entity
 ```
 
-Client confirmation with the returned id:
+Parameters:
+
+- `crud.entity`
+  - selects the generated entity service
+
+Output example:
+
+```yaml
+type: service
+name: entity
+selector:
+  cli: crud.entity
+children:
+  - createItem
+  - loadItem
+  - searchItemRecord
+```
+
+### Create Help
 
 ```bash
-bash run-client-search.sh <entity-id>
+$ bash ../../bin/cncf --discover=classes command help crud.entity.create-item
 ```
 
-End-to-end demo:
+Parameters:
+
+- `crud.entity.create-item`
+  - selects the generated create operation
+
+Output example:
+
+```yaml
+type: operation
+name: createItem
+selector:
+  cli: crud.entity.create-item
+returns:
+  - CreateItemResult
+```
+
+### Load Help
 
 ```bash
-bash run-demo.sh
+$ bash ../../bin/cncf --discover=classes command help crud.entity.load-item
 ```
 
-## Runtime Difference
+Parameters:
 
-- Normal CRUD/job-backed command use remains the default elsewhere.
-- `04.b-test-sync-command-lab` uses a runtime override while keeping the job-shaped interface.
-- This lab uses an explicit runtime option on the create route to request synchronous execution and returns the result immediately.
+- `crud.entity.load-item`
+  - selects the generated load operation used for follow-up confirmation
 
-## Relationship To 02-crud
+Output example:
 
-`02-crud` is the base model-driven CRUD sample.
+```yaml
+type: operation
+name: loadItem
+selector:
+  cli: crud.entity.load-item
+returns:
+  - Option[Item]
+```
 
-`02.e-crud-explicit-sync-lab` keeps the same CRUD direction, but shows:
+### Metadata Describe
 
-- explicit synchronous runtime execution
-- immediate result instead of a job id
-- a same-server-session follow-up load confirmation route
+```bash
+$ bash ../../bin/cncf --discover=classes command crud.meta.describe --format yaml
+```
 
-## Observed Surface
+Parameters:
 
-- component: `Crud`
-- service: `Crud.entity`
-- command target: `Crud.entity.createItem`
-- explicit sync runtime option: `textus.runtime.command.execution-mode=sync-direct-no-job`
-- runtime result: immediate item record
-- CLI selector examples: `crud`, `crud.entity`, `crud.entity.create-item`
+- `crud.meta.describe`
+  - invokes the generated metadata service
+- `--format yaml`
+  - asks for structured YAML output
 
-## Notes
+Output example:
 
-The mainline confirmation path for this lab is:
+```yaml
+services:
+- name: entity
+  runtime_name: entity
+operation_definitions:
+- name: createItem
+  kind: COMMAND
+- name: getItem
+  kind: QUERY
+- name: listItems
+  kind: QUERY
+```
 
-1. server start in normal server mode
-2. client `crud.entity.create-item` with `textus.runtime.command.execution-mode=sync-direct-no-job`
-3. immediate `id` in the returned record
-4. same-server-session `crud.entity.load-item`
+### Start The Server
 
-`run-demo.sh` starts the server, captures the immediate create result, and uses that `id` for the follow-up load.
+```bash
+$ bash run-server.sh
+```
+
+Parameters:
+
+- `server`
+  - starts the generated component in CNCF server mode
+
+Observed readiness line:
+
+```text
+Ember-Server service bound to address: [::]:8080
+```
+
+### Create Through The Client Path With Explicit Sync
+
+```bash
+$ bash run-client-create.sh
+```
+
+Parameters:
+
+- `client`
+  - uses the CNCF client path instead of local command execution
+- `--textus.runtime.command.execution-mode sync-direct-no-job`
+  - requests explicit synchronous command execution
+- `crud.entity.create-item`
+  - invokes the generated create operation
+- `--name alpha`
+  - sets the domain attribute `name`
+- `--title Alpha`
+  - sets the domain attribute `title`
+
+Output example:
+
+```yaml
+id: major-minor-entity-item-1775439094097-6Qx5e9XO21EVeVmgfwoocs
+```
+
+The important point is that this result returns immediately and gives the created entity `id`, not a job id.
+
+### Load The Returned Entity Immediately
+
+```bash
+$ bash run-client-search.sh major-minor-entity-item-1775439094097-6Qx5e9XO21EVeVmgfwoocs
+```
+
+Parameters:
+
+- `crud.entity.load-item`
+  - invokes the generated load operation
+- `--id ...`
+  - uses the `id` returned immediately by the sync create path
+
+Output example:
+
+```yaml
+id: major-minor-entity-item-1775439094097-6Qx5e9XO21EVeVmgfwoocs
+name_attributes:
+  name: alpha
+  title: Alpha
+```
+
+### Run The Whole Scenario
+
+```bash
+$ bash run-demo.sh
+```
+
+This script:
+
+- starts the server
+- waits for the readiness line
+- runs the client create command with explicit sync
+- extracts the returned `id`
+- runs the follow-up client load against the same server process
+
+## Runtime Difference From 02.d
+
+`02.d` and `02.e` share the same server/client and memory-backed runtime shape.
+
+The key difference is completion behavior:
+
+- `02.d`
+  - create returns a job id
+  - the client then calls `job-control.job.await-job-result`
+- `02.e`
+  - create explicitly requests synchronous execution
+  - create returns immediately with the created entity `id`
+  - no job wait step is involved

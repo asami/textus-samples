@@ -49,21 +49,21 @@ Typical use cases are:
 
 ## Files
 
-- [crud.cml](/Users/asami/src/dev2026/cncf-samples/samples/02.d-crud-server-memory-lab/src/main/cozy/crud.cml)
+- `src/main/cozy/crud.cml`
   - the source model
-- [build.sbt](/Users/asami/src/dev2026/cncf-samples/samples/02.d-crud-server-memory-lab/build.sbt)
+- `build.sbt`
   - enables `sbt-cozy` generation for the sample
-- [run-server.sh](/Users/asami/src/dev2026/cncf-samples/samples/02.d-crud-server-memory-lab/run-server.sh)
+- `run-server.sh`
   - starts the generated component in server mode
-- [run-client-create.sh](/Users/asami/src/dev2026/cncf-samples/samples/02.d-crud-server-memory-lab/run-client-create.sh)
+- `run-client-create.sh`
   - sends the create command through the client path
-- [run-client-await.sh](/Users/asami/src/dev2026/cncf-samples/samples/02.d-crud-server-memory-lab/run-client-await.sh)
+- `run-client-await.sh`
   - waits for the created job result and returns the created entity id
-- [run-client-load.sh](/Users/asami/src/dev2026/cncf-samples/samples/02.d-crud-server-memory-lab/run-client-load.sh)
+- `run-client-load.sh`
   - loads the created entity from the same server-held memory state
-- [run-demo.sh](/Users/asami/src/dev2026/cncf-samples/samples/02.d-crud-server-memory-lab/run-demo.sh)
+- `run-demo.sh`
   - starts the server, runs the client flow, and stops the server
-- [run.sh](/Users/asami/src/dev2026/cncf-samples/samples/02.d-crud-server-memory-lab/run.sh)
+- `run.sh`
   - batch wrapper for the documented shell commands
 
 ## Memory-Backed Runtime

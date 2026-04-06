@@ -39,11 +39,11 @@ Typical enterprise-oriented use cases are:
 
 ## Files
 
-- [crud.cml](/Users/asami/src/dev2026/cncf-samples/samples/02.b-simpleentity-crud-lab/src/main/cozy/crud.cml)
+- `src/main/cozy/crud.cml`
   - the source model
-- [build.sbt](/Users/asami/src/dev2026/cncf-samples/samples/02.b-simpleentity-crud-lab/build.sbt)
+- `build.sbt`
   - enables `sbt-cozy` generation for the sample
-- [run.sh](/Users/asami/src/dev2026/cncf-samples/samples/02.b-simpleentity-crud-lab/run.sh)
+- `run.sh`
   - batch wrapper for the documented shell commands
 
 ## How To Run

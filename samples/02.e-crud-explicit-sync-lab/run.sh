@@ -1,15 +1,10 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/sh
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-cd "$SCRIPT_DIR"
+set -eu
 
-exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
-  --script-path "$0" \
-  --discover-classes \
-  -- \
-  command \
-  --textus.runtime.command.execution-mode sync-direct-no-job \
-  crud.entity.create-item \
-  --name alpha \
-  --title Alpha
+bash ../../bin/cncf --discover=classes command help crud
+bash ../../bin/cncf --discover=classes command help crud.entity
+bash ../../bin/cncf --discover=classes command help crud.entity.create-item
+bash ../../bin/cncf --discover=classes command help crud.entity.load-item
+bash ../../bin/cncf --discover=classes command crud.meta.describe --format yaml
+bash run-demo.sh

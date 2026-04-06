@@ -44,13 +44,13 @@ Typical use cases are:
 
 ## Files
 
-- [crud.cml](/Users/asami/src/dev2026/cncf-samples/samples/02.c-crud-sqlite-lab/src/main/cozy/crud.cml)
+- `src/main/cozy/crud.cml`
   - the source model
-- [crud.yaml](/Users/asami/src/dev2026/cncf-samples/samples/02.c-crud-sqlite-lab/entity.d/crud.yaml)
+- `entity.d/crud.yaml`
   - imported seed data
-- [build.sbt](/Users/asami/src/dev2026/cncf-samples/samples/02.c-crud-sqlite-lab/build.sbt)
+- `build.sbt`
   - enables `sbt-cozy` generation for the sample
-- [run.sh](/Users/asami/src/dev2026/cncf-samples/samples/02.c-crud-sqlite-lab/run.sh)
+- `run.sh`
   - batch wrapper for the documented shell commands
 
 ## SQLite Path
@@ -139,7 +139,7 @@ Parameters:
 - `crud.entity.load-item`
   - invokes the generated entity load operation
 - `--id ...`
-  - selects the seeded record from [crud.yaml](/Users/asami/src/dev2026/cncf-samples/samples/02.c-crud-sqlite-lab/entity.d/crud.yaml)
+  - selects the seeded record from `entity.d/crud.yaml`
 
 Output example:
 

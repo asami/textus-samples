@@ -32,13 +32,13 @@ Use this sample when you want to confirm that:
 
 ## Files
 
-- [crud.cml](/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab/src/main/cozy/crud.cml)
+- `src/main/cozy/crud.cml`
   - the source model
-- [component-descriptor.yaml](/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab/car.d/meta/component-descriptor.yaml)
+- `car.d/meta/component-descriptor.yaml`
   - descriptor-first runtime metadata
-- [crud.yaml](/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab/entity.d/crud.yaml)
+- `entity.d/crud.yaml`
   - imported seed data
-- [run.sh](/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab/run.sh)
+- `run.sh`
   - batch wrapper for the documented shell commands
 
 ## How To Run
@@ -135,7 +135,7 @@ Parameters:
 - `crud.entity.load-item`
   - invokes the generated entity load operation directly
 - `--id`
-  - the seeded entity id from [crud.yaml](/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab/entity.d/crud.yaml)
+  - the seeded entity id from `entity.d/crud.yaml`
 
 Output example:
 

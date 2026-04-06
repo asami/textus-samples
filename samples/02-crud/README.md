@@ -42,11 +42,11 @@ Typical use cases are:
 
 ## Files
 
-- [crud.cml](/Users/asami/src/dev2026/cncf-samples/samples/02-crud/src/main/cozy/crud.cml)
+- `src/main/cozy/crud.cml`
   - the source model
-- [build.sbt](/Users/asami/src/dev2026/cncf-samples/samples/02-crud/build.sbt)
+- `build.sbt`
   - enables `sbt-cozy` generation for the sample
-- [run.sh](/Users/asami/src/dev2026/cncf-samples/samples/02-crud/run.sh)
+- `run.sh`
   - batch wrapper for the documented shell commands
 
 ## How To Run

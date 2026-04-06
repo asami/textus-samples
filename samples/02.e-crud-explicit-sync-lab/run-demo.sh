@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-dir="$(cd "$(dirname "$0")" && pwd)"
-cd "$dir"
-
 logfile="$(mktemp)"
 trap 'rm -f "$logfile"' EXIT
 
@@ -22,5 +19,8 @@ for _ in $(seq 1 30); do
   sleep 1
 done
 
-item_id="$(bash run-client-create.sh | python3 -c 'import json,sys; lines=[line.strip() for line in sys.stdin if line.strip()]; payloads=[line for line in lines if line.startswith("{") and line.endswith("}")]; print(json.loads(payloads[-1])["id"])')"
+item_id="$(
+  bash run-client-create.sh |
+    python3 -c 'import json,sys; lines=[line.strip() for line in sys.stdin if line.strip()]; payloads=[line for line in lines if line.startswith("{") and line.endswith("}")]; print(json.loads(payloads[-1])["id"])'
+)"
 bash run-client-search.sh "$item_id"
