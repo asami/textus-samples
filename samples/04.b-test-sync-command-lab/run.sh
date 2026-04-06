@@ -1,10 +1,8 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/sh
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+set -eu
 
-exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
-  --script-path "$SCRIPT_DIR/run.sh" \
-  --discover-classes \
-  -- \
-  command help test-sync.item.create-item
+bash ../../bin/cncf --discover=classes command help test-sync.item.create-item
+bash ../../bin/cncf --discover=classes command test-sync.meta.describe --format yaml
+bash run-default.sh
+bash run-sync.sh

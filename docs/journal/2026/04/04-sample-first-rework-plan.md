@@ -153,6 +153,8 @@ Status:
 Status:
 
 - [x] `04-cqrs` completed as the first explicit CQRS sample with matching `cozy` scripted verification
+- [x] `04.a-designed-sync-command-lab` completed as the design-time sync counterpart with matching `cozy` scripted verification
+- [x] `04.b-test-sync-command-lab` completed as the runtime test-sync counterpart with matching `cozy` scripted verification
 
 ### Phase 5. Future lines
 

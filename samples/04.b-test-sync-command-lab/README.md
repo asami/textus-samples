@@ -2,104 +2,219 @@
 
 ## Overview
 
-This sample shows a command that stays async/job-backed by default, but can be
-executed synchronously for test/local/debug use through runtime override.
+`04.b-test-sync-command-lab` shows a command that stays async/job-backed by design,
+but can be executed with a synchronous internal mode for test and local verification.
 
-It differs from earlier samples in two ways:
+It completes the pair started by `04.a`:
 
-- `04-cqrs` keeps the default CQRS command shape only
-- `04.a-designed-sync-command-lab` makes the command synchronous in the model
-- `04.b-test-sync-command-lab` keeps the command async by design and only overrides execution at runtime
+- `04.a`
+  - sync is part of the application contract
+- `04.b`
+  - async remains the application contract
+  - sync is used only as a runtime testing/debugging mode
 
-## Requirements
+The important point is that the external interface stays job-shaped.
 
-- `cozy` is required
-- `src/main/cozy/cqrs.cml` is the model source
-- the sample is model-driven rather than hand-written repository logic
-- framework/runtime parameters use the `textus.*` namespace
-- `cncf.*` remains accepted as a compatibility alias
-- query control parameters use the `query.*` namespace
-- unprefixed parameters are reserved for domain attributes
+## CQRS Context
 
-## Model
+In CNCF, the normal command-side default is:
 
-- entity: `Item`
-- service: `Item`
-- command target:
-  - `TestSync.Item.createItem`
+- submit a state-changing request
+- receive a job id
+- observe completion through job control
 
-## How To Use
+That remains the correct production default in most cloud-oriented systems.
 
-Generation/build commands:
+But for tests and local verification, the fully async path can be inconvenient:
+
+- every check needs `await-job-result`
+- setup becomes noisy
+- assertions become harder to read
+
+`04.b` shows the compromise:
+
+- keep the command contract async/job-backed
+- force synchronous internal completion through runtime mode
+- preserve the external job interface
+
+This is why implicit or test sync is useful:
+
+- production semantics remain unchanged
+- tests get simpler internal completion
+- the caller-facing contract is still realistic
+
+## Position
+
+- `04-cqrs`
+  - default async/job-backed command
+- `04.a-designed-sync-command-lab`
+  - sync as a design-time business contract
+- `04.b-test-sync-command-lab`
+  - sync as a runtime testing/debugging aid
+
+## Intended Use Case
+
+Use this sample when you want to confirm:
+
+- how to keep a command async by contract
+- how to request test/local synchronous execution through runtime parameters
+- that the result still remains job-shaped
+- how this differs from `04.a` designed sync
+
+Typical use cases are:
+
+- test fixtures that want simpler command completion
+- local debugging of command behavior without changing the model
+- explaining the difference between contract sync and test sync
+
+## Files
+
+- `src/main/cozy/cqrs.cml`
+  - the source model
+- `build.sbt`
+  - enables `sbt-cozy` generation for the sample
+- `run.sh`
+  - batch wrapper for the documented shell commands
+- `run-default.sh`
+  - default async/job-backed execution
+- `run-sync.sh`
+  - runtime sync override with the same external job interface
+
+## How To Run
 
 ```bash
-sbt cozyGenerate
-sbt clean compile
+$ cd samples/04.b-test-sync-command-lab
+$ ../../bin/setup cozy
+$ sbt --batch clean compile
+$ bash run.sh
 ```
 
-Runtime help:
+## Command Walkthrough
+
+### Command Help
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help test-sync"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help test-sync.item"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help test-sync.item.create-item"
+$ bash ../../bin/cncf --discover=classes command help test-sync.item.create-item
 ```
 
-Default async/job-backed execution:
+Output example:
+
+```yaml
+type: operation
+name: createItem
+service: Item
+selector:
+  cli: test-sync.item.create-item
+returns:
+  - CreateItemResult
+```
+
+### Metadata Describe
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command test-sync.item.create-item --name beta --title Beta"
+$ bash ../../bin/cncf --discover=classes command test-sync.meta.describe --format yaml
 ```
 
-Test/local synchronous override:
+Output example:
+
+```yaml
+operation_definitions:
+- name: createItem
+  kind: COMMAND
+  input_type: CreateItem
+  output_type: CreateItemResult
+  input_value_kind: COMMAND_VALUE
+```
+
+The contract is still a normal command contract.
+
+### Default Async / Job-Backed Execution
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes --textus.runtime.command.execution-mode sync-job-async-interface command test-sync.item.create-item --name beta --title Beta"
+$ bash ../../bin/cncf --discover=classes command TestSync.Item.createItem --name beta --title Beta
 ```
 
-Observable envelope output:
+Output example:
+
+```text
+cncf-job-job-...
+```
+
+Envelope form:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command test-sync.item.create-item --name beta --title Beta --textus.output.shape envelope --textus.output.format yaml"
-
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command test-sync.item.create-item --name beta --title Beta --textus.runtime.command.execution-mode sync-job-async-interface --textus.output.shape envelope --textus.output.format yaml"
+$ bash ../../bin/cncf --discover=classes command TestSync.Item.createItem --name beta --title Beta --textus.output.shape envelope --textus.output.format yaml
 ```
 
-## Runtime Difference
+Output example:
 
-- Default execution returns a job-shaped result such as `cncf-job-...`.
-- Override execution also returns a job-shaped result such as `cncf-job-...`.
-- The command target is the same in both cases.
-- The override comes from runtime execution mode, not from CML `EXECUTION=sync`.
-- The external interface is intentionally unchanged in `03.b`.
-- The purpose of the override is to keep the job-oriented contract while making test/local execution wait for command completion internally.
-- When `--textus.output.shape envelope` is used, the result exposes `textus-execution` and `data`.
-- The default envelope shows:
-  - `textus-execution.interface-shape: job`
-- The override envelope shows:
-  - `textus-execution.interface-shape: job`
-  - `textus-execution.requested-mode: sync-job-async-interface`
+```yaml
+textus-execution:
+  interface-shape: job
+data:
+  job-id: cncf-job-job-...
+```
 
-## Relationship To 03.a
+### Test Sync Override
 
-`04.a-designed-sync-command-lab` is about design-time sync:
+```bash
+$ bash ../../bin/cncf --discover=classes command --textus.runtime.command.execution-mode sync-job-async-interface TestSync.Item.createItem --name beta --title Beta
+```
 
-- the model says the command is synchronous
+Output example:
 
-`04.b-test-sync-command-lab` is about runtime override:
+```text
+cncf-job-job-...
+```
 
-- the model keeps the command async/job-backed
-- test/local/debug can force synchronous internal execution through runtime parameters
-- the command still returns a job id because the external interface is preserved
+Envelope form:
 
-## Observed Surface
+```bash
+$ bash ../../bin/cncf --discover=classes command --textus.runtime.command.execution-mode sync-job-async-interface TestSync.Item.createItem --name beta --title Beta --textus.output.shape envelope --textus.output.format yaml
+```
 
-- component: `TestSync`
-- service: `TestSync.Item`
-- command target: `TestSync.Item.createItem`
-- default result: job-shaped response
-- override result: job-shaped response with synchronous internal completion semantics
-- envelope observation:
-  - default shows `textus-execution.interface-shape: job`
-  - override shows `textus-execution.requested-mode: sync-job-async-interface`
-- CLI selector examples: `test-sync`, `test-sync.item`, `test-sync.item.create-item`
+Output example:
+
+```yaml
+textus-execution:
+  interface-shape: job
+  requested-mode: sync-job-async-interface
+data:
+  job-id: cncf-job-job-...
+```
+
+This is the key point:
+
+- the interface is still job-shaped
+- the model is still async by contract
+- only the runtime execution mode changes
+
+## When To Use This
+
+Use `04.b` when:
+
+- production should keep async/job-backed semantics
+- tests want easier completion semantics
+- local debugging should avoid full async waiting logic
+
+Do not use this when the business contract itself requires immediate completion.
+That is the role of `04.a`.
+
+So the practical rule is:
+
+- business contract requires sync
+  - use designed sync (`04.a`)
+- production contract should remain async, but tests need easier execution
+  - use test sync (`04.b`)
+
+## What This Sample Does Not Try To Show
+
+The sample intentionally avoids:
+
+- job result retrieval
+- server/client flow
+- read-side observation
+- event routing
+- handwritten runtime customization
+
+Those concerns belong to neighboring samples.
