@@ -121,6 +121,16 @@ Status:
 16. rework `03.a-operation-command-lab`
 17. rework `03.b-operation-entity-lab`
 
+Status:
+
+- [x] `02-crud` completed as the base shell-first CRUD surface sample
+- [x] `02.a-crud-seed-import-lab` completed with matching `cozy` scripted verification
+- [x] `02.b-simpleentity-crud-lab` completed with matching `cozy` scripted verification
+- [x] `02.c-crud-sqlite-lab` completed as the SQLite-backed CRUD sample with matching `cozy` scripted verification
+- [x] `02.d-crud-server-memory-lab` completed as the server/client memory-backed CRUD sample with matching `cozy` scripted verification
+- [x] `02.e-crud-explicit-sync-lab` completed as the explicit sync CRUD sample with matching `cozy` scripted verification
+- [x] `02.f-crud-nested-value-lab` completed as the nested-value CRUD sample with matching `cozy` scripted verification
+
 ### Phase 4. CQRS / event / job / aggregate normalization
 
 18. rework `04-cqrs`
@@ -206,7 +216,6 @@ The `08` view line pilot is complete.
 
 The next active targets are the earlier sample families in:
 
-- `02-*`
 - `03-*`
 - `04-*`
 - `05-*`
