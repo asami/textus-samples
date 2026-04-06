@@ -11,10 +11,4 @@ fi
 
 item_id="$1"
 
-exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
-  --script-path "$0" \
-  --discover-classes \
-  -- \
-  client \
-  crud.entity.load-item \
-  --id "${item_id}"
+exec bash ../../bin/cncf --discover=classes client crud.entity.load-item --id "$item_id"

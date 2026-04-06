@@ -23,12 +23,8 @@ for _ in $(seq 1 30); do
 done
 
 job_id="$(bash run-client-create.sh | rg '^cncf-job-' | tail -n 1)"
-item_json="$(bash "$dir/../../scripts/sample-runner.sh" \
-  --script-path "$0" \
-  --discover-classes \
-  -- \
-  client \
-  job-control.job.await-job-result \
-  --id "${job_id}" | rg '^\{' | tail -n 1)"
-item_id="$(printf '%s\n' "$item_json" | python3 -c 'import json,sys; print(json.loads(sys.stdin.read())["id"])')"
+item_id="$(
+  bash run-client-await.sh "$job_id" |
+    python3 -c 'import json,sys; lines=[line.strip() for line in sys.stdin if line.strip()]; payloads=[line for line in lines if line.startswith("{") and line.endswith("}")]; print(json.loads(payloads[-1])["id"])'
+)"
 bash run-client-load.sh "$item_id"

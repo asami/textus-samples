@@ -4,11 +4,4 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
 
-exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
-  --script-path "$0" \
-  --discover-classes \
-  -- \
-  client \
-  crud.entity.create-item \
-  --name alpha \
-  --title Alpha
+exec bash ../../bin/cncf --discover=classes client crud.entity.create-item --name alpha --title Alpha
