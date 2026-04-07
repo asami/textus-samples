@@ -2,105 +2,253 @@
 
 ## Overview
 
-This sample family is the first dedicated aggregate-oriented slot after `06-job`.
+This sample is the first aggregate-oriented sample in the series.
+It shows how CNCF exposes an aggregate as a shell-facing runtime surface rather than as a same-JVM demo program.
 
-Its purpose is to show aggregate-shaped access as an independent structural topic,
-not only as a side note of CRUD or CQRS.
+The main line here is:
 
-## What It Is For
+- create an `Order`
+- append an `OrderLine` through an aggregate command
+- load the aggregate as one joined result
 
-- aggregate-oriented model shape
-- aggregate load access
-- aggregate search access
-- comparison with plain entity-oriented access when useful
-- application-provided delegated aggregate behavior
+## Aggregate Basics
 
-This slot is intended to use the application-join aggregate pattern:
+An aggregate is a consistency boundary.
+It groups one root entity and one or more member entities that should be updated and observed as one business unit.
 
-- aggregate is built from multiple entities at application/runtime level
+In this sample line:
 
-This sample is not intended to use the single-record encoded-object pattern as its main line.
-That pattern is also valid in real applications, but it is not the primary explanatory shape here.
-The companion sample [07.a-aggregate-single-record-lab](/Users/asami/src/dev2026/cncf-samples/samples/07.a-aggregate-single-record-lab/README.md)
-shows that single-record shape directly.
+- `Order` is the aggregate root
+- `OrderLine` is an aggregate member
+- the persisted truth remains entity-oriented
+- the runtime read result is aggregate-oriented
 
-## Current Line
+This matters because application code often needs both of these views:
 
-The current first line is:
+- entity-oriented persistence and storage control
+- aggregate-oriented command and read semantics
 
-1. `Order` root and `OrderLine` member are modeled in Cozy
-2. `loadOrderAggregate` works
-3. `searchOrderAggregate` works
-4. `addLine` runs through delegated `AggregateBehavior`
-5. invalid quantity is surfaced as invariant failure
-6. application-provided logic remains in delegated `AggregateBehavior`
-7. generated aggregate metadata for members/commands/invariants is consumed by the framework mainline
-8. aggregate-internal visibility is used so draft root/member entities remain observable during aggregate construction
-9. generated aggregate load/search mainline uses framework default aggregate collection binding
-10. generated aggregate companion implements `AggregateAssembler`, so member attach is structural rather than reflection-based
+The `07-*` line is meant to separate those concerns clearly.
+It shows how CNCF can keep entities as the persistence backbone while still exposing aggregate-shaped runtime operations.
 
-Preparatory note for the next extension line:
+## Intended Use Case
 
-- `07.b-aggregate-relation-boundary-model` will document relation and boundary as separate axes
-- relation categories: `composition`, `aggregation`, `association`
-- boundary categories: `internal`, `external`
-- the example mapping will distinguish `OrderLine`, `ShipmentOrder`, and `User`
+Use this sample when you want to explain:
 
-## How To Run
+- why an aggregate is different from a plain entity record
+- how an aggregate command updates aggregate state through delegated application logic
+- how CNCF can expose aggregate load as a shell-facing operation
+- how root/member entities remain persisted separately while the read result is aggregate-shaped
+- how aggregate search may need a separate visibility-focused line
 
-Use:
+This sample uses the application-join aggregate pattern.
+The aggregate is assembled from multiple persisted entities at runtime.
+
+## Sample Line Guide
+
+The aggregate sample family is split so each sample can focus on one point.
+
+- [07-aggregate](/Users/asami/src/dev2026/cncf-samples/samples/07-aggregate/README.md)
+  - first aggregate line
+  - focus on `create -> await -> add-line -> load`
+  - this is the entry point for understanding aggregate-shaped shell operations
+- [07.a-aggregate-single-record-lab](/Users/asami/src/dev2026/cncf-samples/samples/07.a-aggregate-single-record-lab)
+  - focus on the single-record aggregate encoding pattern
+  - use this when the aggregate is persisted as one encoded document or record
+- [07.b-aggregate-relation-boundary-model](/Users/asami/src/dev2026/cncf-samples/samples/07.b-aggregate-relation-boundary-model)
+  - focus on relation kind and boundary semantics
+  - use this to understand why some members are internal and others must remain external
+- [07.c-aggregate-external-update-semantics](/Users/asami/src/dev2026/cncf-samples/samples/07.c-aggregate-external-update-semantics)
+  - focus on updates that cross aggregate boundaries
+  - use this to understand when a change should remain outside the current aggregate transaction/consistency boundary
+
+## Setup
+
+### Prepare the cozy command
 
 ```bash
-bash run.sh
+$ ../../bin/setup cozy
 ```
 
-This runs [OrderAggregateDemo.scala](/Users/asami/src/dev2026/cncf-samples/samples/07-aggregate/src/main/scala/org/sample/aggregate/OrderAggregateDemo.scala), which:
+This prepares the local `cozy` launcher used by `sbt-cozy`.
 
-1. creates one `Order`
-2. executes `AggregateSample.Order.addLine`
-3. checks one invalid `addLine` case with `quantity = 0`
-4. loads the aggregate through `AggregateSample.Order.loadOrderAggregate`
-5. searches aggregates through `AggregateSample.Order.searchOrderAggregate`
+### Build the generated sample
 
-The current output is one JSON object with:
+```bash
+$ sbt --batch clean compile
+```
 
-- `orderId`
-- `addLine`
-- `invalidAddLine`
-- `load`
-- `search`
+This generates the Scala sources from `src/main/cozy/order-aggregate.cml` and compiles the sample.
 
-`addLine` and `load` show the joined aggregate shape: root order plus member lines.
-`invalidAddLine` shows the surfaced invariant failure.
-The current implementation uses generated aggregate metadata to resolve:
+## Run The Whole Scenario
 
-- member entity name
-- member join field name
-- delegated command name
-- invariant name
+```bash
+$ bash run.sh
+```
 
-## Why This Is Aggregate-Oriented
+This script is the batch form of the walkthrough below.
+It starts a temporary server, creates one order, appends one line, waits for both jobs, and loads the resulting aggregate.
+It does not currently include aggregate search in the main scenario.
 
-This sample is not plain CRUD because the read surface is not an entity record.
-`loadOrderAggregate` and `searchOrderAggregate` return an aggregate-shaped result built from:
+## Command Walkthrough
 
-- `Order`
-- `OrderLine`
+The commands below use these common conventions:
 
-The first line intentionally keeps persistence truth in entities and performs the aggregate join in framework aggregate collection logic.
-Generated aggregate metadata now supplies the join/member description, and the framework resolves members through `ExecutionContext.entitySpace` first with `EntityStore` fallback.
-The current first-line demo uses aggregate-internal visibility so draft root/member entities remain observable during aggregate construction without broadening normal entity search visibility.
-Aggregate member attach is now handled through generated `AggregateAssembler` instead of runtime reflection.
+- `cncf`
+  - the standard CNCF CLI entry point
+  - in this repository it is invoked as `../../bin/cncf`
+  - after a normal installation it is typically available as `cncf`
+- `--discover=classes`
+  - tells CNCF to discover generated components from the compiled class directory
+- `server`
+  - starts the CNCF server runtime for this sample
+- `client`
+  - runs one client-side request against the running server
+- `command`
+  - runs one-shot command execution without starting the HTTP server
+- `help`
+  - prints the generated operation contract surface
 
-## Status
+### 1. Start the server
 
-Implemented to the first aggregate line including one delegated behavior, one invariant failure, generated aggregate metadata consumption, framework default aggregate collection binding, `entitySpace`-based member resolution, aggregate-internal visibility, and structural `AggregateAssembler`-based member attach.
+```bash
+$ bash ../../bin/cncf --discover=classes server
+```
 
-The active work order is:
+This starts the sample runtime and loads `AggregateSample` through the preferred impl factory.
 
-- `/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/07-aggregate-development-instruction.md`
-- `/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/07-aggregate-work-checklist.md`
+Parameters:
+- `server`
+  - starts the long-running CNCF server process used by the later client commands
 
-Planned extension slot:
+### 2. Inspect the aggregate command surface
 
-- `/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/06-b-aggregate-relation-boundary-model-mini-low-instruction.md`
+```bash
+$ bash ../../bin/cncf --discover=classes command help aggregate-sample.order.add-line
+```
+
+This shows the aggregate command surface that appends one member line to an existing order.
+
+Parameters:
+- `command`
+  - uses one-shot CNCF command execution for help output
+- `help`
+  - asks CNCF to print the generated operation contract instead of executing it
+- `aggregate-sample.order.add-line`
+  - selects the aggregate command that mutates the `Order` aggregate
+
+### 3. Create the root order
+
+```bash
+$ bash ../../bin/cncf --discover=classes client aggregate-sample.entity.create-order-record --name alpha --status Draft
+```
+
+This creates the root `Order` entity.
+Because the operation is job-backed, the immediate return value is a job id.
+
+Parameters:
+- `client`
+  - sends one request to the running CNCF server
+- `aggregate-sample.entity.create-order-record`
+  - selects the root entity creation command
+- `--name alpha`
+  - sets the order name
+- `--status Draft`
+  - sets the initial root status
+
+Example result:
+
+```text
+cncf-job-job-1775531118508-7ejVSMHaZhCHd4nrtg7uPx
+```
+
+### 4. Await the create result
+
+```bash
+$ bash ../../bin/cncf --discover=classes client job-control.job.await-job-result --id cncf-job-job-1775531118508-7ejVSMHaZhCHd4nrtg7uPx
+```
+
+This resolves the job and returns the created order id.
+
+Parameters:
+- `client`
+  - sends one request to the running CNCF server
+- `job-control.job.await-job-result`
+  - waits for completion and returns the final job payload
+- `--id <job-id>`
+  - the job id returned by `create-order-record`
+
+Example result:
+
+```json
+{"id":"major-minor-entity-order-1775531118546-EwawSPXnjIymHzu8DVknz"}
+```
+
+### 5. Append one aggregate member
+
+```bash
+$ bash ../../bin/cncf --discover=classes client aggregate-sample.order.add-line --order-id major-minor-entity-order-1775531118546-EwawSPXnjIymHzu8DVknz --line-name pen --quantity 2
+```
+
+This executes the aggregate command.
+The application-provided aggregate behavior validates the request and creates the `OrderLine` member.
+
+Parameters:
+- `client`
+  - sends one request to the running CNCF server
+- `aggregate-sample.order.add-line`
+  - selects the aggregate command
+- `--order-id <order-id>`
+  - identifies the aggregate root to update
+- `--line-name pen`
+  - sets the member line name
+- `--quantity 2`
+  - sets the member quantity
+
+Example result:
+
+```text
+cncf-job-job-1775531146663-5EuFzAH6P2xv3mhEoG9y3j
+```
+
+### 6. Load the aggregate
+
+```bash
+$ bash ../../bin/cncf --discover=classes client aggregate-sample.order.load-order-aggregate --id major-minor-entity-order-1775531118546-EwawSPXnjIymHzu8DVknz
+```
+
+This loads the aggregate-shaped result.
+The returned payload contains the root order plus the attached member lines.
+
+Parameters:
+- `client`
+  - sends one request to the running CNCF server
+- `aggregate-sample.order.load-order-aggregate`
+  - selects the aggregate load query
+- `--id <order-id>`
+  - identifies the root order to assemble and load
+
+Example result:
+
+```json
+{"id":"major-minor-entity-order-1775531118546-EwawSPXnjIymHzu8DVknz","name":"alpha","status":"Draft","lines":[{"id":"major-minor-entity-order_line-1775531146677-5N2sdVDtUTvtsIJua6wwF4","order_id":"major-minor-entity-order-1775531118546-EwawSPXnjIymHzu8DVknz","name":"pen","quantity":2}]}
+```
+
+## Current Scope
+
+The stable first line for this sample is:
+
+- `create-order-record`
+- `await-job-result`
+- `add-line`
+- `load-order-aggregate`
+
+`search-order-aggregate` is outside the current stable line.
+It should be revisited together with aggregate visibility semantics.
+
+## Files
+
+- `src/main/cozy/order-aggregate.cml`
+- `src/main/scala/org/sample/aggregate/impl/AggregateSampleComponentFactory.scala`
+- `build.sbt`
+- `run.sh`

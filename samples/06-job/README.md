@@ -1,112 +1,397 @@
 # 06-job
 
-## Overview
+## Purpose
 
-This sample is the first dedicated job-management sample after `05-event-driven`.
+This sample is the first dedicated job-management sample after `05.a-event-job-trace-lab`.
 
-Its purpose is to make the CNCF job surface explicit:
+Its purpose is to show the CNCF job surface directly:
 
-- one command creates a job
-- one route reads job status or result
-- one route reads timeline or debug information for that same job
+- one command submits job-backed work
+- one selector waits for completion
+- one selector reads the stored result
+- one selector reads summarized status
+- one selector reads the job timeline
 
-This sample is the base for later tracing work.
-It should make job observation clear before introducing an event-to-job trace lab.
+Unlike `05.a`, this sample is no longer about event-triggered reaction.
 
-## Target Runtime Story
+It focuses directly on job observation itself.
 
-The learner should be able to do this:
+## Why It Matters
 
-1. execute one command that returns a job id
-2. query the job status
-3. query the job result or job timeline/debug information
+Earlier samples already showed that CNCF command execution is often job-backed.
 
-## Scope
+What was still missing was a sample that treats job management itself as the main topic.
 
-For the first implementation, keep the sample small:
+This sample fills that gap.
 
-- command-first
-- local runtime only
-- no external infrastructure
-- no distributed queue or broker setup
+It shows how CNCF expects the user to interact with job-managed work:
 
-## Relationship To Earlier Samples
+- submit the command
+- capture the returned job id
+- use `job-control` to observe completion, result, status, and history
 
-- `04-cqrs`
-  - already shows a job-backed command
-  - but job management itself is not the main focus
-- `05-event-driven`
-  - already shows an emitted event and a follow-up action
-  - but not a dedicated job-tracing workflow
-- `06-job`
-  - focuses directly on job submission, status, result, and timeline/debug observation
+## CNCF Approach
 
-## How To Run
+CNCF treats job management as a built-in operational surface instead of an afterthought.
 
-Build/generate:
+The approach is:
 
-```bash
-sbt cozyGenerate
-sbt clean compile
-```
+- command-side work is submitted through an ordinary modeled selector
+- the runtime returns a job id
+- `job-control` provides standard selectors for waiting, reading result, reading summarized status, and reading history
 
-Run the demo:
+This lets the user observe asynchronous work without relying on framework-internal APIs.
 
-```bash
-./run.sh
-```
+## Intended Use Case
 
-The demo does this in one JVM:
+Use this sample when you want to explain:
 
-1. create a generated action for `JobSample.Item.createItem`
-2. submit it through the component job path
-3. capture the returned job id
-4. wait for job completion
-5. query the same job through `jobEngine.query(jobId)`
-6. print status, result-summary, task status, timeline kinds, and debug summary
+- how a job-backed command is submitted from the shell
+- how to wait for job completion without writing custom polling code
+- how to inspect result, status, and timeline through standard CNCF selectors
+- how `job-control` becomes the operational interface for asynchronous command execution
 
-Help checks:
+## Files
 
-```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help job-sample"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help job-sample.item"
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help job-sample.item.create-item"
-```
-
-## Expected Learnings
-
-- how a command becomes a job-backed execution
-- how to retrieve job status
-- how to inspect job result
-- how to inspect timeline or debug information for the same job
+- `src/main/cozy/job.cml`
+  - the source model
+- `build.sbt`
+  - enables `sbt-cozy` generation for the sample
+- `run.sh`
+  - batch wrapper for the documented shell commands
 
 ## Model
 
 - component: `job-sample`
 - service: `item`
-- command target: `job-sample.item.create-item`
-- implementation directive: `IMPLEMENTATION = echo-record`
-- sample runner: `org.sample.job.JobFlowDemo`
+- command selector: `job-sample.item.create-item`
+- job selectors:
+  - `job-control.job.await-job-result`
+  - `job-control.job.get-job-result`
+  - `job-control.job.get-job-status`
+  - `job-control.job.load-job-history`
 
-## Expected Output Shape
+## Setup
 
-The demo prints one JSON line such as:
+### 1. Prepare the `cozy` command
 
-```json
-{
-  "job-id": "cncf-job-...",
-  "status": "Succeeded",
-  "result-success": true,
-  "task-statuses": "[Succeeded]",
-  "timeline-kinds": "[job.submitted, job.running, task.started, task.succeeded, job.succeeded]",
-  "debug-request-summary": "JobSample.Item.createItem"
-}
+Prepare the local `cozy` launcher that `sbt-cozy` delegates to during generation.
+
+```bash
+../../bin/setup cozy
 ```
 
-## Status
+### 2. Build the generated sample
 
-This sample is implemented at the first completion line.
+Compile the sample and generate the runtime classes that `cncf --discover=classes` will use later.
 
-The active work order is:
+```bash
+sbt --batch clean compile
+```
 
-- [06-job Development Instruction](/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/06-job-development-instruction.md)
+## Run The Whole Scenario
+
+```bash
+bash run.sh
+```
+
+`run.sh` is only a convenience batch runner.
+
+It is the batch form of the walkthrough below.
+
+The main learning path is still the explicit shell sequence in `Command Walkthrough`.
+
+## Command Walkthrough
+
+This sample uses:
+
+```bash
+bash ../../bin/cncf --discover=classes ...
+```
+
+Common points:
+
+- `cncf`:
+  - the standard CNCF command-line entry point
+  - in this sample repository it is invoked through `../../bin/cncf`
+  - after a normal CNCF installation, the same command is expected to be available as `cncf`
+- `--discover=classes`:
+  - use the locally compiled generated classes under `target/`
+  - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
+- `command`:
+  - run one-shot CNCF command execution without starting a persistent server
+- `server`:
+  - start CNCF in persistent server mode
+- `client`:
+  - send a request to a running CNCF server
+- `help`:
+  - ask CNCF to describe the selected component, service, or operation instead of executing it
+
+### 1. Inspect the component surface
+
+Start by confirming that the generated component exposes the item command and standard support services.
+
+```bash
+bash ../../bin/cncf --discover=classes command help job-sample
+```
+
+Parameters:
+- `command`
+  - uses ordinary one-shot CNCF command execution for this step
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
+- `job-sample`
+  - selects the generated component
+
+Example output:
+
+```yaml
+type: component
+name: JobSample
+children:
+  - Item
+  - aggregate
+  - entity
+  - meta
+  - system
+  - view
+operationDefinitions:
+  - createItem
+```
+
+### 2. Inspect the job-backed command contract
+
+Next, inspect the actual command that creates job-managed work.
+
+```bash
+bash ../../bin/cncf --discover=classes command help job-sample.item.create-item
+```
+
+Parameters:
+- `command`
+  - uses ordinary one-shot CNCF command execution for this step
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
+- `job-sample.item.create-item`
+  - selects the job-backed create command
+
+Example output:
+
+```yaml
+type: operation
+name: createItem
+service: Item
+selector:
+  cli: job-sample.item.create-item
+returns:
+  - CreateItemResult
+```
+
+### 3. Inspect the job-control surface
+
+Confirm that the standard `job-control` selectors are available for this command's lifecycle.
+
+```bash
+bash ../../bin/cncf --discover=classes command help job-control.job
+bash ../../bin/cncf --discover=classes command help job-control.job.await-job-result
+bash ../../bin/cncf --discover=classes command help job-control.job.get-job-result
+bash ../../bin/cncf --discover=classes command help job-control.job.get-job-status
+bash ../../bin/cncf --discover=classes command help job-control.job.load-job-history
+```
+
+Parameters:
+- `command`
+  - uses ordinary one-shot CNCF command execution for this step
+- `help`
+  - asks CNCF to describe the selected component, service, or operation instead of executing it
+- `job-control.job`
+  - selects the standard job-control service
+- `job-control.job.await-job-result`
+  - selects the wait-until-finished operation
+- `job-control.job.get-job-result`
+  - selects the stored result reader
+- `job-control.job.get-job-status`
+  - selects the summarized status reader
+- `job-control.job.load-job-history`
+  - selects the timeline reader
+
+This is the key point of the sample:
+
+job observation is not a custom sample API.
+
+It is a standard CNCF operational surface.
+
+### 4. Inspect metadata
+
+Use metadata to confirm the modeled runtime shape before starting the server.
+
+```bash
+bash ../../bin/cncf --discover=classes command job-sample.meta.describe --format yaml
+```
+
+Parameters:
+- `command`
+  - uses ordinary one-shot CNCF command execution for this step
+- `job-sample.meta.describe`
+  - describes the generated runtime metadata
+- `--format yaml`
+  - requests structured YAML output
+
+Example output:
+
+```yaml
+operation_definitions:
+- name: createItem
+  kind: COMMAND
+  input_type: CreateItem
+  output_type: CreateItemResult
+```
+
+### 5. Start the server
+
+Now start CNCF in server mode so the job state remains available across requests.
+
+```bash
+bash ../../bin/cncf --discover=classes server
+```
+
+Parameters:
+- `server`
+  - starts CNCF in persistent server mode so job state remains available across later client requests
+
+Expected signal:
+
+```text
+Ember-Server service bound to address: [::]:8080
+```
+
+### 6. Submit the job-backed command
+
+From another shell, submit the create command.
+
+```bash
+bash ../../bin/cncf --discover=classes client job-sample.item.create-item --name alpha --title Alpha
+```
+
+Parameters:
+- `client`
+  - sends the request to the running local CNCF server
+- `job-sample.item.create-item`
+  - submits the modeled command through the normal job-backed path
+- `--name alpha`
+  - field name: `name`
+  - meaning: logical item name
+  - sample value: `alpha`
+- `--title Alpha`
+  - field name: `title`
+  - meaning: descriptive title
+  - sample value: `Alpha`
+
+Expected result example:
+
+```text
+cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
+```
+
+### 7. Wait for completion
+
+Use the returned job id to wait until the command finishes.
+
+```bash
+bash ../../bin/cncf --discover=classes client job-control.job.await-job-result --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
+```
+
+Parameters:
+- `client`
+  - sends the request to the running local CNCF server
+- `job-control.job.await-job-result`
+  - waits until the job reaches a final result
+- `--id ...`
+  - the job id returned by `job-sample.item.create-item`
+
+Expected result example:
+
+```json
+{"name":"alpha","title":"Alpha","textus":{"format":"yaml"}}
+```
+
+### 8. Read the stored result directly
+
+Read the persisted result again through the explicit result selector.
+
+```bash
+bash ../../bin/cncf --discover=classes client job-control.job.get-job-result --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
+```
+
+Parameters:
+- `client`
+  - sends the request to the running local CNCF server
+- `job-control.job.get-job-result`
+  - reads the stored result payload for the completed job
+- `--id ...`
+  - the target job id
+
+Expected result example:
+
+```json
+{"name":"alpha","title":"Alpha","textus":{"format":"yaml"}}
+```
+
+### 9. Read the summarized status
+
+Read the operational summary view for the same job.
+
+```bash
+bash ../../bin/cncf --discover=classes client job-control.job.get-job-status --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
+```
+
+Parameters:
+- `client`
+  - sends the request to the running local CNCF server
+- `job-control.job.get-job-status`
+  - reads the summarized status, result summary, and task state
+- `--id ...`
+  - the target job id
+
+Important fields:
+
+- `status`
+- `result_success`
+- `tasks`
+- `timeline`
+- `debug_request_summary`
+
+Expected result example:
+
+```json
+{"job_id":"cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt","status":"Succeeded","result_success":true,"debug_request_summary":"JobSample.Item.createItem"}
+```
+
+### 10. Read the job history
+
+Finally, inspect the timeline itself.
+
+```bash
+bash ../../bin/cncf --discover=classes client job-control.job.load-job-history --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
+```
+
+Parameters:
+- `client`
+  - sends the request to the running local CNCF server
+- `job-control.job.load-job-history`
+  - reads the ordered event history for the job lifecycle
+- `--id ...`
+  - the target job id
+
+Expected result example:
+
+```json
+{"job_id":"cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt","offset":0,"limit":100,"total_count":5,"fetched_count":5,"events":[{"sequence":1,"kind":"job.submitted"},{"sequence":2,"kind":"job.running"},{"sequence":3,"kind":"task.running"},{"sequence":4,"kind":"task.succeeded"},{"sequence":5,"kind":"job.succeeded"}]}
+```
+
+## Expected Learnings
+
+- how a command becomes job-managed work
+- how to wait for completion from the shell
+- how to read stored result separately from summarized status
+- how to inspect the timeline of the same job

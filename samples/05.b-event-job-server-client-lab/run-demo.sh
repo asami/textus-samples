@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/sh
+set -eu
 
-dir="$(cd "$(dirname "$0")" && pwd)"
+dir="$(CDPATH= cd -- "$(dirname "$0")" && pwd)"
 cd "$dir"
 
 logfile="$(mktemp)"
@@ -22,5 +22,9 @@ for _ in $(seq 1 30); do
   sleep 1
 done
 
-bash run-client-emit.sh
+grep "Ember-Server service bound to address" "$logfile"
+
+job_id="$(bash run-client-emit.sh)"
+printf '%s\n' "$job_id"
+bash run-client-await.sh "$job_id"
 bash run-client-load.sh
