@@ -7,7 +7,7 @@ ThisBuild / scalaVersion := "3.3.7"
 lazy val root = (project in file("."))
   .enablePlugins(org.goldenport.cozy.CozyPlugin)
   .settings(
-    name := "cncf-samples-05-b-job-control-demo-lab",
+    name := "cncf-samples-06-b-job-control-demo-lab",
     scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked"),
     cozyGeneratorBackend := "cozy",
     cozyDelegateProjectDir := None,
