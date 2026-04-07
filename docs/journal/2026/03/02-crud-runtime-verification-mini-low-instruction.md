@@ -16,10 +16,10 @@ The next task is to verify the generated/runtime CRUD surface honestly and then 
 
 Read these files before running anything:
 
-1. `/Users/asami/src/dev2026/cncf-samples/samples/02-crud/README.md`
-2. `/Users/asami/src/dev2026/cncf-samples/samples/02-crud/src/main/cozy/crud.cml`
-3. `/Users/asami/src/dev2026/cncf-samples/samples/02-crud/build.sbt`
-4. `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/02-crud.md`
+1. `/Users/asami/src/dev2026/cncf-samples/samples/04-crud/README.md`
+2. `/Users/asami/src/dev2026/cncf-samples/samples/04-crud/src/main/cozy/crud.cml`
+3. `/Users/asami/src/dev2026/cncf-samples/samples/04-crud/build.sbt`
+4. `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04-crud.md`
 5. `/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/26-02-crud-redesign-record.md`
 
 ## Important Notes
@@ -35,7 +35,7 @@ Read these files before running anything:
 
 Run these steps in order.
 
-1. Run `sbt clean compile` in `/Users/asami/src/dev2026/cncf-samples/samples/02-crud`.
+1. Run `sbt clean compile` in `/Users/asami/src/dev2026/cncf-samples/samples/04-crud`.
 2. Confirm that generation still succeeds and compile still succeeds.
 3. Inspect the generated `CrudComponent.scala` and list the available CRUD surfaces:
    - `ItemService`
@@ -53,7 +53,7 @@ Run these steps in order.
 Update these files:
 
 - `/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/26-02-crud-redesign-record.md`
-- `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/02-crud.md`
+- `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04-crud.md`
 
 ## Done Condition
 

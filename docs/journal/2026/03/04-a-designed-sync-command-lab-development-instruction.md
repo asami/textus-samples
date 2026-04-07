@@ -9,7 +9,7 @@ The phase checklist is the status authority.
 
 Status authority:
 
-- [`docs/phase/samples/04.a-designed-sync-command-lab.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04.a-designed-sync-command-lab.md)
+- [`docs/phase/samples/06.a-designed-sync-command-lab.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/06.a-designed-sync-command-lab.md)
 
 ## Purpose
 

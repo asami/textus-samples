@@ -13,7 +13,7 @@ The first completion target is:
 
 ## Implemented
 
-- sample source under `/Users/asami/src/dev2026/cncf-samples/samples/02.c-crud-sqlite-lab`
+- sample source under `/Users/asami/src/dev2026/cncf-samples/samples/04.c-crud-sqlite-lab`
 - generated `sbt-cozy` line restored
 - old hand-written runtime Scala removed from the sample path
 - shell-first runtime commands through `bin/cncf`

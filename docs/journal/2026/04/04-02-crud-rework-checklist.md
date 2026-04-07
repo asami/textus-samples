@@ -2,7 +2,7 @@
 
 ## Goal
 
-Rework `02-crud` so that:
+Rework `04-crud` so that:
 
 - it serves as the first shell-first CRUD sample
 - it explains the generated CRUD surface before seed import or storage-specific behavior
@@ -12,7 +12,7 @@ Rework `02-crud` so that:
 
 ### A. Positioning
 
-- [x] explain that `02-crud` is the base model-driven CRUD line
+- [x] explain that `04-crud` is the base model-driven CRUD line
 - [x] explain that this sample focuses on generated surface inspection
 - [x] explain that later labs add seed data and runtime behavior
 
@@ -50,7 +50,7 @@ Rework `02-crud` so that:
 
 ## Completion condition
 
-- [x] `02-crud` can be used directly as the first generated CRUD-surface sample
+- [x] `04-crud` can be used directly as the first generated CRUD-surface sample
 - [x] the shell command flow is explicit and reproducible
 - [x] later `02.*` samples can refer back to this sample as the base line
 - [x] the same generated-surface verification line is covered by `cozy` scripted

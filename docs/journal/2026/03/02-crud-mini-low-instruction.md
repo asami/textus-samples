@@ -8,7 +8,7 @@ The phase checklist is the status authority.
 
 Status authority:
 
-- [`docs/phase/samples/02-crud.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/02-crud.md)
+- [`docs/phase/samples/04-crud.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04-crud.md)
 
 ## Goal
 
@@ -32,8 +32,8 @@ Do not work on `02-crud` unless `cozy` is available.
 
 Read these files first:
 
-1. [`samples/02-crud/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/02-crud/README.md)
-2. [`docs/phase/samples/02-crud.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/02-crud.md)
+1. [`samples/04-crud/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/04-crud/README.md)
+2. [`docs/phase/samples/04-crud.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04-crud.md)
 3. [`docs/journal/2026/03/02-crud-redesign-instruction.md`](/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/02-crud-redesign-instruction.md)
 4. `textus-user-account` in `/Users/asami/src/dev2026/textus-user-account`
 
@@ -42,8 +42,8 @@ Read these files first:
 1. Identify the minimal CML-driven CRUD pattern in `textus-user-account`.
 2. Apply the same method to `02-crud`.
 3. Make `02-crud` about CML-driven entity service and aggregate service.
-4. Update `samples/02-crud/README.md`.
-5. Update `docs/phase/samples/02-crud.md`.
+4. Update `samples/04-crud/README.md`.
+5. Update `docs/phase/samples/04-crud.md`.
 
 ## Do Not
 

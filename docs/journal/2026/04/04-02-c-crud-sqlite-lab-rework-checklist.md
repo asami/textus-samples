@@ -2,7 +2,7 @@
 
 ## Goal
 
-Rework `02.c-crud-sqlite-lab` so that:
+Rework `04.c-crud-sqlite-lab` so that:
 
 - it stays user-facing and shell-first
 - it explains SQLite as a persistence variation of the generated CRUD line

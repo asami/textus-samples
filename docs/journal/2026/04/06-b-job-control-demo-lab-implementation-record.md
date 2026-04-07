@@ -2,7 +2,7 @@
 
 ## Summary
 
-`06.b-job-control-demo-lab` originally exposed a direct-framework same-JVM demo through `JobControlDemo.scala`.
+`08.b-job-control-demo-lab` originally exposed a direct-framework same-JVM demo through `JobControlDemo.scala`.
 
 That demo used internal CNCF runtime APIs directly:
 
@@ -32,11 +32,11 @@ That keeps `06.b` aligned with the sample-first rule:
 
 ## Current Position
 
-- `06-job`
+- `08-job`
   - job observation sample
-- `06.a-job-control-lab`
+- `08.a-job-control-lab`
   - user-facing job control sample
-- `06.b-job-control-demo-lab`
+- `08.b-job-control-demo-lab`
   - relocation point for the lower-level framework proof
 
 ## Scripted Relocation

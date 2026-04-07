@@ -38,10 +38,10 @@ Not allowed:
 
 ## Files To Read First
 
-- `/Users/asami/src/dev2026/cncf-samples/samples/07.a-aggregate-single-record-lab/README.md`
-- `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/07.a-aggregate-single-record-lab.md`
+- `/Users/asami/src/dev2026/cncf-samples/samples/09.a-aggregate-single-record-lab/README.md`
+- `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/09.a-aggregate-single-record-lab.md`
 - `/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/30-06-a-aggregate-single-record-lab-implementation-record.md`
-- `/Users/asami/src/dev2026/cncf-samples/samples/07-aggregate/README.md`
+- `/Users/asami/src/dev2026/cncf-samples/samples/09-aggregate/README.md`
 
 ## Required Verification
 
@@ -53,7 +53,7 @@ sbt --batch clean compile
 
 in:
 
-`/Users/asami/src/dev2026/cncf-samples/samples/07.a-aggregate-single-record-lab`
+`/Users/asami/src/dev2026/cncf-samples/samples/09.a-aggregate-single-record-lab`
 
 2. Run:
 

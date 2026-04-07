@@ -2,17 +2,17 @@
 
 ## Goal
 
-Rework `02.a-crud-seed-import-lab` so that:
+Rework `04.a-crud-seed-import-lab` so that:
 
 - it stays user-facing and shell-first
-- it explains seed import as the first runtime CRUD extension after `02-crud`
+- it explains seed import as the first runtime CRUD extension after `04-crud`
 - it verifies imported records through generated CNCF commands
 
 ## Checklist
 
 ### A. Positioning
 
-- [x] explain how `02.a` extends `02-crud`
+- [x] explain how `02.a` extends `04-crud`
 - [x] explain descriptor-first runtime metadata
 - [x] explain seed import from `entity.d`
 - [x] explain why this lab focuses on imported data verification
@@ -32,7 +32,7 @@ Rework `02.a-crud-seed-import-lab` so that:
 - [x] add shell command walkthrough
 - [x] explain parameters and command meaning
 - [x] show expected output
-- [x] explain the difference from `02-crud`
+- [x] explain the difference from `04-crud`
 
 ### D. Verification
 

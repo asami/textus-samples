@@ -6,10 +6,10 @@ Implemented the first minimal job-control lab after `06-job`, with lifecycle eve
 
 ## Facts
 
-- The sample directory is [`samples/06.a-job-control-lab`](/Users/asami/src/dev2026/cncf-samples/samples/06.a-job-control-lab).
-- The model source is [`samples/06.a-job-control-lab/src/main/cozy/job-control-lab.cml`](/Users/asami/src/dev2026/cncf-samples/samples/06.a-job-control-lab/src/main/cozy/job-control-lab.cml).
-- The demo runner is [`samples/06.a-job-control-lab/src/main/scala/org/sample/jobcontrol/JobControlDemo.scala`](/Users/asami/src/dev2026/cncf-samples/samples/06.a-job-control-lab/src/main/scala/org/sample/jobcontrol/JobControlDemo.scala).
-- The demo route is `bash run.sh` in [`samples/06.a-job-control-lab`](/Users/asami/src/dev2026/cncf-samples/samples/06.a-job-control-lab/README.md).
+- The sample directory is [`samples/08.a-job-control-lab`](/Users/asami/src/dev2026/cncf-samples/samples/08.a-job-control-lab).
+- The model source is [`samples/08.a-job-control-lab/src/main/cozy/job-control-lab.cml`](/Users/asami/src/dev2026/cncf-samples/samples/08.a-job-control-lab/src/main/cozy/job-control-lab.cml).
+- The demo runner is [`samples/08.a-job-control-lab/src/main/scala/org/sample/jobcontrol/JobControlDemo.scala`](/Users/asami/src/dev2026/cncf-samples/samples/08.a-job-control-lab/src/main/scala/org/sample/jobcontrol/JobControlDemo.scala).
+- The demo route is `bash run.sh` in [`samples/08.a-job-control-lab`](/Users/asami/src/dev2026/cncf-samples/samples/08.a-job-control-lab/README.md).
 - The generated command uses `IMPLEMENTATION = blocking-task`.
 - The runner submits two jobs through the generated command path:
 - one job is suspended and resumed

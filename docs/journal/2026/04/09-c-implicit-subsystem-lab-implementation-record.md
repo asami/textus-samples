@@ -2,7 +2,7 @@
 
 ## Summary
 
-`09.c-implicit-subsystem-lab` captures the implicit subsystem form.
+`11.c-implicit-subsystem-lab` captures the implicit subsystem form.
 
 ## Outcome
 
@@ -13,7 +13,7 @@
 
 ## Position In The Sample Line
 
-- `09-subsystem`
+- `11-subsystem`
   - explicit subsystem definition
-- `09.c-implicit-subsystem-lab`
+- `11.c-implicit-subsystem-lab`
   - implicit subsystem created by runtime composition around discovered components

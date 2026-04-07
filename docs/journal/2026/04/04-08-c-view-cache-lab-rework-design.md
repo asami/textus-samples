@@ -2,7 +2,7 @@
 
 ## Decision
 
-`08.c-view-cache-lab` will be split into:
+`10.c-view-cache-lab` will be split into:
 
 - a user-facing sample
 - a `cozy` scripted verification

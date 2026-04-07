@@ -2,7 +2,7 @@
 
 ## Scope
 
-This sample is the `Entity extends SimpleEntity` variant of `08-view`.
+This sample is the `Entity extends SimpleEntity` variant of `10-view`.
 
 ## Intended first line
 
@@ -14,7 +14,7 @@ This sample is the `Entity extends SimpleEntity` variant of `08-view`.
 
 ## Implemented
 
-- sample source under `/Users/asami/src/dev2026/cncf-samples/samples/08.b-simpleentity-view-lab`
+- sample source under `/Users/asami/src/dev2026/cncf-samples/samples/10.b-simpleentity-view-lab`
 - shell-first command flow under `bin/cncf`
 - `run.sh` as a batch wrapper around explicit shell commands
 - scripted fixture under `/Users/asami/src/dev2025/cozy/src/sbt-test/cozy/simpleentity-view`

@@ -2,7 +2,7 @@
 
 ## Scope
 
-This line extends `08-view` with explicit named view aliases.
+This line extends `10-view` with explicit named view aliases.
 
 The first completion target was:
 
@@ -12,11 +12,11 @@ The first completion target was:
 4. one typed summary search route works
 5. one custom `VIEW > QUERY` route works
 6. one metadata projection exposes explicit `VIEW` metadata
-7. the README explains the difference from `08-view`
+7. the README explains the difference from `10-view`
 
 ## Implemented
 
-- sample source under `/Users/asami/src/dev2026/cncf-samples/samples/08.a-view-definition-lab`
+- sample source under `/Users/asami/src/dev2026/cncf-samples/samples/10.a-view-definition-lab`
 - shell-first command flow under `bin/cncf`
 - `run.sh` as a batch wrapper around explicit shell commands
 - scripted fixture under `/Users/asami/src/dev2025/cozy/src/sbt-test/cozy/named-view-definition`

@@ -16,13 +16,13 @@ The sample now demonstrates:
 
 ## Files
 
-- `samples/06-job/src/main/cozy/job.cml`
-- `samples/06-job/build.sbt`
-- `samples/06-job/project/plugins.sbt`
-- `samples/06-job/run.sh`
-- `samples/06-job/src/main/scala/org/sample/job/JobFlowDemo.scala`
-- `samples/06-job/README.md`
-- `docs/phase/samples/06-job.md`
+- `samples/08-job/src/main/cozy/job.cml`
+- `samples/08-job/build.sbt`
+- `samples/08-job/project/plugins.sbt`
+- `samples/08-job/run.sh`
+- `samples/08-job/src/main/scala/org/sample/job/JobFlowDemo.scala`
+- `samples/08-job/README.md`
+- `docs/phase/samples/08-job.md`
 
 ## Notes
 

@@ -43,35 +43,48 @@ Development order follows the stages recorded in `docs/journal/2026/03/cncf-samp
 3. `01.b-startup-shapes-lab`
 4. `01.c-builtin-and-help-lab`
 5. `01.d-component-script`
-6. `02-crud`
-7. `02.a-crud-seed-import-lab`
-8. `02.b-simpleentity-crud-lab`
-9. `02.c-crud-sqlite-lab`
-10. `02.d-crud-server-memory-lab`
-11. `02.e-crud-explicit-sync-lab`
-12. `02.f-crud-nested-value-lab`
-13. `03-operation`
-14. `03.a-operation-command-lab`
-15. `03.b-operation-entity-lab`
-16. `04-cqrs`
-17. `04.a-designed-sync-command-lab`
-18. `04.b-test-sync-command-lab`
-19. `05-event-driven`
-20. `05.a-event-job-trace-lab`
-21. `05.b-event-job-server-client-lab`
-22. `06-job`
-23. `06.a-job-control-lab`
-24. `06.b-job-control-demo-lab`
-25. `07-aggregate`
-26. `07.a-aggregate-single-record-lab`
-27. `07.b-aggregate-relation-boundary-model`
-28. `07.c-aggregate-external-update-semantics`
-29. `08-view`
-30. `08.a-view-definition-lab`
-31. `08.b-simpleentity-view-lab`
-32. `09-subsystem`
-33. `10-subsystem-wiring`
-34. `101-distributed`
+6. `02-component`
+7. `02.a-car-dir-lab`
+8. `02.b-discover-classes-lab`
+9. `03-component-cml`
+10. `03.a-car-dir-cml-lab`
+11. `03.b-discover-classes-cml-lab`
+12. `03.c-method-execution-cml-lab`
+13. `04-crud`
+14. `04.a-crud-seed-import-lab`
+15. `04.b-simpleentity-crud-lab`
+16. `04.c-crud-sqlite-lab`
+17. `04.d-crud-server-memory-lab`
+18. `04.e-crud-explicit-sync-lab`
+19. `04.f-crud-nested-value-lab`
+20. `05-operation`
+21. `05.a-operation-command-lab`
+22. `05.b-operation-entity-lab`
+23. `06-cqrs`
+24. `06.a-designed-sync-command-lab`
+25. `06.b-test-sync-command-lab`
+26. `07-event-driven`
+27. `07.a-event-job-trace-lab`
+28. `07.b-event-job-server-client-lab`
+29. `08-job`
+30. `08.a-job-control-lab`
+31. `08.b-job-control-demo-lab`
+32. `09-aggregate`
+33. `09.a-aggregate-single-record-lab`
+34. `09.b-aggregate-relation-boundary-model`
+35. `09.c-aggregate-external-update-semantics`
+36. `10-view`
+37. `10.a-view-definition-lab`
+38. `10.b-simpleentity-view-lab`
+39. `10.c-view-cache-lab`
+40. `11-subsystem`
+41. `11.a-subsystem-bundled-component-lab`
+42. `11.b-subsystem-mixed-component-lab`
+43. `11.c-implicit-subsystem-lab`
+44. `11.d-sar-dir-lab`
+45. `11.e-subsystem-parameter-lab`
+46. `12-subsystem-wiring`
+47. `101-distributed`
 
 ## AI Directive
 
@@ -115,34 +128,47 @@ AI behavior is interpreted in the following order.
 │  ├─ 01.b-startup-shapes-lab/
 │  ├─ 01.c-builtin-and-help-lab/
 │  ├─ 01.d-component-script/
-│  ├─ 02-crud/
-│  ├─ 02.a-crud-seed-import-lab/
-│  ├─ 02.b-simpleentity-crud-lab/
-│  ├─ 02.c-crud-sqlite-lab/
-│  ├─ 02.d-crud-server-memory-lab/
-│  ├─ 02.e-crud-explicit-sync-lab/
-│  ├─ 02.f-crud-nested-value-lab/
-│  ├─ 03-operation/
-│  ├─ 03.a-operation-command-lab/
-│  ├─ 03.b-operation-entity-lab/
-│  ├─ 04-cqrs/
-│  ├─ 04.a-designed-sync-command-lab/
-│  ├─ 04.b-test-sync-command-lab/
-│  ├─ 05-event-driven/
-│  ├─ 05.a-event-job-trace-lab/
-│  ├─ 05.b-event-job-server-client-lab/
-│  ├─ 06-job/
-│  ├─ 06.a-job-control-lab/
-│  ├─ 06.b-job-control-demo-lab/
-│  ├─ 07-aggregate/
-│  ├─ 07.a-aggregate-single-record-lab/
-│  ├─ 07.b-aggregate-relation-boundary-model/
-│  ├─ 07.c-aggregate-external-update-semantics/
-│  ├─ 08-view/
-│  ├─ 08.a-view-definition-lab/
-│  ├─ 08.b-simpleentity-view-lab/
-│  ├─ 09-subsystem/
-│  ├─ 10-subsystem-wiring/
+│  ├─ 02-component/
+│  ├─ 02.a-car-dir-lab/
+│  ├─ 02.b-discover-classes-lab/
+│  ├─ 03-component-cml/
+│  ├─ 03.a-car-dir-cml-lab/
+│  ├─ 03.b-discover-classes-cml-lab/
+│  ├─ 03.c-method-execution-cml-lab/
+│  ├─ 04-crud/
+│  ├─ 04.a-crud-seed-import-lab/
+│  ├─ 04.b-simpleentity-crud-lab/
+│  ├─ 04.c-crud-sqlite-lab/
+│  ├─ 04.d-crud-server-memory-lab/
+│  ├─ 04.e-crud-explicit-sync-lab/
+│  ├─ 04.f-crud-nested-value-lab/
+│  ├─ 05-operation/
+│  ├─ 05.a-operation-command-lab/
+│  ├─ 05.b-operation-entity-lab/
+│  ├─ 06-cqrs/
+│  ├─ 06.a-designed-sync-command-lab/
+│  ├─ 06.b-test-sync-command-lab/
+│  ├─ 07-event-driven/
+│  ├─ 07.a-event-job-trace-lab/
+│  ├─ 07.b-event-job-server-client-lab/
+│  ├─ 08-job/
+│  ├─ 08.a-job-control-lab/
+│  ├─ 08.b-job-control-demo-lab/
+│  ├─ 09-aggregate/
+│  ├─ 09.a-aggregate-single-record-lab/
+│  ├─ 09.b-aggregate-relation-boundary-model/
+│  ├─ 09.c-aggregate-external-update-semantics/
+│  ├─ 10-view/
+│  ├─ 10.a-view-definition-lab/
+│  ├─ 10.b-simpleentity-view-lab/
+│  ├─ 10.c-view-cache-lab/
+│  ├─ 11-subsystem/
+│  ├─ 11.a-subsystem-bundled-component-lab/
+│  ├─ 11.b-subsystem-mixed-component-lab/
+│  ├─ 11.c-implicit-subsystem-lab/
+│  ├─ 11.d-sar-dir-lab/
+│  ├─ 11.e-subsystem-parameter-lab/
+│  ├─ 12-subsystem-wiring/
 │  └─ 101-distributed/
 └─ shared/
    ├─ common-lib/
@@ -163,7 +189,7 @@ sample-name/
 └─ src/main/scala/
 ```
 
-From `05-event-driven` onward, `docker/` may be added when needed.
+From `07-event-driven` onward, `docker/` may be added when needed.
 Each sample-level `AGENT.md` and `RULE.md` is a symlink back to the repository-level directive so that the same AI contract remains visible even when a sample is opened on its own.
 
 ## How To Work

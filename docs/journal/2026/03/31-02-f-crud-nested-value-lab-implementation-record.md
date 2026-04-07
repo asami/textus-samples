@@ -15,7 +15,7 @@ First line for plain CRUD nested value object persistence.
 
 ## Verified
 
-- `sbt --batch clean compile` in `samples/02.f-crud-nested-value-lab`
+- `sbt --batch clean compile` in `samples/04.f-crud-nested-value-lab`
 - `sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help crud-nested-value-sample.entity.create-person"`
 - `bash run.sh`
 - `bash run-datastore.sh`

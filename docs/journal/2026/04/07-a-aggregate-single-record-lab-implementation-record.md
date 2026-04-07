@@ -9,7 +9,7 @@ The sample now focuses on:
 - the generated component surface
 - the generated aggregate load surface
 - the generated metadata shape
-- the conceptual contrast with `07-aggregate`
+- the conceptual contrast with `09-aggregate`
 
 ## Relocation Rule
 

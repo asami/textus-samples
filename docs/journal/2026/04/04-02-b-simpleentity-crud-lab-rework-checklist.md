@@ -2,7 +2,7 @@
 
 ## Goal
 
-Rework `02.b-simpleentity-crud-lab` so that:
+Rework `04.b-simpleentity-crud-lab` so that:
 
 - it stays user-facing and shell-first
 - it explains the `SimpleEntity` variant of the base CRUD line
@@ -12,7 +12,7 @@ Rework `02.b-simpleentity-crud-lab` so that:
 
 ### A. Positioning
 
-- [x] explain how `02.b` extends `02-crud`
+- [x] explain how `02.b` extends `04-crud`
 - [x] explain that the sample focuses on the `SimpleEntity` variant
 - [x] explain that this sample stays on generated-surface inspection
 
@@ -31,7 +31,7 @@ Rework `02.b-simpleentity-crud-lab` so that:
 - [x] add shell command walkthrough
 - [x] explain parameters and command meaning
 - [x] show expected output
-- [x] explain the difference from `02-crud`
+- [x] explain the difference from `04-crud`
 
 ### D. Verification
 
@@ -51,6 +51,6 @@ Rework `02.b-simpleentity-crud-lab` so that:
 
 ## Completion condition
 
-- [x] `02.b` can be used directly as the `SimpleEntity` CRUD variant of `02-crud`
+- [x] `02.b` can be used directly as the `SimpleEntity` CRUD variant of `04-crud`
 - [x] the shell command flow is explicit and reproducible
 - [x] the same generated-surface verification line is covered by `cozy` scripted

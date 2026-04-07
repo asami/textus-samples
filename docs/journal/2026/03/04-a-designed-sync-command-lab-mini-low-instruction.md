@@ -7,16 +7,16 @@ Do not rewrite this file into a result note or completion report.
 
 The status authority is:
 
-- [`docs/phase/samples/04.a-designed-sync-command-lab.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04.a-designed-sync-command-lab.md)
+- [`docs/phase/samples/06.a-designed-sync-command-lab.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/06.a-designed-sync-command-lab.md)
 
 ## Read First
 
 Read these files first:
 
 - [`docs/journal/2026/03/03-a-designed-sync-command-lab-development-instruction.md`](/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/03-a-designed-sync-command-lab-development-instruction.md)
-- [`docs/phase/samples/04-cqrs.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04-cqrs.md)
-- [`samples/04-cqrs/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/04-cqrs/README.md)
-- [`samples/04-cqrs/src/main/cozy/cqrs.cml`](/Users/asami/src/dev2026/cncf-samples/samples/04-cqrs/src/main/cozy/cqrs.cml)
+- [`docs/phase/samples/06-cqrs.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/06-cqrs.md)
+- [`samples/06-cqrs/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/06-cqrs/README.md)
+- [`samples/06-cqrs/src/main/cozy/cqrs.cml`](/Users/asami/src/dev2026/cncf-samples/samples/06-cqrs/src/main/cozy/cqrs.cml)
 
 ## Goal
 

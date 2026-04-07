@@ -2,7 +2,7 @@
 
 ## Goal
 
-Rework `08-view` so that:
+Rework `10-view` so that:
 
 - it serves as the first user-facing explanation of view as the CQRS read side
 - the sample is shell-first
@@ -41,7 +41,7 @@ Rework `08-view` so that:
 
 ## Completion condition
 
-- [x] `08-view` can be used directly by sample users as the first view/read-model reference
+- [x] `10-view` can be used directly by sample users as the first view/read-model reference
 - [x] the shell command flow is explicit and reproducible
 - [x] later view samples can refer back to this sample for the base concept
 

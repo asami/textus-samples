@@ -2,17 +2,17 @@
 
 ## Goal
 
-Rework `08.b-simpleentity-view-lab` so that:
+Rework `10.b-simpleentity-view-lab` so that:
 
 - it stays user-facing and shell-first
-- it explains the `SimpleEntity` inheritance variant of the default `08-view` line
+- it explains the `SimpleEntity` inheritance variant of the default `10-view` line
 - it shows CNCF usage directly, without framework-internal explanation
 
 ## Checklist
 
 ### A. Positioning
 
-- [x] explain how `08.b` extends `08-view`
+- [x] explain how `08.b` extends `10-view`
 - [x] explain that the sample keeps the default generated view line
 - [x] explain that `SimpleEntity` provides inherited common fields
 - [x] explain why this line is still view-oriented rather than aggregate-oriented
@@ -32,7 +32,7 @@ Rework `08.b-simpleentity-view-lab` so that:
 - [x] add shell command walkthrough
 - [x] explain parameters and command meaning
 - [x] show expected output
-- [x] explain the difference from `08-view`
+- [x] explain the difference from `10-view`
 
 ### D. Verification
 

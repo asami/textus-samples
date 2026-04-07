@@ -2,7 +2,7 @@
 
 ## Goal
 
-Rework `02.d-crud-server-memory-lab` so that:
+Rework `04.d-crud-server-memory-lab` so that:
 
 - it stays user-facing and shell-first
 - it explains the server/client runtime shape as the central point
@@ -14,7 +14,7 @@ Rework `02.d-crud-server-memory-lab` so that:
 
 - [x] explain how `02.d` extends the earlier `02` CRUD line
 - [x] explain that `02.d` is a runtime-shape sample rather than a persistence sample
-- [x] explain the difference from `02.c-crud-sqlite-lab`
+- [x] explain the difference from `04.c-crud-sqlite-lab`
 
 ### B. Sample execution shape
 

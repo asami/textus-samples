@@ -56,9 +56,9 @@ Not allowed:
 
 ## Files To Read First
 
-- `/Users/asami/src/dev2026/cncf-samples/samples/07-aggregate/README.md`
-- `/Users/asami/src/dev2026/cncf-samples/samples/07.a-aggregate-single-record-lab/README.md`
-- `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/07-aggregate.md`
+- `/Users/asami/src/dev2026/cncf-samples/samples/09-aggregate/README.md`
+- `/Users/asami/src/dev2026/cncf-samples/samples/09.a-aggregate-single-record-lab/README.md`
+- `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/09-aggregate.md`
 - `/Users/asami/src/dev2026/cncf-samples/README.md`
 - `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/README.md`
 

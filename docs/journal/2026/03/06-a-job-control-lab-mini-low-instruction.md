@@ -3,9 +3,9 @@
 Read first:
 
 - /Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/05-a-job-control-lab-development-instruction.md
-- /Users/asami/src/dev2026/cncf-samples/docs/phase/samples/06.a-job-control-lab.md
-- /Users/asami/src/dev2026/cncf-samples/samples/06-job/README.md
-- /Users/asami/src/dev2026/cncf-samples/docs/phase/samples/06-job.md
+- /Users/asami/src/dev2026/cncf-samples/docs/phase/samples/08.a-job-control-lab.md
+- /Users/asami/src/dev2026/cncf-samples/samples/08-job/README.md
+- /Users/asami/src/dev2026/cncf-samples/docs/phase/samples/08-job.md
 
 ## Goal
 
@@ -35,8 +35,8 @@ Prefer the same direction as `06-job`:
 
 Create or update:
 
-- `/Users/asami/src/dev2026/cncf-samples/samples/06.a-job-control-lab/README.md`
-- `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/06.a-job-control-lab.md`
+- `/Users/asami/src/dev2026/cncf-samples/samples/08.a-job-control-lab/README.md`
+- `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/08.a-job-control-lab.md`
 
 Add an implementation record only if real implementation progress happens.
 

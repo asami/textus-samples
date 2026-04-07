@@ -9,7 +9,7 @@ The phase checklist is the status authority.
 
 Status authority:
 
-- [`docs/phase/samples/04-cqrs.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04-cqrs.md)
+- [`docs/phase/samples/06-cqrs.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/06-cqrs.md)
 
 ## Purpose
 
@@ -122,9 +122,9 @@ Do not add unrelated persistence concerns.
 
 At minimum, update these files:
 
-- [`samples/04-cqrs/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/04-cqrs/README.md)
-- [`docs/phase/samples/04-cqrs.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04-cqrs.md)
-- the actual sample implementation files under [`samples/04-cqrs`](/Users/asami/src/dev2026/cncf-samples/samples/04-cqrs)
+- [`samples/06-cqrs/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/06-cqrs/README.md)
+- [`docs/phase/samples/06-cqrs.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/06-cqrs.md)
+- the actual sample implementation files under [`samples/06-cqrs`](/Users/asami/src/dev2026/cncf-samples/samples/06-cqrs)
 
 ## README Requirements
 
@@ -151,7 +151,7 @@ This task is complete only if all of the following are true:
 - the read query works
 - the runtime difference between command side and query side is visible
 - the README matches the real commands
-- [`docs/phase/samples/04-cqrs.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04-cqrs.md) is updated honestly
+- [`docs/phase/samples/06-cqrs.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/06-cqrs.md) is updated honestly
 
 ## Notes For Execution
 

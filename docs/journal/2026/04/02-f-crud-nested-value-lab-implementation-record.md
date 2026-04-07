@@ -2,7 +2,7 @@
 
 ## Summary
 
-`02.f-crud-nested-value-lab` was reworked as the nested value persistence variant of the `02` CRUD line.
+`04.f-crud-nested-value-lab` was reworked as the nested value persistence variant of the `02` CRUD line.
 
 The sample no longer relies on hand-written demo mains.
 It now uses the generated CRUD path and verifies nested value persistence through SQLite-backed create and load commands.

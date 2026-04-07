@@ -2,7 +2,7 @@
 
 ## Summary
 
-`05.a-event-job-trace-lab` was normalized as the shell-first bridge between the event sample and the job-control samples.
+`07.a-event-job-trace-lab` was normalized as the shell-first bridge between the event sample and the job-control samples.
 
 The sample now focuses on:
 
@@ -86,7 +86,7 @@ The `cozy` scripted fixture confirms the same flow in generated form:
 
 ## Main Point
 
-`05.a-event-job-trace-lab` is the first shell-facing trace sample that connects:
+`07.a-event-job-trace-lab` is the first shell-facing trace sample that connects:
 
 - event emission
 - routed reaction

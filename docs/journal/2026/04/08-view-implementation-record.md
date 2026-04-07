@@ -2,7 +2,7 @@
 
 ## Goal
 
-Establish the first dedicated view/read-model sample after `07-aggregate`.
+Establish the first dedicated view/read-model sample after `09-aggregate`.
 
 ## First Line
 
@@ -56,7 +56,7 @@ The current runtime line also includes:
 
 ## Sample Position
 
-`08-view` is the base view/read-model sample.
+`10-view` is the base view/read-model sample.
 
 - later view samples, including `08.c`, refer back to this line for the basic CQRS query/view explanation
 - this sample keeps the focus on the simplest load/search shape before adding paging or cache-policy detail

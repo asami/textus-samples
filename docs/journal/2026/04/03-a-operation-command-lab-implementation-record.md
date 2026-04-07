@@ -2,7 +2,7 @@
 
 ## Summary
 
-`03.a-operation-command-lab` was normalized as the first command-oriented contract sample.
+`05.a-operation-command-lab` was normalized as the first command-oriented contract sample.
 
 The sample now verifies both:
 

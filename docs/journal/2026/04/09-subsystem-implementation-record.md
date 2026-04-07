@@ -2,7 +2,7 @@
 
 ## Summary
 
-`09-subsystem` was implemented as the baseline shell-first formal subsystem sample.
+`11-subsystem` was implemented as the baseline shell-first formal subsystem sample.
 
 ## Outcome
 
@@ -15,7 +15,7 @@
 ## Notes
 
 - the sample intentionally stays close to `01-minimal`
-- the difference is the explanatory focus: `09-subsystem` centers the subsystem as an explicit composition artifact
+- the difference is the explanatory focus: `11-subsystem` centers the subsystem as an explicit composition artifact
 - the stable execution line is `component.d/testcomp.car` plus `--textus.runtime.subsystem=testsubsystem`
 - component name and subsystem name are intentionally different: `testcomp` vs `testsubsystem`
 - config-file equivalents exist, but they are only the general CNCF parameter/config transparency rule

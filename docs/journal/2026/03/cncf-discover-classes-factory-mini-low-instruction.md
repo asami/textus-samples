@@ -20,15 +20,15 @@ The desired behavior is that `--discover=classes` can discover the component and
 - CNCF runtime repo:
   - `/Users/asami/src/dev2025/cloud-native-component-framework`
 - Reference samples:
-  - `/Users/asami/src/dev2026/cncf-samples/samples/02-crud`
-  - `/Users/asami/src/dev2026/cncf-samples/samples/02.b-simpleentity-crud-lab`
+  - `/Users/asami/src/dev2026/cncf-samples/samples/04-crud`
+  - `/Users/asami/src/dev2026/cncf-samples/samples/04.b-simpleentity-crud-lab`
 
 ## Read First
 
 - `/Users/asami/src/dev2025/cloud-native-component-framework/src/main/scala/org/goldenport/cncf/CncfMain.scala`
 - `/Users/asami/src/dev2025/cloud-native-component-framework/src/main/scala/org/goldenport/cncf/component/repository/ComponentProvider.scala`
-- `/Users/asami/src/dev2026/cncf-samples/samples/02-crud/README.md`
-- `/Users/asami/src/dev2026/cncf-samples/samples/02.b-simpleentity-crud-lab/README.md`
+- `/Users/asami/src/dev2026/cncf-samples/samples/04-crud/README.md`
+- `/Users/asami/src/dev2026/cncf-samples/samples/04.b-simpleentity-crud-lab/README.md`
 
 ## Problem Statement
 

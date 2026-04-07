@@ -2,7 +2,7 @@
 
 ## Scope
 
-This line extends `02-crud` with descriptor-first metadata and imported seed data.
+This line extends `04-crud` with descriptor-first metadata and imported seed data.
 
 The first completion target is:
 
@@ -13,7 +13,7 @@ The first completion target is:
 
 ## Implemented
 
-- sample source under `/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab`
+- sample source under `/Users/asami/src/dev2026/cncf-samples/samples/04.a-crud-seed-import-lab`
 - setup-first command flow
   - `../../bin/setup cozy`
 - descriptor-first layout
@@ -40,7 +40,7 @@ The first completion target is:
 
 ## Position
 
-This sample is the first runtime CRUD verification line after `02-crud`.
+This sample is the first runtime CRUD verification line after `04-crud`.
 
 It proves that descriptor-first wiring and `entity.d` import work together, before the later CRUD labs add other variations.
 

@@ -14,7 +14,7 @@ The first completion target is:
 
 ## Implemented
 
-- sample source under `/Users/asami/src/dev2026/cncf-samples/samples/02-crud`
+- sample source under `/Users/asami/src/dev2026/cncf-samples/samples/04-crud`
 - setup-first command flow
   - `../../bin/setup cozy`
 - shell-first runtime commands through `bin/cncf`
@@ -38,6 +38,6 @@ The first completion target is:
 This sample is the first CRUD/reference point.
 
 It does not yet verify preloaded records or storage behavior.
-Those concerns move to later `02.*` labs, starting with `02.a-crud-seed-import-lab`.
+Those concerns move to later `02.*` labs, starting with `04.a-crud-seed-import-lab`.
 
 Its generated-surface inspection line is also covered by `cozy` scripted under `crud-surface`.

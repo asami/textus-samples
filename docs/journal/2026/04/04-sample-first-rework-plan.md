@@ -96,17 +96,17 @@ The sample should keep only the user-facing path.
 
 ### Phase 2. View line normalization
 
-4. rework `08-view`
-5. rework `08.a-view-definition-lab`
-6. rework `08.b-simpleentity-view-lab`
-7. rework `08.c-view-cache-lab`
+4. rework `10-view`
+5. rework `10.a-view-definition-lab`
+6. rework `10.b-simpleentity-view-lab`
+7. rework `10.c-view-cache-lab`
 
 Status:
 
-- [x] `08-view` completed as the base shell-first view sample
-- [x] `08.a-view-definition-lab` completed with matching `cozy` scripted verification
-- [x] `08.b-simpleentity-view-lab` completed with matching `cozy` scripted verification
-- [x] `08.c-view-cache-lab` completed as the UI-list/cache sample, with cache-proof logic moved to `cozy` scripted
+- [x] `10-view` completed as the base shell-first view sample
+- [x] `10.a-view-definition-lab` completed with matching `cozy` scripted verification
+- [x] `10.b-simpleentity-view-lab` completed with matching `cozy` scripted verification
+- [x] `10.c-view-cache-lab` completed as the UI-list/cache sample, with cache-proof logic moved to `cozy` scripted
 
 ### Phase 3. Component / CML / CRUD / operation line normalization
 
@@ -114,71 +114,71 @@ Status:
 9. create `02.a-car-dir-lab`
 10. create `02.b-discover-classes-lab`
 11. create `03-component-cml`
-12. rework `02-crud`
-13. rework `02.a-crud-seed-import-lab`
-14. rework `02.b-simpleentity-crud-lab`
-15. rework `02.c-crud-sqlite-lab`
-16. rework `02.d-crud-server-memory-lab`
-17. rework `02.e-crud-explicit-sync-lab`
-18. rework `02.f-crud-nested-value-lab`
-19. rework `03-operation`
-20. rework `03.a-operation-command-lab`
-21. rework `03.b-operation-entity-lab`
+12. rework `04-crud`
+13. rework `04.a-crud-seed-import-lab`
+14. rework `04.b-simpleentity-crud-lab`
+15. rework `04.c-crud-sqlite-lab`
+16. rework `04.d-crud-server-memory-lab`
+17. rework `04.e-crud-explicit-sync-lab`
+18. rework `04.f-crud-nested-value-lab`
+19. rework `05-operation`
+20. rework `05.a-operation-command-lab`
+21. rework `05.b-operation-entity-lab`
 
 Status:
 
-- [x] `02-crud` completed as the base shell-first CRUD surface sample
-- [x] `02.a-crud-seed-import-lab` completed with matching `cozy` scripted verification
-- [x] `02.b-simpleentity-crud-lab` completed with matching `cozy` scripted verification
-- [x] `02.c-crud-sqlite-lab` completed as the SQLite-backed CRUD sample with matching `cozy` scripted verification
-- [x] `02.d-crud-server-memory-lab` completed as the server/client memory-backed CRUD sample with matching `cozy` scripted verification
-- [x] `02.e-crud-explicit-sync-lab` completed as the explicit sync CRUD sample with matching `cozy` scripted verification
-- [x] `02.f-crud-nested-value-lab` completed as the nested-value CRUD sample with matching `cozy` scripted verification
-- [x] `03-operation` completed as the base shell-first operation contract sample
-- [x] `03.a-operation-command-lab` completed with matching `cozy` scripted verification, including job submit and await-result
-- [x] `03.b-operation-entity-lab` completed with matching `cozy` scripted verification
+- [x] `04-crud` completed as the base shell-first CRUD surface sample
+- [x] `04.a-crud-seed-import-lab` completed with matching `cozy` scripted verification
+- [x] `04.b-simpleentity-crud-lab` completed with matching `cozy` scripted verification
+- [x] `04.c-crud-sqlite-lab` completed as the SQLite-backed CRUD sample with matching `cozy` scripted verification
+- [x] `04.d-crud-server-memory-lab` completed as the server/client memory-backed CRUD sample with matching `cozy` scripted verification
+- [x] `04.e-crud-explicit-sync-lab` completed as the explicit sync CRUD sample with matching `cozy` scripted verification
+- [x] `04.f-crud-nested-value-lab` completed as the nested-value CRUD sample with matching `cozy` scripted verification
+- [x] `05-operation` completed as the base shell-first operation contract sample
+- [x] `05.a-operation-command-lab` completed with matching `cozy` scripted verification, including job submit and await-result
+- [x] `05.b-operation-entity-lab` completed with matching `cozy` scripted verification
 
 ### Phase 4. CQRS / event / job / aggregate normalization
 
-18. rework `04-cqrs`
-19. rework `04.a-designed-sync-command-lab`
-20. rework `04.b-test-sync-command-lab`
-21. rework `05-event-driven`
-22. rework `05.a-event-job-trace-lab`
-23. rework `05.b-event-job-server-client-lab`
-24. rework `06-job`
-25. rework `06.a-job-control-lab`
-26. rework `06.b-job-control-demo-lab`
-27. rework `07-aggregate`
-28. rework `07.a-aggregate-single-record-lab`
-29. rework `07.b-aggregate-relation-boundary-model`
-30. rework `07.c-aggregate-external-update-semantics`
+18. rework `06-cqrs`
+19. rework `06.a-designed-sync-command-lab`
+20. rework `06.b-test-sync-command-lab`
+21. rework `07-event-driven`
+22. rework `07.a-event-job-trace-lab`
+23. rework `07.b-event-job-server-client-lab`
+24. rework `08-job`
+25. rework `08.a-job-control-lab`
+26. rework `08.b-job-control-demo-lab`
+27. rework `09-aggregate`
+28. rework `09.a-aggregate-single-record-lab`
+29. rework `09.b-aggregate-relation-boundary-model`
+30. rework `09.c-aggregate-external-update-semantics`
 
 Status:
 
-- [x] `04-cqrs` completed as the first explicit CQRS sample with matching `cozy` scripted verification
-- [x] `04.a-designed-sync-command-lab` completed as the design-time sync counterpart with matching `cozy` scripted verification
-- [x] `04.b-test-sync-command-lab` completed as the runtime test-sync counterpart with matching `cozy` scripted verification
-- [x] `05-event-driven` completed as the base shell-first event surface sample, with the same-JVM effect proof moved to `cozy` scripted
-- [x] `05.a-event-job-trace-lab` completed as the shell-first event/job trace bridge sample with matching `cozy` scripted verification
-- [x] `05.b-event-job-server-client-lab` completed as the practical server/client event flow sample with matching `cozy` scripted verification
-- [x] `06-job` completed as the base shell-first job-management sample with matching `cozy` scripted verification
-- [x] `06.a-job-control-lab` completed as the shell-first job-control sample with matching `cozy` scripted verification
-- [x] `06.b-job-control-demo-lab` completed by relocating the same-JVM direct-framework proof to `cozy` scripted
-- [x] `07-aggregate` completed as the first shell-first aggregate sample, with the same-JVM proof moved to `cozy` scripted
-- [x] `07.a-aggregate-single-record-lab` completed as the shell-first explanatory sample for the single-record aggregate pattern, with roundtrip proofs moved to `cozy` scripted
-- [x] `07.b-aggregate-relation-boundary-model` completed as the shell-first explanatory sample for relation kind, boundary, and join semantics, with the same-JVM proof moved to `cozy` scripted
-- [x] `07.c-aggregate-external-update-semantics` completed as the shell-first explanatory sample for external aggregate update semantics, with the same-JVM proof moved to `cozy` scripted
-- [x] `09-subsystem` completed as the current shell-first baseline formal subsystem sample where a generic component artifact is wired by naming the runtime subsystem explicitly
-- [x] `09.a-subsystem-bundled-component-lab` established as the bundled explicit subsystem variant
-- [ ] `09.b-subsystem-mixed-component-lab` remains open because the current explicit subsystem descriptor is still single-component
-- [x] `09.c-implicit-subsystem-lab` completed as the shell-first implicit subsystem sample where runtime composition assembles the effective subsystem from a component-only definition
-- [x] `09.d-sar-dir-lab` completed as the development/test expanded `sar.d` startup sample
-- [x] `09.e-subsystem-parameter-lab` completed as the descriptor-direct explicit subsystem startup sample
+- [x] `06-cqrs` completed as the first explicit CQRS sample with matching `cozy` scripted verification
+- [x] `06.a-designed-sync-command-lab` completed as the design-time sync counterpart with matching `cozy` scripted verification
+- [x] `06.b-test-sync-command-lab` completed as the runtime test-sync counterpart with matching `cozy` scripted verification
+- [x] `07-event-driven` completed as the base shell-first event surface sample, with the same-JVM effect proof moved to `cozy` scripted
+- [x] `07.a-event-job-trace-lab` completed as the shell-first event/job trace bridge sample with matching `cozy` scripted verification
+- [x] `07.b-event-job-server-client-lab` completed as the practical server/client event flow sample with matching `cozy` scripted verification
+- [x] `08-job` completed as the base shell-first job-management sample with matching `cozy` scripted verification
+- [x] `08.a-job-control-lab` completed as the shell-first job-control sample with matching `cozy` scripted verification
+- [x] `08.b-job-control-demo-lab` completed by relocating the same-JVM direct-framework proof to `cozy` scripted
+- [x] `09-aggregate` completed as the first shell-first aggregate sample, with the same-JVM proof moved to `cozy` scripted
+- [x] `09.a-aggregate-single-record-lab` completed as the shell-first explanatory sample for the single-record aggregate pattern, with roundtrip proofs moved to `cozy` scripted
+- [x] `09.b-aggregate-relation-boundary-model` completed as the shell-first explanatory sample for relation kind, boundary, and join semantics, with the same-JVM proof moved to `cozy` scripted
+- [x] `09.c-aggregate-external-update-semantics` completed as the shell-first explanatory sample for external aggregate update semantics, with the same-JVM proof moved to `cozy` scripted
+- [x] `11-subsystem` completed as the current shell-first baseline formal subsystem sample where a generic component artifact is wired by naming the runtime subsystem explicitly
+- [x] `11.a-subsystem-bundled-component-lab` established as the bundled explicit subsystem variant
+- [ ] `11.b-subsystem-mixed-component-lab` remains open because the current explicit subsystem descriptor is still single-component
+- [x] `11.c-implicit-subsystem-lab` completed as the shell-first implicit subsystem sample where runtime composition assembles the effective subsystem from a component-only definition
+- [x] `11.d-sar-dir-lab` completed as the development/test expanded `sar.d` startup sample
+- [x] `11.e-subsystem-parameter-lab` completed as the descriptor-direct explicit subsystem startup sample
 
 ### Phase 5. Future lines
 
-31. `10-subsystem-wiring`
+31. `12-subsystem-wiring`
 32. `101-distributed`
 
 ## Sample Rework Checklist

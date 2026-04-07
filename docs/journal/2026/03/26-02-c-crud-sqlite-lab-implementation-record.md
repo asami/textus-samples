@@ -3,7 +3,7 @@
 Status:
 - `Completed`
 - This is an implementation record, not the progress authority.
-- The progress authority is `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/02.c-crud-sqlite-lab.md`.
+- The progress authority is `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04.c-crud-sqlite-lab.md`.
 
 ## Direction
 
@@ -11,7 +11,7 @@ This lab keeps the same model-driven CRUD direction as `02-crud` and uses the CN
 
 ## Key Changes
 
-- Added the sample under `/Users/asami/src/dev2026/cncf-samples/samples/02.c-crud-sqlite-lab`
+- Added the sample under `/Users/asami/src/dev2026/cncf-samples/samples/04.c-crud-sqlite-lab`
 - Kept the same model-driven CRUD CML source in `src/main/cozy/crud.cml`
 - Wired runtime persistence through `cncf.datastore.sqlite.path`
 - Added standard `entity.d` seed import so the SQLite-backed read path can be observed immediately
@@ -20,7 +20,7 @@ This lab keeps the same model-driven CRUD direction as `02-crud` and uses the CN
 ## Runtime Verification
 
 Confirmed in:
-- `/Users/asami/src/dev2026/cncf-samples/samples/02.c-crud-sqlite-lab`
+- `/Users/asami/src/dev2026/cncf-samples/samples/04.c-crud-sqlite-lab`
 
 Commands:
 

@@ -2,7 +2,7 @@
 
 ## Summary
 
-`06.a-job-control-lab` was reworked as the control-oriented companion to `06-job`.
+`08.a-job-control-lab` was reworked as the control-oriented companion to `08-job`.
 
 The sample now explains and demonstrates:
 
@@ -54,6 +54,6 @@ Observed results:
 
 ## Notes
 
-- `06-job` remains the observation sample
-- `06.a-job-control-lab` is the control sample
+- `08-job` remains the observation sample
+- `08.a-job-control-lab` is the control sample
 - the sample required a runtime fix in CNCF so the impl factory remains the active factory during action dispatch

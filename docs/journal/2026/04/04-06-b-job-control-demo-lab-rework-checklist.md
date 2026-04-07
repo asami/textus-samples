@@ -7,4 +7,4 @@
 - [x] Keep `run.sh` as the batch form of the documented shell walkthrough
 - [x] Verify the reduced shell-first sample path
 - [x] Add matching `cozy` scripted verification for the relocated proof
-- [x] Mark `06.b-job-control-demo-lab` complete in the parent plan
+- [x] Mark `08.b-job-control-demo-lab` complete in the parent plan

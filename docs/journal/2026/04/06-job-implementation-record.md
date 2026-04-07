@@ -2,7 +2,7 @@
 
 ## Summary
 
-`06-job` was reworked from an internal same-JVM demo into a shell-first job-management sample.
+`08-job` was reworked from an internal same-JVM demo into a shell-first job-management sample.
 
 The old `JobFlowDemo.scala` path directly constructed runtime internals and queried the job engine from Scala.
 

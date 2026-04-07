@@ -9,7 +9,7 @@ result immediately by design through CML operation metadata.
 
 ## Facts
 
-- The sample lives under `samples/04.a-designed-sync-command-lab`.
+- The sample lives under `samples/06.a-designed-sync-command-lab`.
 - The component help target is `DesignedSync`.
 - The command target is `DesignedSync.Item.createItem`.
 - The command is modeled with `EXECUTION=sync` in `src/main/cozy/cqrs.cml`.

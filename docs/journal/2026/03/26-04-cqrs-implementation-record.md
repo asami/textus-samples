@@ -6,11 +6,11 @@
 
 ## Facts
 
-- The sample is model-driven via `samples/04-cqrs/src/main/cozy/cqrs.cml`.
+- The sample is model-driven via `samples/06-cqrs/src/main/cozy/cqrs.cml`.
 - The component is `Cqrs`.
 - The command-side target is `Cqrs.Item.createItem`.
 - The query-side targets are `Cqrs.entity.loadItem` and `Cqrs.entity.searchItemRecord`.
-- A seeded `Item` record is provided under `samples/04-cqrs/entity.d/item.yaml`.
+- A seeded `Item` record is provided under `samples/06-cqrs/entity.d/item.yaml`.
 - The README examples were updated to use `CncfMain --discover=classes`.
 - `Cqrs.Item.createItem` returns a job-oriented response.
 - `Cqrs.entity.loadItem` returns the seeded item immediately.

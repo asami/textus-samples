@@ -2,7 +2,7 @@
 
 ## Scope
 
-This line extends `08-view` toward UI list rendering.
+This line extends `10-view` toward UI list rendering.
 
 The first completion target is:
 
@@ -14,7 +14,7 @@ The first completion target is:
 
 ## Implemented
 
-- sample source under `/Users/asami/src/dev2026/cncf-samples/samples/08.c-view-cache-lab`
+- sample source under `/Users/asami/src/dev2026/cncf-samples/samples/10.c-view-cache-lab`
 - setup-first command flow
   - `../../bin/setup cozy`
 - paged summary search route

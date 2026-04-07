@@ -6,9 +6,9 @@ Implement a CRUD follow-up lab that demonstrates the same model-driven CRUD dire
 
 ## Read First
 
-- [/Users/asami/src/dev2026/cncf-samples/samples/02-crud/README.md](/Users/asami/src/dev2026/cncf-samples/samples/02-crud/README.md)
-- [/Users/asami/src/dev2026/cncf-samples/samples/05.b-event-job-server-client-lab/README.md](/Users/asami/src/dev2026/cncf-samples/samples/05.b-event-job-server-client-lab/README.md)
-- [/Users/asami/src/dev2026/cncf-samples/samples/06.a-job-control-lab/README.md](/Users/asami/src/dev2026/cncf-samples/samples/06.a-job-control-lab/README.md)
+- [/Users/asami/src/dev2026/cncf-samples/samples/04-crud/README.md](/Users/asami/src/dev2026/cncf-samples/samples/04-crud/README.md)
+- [/Users/asami/src/dev2026/cncf-samples/samples/07.b-event-job-server-client-lab/README.md](/Users/asami/src/dev2026/cncf-samples/samples/07.b-event-job-server-client-lab/README.md)
+- [/Users/asami/src/dev2026/cncf-samples/samples/08.a-job-control-lab/README.md](/Users/asami/src/dev2026/cncf-samples/samples/08.a-job-control-lab/README.md)
 
 ## Intent
 

@@ -2,7 +2,7 @@
 
 ## Goal
 
-Establish `09.c-implicit-subsystem-lab` as the shell-first sample for the implicit subsystem form.
+Establish `11.c-implicit-subsystem-lab` as the shell-first sample for the implicit subsystem form.
 
 ## Checklist
 

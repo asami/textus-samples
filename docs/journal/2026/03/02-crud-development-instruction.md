@@ -9,7 +9,7 @@ The phase checklist is the status authority.
 
 Status authority:
 
-- [`docs/phase/samples/02-crud.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/02-crud.md)
+- [`docs/phase/samples/04-crud.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04-crud.md)
 
 ## Purpose
 
@@ -95,9 +95,9 @@ Do not jump to CQRS/event sourcing/distribution.
 
 At minimum, update these files:
 
-- [`samples/02-crud/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/02-crud/README.md)
-- [`docs/phase/samples/02-crud.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/02-crud.md)
-- the actual sample implementation files under [`samples/02-crud`](/Users/asami/src/dev2026/cncf-samples/samples/02-crud)
+- [`samples/04-crud/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/04-crud/README.md)
+- [`docs/phase/samples/04-crud.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04-crud.md)
+- the actual sample implementation files under [`samples/04-crud`](/Users/asami/src/dev2026/cncf-samples/samples/04-crud)
 
 ## README Requirements
 
@@ -121,7 +121,7 @@ This task is complete only if all of the following are true:
 - `listItems` works
 - the sample is runnable locally
 - the README matches the real commands
-- [`docs/phase/samples/02-crud.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/02-crud.md) is updated honestly
+- [`docs/phase/samples/04-crud.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04-crud.md) is updated honestly
 
 ## Notes For Execution
 

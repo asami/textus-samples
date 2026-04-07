@@ -82,9 +82,9 @@ That later lab should not be forced into the first `06-job` completion line.
 
 ## Deliverables
 
-- `samples/06-job/README.md`
-- `docs/phase/samples/06-job.md`
-- sample implementation files under `samples/06-job/`
+- `samples/08-job/README.md`
+- `docs/phase/samples/08-job.md`
+- sample implementation files under `samples/08-job/`
 - implementation record once real runtime verification exists
 
 ## Acceptance Criteria

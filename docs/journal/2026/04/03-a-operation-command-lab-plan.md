@@ -5,4 +5,4 @@
 
 ## Purpose
 
-Prepare a lab for command-oriented operation contract patterns after the query-first `03-operation` line.
+Prepare a lab for command-oriented operation contract patterns after the query-first `05-operation` line.

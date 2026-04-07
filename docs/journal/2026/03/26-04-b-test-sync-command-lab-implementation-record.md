@@ -11,7 +11,7 @@ execution override for test/local/debug use.
 
 ## Facts
 
-- The sample lives under `samples/04.b-test-sync-command-lab`.
+- The sample lives under `samples/06.b-test-sync-command-lab`.
 - The command target is `TestSync.Item.createItem`.
 - The default runtime path returns a job id:
   - `cncf-job-job-...`

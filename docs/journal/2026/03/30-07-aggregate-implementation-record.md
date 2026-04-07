@@ -5,7 +5,7 @@ status=done
 
 ## Confirmed
 
-- `sbt --batch cozyGenerate` succeeds in `/Users/asami/src/dev2026/cncf-samples/samples/07-aggregate`
+- `sbt --batch cozyGenerate` succeeds in `/Users/asami/src/dev2026/cncf-samples/samples/09-aggregate`
 - `sbt --batch compile` succeeds
 - `command help aggregate-sample.order.load-order-aggregate` resolves
 - `bash run.sh` succeeds
@@ -27,7 +27,7 @@ The current first line uses:
 - generated `loadOrderAggregate` / `searchOrderAggregate` surfaces
 - generated `addLine` command surface
 - application-provided factory override in
-  `/Users/asami/src/dev2026/cncf-samples/samples/07-aggregate/src/main/scala/org/sample/aggregate/OrderAggregateFactory.scala`
+  `/Users/asami/src/dev2026/cncf-samples/samples/09-aggregate/src/main/scala/org/sample/aggregate/OrderAggregateFactory.scala`
 - delegated `AggregateBehavior` for `addLine`
 - generated aggregate metadata for:
   - `members`

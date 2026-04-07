@@ -7,18 +7,18 @@ Do not rewrite this file into a result note or completion report.
 
 The status authority is:
 
-- [`docs/phase/samples/04-cqrs.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04-cqrs.md)
+- [`docs/phase/samples/06-cqrs.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/06-cqrs.md)
 
 ## Read First
 
 Read these files first:
 
 - [`docs/journal/2026/03/04-cqrs-development-instruction.md`](/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/04-cqrs-development-instruction.md)
-- [`docs/phase/samples/04-cqrs.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04-cqrs.md)
-- [`samples/02-crud/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/02-crud/README.md)
-- [`samples/02.a-crud-seed-import-lab/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab/README.md)
-- [`samples/02.b-simpleentity-crud-lab/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/02.b-simpleentity-crud-lab/README.md)
-- [`samples/04-cqrs/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/04-cqrs/README.md)
+- [`docs/phase/samples/06-cqrs.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/06-cqrs.md)
+- [`samples/04-crud/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/04-crud/README.md)
+- [`samples/04.a-crud-seed-import-lab/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/04.a-crud-seed-import-lab/README.md)
+- [`samples/04.b-simpleentity-crud-lab/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/04.b-simpleentity-crud-lab/README.md)
+- [`samples/06-cqrs/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/06-cqrs/README.md)
 
 ## Goal
 
@@ -54,7 +54,7 @@ You must produce all of the following:
 Follow these steps in order:
 
 1. read the files listed above
-2. inspect the current `samples/04-cqrs` scaffold
+2. inspect the current `samples/06-cqrs` scaffold
 3. define one write command and one read query
 4. implement the smallest CQRS shape that makes the runtime split visible
 5. run build/runtime checks

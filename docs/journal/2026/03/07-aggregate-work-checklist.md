@@ -4,7 +4,7 @@ This checklist is the working tracker for `07-aggregate`.
 
 Authority over completion remains:
 
-- `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/07-aggregate.md`
+- `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/09-aggregate.md`
 
 This file is for implementation progress management across:
 
@@ -39,7 +39,7 @@ This file is for implementation progress management across:
 
 ## Sample
 
-- [x] create `samples/07-aggregate/` runnable skeleton
+- [x] create `samples/09-aggregate/` runnable skeleton
 - [x] define `Order` aggregate root
 - [x] define `OrderLine` member entity
 - [x] verify aggregate-load

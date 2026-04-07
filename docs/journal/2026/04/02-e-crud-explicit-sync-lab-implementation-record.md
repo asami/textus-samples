@@ -2,7 +2,7 @@
 
 ## Summary
 
-`02.e-crud-explicit-sync-lab` was reworked as the explicit synchronous execution variant of the `02` CRUD line.
+`04.e-crud-explicit-sync-lab` was reworked as the explicit synchronous execution variant of the `02` CRUD line.
 
 The old hand-written runtime Scala path was removed.
 The sample now uses the generated `sbt-cozy` line and a shell-first server/client flow.

@@ -16,17 +16,17 @@ The remaining problem is that generated Scala code does not compile against the 
 
 Read these files before making changes:
 
-1. `/Users/asami/src/dev2026/cncf-samples/samples/02-crud/README.md`
-2. `/Users/asami/src/dev2026/cncf-samples/samples/02-crud/src/main/cozy/crud.cml`
-3. `/Users/asami/src/dev2026/cncf-samples/samples/02-crud/build.sbt`
-4. `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/02-crud.md`
+1. `/Users/asami/src/dev2026/cncf-samples/samples/04-crud/README.md`
+2. `/Users/asami/src/dev2026/cncf-samples/samples/04-crud/src/main/cozy/crud.cml`
+3. `/Users/asami/src/dev2026/cncf-samples/samples/04-crud/build.sbt`
+4. `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04-crud.md`
 5. `/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/26-02-crud-redesign-record.md`
 6. `/Users/asami/src/dev2026/textus-user-account/src/main/cozy/user-account.cml`
 7. `/Users/asami/src/dev2026/textus-user-account/build.sbt`
 
 Then inspect the generated code under:
 
-- `/Users/asami/src/dev2026/cncf-samples/samples/02-crud/target/scala-3.3.7/src_managed/main`
+- `/Users/asami/src/dev2026/cncf-samples/samples/04-crud/target/scala-3.3.7/src_managed/main`
 
 Then inspect the runtime source in:
 
@@ -42,7 +42,7 @@ Then inspect the runtime source in:
 
 ## Task
 
-1. Run `sbt compile` in `samples/02-crud` and capture the missing types exactly.
+1. Run `sbt compile` in `samples/04-crud` and capture the missing types exactly.
 2. Find where the generated code refers to `EntityPersistable*` and `EntityPersistent*`.
 3. Search `/Users/asami/src/dev2025/cloud-native-component-framework` to determine whether those types:
    - already exist under another package or name
@@ -61,7 +61,7 @@ Then inspect the runtime source in:
 Update these files:
 
 - `/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/26-02-crud-redesign-record.md`
-- `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/02-crud.md`
+- `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04-crud.md`
 
 Only update the checklist for items that were actually confirmed.
 

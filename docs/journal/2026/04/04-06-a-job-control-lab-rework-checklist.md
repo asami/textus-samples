@@ -9,4 +9,4 @@
 - [x] Verify the documented commands against a running server
 - [x] Move the runtime control proof into `cozy` scripted
 - [x] Confirm matching `cozy` scripted coverage
-- [x] Mark `06.a-job-control-lab` complete in the parent plan
+- [x] Mark `08.a-job-control-lab` complete in the parent plan

@@ -2,7 +2,7 @@
 
 ## Summary
 
-`05-event-driven` was normalized as the base event-oriented shell sample.
+`07-event-driven` was normalized as the base event-oriented shell sample.
 
 The sample now focuses on:
 
@@ -58,6 +58,6 @@ The `cozy` scripted fixture confirms the internal proof that used to live in the
 
 ## Main Point
 
-`05-event-driven` is the first shell-facing event sample.
+`07-event-driven` is the first shell-facing event sample.
 
 It shows the modeled event surface to the user, while the internal same-JVM effect proof is moved to `cozy` scripted.

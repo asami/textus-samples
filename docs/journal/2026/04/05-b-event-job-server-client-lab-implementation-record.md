@@ -2,7 +2,7 @@
 
 ## Summary
 
-`05.b-event-job-server-client-lab` was normalized as the practical server/client event flow sample.
+`07.b-event-job-server-client-lab` was normalized as the practical server/client event flow sample.
 
 The sample now focuses on:
 
@@ -65,7 +65,7 @@ The matching `cozy` scripted fixture confirms:
 
 ## Main Point
 
-`05.b-event-job-server-client-lab` is the smallest practical event/job service sample.
+`07.b-event-job-server-client-lab` is the smallest practical event/job service sample.
 
 It shows the operational flow a user actually runs:
 

@@ -2,7 +2,7 @@
 
 ## Summary
 
-`04.b-test-sync-command-lab` was normalized as the sample for runtime test sync.
+`06.b-test-sync-command-lab` was normalized as the sample for runtime test sync.
 
 The sample now shows:
 

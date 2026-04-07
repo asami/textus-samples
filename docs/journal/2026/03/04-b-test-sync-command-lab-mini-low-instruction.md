@@ -11,18 +11,18 @@ The phase checklist is the status authority.
 
 Status authority:
 
-- [`docs/phase/samples/04.b-test-sync-command-lab.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04.b-test-sync-command-lab.md)
+- [`docs/phase/samples/06.b-test-sync-command-lab.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/06.b-test-sync-command-lab.md)
 
 ## Read First
 
 Read these files before editing anything:
 
 - [`docs/journal/2026/03/03-b-test-sync-command-lab-development-instruction.md`](/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/03-b-test-sync-command-lab-development-instruction.md)
-- [`docs/phase/samples/04.b-test-sync-command-lab.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04.b-test-sync-command-lab.md)
-- [`docs/phase/samples/04-cqrs.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04-cqrs.md)
-- [`docs/phase/samples/04.a-designed-sync-command-lab.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04.a-designed-sync-command-lab.md)
-- [`samples/04-cqrs/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/04-cqrs/README.md)
-- [`samples/04.a-designed-sync-command-lab/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/04.a-designed-sync-command-lab/README.md)
+- [`docs/phase/samples/06.b-test-sync-command-lab.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/06.b-test-sync-command-lab.md)
+- [`docs/phase/samples/06-cqrs.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/06-cqrs.md)
+- [`docs/phase/samples/06.a-designed-sync-command-lab.md`](/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/06.a-designed-sync-command-lab.md)
+- [`samples/06-cqrs/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/06-cqrs/README.md)
+- [`samples/06.a-designed-sync-command-lab/README.md`](/Users/asami/src/dev2026/cncf-samples/samples/06.a-designed-sync-command-lab/README.md)
 
 ## Goal
 

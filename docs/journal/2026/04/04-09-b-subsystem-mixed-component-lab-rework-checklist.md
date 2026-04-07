@@ -2,7 +2,7 @@
 
 ## Goal
 
-Establish `09.b-subsystem-mixed-component-lab` as the explicit subsystem sample that mixes generally distributed and bundled components.
+Establish `11.b-subsystem-mixed-component-lab` as the explicit subsystem sample that mixes generally distributed and bundled components.
 
 ## Checklist
 

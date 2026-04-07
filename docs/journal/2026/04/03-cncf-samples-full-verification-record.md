@@ -19,8 +19,8 @@ Policy:
 
 Excluded from failure handling:
 
-- `09-subsystem`
-- `10-subsystem-wiring`
+- `11-subsystem`
+- `12-subsystem-wiring`
 - `101-distributed`
 
 These three are currently unimplemented samples, so they are treated as not-started rather than as failures.
@@ -37,9 +37,9 @@ Totals:
 
 Handled as not-started:
 
-- `07.c-aggregate-external-update-semantics`
-- `09-subsystem`
-- `10-subsystem-wiring`
+- `09.c-aggregate-external-update-semantics`
+- `11-subsystem`
+- `12-subsystem-wiring`
 - `101-distributed`
 
 ## Per Sample
@@ -116,28 +116,28 @@ Handled as not-started:
 
 ### Not-started slots
 
-- `07.c-aggregate-external-update-semantics`
-- `09-subsystem`
-- `10-subsystem-wiring`
+- `09.c-aggregate-external-update-semantics`
+- `11-subsystem`
+- `12-subsystem-wiring`
 - `101-distributed`
 
 These currently remain outside the fix scope.
 
 resolved:
 
-- `02.f-crud-nested-value-lab`
+- `04.f-crud-nested-value-lab`
   - the cause was stale local `simplemodeling-model` / `simple-modeler` artifacts
   - a `publishLocal` refresh restored the sample
-- `02-crud`
+- `04-crud`
   - the cause was an old hard-coded `goldenport-cncf` version in `build.sbt`
   - the sample now reads the shared CNCF version file
-- `02.a-crud-seed-import-lab`
+- `04.a-crud-seed-import-lab`
   - the standard path is sample-local `sbt runMain ... help crud`
-- `02.b-simpleentity-crud-lab`
+- `04.b-simpleentity-crud-lab`
   - the standard path is sample-local `sbt runMain ... help simple-entity-crud-lab`
 - `04-07`
   - the shared runner / launcher line has been repaired
-- `08.b-simpleentity-view-lab`
+- `10.b-simpleentity-view-lab`
   - the simpleentity view line now resolves help/load/search successfully
 
 ## Fix Checklist
@@ -151,24 +151,24 @@ Status:
 
 ### Phase 1: Triage
 
-- [x] Reproduce the failure of `02.f-crud-nested-value-lab` and record the first essential error
-- [x] Reproduce the failure of `08.b-simpleentity-view-lab` and record the first essential error
-- [x] Reproduce the failure of `04-cqrs` and identify the likely common root cause
-- [x] Reproduce the failure of `05-event-driven` and check whether it shares the same line as `04`
-- [x] Reproduce the failure of `06-job` and check whether it shares the same line as `05`
-- [x] Reproduce the failure of `07-aggregate` and determine whether it belongs to the same line as `04-06`
+- [x] Reproduce the failure of `04.f-crud-nested-value-lab` and record the first essential error
+- [x] Reproduce the failure of `10.b-simpleentity-view-lab` and record the first essential error
+- [x] Reproduce the failure of `06-cqrs` and identify the likely common root cause
+- [x] Reproduce the failure of `07-event-driven` and check whether it shares the same line as `04`
+- [x] Reproduce the failure of `08-job` and check whether it shares the same line as `05`
+- [x] Reproduce the failure of `09-aggregate` and determine whether it belongs to the same line as `04-06`
 
 ### Phase 2: Execution Path
 
-- [x] Define the standard execution path for `02-crud`
-- [x] Define the standard execution path for `02.a-crud-seed-import-lab`
-- [x] Define the standard execution path for `02.b-simpleentity-crud-lab`
-- [x] Define the standard execution path for `07.c-aggregate-external-update-semantics`
+- [x] Define the standard execution path for `04-crud`
+- [x] Define the standard execution path for `04.a-crud-seed-import-lab`
+- [x] Define the standard execution path for `04.b-simpleentity-crud-lab`
+- [x] Define the standard execution path for `09.c-aggregate-external-update-semantics`
 
 ### Phase 3: Sample Repair
 
-- [x] Fix `02.f-crud-nested-value-lab`
-- [x] Fix `08.b-simpleentity-view-lab`
+- [x] Fix `04.f-crud-nested-value-lab`
+- [x] Fix `10.b-simpleentity-view-lab`
 - [x] Fix the `04` sample line
 - [x] Fix the `05` sample line
 - [x] Fix the `06` sample line

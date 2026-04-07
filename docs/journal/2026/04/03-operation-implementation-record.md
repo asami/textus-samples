@@ -2,7 +2,7 @@
 
 ## Summary
 
-`03-operation` was normalized as the base operation contract sample.
+`05-operation` was normalized as the base operation contract sample.
 
 The sample is intentionally inspection-oriented.
 It shows the generated help and metadata surface for one minimal `QUERY` operation contract.
@@ -38,5 +38,5 @@ Metadata confirms:
 
 ## Main Point
 
-`03-operation` is the user-facing contract-definition sample.
+`05-operation` is the user-facing contract-definition sample.
 It stays minimal on purpose so the later `03.a`, `03.b`, and `04-*` samples can build on a clear operation-modeling baseline.

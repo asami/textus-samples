@@ -3,7 +3,7 @@
 Status:
 - `Completed`
 - This is an implementation record, not the progress authority.
-- The progress authority is `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/02.a-crud-seed-import-lab.md`.
+- The progress authority is `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04.a-crud-seed-import-lab.md`.
 
 ## Direction
 
@@ -17,7 +17,7 @@ This lab was completed as a descriptor-first sample.
 ## Key Changes
 
 - Added local CAR-style descriptor placement:
-  - `/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab/car.d/meta/component-descriptor.yaml`
+  - `/Users/asami/src/dev2026/cncf-samples/samples/04.a-crud-seed-import-lab/car.d/meta/component-descriptor.yaml`
 - Removed the sample-local Scala wrapper factory.
 - Switched the runtime metadata direction to `ComponentDescriptor`.
 - Separated runtime/framework parameters from domain query parameters by using
@@ -28,7 +28,7 @@ This lab was completed as a descriptor-first sample.
 ## Runtime Verification
 
 Confirmed in:
-- `/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab`
+- `/Users/asami/src/dev2026/cncf-samples/samples/04.a-crud-seed-import-lab`
 
 Commands:
 

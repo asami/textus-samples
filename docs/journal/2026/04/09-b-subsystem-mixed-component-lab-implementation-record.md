@@ -2,7 +2,7 @@
 
 ## Summary
 
-`09.b-subsystem-mixed-component-lab` was introduced as the target mixed explicit subsystem line.
+`11.b-subsystem-mixed-component-lab` was introduced as the target mixed explicit subsystem line.
 
 ## Current Gap
 

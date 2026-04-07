@@ -15,10 +15,10 @@ This lab should help the user understand the runtime image in a more practical w
 
 ## Read First
 
-- [/Users/asami/src/dev2026/cncf-samples/samples/05-event-driven/README.md](/Users/asami/src/dev2026/cncf-samples/samples/05-event-driven/README.md)
-- [/Users/asami/src/dev2026/cncf-samples/samples/05.a-event-job-trace-lab/README.md](/Users/asami/src/dev2026/cncf-samples/samples/05.a-event-job-trace-lab/README.md)
-- [/Users/asami/src/dev2026/cncf-samples/samples/06-job/README.md](/Users/asami/src/dev2026/cncf-samples/samples/06-job/README.md)
-- [/Users/asami/src/dev2026/cncf-samples/samples/06.a-job-control-lab/README.md](/Users/asami/src/dev2026/cncf-samples/samples/06.a-job-control-lab/README.md)
+- [/Users/asami/src/dev2026/cncf-samples/samples/07-event-driven/README.md](/Users/asami/src/dev2026/cncf-samples/samples/07-event-driven/README.md)
+- [/Users/asami/src/dev2026/cncf-samples/samples/07.a-event-job-trace-lab/README.md](/Users/asami/src/dev2026/cncf-samples/samples/07.a-event-job-trace-lab/README.md)
+- [/Users/asami/src/dev2026/cncf-samples/samples/08-job/README.md](/Users/asami/src/dev2026/cncf-samples/samples/08-job/README.md)
+- [/Users/asami/src/dev2026/cncf-samples/samples/08.a-job-control-lab/README.md](/Users/asami/src/dev2026/cncf-samples/samples/08.a-job-control-lab/README.md)
 - [/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/04-a-event-job-trace-lab-development-instruction.md](/Users/asami/src/dev2026/cncf-samples/docs/journal/2026/03/04-a-event-job-trace-lab-development-instruction.md)
 
 ## Intent

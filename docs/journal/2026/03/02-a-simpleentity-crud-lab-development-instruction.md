@@ -35,7 +35,7 @@ It should help the reader observe:
 
 Use the same overall method as:
 
-- `/Users/asami/src/dev2026/cncf-samples/samples/02-crud`
+- `/Users/asami/src/dev2026/cncf-samples/samples/04-crud`
 - `/Users/asami/src/dev2026/textus-user-account`
 
 That means:

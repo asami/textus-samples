@@ -2,7 +2,7 @@
 
 ## Goal
 
-Create the first custom view-definition sample after `08-view`.
+Create the first custom view-definition sample after `10-view`.
 
 ## Focus
 

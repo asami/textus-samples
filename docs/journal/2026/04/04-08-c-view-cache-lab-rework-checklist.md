@@ -2,7 +2,7 @@
 
 ## Goal
 
-Rework `08.c-view-cache-lab` so that:
+Rework `10.c-view-cache-lab` so that:
 
 - the sample is user-facing and shell-first
 - internal cache assertions move out of the sample
@@ -131,11 +131,11 @@ The following should move to `cozy` scripted:
 
 ### Remove or rewrite on sample side
 
-- [run.sh](/Users/asami/src/dev2026/cncf-samples/samples/08.c-view-cache-lab/run.sh)
+- [run.sh](/Users/asami/src/dev2026/cncf-samples/samples/10.c-view-cache-lab/run.sh)
   - rewrite as shell-first command sequence
-- [ViewCacheDemo.scala](/Users/asami/src/dev2026/cncf-samples/samples/08.c-view-cache-lab/src/main/scala/org/sample/viewcache/ViewCacheDemo.scala)
+- [ViewCacheDemo.scala](/Users/asami/src/dev2026/cncf-samples/samples/10.c-view-cache-lab/src/main/scala/org/sample/viewcache/ViewCacheDemo.scala)
   - remove from sample path
-- [README.md](/Users/asami/src/dev2026/cncf-samples/samples/08.c-view-cache-lab/README.md)
+- [README.md](/Users/asami/src/dev2026/cncf-samples/samples/10.c-view-cache-lab/README.md)
   - rewrite around user-facing shell commands
 
 ### Add on scripted side

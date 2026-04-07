@@ -2,7 +2,7 @@
 
 ## Scope
 
-This line is the `SimpleEntity` variant of the base `02-crud` sample.
+This line is the `SimpleEntity` variant of the base `04-crud` sample.
 
 The first completion target is:
 
@@ -14,7 +14,7 @@ The first completion target is:
 
 ## Implemented
 
-- sample source under `/Users/asami/src/dev2026/cncf-samples/samples/02.b-simpleentity-crud-lab`
+- sample source under `/Users/asami/src/dev2026/cncf-samples/samples/04.b-simpleentity-crud-lab`
 - setup-first command flow
   - `../../bin/setup cozy`
 - shell-first runtime commands through `bin/cncf`
@@ -35,6 +35,6 @@ The first completion target is:
 
 ## Position
 
-This sample keeps the same CRUD inspection line as `02-crud`, but uses the `SimpleEntity` inheritance variant of the model.
+This sample keeps the same CRUD inspection line as `04-crud`, but uses the `SimpleEntity` inheritance variant of the model.
 
 Its generated-surface inspection line is also covered by `cozy` scripted under `simpleentity-crud-surface`.

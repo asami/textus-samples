@@ -23,10 +23,10 @@ This lab must use that capability directly.
 
 ## Read First
 
-- `/Users/asami/src/dev2026/cncf-samples/samples/02.a-crud-seed-import-lab/README.md`
-- `/Users/asami/src/dev2026/cncf-samples/samples/02-crud/README.md`
-- `/Users/asami/src/dev2026/cncf-samples/samples/02.b-simpleentity-crud-lab/README.md`
-- `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/02.a-crud-seed-import-lab.md`
+- `/Users/asami/src/dev2026/cncf-samples/samples/04.a-crud-seed-import-lab/README.md`
+- `/Users/asami/src/dev2026/cncf-samples/samples/04-crud/README.md`
+- `/Users/asami/src/dev2026/cncf-samples/samples/04.b-simpleentity-crud-lab/README.md`
+- `/Users/asami/src/dev2026/cncf-samples/docs/phase/samples/04.a-crud-seed-import-lab.md`
 - `/Users/asami/src/dev2025/cloud-native-component-framework/docs/journal/2026/03/test-data-import-design-2026-03-27.md`
 
 ## Goal

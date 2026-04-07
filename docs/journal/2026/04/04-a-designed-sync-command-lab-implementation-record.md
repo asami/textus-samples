@@ -2,7 +2,7 @@
 
 ## Summary
 
-`04.a-designed-sync-command-lab` was normalized as the first explicit designed-sync command sample.
+`06.a-designed-sync-command-lab` was normalized as the first explicit designed-sync command sample.
 
 The sample now shows:
 

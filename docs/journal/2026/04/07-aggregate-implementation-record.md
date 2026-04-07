@@ -2,7 +2,7 @@
 
 ## Summary
 
-`07-aggregate` was shifted from a same-JVM demo entry point to a shell-first aggregate sample.
+`09-aggregate` was shifted from a same-JVM demo entry point to a shell-first aggregate sample.
 
 The active sample line now demonstrates:
 

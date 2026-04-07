@@ -2,7 +2,7 @@
 
 ## Summary
 
-`04-cqrs` was normalized as the first explicit CQRS runtime sample.
+`06-cqrs` was normalized as the first explicit CQRS runtime sample.
 
 The sample now verifies both:
 
@@ -70,7 +70,7 @@ Read execution confirms:
 
 ## Main Point
 
-`04-cqrs` makes the execution split visible:
+`06-cqrs` makes the execution split visible:
 
 - writes are asynchronous and job-backed
 - reads are immediate and query-oriented

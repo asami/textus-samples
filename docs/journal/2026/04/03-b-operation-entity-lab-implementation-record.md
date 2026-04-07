@@ -2,7 +2,7 @@
 
 ## Summary
 
-`03.b-operation-entity-lab` was normalized as the first operation-plus-entity sample.
+`05.b-operation-entity-lab` was normalized as the first operation-plus-entity sample.
 
 The sample now verifies both:
 

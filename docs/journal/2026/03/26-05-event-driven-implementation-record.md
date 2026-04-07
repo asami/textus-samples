@@ -16,11 +16,11 @@ It proves:
 
 ## Sample Files
 
-- `samples/05-event-driven/src/main/cozy/event.cml`
-- `samples/05-event-driven/src/main/scala/org/sample/eventdriven/EventFlowDemo.scala`
-- `samples/05-event-driven/run.sh`
-- `samples/05-event-driven/run-demo.sh`
-- `samples/05-event-driven/README.md`
+- `samples/07-event-driven/src/main/cozy/event.cml`
+- `samples/07-event-driven/src/main/scala/org/sample/eventdriven/EventFlowDemo.scala`
+- `samples/07-event-driven/run.sh`
+- `samples/07-event-driven/run-demo.sh`
+- `samples/07-event-driven/README.md`
 
 ## Runtime Shape
 

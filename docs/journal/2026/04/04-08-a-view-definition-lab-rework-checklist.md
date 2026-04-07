@@ -2,17 +2,17 @@
 
 ## Goal
 
-Rework `08.a-view-definition-lab` so that:
+Rework `10.a-view-definition-lab` so that:
 
 - it stays user-facing and shell-first
-- it explains named view definition as the first extension after `08-view`
+- it explains named view definition as the first extension after `10-view`
 - it shows CNCF usage directly, without framework-internal explanation
 
 ## Checklist
 
 ### A. Positioning
 
-- [x] explain how `08.a` extends `08-view`
+- [x] explain how `08.a` extends `10-view`
 - [x] explain named view aliases such as `summary` and `detail`
 - [x] explain custom `VIEW > QUERY` aliases
 - [x] explain why this line is still view-oriented rather than aggregate-oriented
@@ -32,7 +32,7 @@ Rework `08.a-view-definition-lab` so that:
 - [x] add shell command walkthrough
 - [x] explain parameters and command meaning
 - [x] show expected output
-- [x] explain the difference from `08-view`
+- [x] explain the difference from `10-view`
 
 ### D. Verification
 

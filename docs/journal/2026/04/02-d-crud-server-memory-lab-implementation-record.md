@@ -2,7 +2,7 @@
 
 ## Summary
 
-`02.d-crud-server-memory-lab` was reworked as the server/client runtime variant of the `02` CRUD line.
+`04.d-crud-server-memory-lab` was reworked as the server/client runtime variant of the `02` CRUD line.
 
 The old hand-written runtime Scala was removed from the sample path.
 The sample now uses the same generated `sbt-cozy` line as the other `02` samples and focuses on:
@@ -15,8 +15,8 @@ The sample now uses the same generated `sbt-cozy` line as the other `02` samples
 ## What Changed
 
 - replaced the old plain sbt build with `sbt-cozy`
-- added [plugins.sbt](/Users/asami/src/dev2026/cncf-samples/samples/02.d-crud-server-memory-lab/project/plugins.sbt)
-- moved `GetItem` and `ListItems` to `# QUERY` in [crud.cml](/Users/asami/src/dev2026/cncf-samples/samples/02.d-crud-server-memory-lab/src/main/cozy/crud.cml)
+- added [plugins.sbt](/Users/asami/src/dev2026/cncf-samples/samples/04.d-crud-server-memory-lab/project/plugins.sbt)
+- moved `GetItem` and `ListItems` to `# QUERY` in [crud.cml](/Users/asami/src/dev2026/cncf-samples/samples/04.d-crud-server-memory-lab/src/main/cozy/crud.cml)
 - removed the old hand-written runtime Scala under `src/main/scala`
 - rewrote the shell scripts around `bin/cncf`
 - added `run-client-await.sh` so the job result step is explicit
@@ -24,7 +24,7 @@ The sample now uses the same generated `sbt-cozy` line as the other `02` samples
 
 ## Verified Commands
 
-From [02.d-crud-server-memory-lab](/Users/asami/src/dev2026/cncf-samples/samples/02.d-crud-server-memory-lab):
+From [02.d-crud-server-memory-lab](/Users/asami/src/dev2026/cncf-samples/samples/04.d-crud-server-memory-lab):
 
 - `bash ../../bin/cncf --discover=classes command help crud`
 - `bash ../../bin/cncf --discover=classes command help crud.entity`
@@ -53,7 +53,7 @@ This confirms that the sample is showing:
 
 ## Position In The 02 Line
 
-- `02-crud`
+- `04-crud`
   - generated CRUD surface inspection
 - `02.a`
   - seed import verification
