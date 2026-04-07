@@ -7,7 +7,7 @@ ThisBuild / scalaVersion := "3.3.7"
 lazy val root = (project in file("."))
   .enablePlugins(org.goldenport.cozy.CozyPlugin)
   .settings(
-    name := "cncf-samples-06b-aggregate-relation-boundary-model",
+    name := "cncf-samples-07-b-aggregate-relation-boundary-model",
     scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked"),
     cozyGeneratorBackend := "cozy",
     cozyDelegateProjectDir := None,
@@ -20,7 +20,7 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       "org.goldenport" %% "goldenport-cncf" % cncfVersion(baseDirectory.value),
       "org.goldenport" %% "goldenport-core" % "0.3.1-SNAPSHOT",
-      "org.simplemodeling" %% "simplemodeling-model" % "0.1.1-SNAPSHOT"
+      "org.simplemodeling" %% "simplemodeling-model" % "0.1.2-SNAPSHOT"
     ),
     cozyManifestMetadata ++= Map(
       "component" -> "aggregate-relation-boundary-sample",

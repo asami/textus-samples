@@ -4,7 +4,8 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 EXPECTED_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cozy-version.conf")"
-LAUNCHER_ROOT="${TMPDIR:-/tmp}/cncf-samples/cozy-launcher/$EXPECTED_VERSION"
+CACHE_ROOT="${XDG_CACHE_HOME:-$HOME/.cache}"
+LAUNCHER_ROOT="$CACHE_ROOT/cncf-samples/cozy-launcher/$EXPECTED_VERSION"
 SETUP_STATE_FILE="$LAUNCHER_ROOT/.setup-complete"
 
 quoted_args=()

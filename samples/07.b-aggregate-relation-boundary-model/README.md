@@ -2,90 +2,182 @@
 
 ## Overview
 
-This sample extends the aggregate line by separating three axes:
+This sample explains the modeling distinction between:
 
-- relation
-  - `composition`
-  - `aggregation`
-  - `association`
-- boundary
-  - `internal`
-  - `external`
-- join
-  - `direct`
-  - `reverse`
-  - `through`
-
-The purpose is to show that:
-
-- structural relation
-- aggregate transaction boundary
+- relation kind
+- aggregate boundary
 - join direction
 
-are not the same thing.
+The key point is that these are different axes.
 
-## Example Mapping
+- relation kind says how strongly one model element is structurally related to another
+- boundary says whether the element belongs inside the aggregate transaction boundary
+- join says how aggregate assembly finds the related record at read time
+
+## Aggregate Basics In This Pattern
+
+`07-aggregate` showed the basic aggregate shape.
+
+`07.a` contrasted application-join and single-record aggregate persistence.
+
+`07.b` adds one more distinction:
+
+- a related element can be external and still be stronger than a plain association
+- an aggregate may need different read-assembly rules for different external relations
+
+In this model:
 
 - `OrderLine`
-  - `composition + internal`
+  - composition
+  - internal boundary
 - `ShipmentOrder`
-  - `aggregation + external + reverse`
+  - aggregation
+  - external boundary
+  - reverse join
 - `User`
-  - `association + external + direct`
+  - association
+  - external boundary
+  - direct join
 
-This makes `ShipmentOrder` different from `User`.
+This is why `ShipmentOrder` and `User` are both external, but not equivalent.
 
-- `User` is a plain external association.
-- `ShipmentOrder` is an external related structure that is still stronger than a plain association.
+## Intended Use Case
 
-In runtime terms, `ShipmentOrder` is intended to matter on the update side as well.
+Use this sample when you want to explain:
 
-- it may be referenced by behavior
-- it may be referenced by invariant / guard
-- it may participate in follow-up update or cascade semantics
+- that relation kind and aggregate boundary are not the same thing
+- that external relations can still have different semantic strength
+- that aggregate assembly may use different join directions
+- how those axes are expressed in CML and carried into generated component metadata
 
-`User` is not intended to carry that same weight.
+The runtime proof that one aggregate can be assembled with:
 
-## Intended Point
+- embedded internal members
+- reverse-joined external related records
+- direct-joined external associated records
 
-This sample is for aggregate assembly where:
+is kept in `cozy` scripted, not in the user-facing sample path.
 
-- some elements belong to the aggregate boundary
-- some elements are external but structurally relevant
-- some elements are only associated reference context
+## Setup
 
-## Current Line
-
-The current first line is:
-
-1. aggregate member metadata supports both `kind` and `boundary`
-2. aggregate member metadata also supports `join`
-3. generated component metadata carries all three axes
-4. runtime aggregate assembly reads `join` explicitly
-   - `direct`
-   - `reverse`
-5. a runnable aggregate load/search uses actual:
-   - `Order`
-   - `OrderLine`
-   - `ShipmentOrder`
-   - `User`
-6. aggregate `search` uses the same relation/boundary/join model and returns structured JSON
-
-Use:
+### Prepare the cozy command
 
 ```bash
-bash run.sh
+$ ../../bin/setup cozy
 ```
 
-The current output confirms:
+This prepares the local `cozy` launcher used by `sbt-cozy`.
 
-- one `Order` aggregate is loaded
-- aggregate `search` returns one `Order` aggregate in structured JSON
-- `lines` contains embedded `OrderLine`
-- `shipment_orders` is attached from external `ShipmentOrder` using `reverse` join
-- `user` is attached from external `User` using `direct` join
-- `ShipmentOrder` is not treated as the same category as `User`
+### Build the generated sample
 
-This first line is complete.
+```bash
+$ sbt --batch clean compile
+```
 
-The next extension is `07.c-aggregate-external-update-semantics`.
+This generates the Scala sources from `src/main/cozy/order-relation-boundary.cml` and compiles the sample.
+
+## Run The Whole Scenario
+
+```bash
+$ bash run.sh
+```
+
+This script is the batch form of the walkthrough below.
+It focuses on the generated shell surface and metadata for the relation/boundary/join model.
+
+## Command Walkthrough
+
+The commands below use these common conventions:
+
+- `cncf`
+  - the standard CNCF CLI entry point
+  - in this repository it is invoked as `../../bin/cncf`
+  - after a normal installation it is typically available as `cncf`
+- `--discover=classes`
+  - tells CNCF to discover generated components from the compiled class directory
+- `command`
+  - runs one-shot CNCF command execution
+- `help`
+  - prints the generated contract surface
+
+### 1. Inspect the component surface
+
+```bash
+$ bash ../../bin/cncf --discover=classes command help aggregate-relation-boundary-sample
+```
+
+This shows that the generated component exposes aggregate, entity, meta, system, and view services.
+
+Parameters:
+- `command`
+  - uses one-shot CNCF command execution
+- `help`
+  - asks CNCF to print the generated component surface
+- `aggregate-relation-boundary-sample`
+  - selects the generated component
+
+### 2. Inspect the aggregate service
+
+```bash
+$ bash ../../bin/cncf --discover=classes command help aggregate-relation-boundary-sample.aggregate
+```
+
+This shows the generated aggregate-oriented operations.
+The important point here is that aggregate reads are exposed separately from entity CRUD, because aggregate assembly has to respect relation kind, boundary, and join semantics.
+
+Parameters:
+- `command`
+  - uses one-shot CNCF command execution
+- `help`
+  - asks CNCF to print the generated service surface
+- `aggregate-relation-boundary-sample.aggregate`
+  - selects the aggregate service
+
+### 3. Inspect component metadata
+
+```bash
+$ bash ../../bin/cncf --discover=classes command aggregate-relation-boundary-sample.meta.describe --format yaml
+```
+
+This shows the generated component metadata.
+It confirms that the sample exposes aggregate-oriented services and aggregate definitions derived from the model.
+
+Parameters:
+- `command`
+  - uses one-shot CNCF command execution
+- `aggregate-relation-boundary-sample.meta.describe`
+  - selects the metadata operation for the component
+- `--format yaml`
+  - requests YAML output
+
+Example result excerpt:
+
+```yaml
+name: AggregateRelationBoundarySample
+services:
+- name: aggregate
+- name: entity
+aggregates:
+- name: order
+- name: shipment_order
+- name: user
+operation_definitions:
+- name: loadOrderAggregate
+- name: searchOrderAggregate
+```
+
+## What To Focus On
+
+When reading this sample, focus on these points:
+
+- relation kind is a modeling axis
+- boundary is a different modeling axis
+- join direction is yet another axis used for aggregate assembly
+- the generated aggregate service is the user-facing read surface for those modeling decisions
+
+## Files
+
+- `src/main/cozy/order-relation-boundary.cml`
+- `src/main/scala/org/sample/aggregaterelationboundary/ExternalEntityAliases.scala`
+- `build.sbt`
+- `run.sh`

@@ -2,7 +2,17 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
-  --script-path "$SCRIPT_DIR/run.sh" \
-  --sample-main-class org.sample.aggregaterelationboundary.RelationBoundaryAggregateDemo
+bash "$ROOT_DIR/bin/setup" cozy
+sbt --batch clean compile >/dev/null
+
+echo
+echo '--- help aggregate-relation-boundary-sample ---'
+bash "$ROOT_DIR/bin/cncf" --discover=classes command help aggregate-relation-boundary-sample
+echo
+echo '--- help aggregate service ---'
+bash "$ROOT_DIR/bin/cncf" --discover=classes command help aggregate-relation-boundary-sample.aggregate
+echo
+echo '--- meta describe ---'
+bash "$ROOT_DIR/bin/cncf" --discover=classes command aggregate-relation-boundary-sample.meta.describe --format yaml

@@ -163,6 +163,7 @@ Status:
 - [x] `06.b-job-control-demo-lab` completed by relocating the same-JVM direct-framework proof to `cozy` scripted
 - [x] `07-aggregate` completed as the first shell-first aggregate sample, with the same-JVM proof moved to `cozy` scripted
 - [x] `07.a-aggregate-single-record-lab` completed as the shell-first explanatory sample for the single-record aggregate pattern, with roundtrip proofs moved to `cozy` scripted
+- [x] `07.b-aggregate-relation-boundary-model` completed as the shell-first explanatory sample for relation kind, boundary, and join semantics, with the same-JVM proof moved to `cozy` scripted
 
 ### Phase 5. Future lines
 
