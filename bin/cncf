@@ -96,7 +96,6 @@ if [[ "$needs_prepare" == "1" ]]; then
   if sbt --batch cozyPrepareRuntime >"$prepare_log" 2>&1; then
     cat "$prepare_log"
   else
-    cat "$prepare_log" >&2
     if grep -q "Not a valid command: cozyPrepareRuntime" "$prepare_log"; then
       cp_log="$(mktemp)"
       trap 'rm -f "$prepare_log" "$cp_log"' EXIT
@@ -109,6 +108,7 @@ if [[ "$needs_prepare" == "1" ]]; then
       fi
       printf '%s' "$classpath_line" | tr ':' '\n' >"$runtime_cp_file"
     else
+      cat "$prepare_log" >&2
       exit 1
     fi
   fi

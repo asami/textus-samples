@@ -25,6 +25,9 @@ cncf-samples/
     05-event-driven/
     06-job/
     09-subsystem/
+    09.c-implicit-subsystem-lab/
+    09.d-sar-dir-lab/
+    09.e-subsystem-parameter-lab/
     10-subsystem-wiring/
     101-distributed/
 
@@ -254,16 +257,61 @@ Concepts:
 09-subsystem — Minimum Subsystem
 
 Purpose:
-- Show the minimum subsystem structure
+- Show the formal SAR-first subsystem structure
 
 Structure:
 - 1 subsystem
 - 1 component
 
 Concepts:
-- subsystem minimum
+- explicit subsystem
+- SAR-first composition
 - subsystem boundary
-- minimal composition
+
+----------------------------------------
+09.c-implicit-subsystem-lab — Implicit Subsystem
+
+Purpose:
+- Show the component-only form that is treated as an effective subsystem at runtime
+
+Structure:
+- 1 effective subsystem
+- 1 component
+
+Concepts:
+- implicit subsystem
+- runtime composition
+- discovered component surface
+
+----------------------------------------
+09.d-sar-dir-lab — SAR Directory Startup
+
+Purpose:
+- Show development/test startup from `sar.d`
+
+Structure:
+- 1 subsystem
+- SAR directory startup
+
+Concepts:
+- `sar.d`
+- development startup
+- test startup
+
+----------------------------------------
+09.e-subsystem-parameter-lab — Subsystem Parameter Startup
+
+Purpose:
+- Show development/test startup through subsystem-related parameters
+
+Structure:
+- 1 subsystem
+- parameter-driven startup
+
+Concepts:
+- `--subsystem`
+- explicit startup parameter
+- development/test control
 
 ----------------------------------------
 10-subsystem-wiring — Two-Component Subsystem
@@ -343,7 +391,10 @@ docker compose up
 21. 07-aggregate
 22. 08-view
 23. 09-subsystem
-24. 10-subsystem-wiring
+24. 09.c-implicit-subsystem-lab
+25. 09.d-sar-dir-lab
+26. 09.e-subsystem-parameter-lab
+27. 10-subsystem-wiring
 25. 101-distributed
 
 --------------------------------------------------

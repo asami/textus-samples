@@ -1,0 +1,3 @@
+subsystem testsubsystem
+component testcomp
+coordinate org.simplemodeling.car:testcomp:0.1.0

@@ -1,0 +1,3 @@
+subsystem explicit-subsystem
+component subsystem
+coordinate org.simplemodeling.car:subsystem:0.1.0

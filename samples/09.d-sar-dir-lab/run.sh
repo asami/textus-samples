@@ -3,27 +3,27 @@ set -euo pipefail
 
 echo "--- subsystem help"
 bash ../../bin/cncf \
-  command meta.help --format yaml \
   --no-default-components \
-  --textus.runtime.subsystem=testsubsystem
+  command meta.help --format yaml \
+  --cncf.config.file=subsystem-sar-dir.conf
 
 echo
 echo "--- component help"
 bash ../../bin/cncf \
-  command meta.help testcomp --format yaml \
   --no-default-components \
-  --textus.runtime.subsystem=testsubsystem
+  command meta.help subsystem --format yaml \
+  --cncf.config.file=subsystem-sar-dir.conf
 
 echo
 echo "--- operation help"
 bash ../../bin/cncf \
-  command help testcomp.main.hello \
   --no-default-components \
-  --textus.runtime.subsystem=testsubsystem
+  command help subsystem.main.hello \
+  --cncf.config.file=subsystem-sar-dir.conf
 
 echo
 echo "--- execute"
 bash ../../bin/cncf \
-  command testcomp.main.hello \
   --no-default-components \
-  --textus.runtime.subsystem=testsubsystem
+  command subsystem.main.hello \
+  --cncf.config.file=subsystem-sar-dir.conf

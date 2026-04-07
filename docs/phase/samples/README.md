@@ -43,5 +43,10 @@ Current sample documents:
 - `08.a-view-definition-lab.md`
 - `08.b-simpleentity-view-lab.md`
 - `09-subsystem.md`
+- `09.a-subsystem-bundled-component-lab.md`
+- `09.b-subsystem-mixed-component-lab.md`
+- `09.c-implicit-subsystem-lab.md`
+- `09.d-sar-dir-lab.md`
+- `09.e-subsystem-parameter-lab.md`
 - `10-subsystem-wiring.md`
 - `101-distributed.md`
