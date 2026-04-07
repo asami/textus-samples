@@ -5,8 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 SERVER_LOG="${TMPDIR:-/tmp}/07-aggregate-server.log"
 
-bash "$ROOT_DIR/bin/setup" cozy
-sbt --batch clean compile >/dev/null
+sbt --batch compile >/dev/null
 
 bash "$ROOT_DIR/bin/cncf" --discover=classes server >"$SERVER_LOG" 2>&1 &
 SERVER_PID=$!

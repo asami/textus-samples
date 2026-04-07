@@ -16,6 +16,8 @@ CNCF_COURSIER_CACHE="$REPO_ROOT/.cache/coursier"
 usage() {
   cat <<'EOF'
 Usage:
+  bin/setup
+  bin/setup bootstrap
   bin/setup cozy
   bin/setup cncf [--cncf-version <version>] [--core-version <version>] [--simplemodeling-model-version <version>]
   bin/setup all
@@ -132,7 +134,7 @@ prepare_cncf() {
 }
 
 main() {
-  local mode="${1:-all}"
+  local mode="${1:-bootstrap}"
   if [[ $# -gt 0 ]]; then
     shift
   fi
@@ -173,9 +175,9 @@ main() {
     cncf)
       prepare_cncf
       ;;
-    cozy|all)
+    cozy|all|bootstrap)
       prepare_cozy
-      if [[ "$mode" == "all" ]]; then
+      if [[ "$mode" != "cozy" ]]; then
         prepare_cncf
       fi
       ;;

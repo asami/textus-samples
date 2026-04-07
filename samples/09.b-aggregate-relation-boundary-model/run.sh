@@ -4,8 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-bash "$ROOT_DIR/bin/setup" cozy
-sbt --batch clean compile >/dev/null
+sbt --batch compile >/dev/null
 
 echo
 echo '--- help aggregate-relation-boundary-sample ---'

@@ -22,7 +22,7 @@ else
   trap cleanup EXIT
 
   for _ in $(seq 1 30); do
-    if grep -q "Ember-Server service bound to address" "$logfile"; then
+    if curl -sS http://127.0.0.1:8080/ >/dev/null 2>&1; then
       break
     fi
     if ! kill -0 "$server_pid" >/dev/null 2>&1; then
@@ -31,8 +31,6 @@ else
     fi
     sleep 1
   done
-
-  grep "Ember-Server service bound to address" "$logfile"
 fi
 
 job_id="$(bash ../../bin/cncf --discover=classes client job-sample.item.create-item --name alpha --title Alpha)"

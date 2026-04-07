@@ -2,7 +2,7 @@
 set -euo pipefail
 
 mkdir -p component.d car.d/component car.d/meta
-sbt --batch clean compile packageBin >/dev/null
+sbt --batch compile packageBin >/dev/null
 JAR="$(find target/scala-3.3.7 -name 'cncf-samples-03-component-cml_3-*.jar' | head -n 1)"
 TMPDIR="$(mktemp -d)"
 ROOT_DIR="$(pwd)"

@@ -15,19 +15,18 @@ This repository uses a sample-local `cncf` command.
 Prepare it once:
 
 ```bash
-bash bin/setup cncf
+bash bin/setup
 ```
 
-Use another CNCF version when needed:
+This repository-level setup prepares both:
+
+- the local `cozy` command used for sample generation
+- the local `cncf` command used for sample execution
+
+Use explicit version overrides when needed:
 
 ```bash
-bash bin/setup cncf --cncf-version 0.4.2-SNAPSHOT
-```
-
-The setup command is also the shared version gate for related runtime libraries.
-
-```bash
-bash bin/setup cncf \
+bash bin/setup \
   --cncf-version 0.4.2-SNAPSHOT \
   --core-version 0.3.2-SNAPSHOT \
   --simplemodeling-model-version 0.1.2-SNAPSHOT
@@ -35,6 +34,7 @@ bash bin/setup cncf \
 
 Repository defaults live in:
 
+- `versions/cozy-version.conf`
 - `versions/cncf-version.conf`
 - `versions/goldenport-core-version.conf`
 - `versions/simplemodeling-model-version.conf`

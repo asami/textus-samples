@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-sbt --batch clean compile >/dev/null
+sbt --batch compile >/dev/null
 
 echo "--- component help"
 bash ../../bin/cncf \

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 mkdir -p car.d/component car.d/meta
-sbt --batch clean compile packageBin >/dev/null
+sbt --batch compile packageBin >/dev/null
 JAR="$(find target/scala-3.3.7 -name 'cncf-samples-02-a-car-dir-lab_3-*.jar' | head -n 1)"
 cp "$JAR" car.d/component/main.jar
 cat > car.d/descriptor.yaml <<'EOF'
