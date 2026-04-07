@@ -2,7 +2,17 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
-  --script-path "$SCRIPT_DIR/run.sh" \
-  --sample-main-class org.sample.aggregatesinglerecord.SingleRecordAggregateDemo
+bash "$ROOT_DIR/bin/setup" cozy
+sbt --batch clean compile >/dev/null
+
+echo
+echo '--- help single-record-sample ---'
+bash "$ROOT_DIR/bin/cncf" --discover=classes command help single-record-sample
+echo
+echo '--- help aggregate load-order ---'
+bash "$ROOT_DIR/bin/cncf" --discover=classes command help single-record-sample.aggregate.load-order
+echo
+echo '--- meta describe ---'
+bash "$ROOT_DIR/bin/cncf" --discover=classes command single-record-sample.meta.describe --format yaml

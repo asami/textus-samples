@@ -2,102 +2,156 @@
 
 ## Overview
 
-This lab explains the single-record aggregate pattern as a concrete companion to [07-aggregate](/Users/asami/src/dev2026/cncf-samples/samples/07-aggregate/README.md).
+This sample explains the single-record aggregate pattern as the companion to [07-aggregate](/Users/asami/src/dev2026/cncf-samples/samples/07-aggregate/README.md).
 
-The main line in `07-aggregate` is application-join:
+The contrast is:
 
-- `Order` root
-- `OrderLine` member entity
-- aggregate is constructed from multiple persisted entities
+- [07-aggregate](/Users/asami/src/dev2026/cncf-samples/samples/07-aggregate/README.md)
+  - application-join aggregate
+  - root and members are persisted separately
+  - aggregate is assembled at runtime
+- `07.a`
+  - single-record aggregate
+  - the root record embeds member values directly
+  - aggregate restore does not need runtime join
 
-This lab shows the other common pattern:
+## Aggregate Basics In This Pattern
 
-- `Order` is one persisted `Entity`
-- `OrderLine` is a `Value Object`
-- `OrderLine` is stored inside `Order`
-- the aggregate is restored from one record
+In the single-record pattern:
 
-## What This Lab Shows
+- `Order` is still the aggregate root
+- `OrderLine` is not an independent entity
+- `OrderLine` is a value object embedded in the root record
+- persistence and aggregate restore both happen through one record
 
-- one-record aggregate encoding
-- `OrderLine` as embedded value object
-- no application join during aggregate restore
-- roundtrip from generated entity -> `Record` -> generated entity
+This is often the simpler shape when the member lifecycle is fully owned by the root.
 
-## Model
+## Intended Use Case
 
-- component: `aggregate-single-record-sample`
-- entity: `Order`
-- value object: `OrderLine`
-- persistence shape: one `Order` record containing `lines`
+Use this sample when you want to explain:
 
-## How To Run
+- when an aggregate can be stored as one record
+- how embedded value objects differ from aggregate member entities
+- how the generated CNCF surface still exposes aggregate and entity services
+- how this pattern differs from the application-join aggregate shown in `07-aggregate`
+
+The runtime assertion that record roundtrip and datastore roundtrip preserve embedded values is kept in `cozy` scripted, not in the sample path.
+
+## Setup
+
+### Prepare the cozy command
 
 ```bash
-bash run.sh
+$ ../../bin/setup cozy
 ```
+
+This prepares the local `cozy` launcher used by `sbt-cozy`.
+
+### Build the generated sample
 
 ```bash
-bash run-datastore.sh
+$ sbt --batch clean compile
 ```
 
-The demo:
+This generates the Scala sources from `src/main/cozy/order-single-record-aggregate.cml` and compiles the sample.
 
-1. creates two `OrderLine` value objects
-2. creates one `Order` entity that embeds them
-3. converts `Order` to one `Record`
-4. restores `Order` from that same `Record`
-5. prints the encoded and restored shapes
+## Run The Whole Scenario
 
-Example output shape:
-
-```json
-{
-  "pattern": "single-record-aggregate",
-  "entity": "Order",
-  "value-object": "OrderLine",
-  "record": {
-    "id": "major-minor-entity-order-20260330000000-aaa111",
-    "name": "Alpha",
-    "status": "Active",
-    "lines": [
-      { "name": "Widget", "quantity": 2 },
-      { "name": "Cable", "quantity": 1 }
-    ]
-  },
-  "restored": {
-    "id": "major-minor-entity-order-20260330000000-aaa111",
-    "name": "Alpha",
-    "status": "Active",
-    "lines": [
-      { "name": "Widget", "quantity": 2 },
-      { "name": "Cable", "quantity": 1 }
-    ]
-  },
-  "line-count": 2
-}
+```bash
+$ bash run.sh
 ```
 
-What this proves:
+This script is the batch form of the walkthrough below.
+It shows the generated component surface and metadata for the single-record aggregate pattern.
 
-- `OrderLine` is encoded as embedded records inside `Order.lines`
-- restore from one record succeeds
-- the restored aggregate keeps both value objects
+## Command Walkthrough
 
-The datastore demo proves the same shape survives the framework entity-store path:
+The commands below use these common conventions:
 
-- `EntityStoreSpace.create`
-- `EntityStoreSpace.load`
-- embedded `OrderLine` values remain embedded records after persistence roundtrip
+- `cncf`
+  - the standard CNCF CLI entry point
+  - in this repository it is invoked as `../../bin/cncf`
+  - after a normal installation it is typically available as `cncf`
+- `--discover=classes`
+  - tells CNCF to discover generated components from the compiled class directory
+- `command`
+  - runs one-shot CNCF command execution
+- `help`
+  - prints the generated contract surface
 
-## Why It Matters
+### 1. Inspect the component surface
 
-This is often the natural implementation for aggregates whose lifecycle is strongly shared.
+```bash
+$ bash ../../bin/cncf --discover=classes command help single-record-sample
+```
 
-For `Order` / `OrderLine`, this means:
+This shows that the generated component exposes aggregate, entity, meta, system, and view services.
 
-- `OrderLine` is not persisted as an independent entity
-- the transactional and lifecycle boundary is one `Order`
-- loading the aggregate does not require framework-side application join
+Parameters:
+- `command`
+  - uses one-shot CNCF command execution
+- `help`
+  - asks CNCF to print the generated component surface
+- `single-record-sample`
+  - selects the generated component
 
-That is different from the main `07-aggregate` sample, where `OrderLine` is a separate entity and the framework builds the aggregate by joining persisted members.
+### 2. Inspect the aggregate load operation
+
+```bash
+$ bash ../../bin/cncf --discover=classes command help single-record-sample.aggregate.load-order
+```
+
+This shows the aggregate-oriented load surface for the single-record pattern.
+
+Parameters:
+- `command`
+  - uses one-shot CNCF command execution
+- `help`
+  - asks CNCF to print the generated operation contract
+- `single-record-sample.aggregate.load-order`
+  - selects the aggregate load operation
+
+### 3. Inspect component metadata
+
+```bash
+$ bash ../../bin/cncf --discover=classes command single-record-sample.meta.describe --format yaml
+```
+
+This shows the generated component metadata.
+It confirms that the sample still has both an aggregate service and an entity service, even though the persistence shape is one record.
+
+Parameters:
+- `command`
+  - uses one-shot CNCF command execution
+- `single-record-sample.meta.describe`
+  - selects the metadata operation for the component
+- `--format yaml`
+  - requests YAML output
+
+Example result excerpt:
+
+```yaml
+name: SingleRecordSample
+services:
+- name: aggregate
+- name: entity
+aggregates:
+- name: order
+views:
+- name: order
+```
+
+## What To Focus On
+
+When reading this sample, focus on these points:
+
+- the aggregate root is still explicit
+- the aggregate service still exists as a user-facing surface
+- the persistence shape is simpler because `OrderLine` is embedded
+- the single-record roundtrip proof is intentionally moved out of the sample path into scripted verification
+
+## Files
+
+- `src/main/cozy/order-single-record-aggregate.cml`
+- `build.sbt`
+- `run.sh`
