@@ -20,7 +20,7 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       "org.goldenport" %% "goldenport-cncf" % cncfVersion(baseDirectory.value),
       "org.goldenport" %% "goldenport-core" % "0.3.1-SNAPSHOT",
-      "org.simplemodeling" %% "simplemodeling-model" % "0.1.1-SNAPSHOT"
+      "org.simplemodeling" %% "simplemodeling-model" % "0.1.2-SNAPSHOT"
     ),
     cozyManifestMetadata ++= Map(
       "component" -> "aggregate-external-update-sample",
