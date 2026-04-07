@@ -4,20 +4,39 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 COZY_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cozy-version.conf")"
+DEFAULT_CNCF_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cncf-version.conf")"
 CACHE_ROOT="${XDG_CACHE_HOME:-$HOME/.cache}"
 LAUNCHER_ROOT="$CACHE_ROOT/cncf-samples/cozy-launcher/$COZY_VERSION"
 STATE_FILE="$LAUNCHER_ROOT/.setup-complete"
+CS_VERSION_FILE="$REPO_ROOT/versions/coursier-version.conf"
+CNCF_COURSIER_CACHE="$REPO_ROOT/.cache/coursier"
 
 usage() {
   cat <<'EOF'
 Usage:
   bin/setup cozy
+  bin/setup cncf [--cncf-version <version>]
   bin/setup all
 
 Current responsibilities:
   - prepare the cozy launcher used by bin/cozy
+  - prepare the local CNCF command used by bin/cncf
   - verify cozy dependency resolution for the configured version
 EOF
+}
+
+cncf_version="${CNCF_VERSION:-$DEFAULT_CNCF_VERSION}"
+
+find_coursier() {
+  if command -v cs >/dev/null 2>&1; then
+    command -v cs
+    return
+  fi
+  if command -v coursier >/dev/null 2>&1; then
+    command -v coursier
+    return
+  fi
+  return 1
 }
 
 cozy_dependency_coords() {
@@ -76,10 +95,67 @@ prepare_cozy() {
   echo "cozy version: $COZY_VERSION"
 }
 
+prepare_cncf() {
+  local state_file="$CACHE_ROOT/cncf-samples/cncf-launcher/$cncf_version/.setup-complete"
+  rm -f "$state_file"
+  if ! command -v java >/dev/null 2>&1; then
+    echo "java command not found" >&2
+    exit 3
+  fi
+  local coursier_bin
+  if ! coursier_bin="$(find_coursier)"; then
+    echo "coursier command not found" >&2
+    echo "Install coursier from https://get-coursier.io/ or Homebrew." >&2
+    exit 3
+  fi
+  local expected_version
+  expected_version="$(tr -d '[:space:]' < "$CS_VERSION_FILE")"
+  mkdir -p "$CNCF_COURSIER_CACHE"
+  mkdir -p "$(dirname "$state_file")"
+  printf '%s\n' "$cncf_version" > "$state_file"
+  echo "java: $(command -v java)"
+  echo "coursier: $coursier_bin"
+  echo "coursier version: $("$coursier_bin" version)"
+  echo "expected coursier version: $expected_version"
+  echo "coursier cache: ${COURSIER_CACHE:-$HOME/Library/Caches/Coursier/v1}"
+  echo "maven local: $HOME/.m2/repository"
+  echo "ivy local: $HOME/.ivy2/local"
+  echo "prepared local cncf launcher: $REPO_ROOT/bin/launcher"
+  echo "cncf version: $cncf_version"
+  echo "cncf launcher cache: $CNCF_COURSIER_CACHE"
+}
+
 main() {
-  case "${1:-all}" in
+  local mode="${1:-all}"
+  if [[ $# -gt 0 ]]; then
+    shift
+  fi
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --cncf-version)
+        cncf_version="${2:-}"
+        shift 2
+        ;;
+      --cncf-version=*)
+        cncf_version="${1#--cncf-version=}"
+        shift
+        ;;
+      *)
+        usage >&2
+        exit 1
+        ;;
+    esac
+  done
+
+  case "$mode" in
+    cncf)
+      prepare_cncf
+      ;;
     cozy|all)
       prepare_cozy
+      if [[ "$mode" == "all" ]]; then
+        prepare_cncf
+      fi
       ;;
     -h|--help|help)
       usage

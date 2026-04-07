@@ -8,6 +8,34 @@ Each sample demonstrates a structural pattern rather than a business domain and 
 This repository is a foundation for arranging CNCF structural patterns as small samples that are easy to compare.
 Its initial goal is to build a catalog of patterns, not to recreate complex business domains.
 
+## Local CNCF Command
+
+This repository uses a sample-local `cncf` command.
+
+Prepare it once:
+
+```bash
+bash bin/setup cncf
+```
+
+Use another CNCF version when needed:
+
+```bash
+bash bin/setup cncf --cncf-version 0.4.2-SNAPSHOT
+```
+
+Then each sample can use:
+
+```bash
+bash ../../bin/cncf ...
+```
+
+or explicitly choose the runtime version:
+
+```bash
+bash ../../bin/cncf --cncf-version 0.4.2-SNAPSHOT ...
+```
+
 Development order follows the stages recorded in `docs/journal/2026/03/cncf-samples-project.md`.
 
 1. `01-minimal`
