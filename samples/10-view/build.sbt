@@ -18,8 +18,8 @@ lazy val root = (project in file("."))
     ),
     libraryDependencies ++= Seq(
       "org.goldenport" %% "goldenport-cncf" % cncfVersion(baseDirectory.value),
-      "org.goldenport" %% "goldenport-core" % "0.3.1-SNAPSHOT",
-      "org.simplemodeling" %% "simplemodeling-model" % "0.1.2-SNAPSHOT"
+      "org.goldenport" %% "goldenport-core" % goldenportCoreVersion(baseDirectory.value),
+      "org.simplemodeling" %% "simplemodeling-model" % simplemodelingModelVersion(baseDirectory.value)
     ),
     cozyManifestMetadata ++= Map(
       "component" -> "view-sample",
@@ -30,14 +30,24 @@ lazy val root = (project in file("."))
   )
 
 def cncfVersion(base: java.io.File): String = {
-  sys.env.get("CNCF_VERSION")
+  sampleVersion(base, "CNCF_VERSION", "cncf-version.conf")
+}
+
+def goldenportCoreVersion(base: java.io.File): String =
+  sampleVersion(base, "GOLDENPORT_CORE_VERSION", "goldenport-core-version.conf")
+
+def simplemodelingModelVersion(base: java.io.File): String =
+  sampleVersion(base, "SIMPLEMODELING_MODEL_VERSION", "simplemodeling-model-version.conf")
+
+def sampleVersion(base: java.io.File, envName: String, fileName: String): String = {
+  sys.env.get(envName)
     .orElse {
-      val versionFile = base.toPath.getParent.getParent.resolve("versions/cncf-version.conf").toFile
+      val versionFile = base.toPath.getParent.getParent.resolve("versions").resolve(fileName).toFile
       if (versionFile.isFile) {
         Some(IO.read(versionFile).trim).filter(_.nonEmpty)
       } else {
         None
       }
     }
-    .getOrElse(sys.error("CNCF_VERSION or versions/cncf-version.conf is required"))
+    .getOrElse(sys.error(s"$envName or versions/$fileName is required"))
 }

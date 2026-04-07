@@ -48,14 +48,30 @@ The current first line is:
 
 ## Setup
 
-### 1. Prepare the `cozy` command
+### 1. Prepare the `cncf` and `cozy` commands
 
-Before running the sample, prepare the `cozy` launcher that sample generation uses.
+Before running the sample, prepare the local CNCF launcher and the `cozy` launcher.
 
 ```bash
 $ cd samples/10-view
+$ ../../bin/setup cncf
 $ ../../bin/setup cozy
 ```
+
+The CNCF setup step is also where the shared runtime library versions can be pinned when needed.
+
+```bash
+$ ../../bin/setup cncf \
+  --cncf-version 0.4.2-SNAPSHOT \
+  --core-version 0.3.2-SNAPSHOT \
+  --simplemodeling-model-version 0.1.2-SNAPSHOT
+```
+
+Shared defaults are read from:
+
+- `../../versions/cncf-version.conf`
+- `../../versions/goldenport-core-version.conf`
+- `../../versions/simplemodeling-model-version.conf`
 
 ### 2. Build the generated sample
 

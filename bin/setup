@@ -5,6 +5,8 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 COZY_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cozy-version.conf")"
 DEFAULT_CNCF_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cncf-version.conf")"
+DEFAULT_CORE_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/goldenport-core-version.conf")"
+DEFAULT_SIMPLEMODELING_MODEL_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/simplemodeling-model-version.conf")"
 CACHE_ROOT="${XDG_CACHE_HOME:-$HOME/.cache}"
 LAUNCHER_ROOT="$CACHE_ROOT/cncf-samples/cozy-launcher/$COZY_VERSION"
 STATE_FILE="$LAUNCHER_ROOT/.setup-complete"
@@ -15,7 +17,7 @@ usage() {
   cat <<'EOF'
 Usage:
   bin/setup cozy
-  bin/setup cncf [--cncf-version <version>]
+  bin/setup cncf [--cncf-version <version>] [--core-version <version>] [--simplemodeling-model-version <version>]
   bin/setup all
 
 Current responsibilities:
@@ -26,6 +28,8 @@ EOF
 }
 
 cncf_version="${CNCF_VERSION:-$DEFAULT_CNCF_VERSION}"
+core_version="${GOLDENPORT_CORE_VERSION:-$DEFAULT_CORE_VERSION}"
+simplemodeling_model_version="${SIMPLEMODELING_MODEL_VERSION:-$DEFAULT_SIMPLEMODELING_MODEL_VERSION}"
 
 find_coursier() {
   if command -v cs >/dev/null 2>&1; then
@@ -122,6 +126,8 @@ prepare_cncf() {
   echo "ivy local: $HOME/.ivy2/local"
   echo "prepared local cncf launcher: $REPO_ROOT/bin/launcher"
   echo "cncf version: $cncf_version"
+  echo "goldenport-core version: $core_version"
+  echo "simplemodeling-model version: $simplemodeling_model_version"
   echo "cncf launcher cache: $CNCF_COURSIER_CACHE"
 }
 
@@ -138,6 +144,22 @@ main() {
         ;;
       --cncf-version=*)
         cncf_version="${1#--cncf-version=}"
+        shift
+        ;;
+      --core-version)
+        core_version="${2:-}"
+        shift 2
+        ;;
+      --core-version=*)
+        core_version="${1#--core-version=}"
+        shift
+        ;;
+      --simplemodeling-model-version)
+        simplemodeling_model_version="${2:-}"
+        shift 2
+        ;;
+      --simplemodeling-model-version=*)
+        simplemodeling_model_version="${1#--simplemodeling-model-version=}"
         shift
         ;;
       *)

@@ -24,6 +24,21 @@ Use another CNCF version when needed:
 bash bin/setup cncf --cncf-version 0.4.2-SNAPSHOT
 ```
 
+The setup command is also the shared version gate for related runtime libraries.
+
+```bash
+bash bin/setup cncf \
+  --cncf-version 0.4.2-SNAPSHOT \
+  --core-version 0.3.2-SNAPSHOT \
+  --simplemodeling-model-version 0.1.2-SNAPSHOT
+```
+
+Repository defaults live in:
+
+- `versions/cncf-version.conf`
+- `versions/goldenport-core-version.conf`
+- `versions/simplemodeling-model-version.conf`
+
 Then each sample can use:
 
 ```bash

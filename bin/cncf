@@ -33,6 +33,33 @@ discover_classes="0"
 workspace=""
 component_repositories=()
 
+resolve_sample_runtime_classpath() {
+  local cp_dir="target/cncf.d"
+  local cp_file="$cp_dir/runtime-classpath.txt"
+
+  mkdir -p "$cp_dir"
+
+  local sbt_output
+  sbt_output="$(sbt --batch 'show Runtime / fullClasspath')"
+
+  printf '%s\n' "$sbt_output" \
+    | awk '
+        /^\[info\] \* Attributed\(/ {
+          line = $0
+          sub(/^\[info\] \* Attributed\(/, "", line)
+          sub(/\)$/, "", line)
+          print line
+        }
+      ' > "$cp_file"
+
+  if [[ ! -s "$cp_file" ]]; then
+    echo "Failed to resolve Runtime / fullClasspath for --discover=classes." >&2
+    exit 1
+  fi
+
+  paste -sd: "$cp_file"
+}
+
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --cncf-version)
@@ -98,13 +125,7 @@ fi
 
 classpath=""
 if [[ "$discover_classes" == "1" ]]; then
-  runtime_cp_file="target/cncf.d/runtime-classpath.txt"
-  if [[ ! -f "$runtime_cp_file" ]]; then
-    echo "Runtime classpath file not found for --discover=classes: $runtime_cp_file" >&2
-    echo "Build the sample first so target/cncf.d/runtime-classpath.txt exists." >&2
-    exit 1
-  fi
-  sample_classpath="$(paste -sd: "$runtime_cp_file")"
+  sample_classpath="$(resolve_sample_runtime_classpath)"
   resolved_runtime_cp="$("$LAUNCHER_BIN" \
     --dependency "org.goldenport:goldenport-cncf_3:$runtime_version" \
     --main-class "$cncf_main_class" \
