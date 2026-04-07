@@ -1,0 +1,73 @@
+# COMPONENT
+
+## ComponentCmlSample
+
+### PACKAGE
+
+org.sample.componentcml
+
+### DESCRIPTION
+
+Minimal component-generation sample.
+
+# SERVICE
+
+## Greeting
+
+### DESCRIPTION
+
+Greeting service generated from CML.
+
+### OPERATION
+
+#### greeting
+
+Returns a greeting contract through the generated query surface.
+
+##### TYPE
+
+QUERY
+
+##### SUMMARY
+
+Return a greeting contract.
+
+##### DESCRIPTION
+
+Returns the generated greeting operation metadata for the sample component.
+
+##### INPUT
+
+Greeting query payload.
+
+###### VALUE
+
+####### GreetingQuery
+
+######## EXTENDS
+
+QueryAction
+
+######## ATTRIBUTE
+
+| name | type | multiplicity |
+|------+------|--------------|
+| name | name | 1            |
+
+##### OUTPUT
+
+Greeting result payload.
+
+###### VALUE
+
+####### GreetingResult
+
+######## EXTENDS
+
+OperationResult
+
+######## ATTRIBUTE
+
+| name    | type   | multiplicity |
+|---------+--------+--------------|
+| message | string | 1            |

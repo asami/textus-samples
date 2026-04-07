@@ -16,6 +16,13 @@ Current sample documents:
 - `01.b-startup-shapes-lab.md`
 - `01.c-builtin-and-help-lab.md`
 - `01.d-component-script.md`
+- `02-component.md`
+- `02.a-car-dir-lab.md`
+- `02.b-discover-classes-lab.md`
+- `03-component-cml.md`
+- `03.a-car-dir-cml-lab.md`
+- `03.b-discover-classes-cml-lab.md`
+- `03.c-method-execution-cml-lab.md`
 - `02-crud.md`
 - `02.a-crud-seed-import-lab.md`
 - `02.b-simpleentity-crud-lab.md`

@@ -108,18 +108,22 @@ Status:
 - [x] `08.b-simpleentity-view-lab` completed with matching `cozy` scripted verification
 - [x] `08.c-view-cache-lab` completed as the UI-list/cache sample, with cache-proof logic moved to `cozy` scripted
 
-### Phase 3. CRUD / operation line normalization
+### Phase 3. Component / CML / CRUD / operation line normalization
 
-8. rework `02-crud`
-9. rework `02.a-crud-seed-import-lab`
-10. rework `02.b-simpleentity-crud-lab`
-11. rework `02.c-crud-sqlite-lab`
-12. rework `02.d-crud-server-memory-lab`
-13. rework `02.e-crud-explicit-sync-lab`
-14. rework `02.f-crud-nested-value-lab`
-15. rework `03-operation`
-16. rework `03.a-operation-command-lab`
-17. rework `03.b-operation-entity-lab`
+8. create `02-component`
+9. create `02.a-car-dir-lab`
+10. create `02.b-discover-classes-lab`
+11. create `03-component-cml`
+12. rework `02-crud`
+13. rework `02.a-crud-seed-import-lab`
+14. rework `02.b-simpleentity-crud-lab`
+15. rework `02.c-crud-sqlite-lab`
+16. rework `02.d-crud-server-memory-lab`
+17. rework `02.e-crud-explicit-sync-lab`
+18. rework `02.f-crud-nested-value-lab`
+19. rework `03-operation`
+20. rework `03.a-operation-command-lab`
+21. rework `03.b-operation-entity-lab`
 
 Status:
 

@@ -1,0 +1,69 @@
+# COMPONENT
+
+## ComponentMethodExecutionSample
+
+### PACKAGE
+
+org.sample.componentmethodexecution
+
+### DESCRIPTION
+
+Minimal generated component with sample-specific method execution.
+
+# SERVICE
+
+## Greeting
+
+### DESCRIPTION
+
+Greeting service generated from CML.
+
+### OPERATION
+
+#### composeGreeting
+
+Returns a greeting message through a sample-specific factory implementation.
+
+##### TYPE
+
+QUERY
+
+##### SUMMARY
+
+Compose a greeting message.
+
+##### INPUT
+
+Greeting query payload.
+
+###### VALUE
+
+####### GreetingQuery
+
+######## EXTENDS
+
+QueryAction
+
+######## ATTRIBUTE
+
+| name | type | multiplicity |
+|------+------|--------------|
+| name | name | 1            |
+
+##### OUTPUT
+
+Greeting result payload.
+
+###### VALUE
+
+####### GreetingResult
+
+######## EXTENDS
+
+OperationResult
+
+######## ATTRIBUTE
+
+| name    | type   | multiplicity |
+|---------+--------+--------------|
+| message | string | 1            |
