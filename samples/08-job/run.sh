@@ -4,12 +4,14 @@ set -eu
 dir="$(CDPATH= cd -- "$(dirname "$0")" && pwd)"
 cd "$dir"
 
+SERVER_PORT="$(tr -d '[:space:]' < ../../versions/cncf-server-port.conf)"
+SERVER_BASEURL="http://127.0.0.1:${SERVER_PORT}"
 logfile="$(mktemp)"
 trap 'rm -f "$logfile"' EXIT
 
 server_pid=""
-if curl -sS http://127.0.0.1:8080/ >/dev/null 2>&1; then
-  echo "Reusing existing server on :8080"
+if curl -sS "$SERVER_BASEURL/" >/dev/null 2>&1; then
+  echo "Reusing existing server on :$SERVER_PORT"
 else
   bash ../../bin/cncf --discover=classes server >"$logfile" 2>&1 &
   server_pid=$!
@@ -22,7 +24,7 @@ else
   trap cleanup EXIT
 
   for _ in $(seq 1 30); do
-    if curl -sS http://127.0.0.1:8080/ >/dev/null 2>&1; then
+    if curl -sS "$SERVER_BASEURL/" >/dev/null 2>&1; then
       break
     fi
     if ! kill -0 "$server_pid" >/dev/null 2>&1; then

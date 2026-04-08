@@ -28,6 +28,7 @@ Use explicit version overrides when needed:
 ```bash
 bash bin/setup \
   --cncf-version 0.4.2-SNAPSHOT \
+  --cncf-server-port 19532 \
   --core-version 0.3.2-SNAPSHOT \
   --simplemodeling-model-version 0.1.2-SNAPSHOT
 ```
@@ -36,6 +37,7 @@ Repository defaults live in:
 
 - `versions/cozy-version.conf`
 - `versions/cncf-version.conf`
+- `versions/cncf-server-port.conf`
 - `versions/goldenport-core-version.conf`
 - `versions/simplemodeling-model-version.conf`
 

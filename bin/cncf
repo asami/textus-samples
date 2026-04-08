@@ -6,6 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SCRIPT_DIR/../scripts/cncf-common.sh"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 DEFAULT_RUNTIME_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cncf-version.conf")"
+DEFAULT_SERVER_PORT="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cncf-server-port.conf")"
 CACHE_ROOT="${XDG_CACHE_HOME:-$HOME/.cache}"
 LAUNCHER_BIN="$REPO_ROOT/bin/launcher"
 LAUNCHER_CACHE="$REPO_ROOT/.cache/coursier"
@@ -14,7 +15,7 @@ SIMPLEMODELING_REPOSITORY="https://www.simplemodeling.org/maven"
 usage() {
   cat >&2 <<'EOF'
 Usage:
-  cncf [--cncf-version <version>] [--sample-dir <dir>] [--cncf-main-class <fqcn>] [--command-path <path>] [--discover-classes|--discover=classes] [--workspace <path>] [--component-repository <spec>]... [--] [args...]
+  cncf [--cncf-version <version>] [--cncf-server-port <port>] [--sample-dir <dir>] [--cncf-main-class <fqcn>] [--command-path <path>] [--discover-classes|--discover=classes] [--workspace <path>] [--component-repository <spec>]... [--] [args...]
 
 Examples:
   ../../bin/setup cncf
@@ -28,6 +29,7 @@ EOF
 sample_dir=""
 cncf_main_class="org.goldenport.cncf.CncfMain"
 runtime_version="${CNCF_VERSION:-$DEFAULT_RUNTIME_VERSION}"
+server_port="${CNCF_SERVER_PORT:-$DEFAULT_SERVER_PORT}"
 command_path=""
 discover_classes="0"
 workspace=""
@@ -73,6 +75,14 @@ while [[ $# -gt 0 ]]; do
     --sample-dir)
       sample_dir="${2:-}"
       shift 2
+      ;;
+    --cncf-server-port)
+      server_port="${2:-}"
+      shift 2
+      ;;
+    --cncf-server-port=*)
+      server_port="${1#--cncf-server-port=}"
+      shift
       ;;
     --cncf-main-class)
       cncf_main_class="${2:-}"
@@ -155,13 +165,20 @@ if [[ $# -gt 0 ]]; then
 fi
 
 if [[ "$discover_classes" == "1" ]]; then
-  exec java -cp "$classpath" "$cncf_main_class" "${app_args[@]}"
+  exec java \
+    -Dcncf.server.port="$server_port" \
+    -Dcncf.http.baseurl="http://127.0.0.1:$server_port" \
+    -cp "$classpath" \
+    "$cncf_main_class" \
+    "${app_args[@]}"
 else
   exec "$LAUNCHER_BIN" \
     --dependency "org.goldenport:goldenport-cncf_3:$runtime_version" \
     --main-class "$cncf_main_class" \
     --repository "$SIMPLEMODELING_REPOSITORY" \
     --cache "$LAUNCHER_CACHE" \
+    --java-opt="-Dcncf.server.port=$server_port" \
+    --java-opt="-Dcncf.http.baseurl=http://127.0.0.1:$server_port" \
     -- \
     "${app_args[@]}"
 fi

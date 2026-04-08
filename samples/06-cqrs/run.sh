@@ -3,6 +3,8 @@
 set -eu
 
 ITEM_ID=org-sample-entity-item-$(date +%Y%m%d%H%M%S)-gamma111
+SERVER_PORT="$(tr -d '[:space:]' < ../../versions/cncf-server-port.conf)"
+SERVER_BASEURL="http://127.0.0.1:${SERVER_PORT}"
 server_log="$(mktemp)"
 server_pid=""
 
@@ -29,7 +31,7 @@ bash ../../bin/cncf --discover=classes server >"$server_log" 2>&1 &
 server_pid=$!
 
 for _ in $(seq 1 30); do
-  if curl -sS http://127.0.0.1:8080/ >/dev/null 2>&1; then
+  if curl -sS "$SERVER_BASEURL/" >/dev/null 2>&1; then
     break
   fi
   if ! kill -0 "$server_pid" >/dev/null 2>&1; then
