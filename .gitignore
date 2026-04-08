@@ -17,6 +17,9 @@ server.log
 .cache
 maven-local
 .sbt
+*.d
+*.car
+*.sar
 
 ### Metals (VS Code Scala extension) ###
 .metals/
