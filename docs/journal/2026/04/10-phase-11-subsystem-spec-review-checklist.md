@@ -7,11 +7,12 @@ Fix the formal specification of phase `11-*` by comparing the original intent of
 ## Review Scope
 
 - `11-subsystem`
-- `11.a-subsystem-bundled-component-lab`
-- `11.b-subsystem-mixed-component-lab`
-- `11.c-implicit-subsystem-lab`
-- `11.d-sar-dir-lab`
-- `11.e-subsystem-parameter-lab`
+- `11.a-multi-component-subsystem-lab`
+- `11.b-subsystem-bundled-component-lab`
+- `11.c-subsystem-mixed-component-lab`
+- `11.d-implicit-subsystem-lab`
+- `11.e-sar-dir-lab`
+- `11.f-subsystem-parameter-lab`
 
 ## Questions To Settle
 
@@ -43,7 +44,7 @@ Fix the formal specification of phase `11-*` by comparing the original intent of
   - [x] that multi-component sample is limited to independently hosted components and does not introduce inter-component wiring
   - [x] bundled and mixed packaging samples are positioned as secondary variants after the multi-component line
   - [x] the intended mixed specification is written down
-  - [ ] the gap between the intended mixed specification and the current implementation is explicitly recorded
+  - [x] the intended mixed specification now has a runnable sample implementation
 - [x] What is the official operation output contract rule?
   - [x] operation output contracts are required
   - [x] missing output contracts are treated as errors rather than as `unknown`
@@ -52,15 +53,15 @@ Fix the formal specification of phase `11-*` by comparing the original intent of
 
 ## Documentation Alignment
 
-- [ ] sample READMEs are aligned to the decided formal specification
-- [ ] phase checklists use `11-*` names rather than old `09-*` labels
+- [x] sample READMEs are aligned to the decided formal specification
+- [x] phase checklists use `11-*` names rather than old `09-*` labels
+- [x] outdated sample paths are removed from `11.f-subsystem-parameter-lab`
+- [x] the bundled sample no longer has an unresolved naming mismatch in the runnable walkthrough
 - [ ] journal implementation records describe the same baseline/variant split
-- [ ] outdated sample paths are removed from `11.e-subsystem-parameter-lab`
-- [ ] the current bundled sample's remaining naming mismatch is recorded as an implementation gap rather than left ambiguous in the docs
 
 ## Exit Criteria
 
-- [ ] the phase 11 baseline is unambiguous
-- [ ] each lab has a single clear role relative to the baseline
-- [ ] implementation gaps are separated from specification decisions
-- [ ] the next implementation task for phase 11 is explicit
+- [x] the phase 11 baseline is unambiguous
+- [x] each lab has a single clear role relative to the baseline
+- [x] implementation gaps are separated from specification decisions
+- [x] the next implementation task for phase 11 is explicit
