@@ -24,13 +24,18 @@ Use this lab when you want to learn the next formal subsystem step after the sin
 
 ## Current Status
 
-This lab is not implemented yet.
+This lab demonstrates the independent multi-component subsystem shape.
 
-The role of this lab has been fixed, but the sample implementation has not yet been created.
+The current runtime line is:
+
+- `component.d/testsubsystemmulti.sar`
+- `component.d/alphacomp.car`
+- `component.d/betacomp.car`
+- `--textus.runtime.subsystem=testsubsystemmulti`
 
 ## What This Lab Needs
 
-To make this lab runnable, the sample should provide:
+This sample provides:
 
 - one explicit subsystem descriptor
 - multiple independently hosted component artifacts
@@ -40,7 +45,11 @@ To make this lab runnable, the sample should provide:
 ## Files
 
 - `run.sh`
-  - currently reports the implementation gap explicitly
+  - generates the component CARs and subsystem SAR, then runs the walkthrough
+- `src/main/scala/alpha/`
+  - the `alphacomp` implementation
+- `src/main/scala/beta/`
+  - the `betacomp` implementation
 
 ## Setup
 
@@ -50,7 +59,7 @@ To make this lab runnable, the sample should provide:
 bash ../../bin/setup
 ```
 
-### Build the lab skeleton
+### Build the lab
 
 ```bash
 sbt --batch compile
@@ -58,7 +67,7 @@ sbt --batch compile
 
 ## Run The Whole Scenario
 
-This lab is a placeholder for the future independent multi-component subsystem line.
+This lab runs the full independent multi-component subsystem walkthrough in one shot.
 
 ```bash
 bash run.sh
@@ -67,7 +76,58 @@ bash run.sh
 Expected result:
 
 ```text
-11.a-multi-component-subsystem-lab is not runnable yet.
-This lab is reserved for the independent multi-component subsystem baseline extension.
-Inter-component wiring belongs to 12-subsystem-wiring.
+Hello from alphacomp in testsubsystemmulti
+Hello from betacomp in testsubsystemmulti
 ```
+
+## What This Sample Generates
+
+`run.sh` builds the sample classes and then generates:
+
+- `alphacomp.car`
+- `betacomp.car`
+- `testsubsystemmulti.sar`
+
+These are execution artifacts only.
+They are created in a temporary working directory and are not committed inputs.
+
+## Command Walkthrough
+
+The commands below use the standard CNCF CLI entry point.
+The common parameters are:
+
+- `command`
+  - uses ordinary one-shot CNCF command execution for this sample
+- `--no-default-components`
+  - prevents duplicate loading from the default runtime search path
+- `--component-repository=component-dir:<temporary-component-dir>`
+  - points the runtime at the generated component and subsystem artifacts
+- `--textus.runtime.subsystem=testsubsystemmulti`
+  - selects the multi-component subsystem
+
+### 1. Inspect subsystem help
+
+This confirms that one subsystem now exposes both component surfaces.
+
+### 2. Inspect the components
+
+This sample inspects:
+
+- `alphacomp`
+- `betacomp`
+
+independently, while both remain hosted under the same subsystem.
+
+### 3. Inspect operation help
+
+This sample inspects:
+
+- `alphacomp.main.hello`
+- `betacomp.main.hello`
+
+to show that no extra wiring is required for the components to coexist.
+
+### 4. Execute the operations
+
+This sample executes both operations separately.
+The result should show that both components are reachable inside one explicit subsystem while remaining independent.
