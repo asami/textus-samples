@@ -26,16 +26,16 @@ Use this sample when you want to understand:
 
 ## Setup
 
-### Prepare the cozy command
+### Prepare repository tools
 
 ```bash
-../../bin/setup cozy
+bash ../../bin/setup
 ```
 
 ### Build the sample
 
 ```bash
-sbt --batch clean compile
+sbt --batch compile
 ```
 
 ## Run The Whole Scenario

@@ -1,29 +1,67 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+BASELINE_DIR="$(cd "$SCRIPT_DIR/../11-subsystem" && pwd)"
+WORK_DIR="${TMPDIR:-/tmp}/11-b-bundled-subsystem"
+CAR_DIR="$WORK_DIR/base.car.d"
+SAR_DIR="$WORK_DIR/explicit-subsystem.sar.d"
+CAR_FILE="$WORK_DIR/base.car"
+SAR_FILE="$SCRIPT_DIR/component.d/explicit-subsystem.sar"
+COMPONENT_BINARY="$BASELINE_DIR/target/scala-3.3.7/cncf-samples-09-subsystem_3-0.1.0-SNAPSHOT.jar"
+
+mkdir -p "$SCRIPT_DIR/component.d"
+rm -rf "$CAR_DIR" "$SAR_DIR"
+mkdir -p "$CAR_DIR/component" "$CAR_DIR/meta" "$SAR_DIR/component" "$SAR_DIR/meta"
+
+(cd "$BASELINE_DIR" && sbt --batch compile packageBin >/dev/null)
+
+cp "$COMPONENT_BINARY" "$CAR_DIR/component/main.jar"
+cat > "$CAR_DIR/meta/manifest.json" <<'EOF'
+{
+  "name": "testcomp",
+  "version": "0.1.0",
+  "component": "testcomp",
+  "subsystem": "testsubsystem"
+}
+EOF
+
+(cd "$CAR_DIR" && zip -qr "$CAR_FILE" component meta)
+
+cp "$CAR_FILE" "$SAR_DIR/component/base.car"
+cat > "$SAR_DIR/meta/manifest.json" <<'EOF'
+{
+  "name": "explicit-subsystem",
+  "version": "0.1.0",
+  "subsystem": "testsubsystem"
+}
+EOF
+
+(cd "$SAR_DIR" && zip -qr "$SAR_FILE" component meta)
+
 echo "--- subsystem help"
 bash ../../bin/cncf \
   command meta.help --format yaml \
   --no-default-components \
-  --textus.runtime.subsystem=subsystem
+  --textus.runtime.subsystem=testsubsystem
 
 echo
 echo "--- component help"
 bash ../../bin/cncf \
-  command meta.help subsystem --format yaml \
+  command meta.help testcomp --format yaml \
   --no-default-components \
-  --textus.runtime.subsystem=subsystem
+  --textus.runtime.subsystem=testsubsystem
 
 echo
 echo "--- operation help"
 bash ../../bin/cncf \
-  command help subsystem.main.hello \
+  command help testcomp.main.hello \
   --no-default-components \
-  --textus.runtime.subsystem=subsystem
+  --textus.runtime.subsystem=testsubsystem
 
 echo
 echo "--- execute"
 bash ../../bin/cncf \
-  command subsystem.main.hello \
+  command testcomp.main.hello \
   --no-default-components \
-  --textus.runtime.subsystem=subsystem
+  --textus.runtime.subsystem=testsubsystem

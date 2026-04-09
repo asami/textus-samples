@@ -42,10 +42,10 @@ sbt --batch compile
 This lab reuses:
 
 - `../11-subsystem/subsystem.cml`
-- `../11-subsystem/component.d`
+- the component implementation built in `../11-subsystem`
 
 The descriptor comes from `11-subsystem`.
-The component artifact is resolved from the neighboring baseline subsystem sample.
+`run.sh` creates a temporary `component.d/testcomp.car` from the neighboring baseline component jar before starting the walkthrough.
 
 ## Run The Whole Scenario
 
@@ -72,20 +72,20 @@ The common parameters are:
   - uses ordinary one-shot CNCF command execution for this lab
 - `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - points the runtime at the subsystem descriptor file directly
-- `--component-repository=component-dir:../11-subsystem/component.d`
-  - points the runtime at the component implementation repository
+- `--component-repository=component-dir:<temporary-component-dir>`
+  - points the runtime at the temporary component repository generated from the baseline component jar
+
+The supported path in this lab is `bash run.sh`, because the batch runner prepares the temporary `component.d` automatically.
 
 ### 1. Inspect subsystem help
 
-```bash
-bash ../../bin/cncf command meta.help --format yaml --textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml --component-repository=component-dir:../11-subsystem/component.d
-```
+`run.sh` executes the equivalent command after preparing the temporary component repository.
 
 Parameters:
 - `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - selects the subsystem descriptor directly
-- `--component-repository=component-dir:../11-subsystem/component.d`
-  - selects the repository that contains the component implementation
+- `--component-repository=component-dir:<temporary-component-dir>`
+  - selects the repository that contains the generated component artifact
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
 - `meta.help`
@@ -95,15 +95,13 @@ Parameters:
 
 ### 2. Inspect the component
 
-```bash
-bash ../../bin/cncf command meta.help testcomp --format yaml --textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml --component-repository=component-dir:../11-subsystem/component.d
-```
+`run.sh` executes the equivalent command after preparing the temporary component repository.
 
 Parameters:
 - `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - selects the subsystem descriptor directly
-- `--component-repository=component-dir:../11-subsystem/component.d`
-  - selects the repository that contains the component implementation
+- `--component-repository=component-dir:<temporary-component-dir>`
+  - selects the repository that contains the generated component artifact
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
 - `meta.help`
@@ -115,15 +113,13 @@ Parameters:
 
 ### 3. Inspect operation help
 
-```bash
-bash ../../bin/cncf command help testcomp.main.hello --textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml --component-repository=component-dir:../11-subsystem/component.d
-```
+`run.sh` executes the equivalent command after preparing the temporary component repository.
 
 Parameters:
 - `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - selects the subsystem descriptor directly
-- `--component-repository=component-dir:../11-subsystem/component.d`
-  - selects the repository that contains the component implementation
+- `--component-repository=component-dir:<temporary-component-dir>`
+  - selects the repository that contains the generated component artifact
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
 - `help`
@@ -133,15 +129,13 @@ Parameters:
 
 ### 4. Execute the operation
 
-```bash
-bash ../../bin/cncf command testcomp.main.hello --textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml --component-repository=component-dir:../11-subsystem/component.d
-```
+`run.sh` executes the equivalent command after preparing the temporary component repository.
 
 Parameters:
 - `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - selects the subsystem descriptor directly
-- `--component-repository=component-dir:../11-subsystem/component.d`
-  - selects the repository that contains the component implementation
+- `--component-repository=component-dir:<temporary-component-dir>`
+  - selects the repository that contains the generated component artifact
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
 - `testcomp.main.hello`

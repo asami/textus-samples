@@ -3,12 +3,13 @@
 ## Overview
 
 This lab is the intended mixed explicit subsystem example.
-It will demonstrate a subsystem that wires:
+It will demonstrate a subsystem that hosts multiple components whose sources are mixed:
 
 - generally distributed components
 - bundled components shipped inside the SAR
 
 in the same subsystem.
+Inter-component wiring belongs to phase 12 and is intentionally out of scope here.
 
 ## Intended Use Case
 
@@ -17,34 +18,31 @@ Use this lab when you want to learn the mixed deployment form:
 - some components remain generic reusable artifacts
 - some components are bundled for subsystem-local behavior
 - the subsystem distributes a precise composition rather than a single isolated component
+- the components can coexist without introducing phase 12 wiring yet
 
 ## Current Status
 
 This lab is not runnable yet.
 
-The current explicit subsystem descriptor line supports only a single component entry:
+The intended phase 11 spec is:
 
-- one `component`
-- one `coordinate`
+- one subsystem can host multiple components
+- component sources may be mixed
+  - generic reusable component artifacts
+  - subsystem-bundled component artifacts
+- the phase 11 mixed sample stops at coexistence
+  - it does not yet introduce inter-component wiring
 
-That is enough for:
-
-- `11-subsystem`
-  - formal subsystem entry point
-- `11.b-subsystem-bundled-component-lab`
-  - bundled component subsystem
-- `11.f-subsystem-parameter-lab`
-  - descriptor-direct startup
-
-But it is not enough for a true mixed explicit subsystem.
+The remaining gap is implementation support for this multi-component mixed subsystem shape.
 
 ## What This Lab Needs
 
-To make this lab runnable, CNCF needs:
+To make this lab runnable, CNCF still needs:
 
 - a subsystem descriptor that can describe multiple component bindings
 - factory/bootstrap support that resolves both bundled and generic components into one subsystem
 - a sample SAR layout that shows which components are bundled and which remain external
+- a runnable sample that keeps the components independent, leaving wiring to phase 12
 
 ## Files
 
@@ -53,16 +51,16 @@ To make this lab runnable, CNCF needs:
 
 ## Setup
 
-### Prepare the cozy command
+### Prepare repository tools
 
 ```bash
-../../bin/setup cozy
+bash ../../bin/setup
 ```
 
 ### Build the lab skeleton
 
 ```bash
-sbt --batch clean compile
+sbt --batch compile
 ```
 
 ## Run The Whole Scenario

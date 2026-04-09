@@ -33,16 +33,16 @@ This lab shows:
 
 ## Setup
 
-### Prepare the cozy command
+### Prepare repository tools
 
 ```bash
-../../bin/setup cozy
+bash ../../bin/setup
 ```
 
 ### Build the lab
 
 ```bash
-sbt --batch clean compile
+sbt --batch compile
 ```
 
 ### Prepare the expanded SAR directory
@@ -56,6 +56,7 @@ sar.d
 ```
 
 This is the development/test interpretation of an unpacked subsystem artifact.
+In this repository, `run.sh` generates `base.car` from the neighboring `11-subsystem` sample before running the walkthrough.
 
 For convenience, the repository code can also scan nested expanded forms such as:
 
@@ -77,7 +78,7 @@ It will:
 - inspect subsystem help
 - inspect component help
 - inspect operation help
-- execute `subsystem.main.hello`
+- execute `testcomp.main.hello`
 
 ```bash
 bash run.sh
@@ -116,7 +117,7 @@ Parameters:
 ### 2. Inspect the component
 
 ```bash
-bash ../../bin/cncf --no-default-components command meta.help subsystem --format yaml --cncf.config.file=subsystem-sar-dir.conf
+bash ../../bin/cncf --no-default-components command meta.help testcomp --format yaml --cncf.config.file=subsystem-sar-dir.conf
 ```
 
 Parameters:
@@ -126,7 +127,7 @@ Parameters:
   - uses ordinary one-shot CNCF command execution for this step
 - `meta.help`
   - selects structured introspection
-- `subsystem`
+- `testcomp`
   - identifies the component surface loaded from the expanded `sar.d`
 - `--format yaml`
   - renders the result in YAML
@@ -136,7 +137,7 @@ Parameters:
 ### 3. Inspect operation help
 
 ```bash
-bash ../../bin/cncf --no-default-components command help subsystem.main.hello --cncf.config.file=subsystem-sar-dir.conf
+bash ../../bin/cncf --no-default-components command help testcomp.main.hello --cncf.config.file=subsystem-sar-dir.conf
 ```
 
 Parameters:
@@ -146,7 +147,7 @@ Parameters:
   - uses ordinary one-shot CNCF command execution for this step
 - `help`
   - selects the CLI-oriented help entry point
-- `subsystem.main.hello`
+- `testcomp.main.hello`
   - identifies the operation path exposed by the expanded `sar.d`
 - `--cncf.config.file=subsystem-sar-dir.conf`
   - loads the subsystem name and expanded `sar.d` repository path for this lab
@@ -154,7 +155,7 @@ Parameters:
 ### 4. Execute the operation
 
 ```bash
-bash ../../bin/cncf --no-default-components command subsystem.main.hello --cncf.config.file=subsystem-sar-dir.conf
+bash ../../bin/cncf --no-default-components command testcomp.main.hello --cncf.config.file=subsystem-sar-dir.conf
 ```
 
 Parameters:
@@ -162,7 +163,7 @@ Parameters:
   - prevents duplicate loading from the default runtime path
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
-- `subsystem.main.hello`
+- `testcomp.main.hello`
   - selects the operation path exposed by the expanded `sar.d`
 - `--cncf.config.file=subsystem-sar-dir.conf`
   - loads the subsystem name and expanded `sar.d` repository path for this lab
@@ -170,5 +171,5 @@ Parameters:
 Expected result:
 
 ```text
-Hello from the minimum subsystem
+Hello from testcomp in testsubsystem
 ```
