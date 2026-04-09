@@ -12,6 +12,7 @@ COMPONENT_BINARY="$BASELINE_DIR/target/scala-3.3.7/cncf-samples-09-subsystem_3-0
 
 mkdir -p "$SCRIPT_DIR/component.d"
 rm -rf "$CAR_DIR" "$SAR_DIR"
+rm -f "$SCRIPT_DIR/component.d/base.car" "$SCRIPT_DIR/component.d/explicit-subsystem.sar"
 mkdir -p "$CAR_DIR/component" "$CAR_DIR/meta" "$SAR_DIR/component" "$SAR_DIR/meta"
 
 (cd "$BASELINE_DIR" && sbt --batch compile packageBin >/dev/null)

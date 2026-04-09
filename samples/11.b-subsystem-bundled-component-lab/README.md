@@ -31,16 +31,20 @@ Use this lab when you want to see the closed distribution form:
 
 ## Current Status
 
-This lab is not runnable yet.
+This lab is runnable.
 
-The intended runtime line is:
+The runtime line is:
 
 - `component.d/explicit-subsystem.sar`
 - `--textus.runtime.subsystem=testsubsystem`
 
-The sample-side naming and packaging conventions have been aligned with `11-subsystem`.
-However, the current runtime still resolves the bundled component ambiguously when the SAR is loaded.
-This is an implementation gap, not a phase 11 spec gap.
+The important detail is that `component.d` must contain only the bundled SAR for this walkthrough.
+If a standalone `base.car` is left in the same directory, the same `testcomp` component is loaded twice:
+
+- once directly from `base.car`
+- once from the bundled `explicit-subsystem.sar`
+
+`run.sh` now removes those generated leftovers before recreating the SAR.
 
 ## Files
 
@@ -78,7 +82,7 @@ They are recreated by `run.sh`.
 
 ## Run The Whole Scenario
 
-This command currently demonstrates the unresolved bundled subsystem runtime gap.
+This command rebuilds the bundled SAR and runs the walkthrough.
 
 ```bash
 bash run.sh
@@ -86,7 +90,7 @@ bash run.sh
 
 Expected result:
 
-```text
-11.b-subsystem-bundled-component-lab is not runnable yet.
-Current bundled subsystem loading resolves testcomp ambiguously from the SAR runtime path.
+```yaml
+name: testsubsystem
+...
 ```

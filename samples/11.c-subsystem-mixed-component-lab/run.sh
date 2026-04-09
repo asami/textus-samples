@@ -1,7 +1,83 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "11.c-subsystem-mixed-component-lab is not runnable yet." >&2
-echo "Current GenericSubsystemDescriptor supports only one component entry." >&2
-echo "Mixed explicit subsystems require descriptor and factory support for multiple component bindings." >&2
-exit 1
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+WORK_DIR="$(mktemp -d)"
+trap 'rm -rf "$WORK_DIR"' EXIT
+
+sbt --batch compile >/dev/null
+
+CLASS_DIR="target/scala-3.3.7/classes"
+if [[ ! -d "$CLASS_DIR/genericcomp" || ! -d "$CLASS_DIR/bundledcomp" ]]; then
+  echo "Compiled component classes not found." >&2
+  exit 1
+fi
+
+mkdir -p "$WORK_DIR/component.d"
+
+(cd "$CLASS_DIR" && zip -qr "$WORK_DIR/genericcomp.jar" genericcomp)
+(cd "$CLASS_DIR" && zip -qr "$WORK_DIR/bundledcomp.jar" bundledcomp)
+
+create_car() {
+  local component_name="$1"
+  local component_jar="$2"
+  local target_car="$3"
+  local subsystem_name="$4"
+  local car_work="$WORK_DIR/${component_name}.car.d"
+  mkdir -p "$car_work/component" "$car_work/meta"
+  cp "$component_jar" "$car_work/component/main.jar"
+  cat > "$car_work/meta/manifest.json" <<EOF
+{"name":"${component_name}","version":"0.1.0","component":"${component_name}","subsystem":"${subsystem_name}"}
+EOF
+  (cd "$car_work" && zip -qr "$target_car" component meta)
+}
+
+create_car "genericcomp" "$WORK_DIR/genericcomp.jar" "$WORK_DIR/component.d/genericcomp.car" "testsubsystemmixed"
+create_car "bundledcomp" "$WORK_DIR/bundledcomp.jar" "$WORK_DIR/bundledcomp.car" "testsubsystemmixed"
+
+SAR_WORK="$WORK_DIR/testsubsystemmixed.sar.d"
+mkdir -p "$SAR_WORK/component"
+cat > "$SAR_WORK/subsystem-descriptor.yaml" <<'EOF'
+subsystem: testsubsystemmixed
+version: 0.1.0
+components:
+  - component: genericcomp
+    coordinate: org.simplemodeling.car:genericcomp:0.1.0
+  - component: bundledcomp
+    coordinate: org.simplemodeling.car:bundledcomp:0.1.0
+EOF
+cp "$WORK_DIR/bundledcomp.car" "$SAR_WORK/component/bundledcomp.car"
+(cd "$SAR_WORK" && zip -qr "$WORK_DIR/component.d/testsubsystemmixed.sar" subsystem-descriptor.yaml component)
+
+COMMON_ARGS=(
+  --no-default-components
+  --component-repository="component-dir:$WORK_DIR/component.d"
+  --textus.runtime.subsystem=testsubsystemmixed
+)
+
+echo "--- subsystem help"
+bash ../../bin/cncf command meta.help --format yaml "${COMMON_ARGS[@]}"
+
+echo
+echo "--- generic component help"
+bash ../../bin/cncf command meta.help genericcomp --format yaml "${COMMON_ARGS[@]}"
+
+echo
+echo "--- bundled component help"
+bash ../../bin/cncf command meta.help bundledcomp --format yaml "${COMMON_ARGS[@]}"
+
+echo
+echo "--- generic operation help"
+bash ../../bin/cncf command help genericcomp.main.hello "${COMMON_ARGS[@]}"
+
+echo
+echo "--- bundled operation help"
+bash ../../bin/cncf command help bundledcomp.main.hello "${COMMON_ARGS[@]}"
+
+echo
+echo "--- execute generic"
+bash ../../bin/cncf command genericcomp.main.hello "${COMMON_ARGS[@]}"
+
+echo
+echo "--- execute bundled"
+bash ../../bin/cncf command bundledcomp.main.hello "${COMMON_ARGS[@]}"

@@ -22,32 +22,40 @@ Use this lab when you want to learn the mixed deployment form:
 
 ## Current Status
 
-This lab is not runnable yet.
+This lab is runnable.
 
-The intended phase 11 spec is:
+The phase 11 mixed spec shown here is:
 
-- one subsystem can host multiple components
-- component sources may be mixed
-  - generic reusable component artifacts
-  - subsystem-bundled component artifacts
-- the phase 11 mixed sample stops at coexistence
-  - it does not yet introduce inter-component wiring
+- one subsystem hosts multiple components
+- component sources are mixed
+  - one standalone generic component artifact
+  - one subsystem-bundled component artifact
+- the components coexist without inter-component wiring
 
-The remaining gap is implementation support for this multi-component mixed subsystem shape.
+## Composition
 
-## What This Lab Needs
+This lab assembles:
 
-To make this lab runnable, CNCF still needs:
+- `genericcomp.car`
+  - placed as a standalone reusable component artifact
+- `testsubsystemmixed.sar`
+  - contains `bundledcomp.car`
+  - also carries the subsystem descriptor listing both components
 
-- a subsystem descriptor that can describe multiple component bindings
-- factory/bootstrap support that resolves both bundled and generic components into one subsystem
-- a sample SAR layout that shows which components are bundled and which remain external
-- a runnable sample that keeps the components independent, leaving wiring to phase 12
+The result is one subsystem where:
+
+- `genericcomp` is external
+- `bundledcomp` is local to the SAR
+- both are resolved into the same subsystem
 
 ## Files
 
 - `run.sh`
-  - currently reports the framework gap explicitly
+  - builds the mixed standalone-plus-bundled walkthrough
+- `src/main/scala/genericcomp/GenericcompComponent.scala`
+  - standalone generic component
+- `src/main/scala/bundledcomp/BundledcompComponent.scala`
+  - bundled subsystem-local component
 
 ## Setup
 
@@ -57,7 +65,7 @@ To make this lab runnable, CNCF still needs:
 bash ../../bin/setup
 ```
 
-### Build the lab skeleton
+### Build the sample
 
 ```bash
 sbt --batch compile
@@ -65,7 +73,7 @@ sbt --batch compile
 
 ## Run The Whole Scenario
 
-This lab is a placeholder for the future mixed explicit subsystem line.
+This command builds both component artifacts and runs the mixed subsystem walkthrough.
 
 ```bash
 bash run.sh
@@ -74,7 +82,97 @@ bash run.sh
 Expected result:
 
 ```text
-11.c-subsystem-mixed-component-lab is not runnable yet.
-Current GenericSubsystemDescriptor supports only one component entry.
-Mixed explicit subsystems require descriptor and factory support for multiple component bindings.
+Hello from genericcomp in testsubsystemmixed
+Hello from bundledcomp in testsubsystemmixed
 ```
+
+## What This Sample Generates
+
+`run.sh` builds the sample classes and then generates:
+
+- `genericcomp.car`
+- `bundledcomp.car`
+- `testsubsystemmixed.sar`
+
+These are execution artifacts only.
+They are created in a temporary working directory and are not committed inputs.
+
+The mixed shape is:
+
+- `genericcomp.car`
+  - placed directly in the component repository
+- `testsubsystemmixed.sar`
+  - selected as the subsystem artifact
+  - contains `bundledcomp.car`
+  - carries the subsystem descriptor listing both components
+
+## Command Walkthrough
+
+The commands below use the standard CNCF CLI entry point.
+The common parameters are:
+
+- `command`
+  - uses ordinary one-shot CNCF command execution for this sample
+- `--no-default-components`
+  - prevents duplicate loading from the default runtime search path
+- `--component-repository=component-dir:<temporary-component-dir>`
+  - points the runtime at the generated standalone `CAR` and selected `SAR`
+- `--textus.runtime.subsystem=testsubsystemmixed`
+  - selects the mixed subsystem
+
+### 1. Inspect subsystem help
+
+This confirms that one subsystem now exposes:
+
+- builtin components
+- the standalone `genericcomp`
+- the bundled `bundledcomp`
+
+at the same time.
+
+### 2. Inspect each component
+
+This sample inspects:
+
+- `genericcomp`
+- `bundledcomp`
+
+to show that the runtime keeps their origins distinct:
+
+- `genericcomp`
+  - `component-dir:car:genericcomp:0.1.0`
+- `bundledcomp`
+  - `component-dir:sar:testsubsystemmixed:0.1.0:car:bundledcomp:0.1.0`
+
+### 3. Inspect operation help
+
+This sample inspects:
+
+- `genericcomp.main.hello`
+- `bundledcomp.main.hello`
+
+to confirm that both operations are independently available inside the same subsystem.
+
+### 4. Execute the operations
+
+This sample executes both operations separately.
+The result should show that one subsystem can host:
+
+- a reusable standalone component
+- a subsystem-bundled component
+
+without requiring phase 12 wiring.
+
+## Assembly Observability
+
+This sample also provides a concrete example for the assembly warning model.
+If the component repository accidentally contains another `bundledcomp.car` or `genericcomp.car`
+with the same component name, the runtime records an assembly warning instead of silently hiding the collision.
+
+That warning can be inspected through:
+
+```bash
+bash ../../bin/cncf command admin.assembly.warnings --format yaml --no-default-components --component-repository=component-dir:<temporary-component-dir> --textus.runtime.subsystem=testsubsystemmixed
+```
+
+In the normal walkthrough, no warning should be present.
