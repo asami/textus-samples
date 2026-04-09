@@ -145,24 +145,32 @@ The sample currently uses subsystem descriptor `wiring` metadata as input for th
 - `admin.assembly.warnings` exists
 - `admin.assembly.report` has been added
 - phase 12 sample can retrieve the assembly report from the admin surface
-
-### Current Gap
-
-The current runtime still does not expose subsystem `wiring` correctly in the assembly report.
-
-Observed state:
-
-- `admin.assembly.report` returns:
-  - subsystem
+- `admin.assembly.report` now returns:
+  - `ports`
+  - raw `wiring`
+  - resolved `wiring_bindings`
   - loaded components
   - warnings
-- but it does not yet include the expected `wiring` content
+- resolved wiring now supports:
+  - `api`
+  - `spi`
+  - `glue`
+  metadata in the reported binding result
+- caller result can return:
+  - delegated result
+  - `ports`
+  - `wiring`
+  - `wiring_bindings`
+  - `calltree` when `--calltree` is enabled
 
-As a result:
+### Current Remaining Gap
 
-- the sample itself is runnable
-- delegated execution succeeds
-- but the intended wiring result is not yet fully visible from the admin assembly surface
+The runtime now exposes the resolved assembly result, but `glue` is still metadata only.
+
+That means:
+
+- `glue` is preserved and observable
+- but it does not yet execute request / response adaptation logic
 
 ## Temporary Sample Technique
 
@@ -177,12 +185,13 @@ This is a temporary bridge, not the intended final runtime design.
 
 The next runtime task is:
 
-- make subsystem descriptor wiring appear correctly in `admin.assembly.report`
+- give `glue` runtime meaning beyond metadata retention
 
 After that, the next larger step is:
 
-- formalize runtime wiring through port-based `api` / `spi` binding
+- formalize convention-based completion of unspecified wiring
 - allow convention-based completion of unspecified wiring
+- evolve from direct delegated sample logic toward more general runtime mediation
 
 ## Expected Future Shape
 
@@ -192,8 +201,9 @@ The intended future phase 12 runtime shape is:
 2. subsystem descriptor and component metadata provide `api` / `spi` ports
 3. runtime completes missing parts by convention
 4. runtime resolves port-level `api` / `spi` bindings
-4. runtime records the resolved assembly result
-5. `admin.assembly.*` exposes that result for CLI, admin, and dashboard use
+5. runtime records the resolved assembly result
+6. `admin.assembly.*` exposes that result for CLI, admin, and dashboard use
+7. optional `glue` participates in request / response adaptation, not only observability
 
 ## Suggested Descriptor Shape
 

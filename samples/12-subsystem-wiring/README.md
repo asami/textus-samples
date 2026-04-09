@@ -99,7 +99,6 @@ ports:
       - name: hello-provider
         service: main
         operation: hello
-wiring:
 wiring_bindings:
   - from:
       component: callercomp

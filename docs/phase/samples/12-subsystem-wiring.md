@@ -16,6 +16,7 @@ Stage Status:
 - Component composition
 - Descriptor-guided delegated call
 - Port and wiring result retrieval through `admin.assembly.report`
+- Glue metadata carried through resolved wiring bindings
 
 ## Step
 
@@ -26,6 +27,7 @@ Stage Status:
 - [x] A subsystem structure with two components is implemented
 - [x] The wiring between the two components is explicitly implemented and verified
 - [x] Declared `api` / `spi` ports are visible in the sample result and admin assembly report
+- [x] Declared `glue` metadata is visible in raw wiring and resolved wiring bindings
 - [x] The subsystem assembly approach is explained in the README
 - [x] The wiring result can be retrieved from the admin assembly surface
 - [ ] If needed, `docker/` is updated to executable contents
