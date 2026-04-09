@@ -111,6 +111,9 @@ wiring_bindings:
       spi: hello-provider
       service: main
       operation: hello
+    glue:
+      request/mode: passthrough
+      response/mode: passthrough
     mode: api-spi-routing
 wiring:
   callercomp:
@@ -119,6 +122,9 @@ wiring:
         api: hello-target
         target_component: calleecomp
         target_spi: hello-provider
+        glue:
+          request/mode: passthrough
+          response/mode: passthrough
 calltree: ...
 ```
 
@@ -153,9 +159,12 @@ wiring:
   callercomp:
     main:
       hello:
+        api: hello-target
         target_component: calleecomp
-        target_service: main
-        target_operation: hello
+        target_spi: hello-provider
+        glue:
+          request/mode: passthrough
+          response/mode: passthrough
 ```
 
 The current runtime still uses direct delegated routing in the caller implementation.
@@ -167,6 +176,8 @@ However, the descriptor now records the intended abstraction level more clearly:
   - callee-side provided port
 - `wiring`
   - the current route that binds the caller-side operation and `api` to the callee-side `spi`
+- `glue`
+  - optional adapter metadata between `api` and `spi`
 
 `admin.assembly.report` and the caller result both project:
 
@@ -179,6 +190,7 @@ The runtime currently resolves:
 - caller operation -> caller `api`
 - target component + target `spi`
 - callee `spi` -> concrete service / operation
+- optional `glue` metadata is carried into the resolved binding result
 
 This keeps the phase 12 walkthrough concrete while moving the sample closer to the intended port-based runtime model.
 
@@ -199,6 +211,7 @@ The report currently includes:
   - the descriptor-provided wiring block
 - `wiring_bindings`
   - the resolved `api -> spi -> operation` binding
+  - includes `glue` when the descriptor specifies it
 - `components`
   - the loaded component names and origins
 - `warnings`

@@ -59,6 +59,9 @@ wiring:
         api: hello-target
         target_component: calleecomp
         target_spi: hello-provider
+        glue:
+          request/mode: passthrough
+          response/mode: passthrough
 EOF
 (cd "$SAR_WORK" && zip -qr "$WORK_DIR/component.d/testsubsystemwiring.sar" subsystem-descriptor.yaml)
 
