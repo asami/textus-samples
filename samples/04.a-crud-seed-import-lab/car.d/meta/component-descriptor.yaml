@@ -1,9 +1,0 @@
-component: Crud
-entity: item
-collectionMajor: major
-collectionMinor: minor
-collectionName: item
-memoryPolicy: LoadToMemory
-partitionStrategy: byOrganizationMonthUTC
-maxPartitions: 64
-maxEntitiesPerPartition: 10000
