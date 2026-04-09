@@ -1,11 +1,11 @@
-# 09-subsystem
+# 11-subsystem
 
 ## Overview
 
 This sample is the baseline formal subsystem line.
 It shows the case where the runtime starts a subsystem explicitly by subsystem name, while the component artifact itself is distributed separately as a reusable generic component.
 
-In the `09` line, the forms are split like this:
+In the `11` line, the forms are split like this:
 
 - `11-subsystem`
   - formal subsystem
@@ -34,38 +34,38 @@ Use this sample when you want to learn the baseline explicit subsystem form:
 
 This sample shows:
 
-- a generic component artifact in `component.d/testcomp.car`
 - startup by `--textus.runtime.subsystem=testsubsystem`
+- a generic component artifact generated from the sample build output
 - the distinction between subsystem name `testsubsystem` and component name `testcomp`
 
 ## Files
 
-- `component.d/testcomp.car`
-  - the generic component artifact
+- `component.d/`
+  - the location where the generated generic component artifact is placed for execution
 - `car.d/testcomp/`
   - the expanded CAR directory used for development and inspection
 - `subsystem.cml`
-  - the subsystem descriptor used by `09.e`
+  - the subsystem descriptor used by `11.e`
 - `run.sh`
   - convenience batch runner
 
 ## Setup
 
-### Prepare the cozy command
+### Prepare repository tools
 
 ```bash
-../../bin/setup cozy
+bash ../../bin/setup
 ```
 
 ### Build the sample
 
 ```bash
-sbt --batch clean compile packageBin
+sbt --batch compile packageBin
 ```
 
 ### Prepare the generic component CAR
 
-The reusable component artifact in this sample is a CAR:
+The reusable component artifact in this sample is a generated CAR:
 
 ```text
 testcomp.car
@@ -92,7 +92,7 @@ The manifest in this sample is:
 Build the component jar:
 
 ```bash
-COMPONENT_BINARY=target/scala-3.3.7/cncf-samples-09-subsystem_3-0.1.0-SNAPSHOT.jar
+COMPONENT_BINARY=target/scala-3.3.7/cncf-samples-11-subsystem_3-0.1.0-SNAPSHOT.jar
 ```
 
 Prepare the CAR work directory:
@@ -116,6 +116,7 @@ Create `testcomp.car`:
 ```bash
 cd /tmp/testcomp.car.d
 zip -qr /tmp/testcomp.car component meta
+mkdir -p component.d
 cp /tmp/testcomp.car component.d/testcomp.car
 ```
 
@@ -127,6 +128,10 @@ mkdir -p car.d/testcomp
 cd car.d/testcomp
 unzip -q ../../component.d/testcomp.car
 ```
+
+The generated `*.car` file is not tracked in this repository.
+The sample keeps the expanded `car.d` inspection shape, while `component.d/testcomp.car`
+is treated as a generated runtime artifact.
 
 ## Run The Whole Scenario
 

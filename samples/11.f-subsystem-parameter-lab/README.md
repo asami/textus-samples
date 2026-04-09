@@ -1,4 +1,4 @@
-# 09.e-subsystem-parameter-lab
+# 11.f-subsystem-parameter-lab
 
 ## Overview
 
@@ -25,27 +25,27 @@ The distributed unit is the subsystem descriptor itself, and the descriptor is p
 
 ## Setup
 
-### Prepare the cozy command
+### Prepare repository tools
 
 ```bash
-../../bin/setup cozy
+bash ../../bin/setup
 ```
 
 ### Build the lab
 
 ```bash
-sbt --batch clean compile
+sbt --batch compile
 ```
 
 ### Prepare the referenced subsystem descriptor
 
 This lab reuses:
 
-- `../09-subsystem/subsystem.cml`
-- `../09.c-implicit-subsystem-lab`
+- `../11-subsystem/subsystem.cml`
+- `../11-subsystem/component.d`
 
 The descriptor comes from `11-subsystem`.
-The component implementation is loaded directly from the neighboring implicit subsystem sample.
+The component artifact is resolved from the neighboring baseline subsystem sample.
 
 ## Run The Whole Scenario
 
@@ -57,7 +57,7 @@ It will:
 - inspect subsystem help
 - inspect component help
 - inspect operation help
-- execute `subsystem.main.hello`
+- execute `testcomp.main.hello`
 
 ```bash
 bash run.sh
@@ -70,21 +70,21 @@ The common parameters are:
 
 - `command`
   - uses ordinary one-shot CNCF command execution for this lab
-- `--textus.runtime.subsystem.descriptor=../09-subsystem/subsystem.cml`
+- `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - points the runtime at the subsystem descriptor file directly
-- `--component-repository=scala-cli:../09.c-implicit-subsystem-lab`
+- `--component-repository=component-dir:../11-subsystem/component.d`
   - points the runtime at the component implementation repository
 
 ### 1. Inspect subsystem help
 
 ```bash
-bash ../../bin/cncf command meta.help --format yaml --textus.runtime.subsystem.descriptor=../09-subsystem/subsystem.cml --component-repository=scala-cli:../09.c-implicit-subsystem-lab
+bash ../../bin/cncf command meta.help --format yaml --textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml --component-repository=component-dir:../11-subsystem/component.d
 ```
 
 Parameters:
-- `--textus.runtime.subsystem.descriptor=../09-subsystem/subsystem.cml`
+- `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - selects the subsystem descriptor directly
-- `--component-repository=scala-cli:../09.c-implicit-subsystem-lab`
+- `--component-repository=component-dir:../11-subsystem/component.d`
   - selects the repository that contains the component implementation
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
@@ -96,19 +96,19 @@ Parameters:
 ### 2. Inspect the component
 
 ```bash
-bash ../../bin/cncf command meta.help subsystem --format yaml --textus.runtime.subsystem.descriptor=../09-subsystem/subsystem.cml --component-repository=scala-cli:../09.c-implicit-subsystem-lab
+bash ../../bin/cncf command meta.help testcomp --format yaml --textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml --component-repository=component-dir:../11-subsystem/component.d
 ```
 
 Parameters:
-- `--textus.runtime.subsystem.descriptor=../09-subsystem/subsystem.cml`
+- `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - selects the subsystem descriptor directly
-- `--component-repository=scala-cli:../09.c-implicit-subsystem-lab`
+- `--component-repository=component-dir:../11-subsystem/component.d`
   - selects the repository that contains the component implementation
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
 - `meta.help`
   - selects structured introspection
-- `subsystem`
+- `testcomp`
   - identifies the component surface loaded through the parameter-driven subsystem selection
 - `--format yaml`
   - renders the result in YAML
@@ -116,39 +116,39 @@ Parameters:
 ### 3. Inspect operation help
 
 ```bash
-bash ../../bin/cncf command help subsystem.main.hello --textus.runtime.subsystem.descriptor=../09-subsystem/subsystem.cml --component-repository=scala-cli:../09.c-implicit-subsystem-lab
+bash ../../bin/cncf command help testcomp.main.hello --textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml --component-repository=component-dir:../11-subsystem/component.d
 ```
 
 Parameters:
-- `--textus.runtime.subsystem.descriptor=../09-subsystem/subsystem.cml`
+- `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - selects the subsystem descriptor directly
-- `--component-repository=scala-cli:../09.c-implicit-subsystem-lab`
+- `--component-repository=component-dir:../11-subsystem/component.d`
   - selects the repository that contains the component implementation
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
 - `help`
   - selects the CLI-oriented help entry point
-- `subsystem.main.hello`
+- `testcomp.main.hello`
   - identifies the operation path exposed by the selected subsystem
 
 ### 4. Execute the operation
 
 ```bash
-bash ../../bin/cncf command subsystem.main.hello --textus.runtime.subsystem.descriptor=../09-subsystem/subsystem.cml --component-repository=scala-cli:../09.c-implicit-subsystem-lab
+bash ../../bin/cncf command testcomp.main.hello --textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml --component-repository=component-dir:../11-subsystem/component.d
 ```
 
 Parameters:
-- `--textus.runtime.subsystem.descriptor=../09-subsystem/subsystem.cml`
+- `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - selects the subsystem descriptor directly
-- `--component-repository=scala-cli:../09.c-implicit-subsystem-lab`
+- `--component-repository=component-dir:../11-subsystem/component.d`
   - selects the repository that contains the component implementation
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
-- `subsystem.main.hello`
+- `testcomp.main.hello`
   - selects the operation path exposed by the selected subsystem
 
 Expected result:
 
 ```text
-Hello from the minimum subsystem
+Hello from testcomp in testsubsystem
 ```

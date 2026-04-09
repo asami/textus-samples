@@ -95,13 +95,14 @@ Development order follows the stages recorded in `docs/journal/2026/03/cncf-samp
 38. `10.b-simpleentity-view-lab`
 39. `10.c-view-cache-lab`
 40. `11-subsystem`
-41. `11.a-subsystem-bundled-component-lab`
-42. `11.b-subsystem-mixed-component-lab`
-43. `11.c-implicit-subsystem-lab`
-44. `11.d-sar-dir-lab`
-45. `11.e-subsystem-parameter-lab`
-46. `12-subsystem-wiring`
-47. `101-distributed`
+41. `11.a-multi-component-subsystem-lab`
+42. `11.b-subsystem-bundled-component-lab`
+43. `11.c-subsystem-mixed-component-lab`
+44. `11.d-implicit-subsystem-lab`
+45. `11.e-sar-dir-lab`
+46. `11.f-subsystem-parameter-lab`
+47. `12-subsystem-wiring`
+48. `101-distributed`
 
 ## AI Directive
 
@@ -180,11 +181,12 @@ AI behavior is interpreted in the following order.
 │  ├─ 10.b-simpleentity-view-lab/
 │  ├─ 10.c-view-cache-lab/
 │  ├─ 11-subsystem/
-│  ├─ 11.a-subsystem-bundled-component-lab/
-│  ├─ 11.b-subsystem-mixed-component-lab/
-│  ├─ 11.c-implicit-subsystem-lab/
-│  ├─ 11.d-sar-dir-lab/
-│  ├─ 11.e-subsystem-parameter-lab/
+│  ├─ 11.a-multi-component-subsystem-lab/
+│  ├─ 11.b-subsystem-bundled-component-lab/
+│  ├─ 11.c-subsystem-mixed-component-lab/
+│  ├─ 11.d-implicit-subsystem-lab/
+│  ├─ 11.e-sar-dir-lab/
+│  ├─ 11.f-subsystem-parameter-lab/
 │  ├─ 12-subsystem-wiring/
 │  └─ 101-distributed/
 └─ shared/

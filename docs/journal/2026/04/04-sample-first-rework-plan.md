@@ -170,11 +170,12 @@ Status:
 - [x] `09.b-aggregate-relation-boundary-model` completed as the shell-first explanatory sample for relation kind, boundary, and join semantics, with the same-JVM proof moved to `cozy` scripted
 - [x] `09.c-aggregate-external-update-semantics` completed as the shell-first explanatory sample for external aggregate update semantics, with the same-JVM proof moved to `cozy` scripted
 - [x] `11-subsystem` completed as the current shell-first baseline formal subsystem sample where a generic component artifact is wired by naming the runtime subsystem explicitly
-- [x] `11.a-subsystem-bundled-component-lab` established as the bundled explicit subsystem variant
-- [ ] `11.b-subsystem-mixed-component-lab` remains open because the current explicit subsystem descriptor is still single-component
-- [x] `11.c-implicit-subsystem-lab` completed as the shell-first implicit subsystem sample where runtime composition assembles the effective subsystem from a component-only definition
-- [x] `11.d-sar-dir-lab` completed as the development/test expanded `sar.d` startup sample
-- [x] `11.e-subsystem-parameter-lab` completed as the descriptor-direct explicit subsystem startup sample
+- [ ] `11.a-multi-component-subsystem-lab` reserved as the baseline extension for a subsystem that hosts multiple independent components without wiring
+- [x] `11.b-subsystem-bundled-component-lab` established as the bundled explicit subsystem variant
+- [ ] `11.c-subsystem-mixed-component-lab` remains open as the intended mixed packaging variant
+- [x] `11.d-implicit-subsystem-lab` completed as the shell-first implicit subsystem sample where runtime composition assembles the effective subsystem from a component-only definition
+- [x] `11.e-sar-dir-lab` completed as the development/test expanded `sar.d` startup sample
+- [x] `11.f-subsystem-parameter-lab` completed as the descriptor-direct explicit subsystem startup sample
 
 ### Phase 5. Future lines
 

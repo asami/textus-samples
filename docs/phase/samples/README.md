@@ -50,10 +50,11 @@ Current sample documents:
 - `10.a-view-definition-lab.md`
 - `10.b-simpleentity-view-lab.md`
 - `11-subsystem.md`
-- `11.a-subsystem-bundled-component-lab.md`
-- `11.b-subsystem-mixed-component-lab.md`
-- `11.c-implicit-subsystem-lab.md`
-- `11.d-sar-dir-lab.md`
-- `11.e-subsystem-parameter-lab.md`
+- `11.a-multi-component-subsystem-lab.md`
+- `11.b-subsystem-bundled-component-lab.md`
+- `11.c-subsystem-mixed-component-lab.md`
+- `11.d-implicit-subsystem-lab.md`
+- `11.e-sar-dir-lab.md`
+- `11.f-subsystem-parameter-lab.md`
 - `12-subsystem-wiring.md`
 - `101-distributed.md`

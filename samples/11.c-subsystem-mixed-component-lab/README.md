@@ -1,4 +1,4 @@
-# 09.b-subsystem-mixed-component-lab
+# 11.c-subsystem-mixed-component-lab
 
 ## Overview
 
@@ -31,9 +31,9 @@ That is enough for:
 
 - `11-subsystem`
   - formal subsystem entry point
-- `11.a-subsystem-bundled-component-lab`
+- `11.b-subsystem-bundled-component-lab`
   - bundled component subsystem
-- `11.e-subsystem-parameter-lab`
+- `11.f-subsystem-parameter-lab`
   - descriptor-direct startup
 
 But it is not enough for a true mixed explicit subsystem.
@@ -76,7 +76,7 @@ bash run.sh
 Expected result:
 
 ```text
-09.b-subsystem-mixed-component-lab is not runnable yet.
+11.c-subsystem-mixed-component-lab is not runnable yet.
 Current GenericSubsystemDescriptor supports only one component entry.
 Mixed explicit subsystems require descriptor and factory support for multiple component bindings.
 ```

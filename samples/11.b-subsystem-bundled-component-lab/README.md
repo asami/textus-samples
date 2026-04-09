@@ -1,22 +1,24 @@
-# 09.a-subsystem-bundled-component-lab
+# 11.b-subsystem-bundled-component-lab
 
 ## Overview
 
 This lab demonstrates the explicit subsystem form where the subsystem artifact bundles its component artifact.
 
-This is the second step in the `09` line:
+This is now a secondary variant in the `11` line:
 
 1. `11-subsystem`
    - formal subsystem using generally distributed components
-2. `11.a-subsystem-bundled-component-lab`
+2. `11.a-multi-component-subsystem-lab`
+   - formal subsystem hosting multiple independent components without wiring
+3. `11.b-subsystem-bundled-component-lab`
    - formal subsystem bundling its component artifact
-3. `11.b-subsystem-mixed-component-lab`
+4. `11.c-subsystem-mixed-component-lab`
    - formal subsystem mixing general and bundled components
-4. `11.c-implicit-subsystem-lab`
+5. `11.d-implicit-subsystem-lab`
    - implicit subsystem
-5. `11.d-sar-dir-lab`
+6. `11.e-sar-dir-lab`
    - expanded `sar.d`
-6. `11.e-subsystem-parameter-lab`
+7. `11.f-subsystem-parameter-lab`
    - descriptor-direct startup
 
 ## Intended Use Case
@@ -46,23 +48,23 @@ The bundled SAR embeds `base.car`.
 
 ## Setup
 
-### Prepare the cozy command
+### Prepare repository tools
 
 ```bash
-../../bin/setup cozy
+bash ../../bin/setup
 ```
 
-### Build the referenced component sample
+### Build the sample
 
 ```bash
-(cd ../09.c-implicit-subsystem-lab && sbt --batch clean compile)
+sbt --batch compile
 ```
 
 ### Build the bundled subsystem
 
 This lab uses the same packaging flow as the current formal subsystem sample:
 
-- build the component jar from `09.c`
+- build the component jar from a component implementation sample
 - wrap it as `base.car`
 - embed `base.car` into `explicit-subsystem.sar`
 
