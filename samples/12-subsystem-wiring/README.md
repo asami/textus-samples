@@ -42,7 +42,7 @@ This sample shows:
 - one `wiring` section in the subsystem descriptor
 - `callercomp.main.hello` reading the target operation from descriptor wiring metadata
 - `callercomp.main.hello` delegating to `calleecomp.main.hello`
-- `callercomp.main.hello` returning declared `ports` and resolved `wiringBindings`
+- `callercomp.main.hello` returning declared `ports` and resolved `wiring_bindings`
 - `callercomp.main.hello` returning `wiring` in the YAML result
 - `callercomp.main.hello --calltree` returning `calltree` in the YAML result
 
@@ -105,18 +105,20 @@ wiring_bindings:
       component: callercomp
       service: main
       operation: hello
+      api: hello-target
     to:
       component: calleecomp
+      spi: hello-provider
       service: main
       operation: hello
-    mode: direct-operation-routing
+    mode: api-spi-routing
 wiring:
   callercomp:
     main:
       hello:
+        api: hello-target
         target_component: calleecomp
-        target_service: main
-        target_operation: hello
+        target_spi: hello-provider
 calltree: ...
 ```
 
@@ -164,13 +166,19 @@ However, the descriptor now records the intended abstraction level more clearly:
 - `spi`
   - callee-side provided port
 - `wiring`
-  - the current route that binds the caller-side operation to the callee-side operation
+  - the current route that binds the caller-side operation and `api` to the callee-side `spi`
 
 `admin.assembly.report` and the caller result both project:
 
 - declared `ports`
 - raw `wiring`
 - derived `wiring_bindings`
+
+The runtime currently resolves:
+
+- caller operation -> caller `api`
+- target component + target `spi`
+- callee `spi` -> concrete service / operation
 
 This keeps the phase 12 walkthrough concrete while moving the sample closer to the intended port-based runtime model.
 
@@ -190,7 +198,7 @@ The report currently includes:
 - `wiring`
   - the descriptor-provided wiring block
 - `wiring_bindings`
-  - the resolved direct binding from caller operation to callee operation
+  - the resolved `api -> spi -> operation` binding
 - `components`
   - the loaded component names and origins
 - `warnings`

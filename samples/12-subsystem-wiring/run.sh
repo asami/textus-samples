@@ -56,9 +56,9 @@ wiring:
   callercomp:
     main:
       hello:
+        api: hello-target
         target_component: calleecomp
-        target_service: main
-        target_operation: hello
+        target_spi: hello-provider
 EOF
 (cd "$SAR_WORK" && zip -qr "$WORK_DIR/component.d/testsubsystemwiring.sar" subsystem-descriptor.yaml)
 

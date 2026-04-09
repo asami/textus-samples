@@ -7,7 +7,6 @@ import scala.jdk.CollectionConverters.*
 import scala.util.Using
 import org.goldenport.Consequence
 import org.goldenport.record.Record
-import org.goldenport.datatype.PathName
 import org.goldenport.protocol.Request
 import org.goldenport.protocol.Response
 import org.goldenport.protocol.operation.OperationResponse
@@ -71,15 +70,17 @@ final case class HelloActionCall(
   override def execute(): Consequence[OperationResponse] = {
     val wiring = _wiring_record()
     val includeCalltree = executionContext.framework.callTreeEnabled
-    val targetComponent = wiring.getString(PathName(Vector("callercomp", "main", "hello", "target_component")))
-      .getOrElse("calleecomp")
-    val targetService = wiring.getString(PathName(Vector("callercomp", "main", "hello", "target_service")))
-      .getOrElse("main")
-    val targetOperation = wiring.getString(PathName(Vector("callercomp", "main", "hello", "target_operation")))
-      .getOrElse("hello")
-    val delegatedRequest = Request.of(targetComponent, targetService, targetOperation)
     for {
       subsystem <- component.flatMap(_.subsystem).map(Consequence.success).getOrElse(Consequence.failure("subsystem is not initialized"))
+      binding = subsystem.descriptor.flatMap(_.resolvedWiring.find(x =>
+        x.fromComponent == "callercomp" &&
+          x.fromService == "main" &&
+          x.fromOperation == "hello"
+      ))
+      targetComponent = binding.map(_.toComponent).getOrElse("calleecomp")
+      targetService = binding.map(_.toService).getOrElse("main")
+      targetOperation = binding.map(_.toOperation).getOrElse("hello")
+      delegatedRequest = Request.of(targetComponent, targetService, targetOperation)
       response <- subsystem.execute(delegatedRequest)
       text <- _response_text(response)
     } yield {
@@ -95,7 +96,7 @@ final case class HelloActionCall(
       fields += "callee_result" -> text
       fields += "ports" -> ports
       fields += "wiring" -> wiring
-      fields += "wiringBindings" -> wiringBindings
+      fields += "wiring_bindings" -> wiringBindings
       if (includeCalltree) {
         val calltree = executionContext.observability.callTreeContext.build().map(_.toRecord).getOrElse(Record.empty)
         fields += "calltree" -> calltree
