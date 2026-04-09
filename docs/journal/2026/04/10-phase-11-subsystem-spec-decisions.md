@@ -85,8 +85,18 @@ The intended mixed subsystem specification is:
 This means the mixed subsystem sample is not primarily a wiring sample.
 It is a composition and packaging sample that remains below the phase 12 wiring line.
 
+### 9. Operation Output Contract Rule
+
+- Operation output contracts are required.
+- Missing output contracts should be treated as errors rather than as `unknown`.
+- `void` is not an omission default.
+- `void` is a valid output contract only when it is stated explicitly.
+- This follows the broader direction that CNCF operation definition should remain specification-first and readable, with CML as the primary line.
+- Hand-written samples are expected to converge toward the same explicit contract rule rather than relying on permissive shorthand.
+
 ## Remaining Work
 
 - reflect the new sequence in sample numbering
 - align bundled and descriptor-direct samples to the agreed baseline conventions
 - document the mixed subsystem implementation gap separately from this specification note
+- carry the output contract rule into CNCF validation and help rendering

@@ -6,6 +6,7 @@ import org.goldenport.protocol.operation.OperationResponse
 import org.goldenport.protocol.spec.*
 import org.goldenport.cncf.action.{ActionCall, QueryAction}
 import org.goldenport.cncf.component.{Component, ComponentCreate, ComponentId}
+import org.goldenport.schema.XString
 
 final class TestcompComponent extends Component
 
@@ -33,7 +34,9 @@ object MainService extends ServiceDefinition {
     .build()
 
   object HelloOperation extends OperationDefinition {
-    val specification = OperationDefinition.Specification.Builder("hello").build()
+    val specification = OperationDefinition.Specification.Builder("hello").copy(
+      response = ResponseDefinition(result = List(XString))
+    ).build()
 
     override def createOperationRequest(
       req: Request

@@ -44,6 +44,11 @@ Fix the formal specification of phase `11-*` by comparing the original intent of
   - [x] bundled and mixed packaging samples are positioned as secondary variants after the multi-component line
   - [x] the intended mixed specification is written down
   - [ ] the gap between the intended mixed specification and the current implementation is explicitly recorded
+- [x] What is the official operation output contract rule?
+  - [x] operation output contracts are required
+  - [x] missing output contracts are treated as errors rather than as `unknown`
+  - [x] `void` is only valid when stated explicitly
+  - [x] hand-written operation definitions are expected to converge toward the same explicit rule as the CML line
 
 ## Documentation Alignment
 
