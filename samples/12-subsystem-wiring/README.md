@@ -261,6 +261,7 @@ It is separate from the subsystem descriptor, which expresses intent.
 The descriptor body keeps selected application components in `components` and places runtime-provided builtin components under `runtime.builtin_components`.
 In the descriptor export, `wiring` is the resolved binding list and `source.wiring` preserves the raw subsystem descriptor wiring block.
 The sample SAR also carries a top-level `assembly-descriptor.yaml`, which is exposed as `source.assembly_descriptor` for now.
+That source block includes `present`, `source`, `path`, `kind`, `subsystem`, and `version` so the adopted descriptor source is observable.
 This verifies discovery of the packaged assembly descriptor; it does not yet make the assembly descriptor drive runtime wiring resolution.
 Warnings are exposed as `diagnostics.warnings` because they are inspection output, not part of the reusable operational plan.
 
