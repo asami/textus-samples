@@ -115,8 +115,8 @@ The common parameters are:
   - uses ordinary one-shot CNCF command execution for this sample
 - `--no-default-components`
   - prevents duplicate loading from the default runtime search path
-- `--component-repository=component-dir:<temporary-component-dir>`
-  - points the runtime at the generated standalone `CAR` and selected `SAR`
+- `--component-dir <temporary-component-dir>`
+  - activates the generated standalone `CAR` and selected `SAR`
 - `--textus.runtime.subsystem=testsubsystemmixed`
   - selects the mixed subsystem
 
@@ -172,7 +172,7 @@ with the same component name, the runtime records an assembly warning instead of
 That warning can be inspected through:
 
 ```bash
-bash ../../bin/cncf command admin.assembly.warnings --format yaml --no-default-components --component-repository=component-dir:<temporary-component-dir> --textus.runtime.subsystem=testsubsystemmixed
+bash ../../bin/cncf command admin.assembly.warnings --format yaml --no-default-components --component-dir <temporary-component-dir> --textus.runtime.subsystem=testsubsystemmixed
 ```
 
 In the normal walkthrough, no warning should be present.

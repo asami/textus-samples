@@ -72,8 +72,8 @@ The common parameters are:
   - uses ordinary one-shot CNCF command execution for this lab
 - `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - points the runtime at the subsystem descriptor file directly
-- `--component-repository=component-dir:<temporary-component-dir>`
-  - points the runtime at the temporary component repository generated from the baseline component jar
+- `--component-dir <temporary-component-dir>`
+  - activates the temporary packaged component directory generated from the baseline component jar
 
 The supported path in this lab is `bash run.sh`, because the batch runner prepares the temporary `component.d` automatically.
 
@@ -84,8 +84,8 @@ The supported path in this lab is `bash run.sh`, because the batch runner prepar
 Parameters:
 - `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - selects the subsystem descriptor directly
-- `--component-repository=component-dir:<temporary-component-dir>`
-  - selects the repository that contains the generated component artifact
+- `--component-dir <temporary-component-dir>`
+  - activates the packaged component artifact directory
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
 - `meta.help`
@@ -100,8 +100,8 @@ Parameters:
 Parameters:
 - `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - selects the subsystem descriptor directly
-- `--component-repository=component-dir:<temporary-component-dir>`
-  - selects the repository that contains the generated component artifact
+- `--component-dir <temporary-component-dir>`
+  - activates the packaged component artifact directory
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
 - `meta.help`
@@ -118,8 +118,8 @@ Parameters:
 Parameters:
 - `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - selects the subsystem descriptor directly
-- `--component-repository=component-dir:<temporary-component-dir>`
-  - selects the repository that contains the generated component artifact
+- `--component-dir <temporary-component-dir>`
+  - activates the packaged component artifact directory
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
 - `help`
@@ -134,8 +134,8 @@ Parameters:
 Parameters:
 - `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - selects the subsystem descriptor directly
-- `--component-repository=component-dir:<temporary-component-dir>`
-  - selects the repository that contains the generated component artifact
+- `--component-dir <temporary-component-dir>`
+  - activates the packaged component artifact directory
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
 - `testcomp.main.hello`

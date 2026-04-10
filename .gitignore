@@ -7,6 +7,8 @@ lib
 /target/
 /samples/**/target/
 /samples/component-repository.d/
+/samples/component.d/
+/samples/**/component-repository.d/
 /samples/**/car.d/
 /samples/**/repository.d/
 /samples/**/sar.d/

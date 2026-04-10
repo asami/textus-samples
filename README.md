@@ -247,7 +247,7 @@ Stage-oriented execution model:
 
 - Programming time: run from the sample directory through `sbt`
 - Local verification: use `run.sh` or `run-sample.sh`
-- Local deployment: use `invoke.sh` with local repository assumptions when needed
+- Local deployment: use `invoke.sh` with local packaged-source assumptions when needed
 - Final deployment: prefer remote Component Repository loading
 
 Use the root dispatcher to run a sample:
@@ -263,7 +263,14 @@ cd samples/01-minimal
 ./run.sh
 ```
 
-For development, the preferred working style is to run from the sample directory so that `cwd/component.d` is the active local component source.
+For development, the preferred working style is:
+
+- `cwd/component.d`
+  - active local packaged source
+- `cwd/repository.d`
+  - local packaged search repository
+- `car.d` / `sar.d`
+  - auto-activated development layouts
 
 Programming-time example:
 
@@ -363,7 +370,7 @@ Deployment guidance in this repository assumes:
 
 - default final deployment from a remote Component Repository
 - optional deployment from a local repository or shared component directory
-- sample-level deployment simulation from `samples/component-repository.d`
+- sample-level deployment simulation from `samples/component.d` or `samples/repository.d`
 
 If a sample is not implemented yet, its `run.sh` exits with a clear message until the sample-specific command path is defined.
 

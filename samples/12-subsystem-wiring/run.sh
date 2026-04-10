@@ -66,7 +66,7 @@ EOF
 (cd "$SAR_WORK" && zip -qr "$WORK_DIR/component.d/testsubsystemwiring.sar" subsystem-descriptor.yaml)
 
 COMMON_ARGS=(
-  --component-repository="component-dir:$WORK_DIR/component.d"
+  --component-dir "$WORK_DIR/component.d"
   --textus.runtime.subsystem=testsubsystemwiring
   --textus.runtime.subsystem.file="$WORK_DIR/component.d/testsubsystemwiring.sar"
 )

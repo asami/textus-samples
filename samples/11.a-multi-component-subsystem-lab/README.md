@@ -100,8 +100,8 @@ The common parameters are:
   - uses ordinary one-shot CNCF command execution for this sample
 - `--no-default-components`
   - prevents duplicate loading from the default runtime search path
-- `--component-repository=component-dir:<temporary-component-dir>`
-  - points the runtime at the generated component and subsystem artifacts
+- `--component-dir <temporary-component-dir>`
+  - activates the generated component and subsystem artifacts for this walkthrough
 - `--textus.runtime.subsystem=testsubsystemmulti`
   - selects the multi-component subsystem
 

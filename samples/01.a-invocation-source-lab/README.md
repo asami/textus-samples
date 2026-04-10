@@ -84,14 +84,14 @@ Run:
 Observe:
 
 - `invoke.sh` first runs `sbt package`
-- it copies the built jar into `samples/component-repository.d`
-- then it resolves the Component through `component-dir:../component-repository.d`
+- it copies the built jar into `samples/component.d`
+- then it activates that directory through `--component-dir ../component.d`
 - the selector is still `minimal.main.hello`
 
 Conceptual shape:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --component-repository=component-dir:../component-repository.d command minimal.main.hello"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --component-dir=../component.d command minimal.main.hello"
 ```
 
 ### 4. Compare The Two Loading Sources

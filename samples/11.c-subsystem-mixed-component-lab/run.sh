@@ -51,7 +51,7 @@ cp "$WORK_DIR/bundledcomp.car" "$SAR_WORK/component/bundledcomp.car"
 
 COMMON_ARGS=(
   --no-default-components
-  --component-repository="component-dir:$WORK_DIR/component.d"
+  --component-dir "$WORK_DIR/component.d"
   --textus.runtime.subsystem=testsubsystemmixed
 )
 

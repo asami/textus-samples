@@ -49,7 +49,7 @@ EOF
 
 COMMON_ARGS=(
   --no-default-components
-  --component-repository="component-dir:$WORK_DIR/component.d"
+  --component-dir "$WORK_DIR/component.d"
   --textus.runtime.subsystem=testsubsystemmulti
 )
 

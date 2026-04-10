@@ -30,7 +30,7 @@ Stage Status:
 - [x] `./run.sh` is defined as the development-time entry point
 - [x] `./invoke.sh` is defined as the deployment-style entry point
 - [x] `./run.sh` uses class discovery for the actively developed component
-- [x] `./invoke.sh` points to the sample virtual repository under `samples/component-repository.d`
+- [x] `./invoke.sh` points to the sample active packaged source under `samples/component.d`
 - [x] `./run.sh` succeeds under the current development-time model
 - [x] `./invoke.sh` succeeds under the current deployment-style model
 - [x] The sample README explains selector format and command path

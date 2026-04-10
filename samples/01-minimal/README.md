@@ -52,8 +52,8 @@ The CNCF runtime itself comes from the published `goldenport-cncf` dependency re
 ```
 
 Deployment-style execution uses `invoke.sh`.
-It is intended to simulate repository-based loading.
-The script packages the sample jar into `samples/component-repository.d/MinimalComponent.jar` and then loads that repository.
+It is intended to simulate active packaged loading.
+The script packages the sample jar into `samples/component.d/MinimalComponent.jar` and uses that directory as the active component source.
 
 ```bash
 ./invoke.sh
@@ -101,22 +101,22 @@ Meaning:
 `invoke.sh` is the deployment-style entry point.
 It first packages the sample jar, copies it into the virtual repository, and then calls the shared runner with:
 
-- `--component-repository component-dir:../component-repository.d`
+- `--component-dir ../component.d`
 - `--command-path minimal.main.hello`
 
 Conceptually, it becomes:
 
 ```bash
 sbt package
-sbt --batch "runMain org.goldenport.cncf.CncfMain --component-repository=component-dir:../component-repository.d command minimal.main.hello"
+sbt --batch "runMain org.goldenport.cncf.CncfMain --component-dir=../component.d command minimal.main.hello"
 ```
 
 Meaning:
 
 - build the sample artifact
-- place that artifact into the sample virtual repository
+- place that artifact into the sample active component directory
 - run the CNCF main directly
-- load the Component from the repository instead of from active class discovery
+- load the Component from the active packaged directory instead of from active class discovery
 
 ### Why The Two Scripts Differ
 

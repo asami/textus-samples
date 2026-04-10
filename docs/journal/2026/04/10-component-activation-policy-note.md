@@ -36,29 +36,31 @@ Packaged artifacts should remain searchable but should not auto-activate by defa
 
 This includes:
 
-- `component.d/*.car`
+- `repository.d/*.car`
 - packaged subsystem artifacts outside explicit subsystem selection
 
 Rationale:
 
 - packaged artifacts are closer to deployable inventory than to a live work area
-- auto-activating everything in `component.d` creates noise and ambiguity
+- auto-activating everything in a search repository creates noise and ambiguity
 - explicit selection is more suitable for production and for predictable CLI behavior
 
 ### 3. Packaged Component Artifacts Should Be Explicitly Selected
 
 The preferred direction is:
 
-- `component.d/*.car`
+- `repository.d/*.car`
   - searchable
   - not auto-activated
+- `component.d/*.car`
+  - active packaged source
 - explicit component activation by component name
 
 The current runtime line is:
 
 - `--textus.runtime.component=<name>`
-  - search `component.d`
-  - promote the matching packaged component source into the active repository set
+  - search `repository.d`
+  - promote the matching packaged component source into the active component set
 
 This mirrors the subsystem approach:
 
@@ -90,9 +92,11 @@ The current intended baseline is:
   - discover + activate
 - `sar.d`
   - discover + activate
-- `component.d/*.car`
+- `repository.d/*.car`
   - discover/search only
   - no default activation
+- `component.d/*.car`
+  - active packaged source
 - subsystem artifact
   - explicit subsystem selection
 
@@ -112,4 +116,4 @@ Benefits:
 The next implementation step is:
 
 - add component activation policy to CNCF runtime behavior
-- then review existing samples and remove unnecessary `--component-repository` and `--no-default-components` options where possible
+- then review existing samples and replace legacy `--component-repository` usage with `--repository-dir` or `--component-dir` as appropriate
