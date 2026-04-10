@@ -24,16 +24,10 @@ Use this sample when you want to inspect or edit the expanded component archive 
 
 ## Setup
 
-### Prepare the cozy command
-
-```bash
-../../bin/setup cozy
-```
-
 ### Build the sample
 
 ```bash
-sbt --batch clean compile packageBin
+sbt --batch compile packageBin
 ```
 
 ### Prepare the expanded `car.d`
@@ -66,6 +60,14 @@ The common parameters are:
   - keeps the walkthrough focused on the explicit `car.d` repository
 - `--component-repository=component-dir:car.d`
   - loads the expanded CAR directory directly
+
+With the current activation policy:
+
+- `car.d`
+  - is the expanded debug/development shape
+  - and may be auto-activated by the runtime
+- this sample still uses an explicit repository and `--no-default-components`
+  - so the walkthrough stays isolated and deterministic
 
 ### 1. Inspect the component
 
@@ -131,4 +133,4 @@ Hello from testcomp
 
 - expanded `car.d`
 - development-time archive inspection
-- direct execution from the formal expanded CAR layout
+- direct execution from the expanded CAR layout

@@ -27,16 +27,10 @@ component archive contents without first rebuilding a zipped `*.car`.
 
 ## Setup
 
-### Prepare the `cozy` command
-
-```bash
-../../bin/setup cozy
-```
-
 ### Build the generated sample
 
 ```bash
-sbt --batch clean compile packageBin
+sbt --batch compile packageBin
 ```
 
 ## Run The Whole Scenario
@@ -59,6 +53,14 @@ The common parameters are:
   - keeps the walkthrough focused on the explicit `car.d` repository
 - `--component-repository=component-dir:/absolute/path/to/car.d`
   - loads the expanded generated CAR directory directly
+
+With the current activation policy:
+
+- `car.d`
+  - is the expanded debug/development shape
+  - and may be auto-activated by the runtime
+- this sample still uses an explicit repository and `--no-default-components`
+  - so the generated `car.d` walkthrough stays isolated and deterministic
 
 ### 1. Inspect the generated component
 

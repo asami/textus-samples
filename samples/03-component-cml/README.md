@@ -40,6 +40,7 @@ the same formal packaging shape as `02-component`:
 
 - define a component in CML
 - package the generated classes as a CAR
+- activate the packaged CAR explicitly for command execution
 - inspect the generated component and operation surface
 
 This sample is intentionally small.
@@ -60,16 +61,10 @@ It focuses on generation and metadata, not runtime business behavior.
 
 ## Setup
 
-### Prepare the `cozy` command
-
-```bash
-../../bin/setup cozy
-```
-
 ### Build the generated sample
 
 ```bash
-sbt --batch clean compile packageBin
+sbt --batch compile packageBin
 ```
 
 This generates the Scala sources from `src/main/cozy/component.cml` and compiles
@@ -113,7 +108,15 @@ The common parameters are:
 - `--sample-dir samples/01-minimal`
   - launches CNCF from a neutral sample so the packaged generated CAR is not mixed with the current sample classes
 - `--component-repository=component-dir:/absolute/path/to/component.d`
-  - loads packaged generated component artifacts from `component.d`
+  - activates packaged generated component artifacts from `component.d`
+
+With the current activation policy:
+
+- `component.d/*.car`
+  - is a search target
+  - but is not auto-activated by default
+- `--component-repository=component-dir:/absolute/path/to/component.d`
+  - makes the packaged generated component active for this command
 
 ### 1. Inspect the generated component
 
@@ -176,10 +179,12 @@ Parameters:
 - the user-facing selector still follows `component.service.operation`
 - the source of truth is now `component.cml`, not a hand-written Scala component
 - generation changes the authoring method, not the CNCF help surface
+- packaged generated CARs are explicit runtime inputs, not always-on defaults
 - `03` mirrors the same `CAR / car.d / --discover=classes` comparison shape as `02`
 
 ## Key Learnings
 
 - first CML-driven component generation
 - generated CAR packaging
+- explicit activation of generated packaged CARs
 - generated component and operation metadata

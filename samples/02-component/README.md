@@ -28,7 +28,8 @@ In the `02` line, the forms are split like this:
 Use this sample when you want to understand the standard component distribution form before moving on to CRUD or other higher-level lines.
 
 - a component is packaged as a CAR
-- the runtime loads the component from `component.d`
+- the runtime searches packaged component artifacts from `component.d`
+- packaged CARs are activated explicitly for command execution
 - the command path is still `component.service.operation`
 
 ## What This Sample Will Show
@@ -53,16 +54,10 @@ This sample shows:
 
 ## Setup
 
-### Prepare the cozy command
-
-```bash
-../../bin/setup cozy
-```
-
 ### Build the sample
 
 ```bash
-sbt --batch clean compile packageBin
+sbt --batch compile packageBin
 ```
 
 ### Prepare the component CAR
@@ -150,7 +145,15 @@ The common parameters are:
 - `command`
   - uses ordinary one-shot CNCF command execution for this sample
 - `--component-repository=component-dir:component.d`
-  - loads component artifacts from `component.d`
+  - activates packaged CARs from `component.d` for this run
+
+With the current activation policy:
+
+- `component.d/*.car`
+  - is a search target
+  - but is not auto-activated by default
+- `--component-repository=component-dir:component.d`
+  - makes the packaged component active for this command
 
 ### 1. Inspect the component
 
@@ -191,6 +194,7 @@ Parameters:
 - component execution does not require a subsystem sample first
 - the user-facing selector is still `component.service.operation`
 - `component.d/*.car` is the baseline distribution form
+- packaged CARs are explicit runtime inputs, not always-on defaults
 - `car.d` and `--discover=classes` are later variants for development and test
 - the `02` baseline focuses on packaging and surface inspection; `02.b` is where the same component is executed via class discovery
 
@@ -198,5 +202,5 @@ Parameters:
 
 - component artifact basics
 - CAR as the formal component package
-- `component.d` repository loading
+- explicit activation of packaged CARs from `component.d`
 - selector format: `component.service.operation`
