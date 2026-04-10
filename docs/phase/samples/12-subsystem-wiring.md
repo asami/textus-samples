@@ -17,6 +17,7 @@ Stage Status:
 - Descriptor-guided delegated call
 - Port and wiring result retrieval through `admin.assembly.report`
 - Descriptor-oriented wiring diagram retrieval through `admin.assembly.descriptor`
+- Mermaid wiring diagram retrieval through `admin.assembly.diagram`
 - Glue carried through resolved wiring bindings and applied as passthrough execution metadata
 
 ## Step
@@ -33,6 +34,7 @@ Stage Status:
 - [x] The subsystem assembly approach is explained in the README
 - [x] The wiring result can be retrieved from the admin assembly surface
 - [x] The wiring diagram can be retrieved as a descriptor-oriented assembly document
+- [x] The wiring diagram can be retrieved as a Mermaid visual projection
 - [ ] If needed, `docker/` is updated to executable contents
 - [x] `samples/12-subsystem-wiring/README.md` is updated to match the implementation
 

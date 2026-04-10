@@ -47,6 +47,7 @@ This sample shows:
 - `callercomp.main.hello` returning `wiring` in the YAML result
 - `callercomp.main.hello --calltree` returning `calltree` in the YAML result
 - `admin.assembly.descriptor` returning a descriptor-oriented wiring document
+- `admin.assembly.diagram` returning a Mermaid wiring diagram
 
 ## Files
 
@@ -257,3 +258,14 @@ The descriptor export currently includes:
 This is the CLI-facing document form of the wiring diagram.
 It is separate from the subsystem descriptor, which expresses intent.
 The descriptor body keeps selected application components in `components` and places runtime-provided builtin components under `runtime.builtin_components`.
+
+## Assembly Diagram
+
+This sample also retrieves a visual projection of the same resolved assembly model.
+
+```bash
+bash ../../bin/cncf command admin.assembly.diagram --component-dir <temporary-component-dir> --textus.runtime.subsystem=testsubsystemwiring --textus.runtime.subsystem.file=<temporary-subsystem-sar>
+```
+
+The current output is a Mermaid `flowchart`.
+It is intended as the CLI-friendly form of the future admin/dashboard wiring diagram.

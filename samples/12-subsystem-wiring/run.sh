@@ -99,6 +99,10 @@ echo "--- assembly descriptor"
 bash ../../bin/cncf command admin.assembly.descriptor --format yaml "${COMMON_ARGS[@]}"
 
 echo
+echo "--- assembly diagram"
+bash ../../bin/cncf command admin.assembly.diagram "${COMMON_ARGS[@]}"
+
+echo
 echo "--- execute caller"
 bash ../../bin/cncf command callercomp.main.hello --calltree --format yaml "${COMMON_ARGS[@]}"
 

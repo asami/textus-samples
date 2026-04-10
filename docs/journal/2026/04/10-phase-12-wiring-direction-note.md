@@ -110,6 +110,8 @@ The phase 12 line now distinguishes two admin projections:
   - operational report for inspection and warnings
 - `admin.assembly.descriptor`
   - descriptor-oriented wiring diagram that can later become an assembly descriptor input
+- `admin.assembly.diagram`
+  - Mermaid visual projection for CLI and future dashboard wiring diagram rendering
 
 ### 6. Descriptor And Assembly Result Are Distinct
 
@@ -152,6 +154,7 @@ The sample currently uses subsystem descriptor `wiring` metadata as input for th
 - `admin.assembly.warnings` exists
 - `admin.assembly.report` has been added
 - `admin.assembly.descriptor` has been added as a descriptor-oriented wiring diagram export
+- `admin.assembly.diagram` has been added as a Mermaid wiring diagram export
 - phase 12 sample can retrieve the assembly report from the admin surface
 - `admin.assembly.report` now returns:
   - `ports`
@@ -173,6 +176,7 @@ The sample currently uses subsystem descriptor `wiring` metadata as input for th
 - phase 12 sample now retrieves both:
   - the operational assembly report
   - the descriptor-oriented assembly document
+  - the Mermaid visual projection
 
 ### Current Remaining Gap
 
