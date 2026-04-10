@@ -267,6 +267,14 @@ That source block includes `present`, `source`, `path`, `kind`, `subsystem`, and
 This verifies that the packaged assembly descriptor is discovered and that its `wiring` is used as the primary resolved wiring input.
 Warnings are exposed as `diagnostics.warnings` because they are inspection output, not part of the reusable operational plan.
 
+The sample also checks config override precedence with:
+
+```bash
+--textus.assembly.descriptor=<override-assembly-descriptor.yaml>
+```
+
+When this override is supplied, `source.assembly_descriptor.source` becomes `config`, and the resolved wiring mode comes from the override descriptor.
+
 ## Assembly Diagram
 
 This sample also retrieves a visual projection of the same resolved assembly model.

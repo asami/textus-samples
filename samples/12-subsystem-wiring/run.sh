@@ -85,6 +85,27 @@ wiring:
 EOF
 (cd "$SAR_WORK" && zip -qr "$WORK_DIR/component.d/testsubsystemwiring.sar" subsystem-descriptor.yaml assembly-descriptor.yaml)
 
+cat > "$WORK_DIR/override-assembly-descriptor.yaml" <<'EOF'
+kind: assembly-descriptor
+subsystem: testsubsystemwiring
+version: 0.1.0
+wiring:
+  - from:
+      component: callercomp
+      service: main
+      operation: hello
+      api: hello-target
+    to:
+      component: calleecomp
+      spi: hello-provider
+      service: main
+      operation: hello
+    glue:
+      request/mode: passthrough
+      response/mode: passthrough
+    mode: config-assembly-descriptor-routing
+EOF
+
 COMMON_ARGS=(
   --component-dir "$WORK_DIR/component.d"
   --textus.runtime.subsystem=testsubsystemwiring
@@ -117,6 +138,10 @@ bash ../../bin/cncf command admin.assembly.report --format yaml "${COMMON_ARGS[@
 echo
 echo "--- assembly descriptor"
 bash ../../bin/cncf command admin.assembly.descriptor --format yaml "${COMMON_ARGS[@]}"
+
+echo
+echo "--- assembly descriptor override"
+bash ../../bin/cncf command admin.assembly.descriptor --format yaml "${COMMON_ARGS[@]}" --textus.assembly.descriptor="$WORK_DIR/override-assembly-descriptor.yaml"
 
 echo
 echo "--- assembly diagram"
