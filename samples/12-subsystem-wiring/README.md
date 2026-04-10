@@ -252,6 +252,7 @@ The descriptor export currently includes:
 - `ports`
 - `wiring`
 - `source.wiring`
+- `source.assembly_descriptor`
 - `runtime.builtin_components`
 - `diagnostics.warnings`
 
@@ -259,6 +260,8 @@ This is the CLI-facing document form of the wiring diagram.
 It is separate from the subsystem descriptor, which expresses intent.
 The descriptor body keeps selected application components in `components` and places runtime-provided builtin components under `runtime.builtin_components`.
 In the descriptor export, `wiring` is the resolved binding list and `source.wiring` preserves the raw subsystem descriptor wiring block.
+The sample SAR also carries a top-level `assembly-descriptor.yaml`, which is exposed as `source.assembly_descriptor` for now.
+This verifies discovery of the packaged assembly descriptor; it does not yet make the assembly descriptor drive runtime wiring resolution.
 Warnings are exposed as `diagnostics.warnings` because they are inspection output, not part of the reusable operational plan.
 
 ## Assembly Diagram

@@ -63,7 +63,27 @@ wiring:
           request/mode: passthrough
           response/mode: passthrough
 EOF
-(cd "$SAR_WORK" && zip -qr "$WORK_DIR/component.d/testsubsystemwiring.sar" subsystem-descriptor.yaml)
+cat > "$SAR_WORK/assembly-descriptor.yaml" <<'EOF'
+kind: assembly-descriptor
+subsystem: testsubsystemwiring
+version: 0.1.0
+wiring:
+  - from:
+      component: callercomp
+      service: main
+      operation: hello
+      api: hello-target
+    to:
+      component: calleecomp
+      spi: hello-provider
+      service: main
+      operation: hello
+    glue:
+      request/mode: passthrough
+      response/mode: passthrough
+    mode: api-spi-routing
+EOF
+(cd "$SAR_WORK" && zip -qr "$WORK_DIR/component.d/testsubsystemwiring.sar" subsystem-descriptor.yaml assembly-descriptor.yaml)
 
 COMMON_ARGS=(
   --component-dir "$WORK_DIR/component.d"
