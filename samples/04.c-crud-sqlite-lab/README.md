@@ -242,7 +242,7 @@ fetched_count: 1
 ```bash
 $ created_id=$(
     bash ../../bin/cncf --discover=classes command \
-      --textus.runtime.command.execution-mode sync-direct-no-job \
+      --textus.command.execution-mode sync-direct-no-job \
       --cncf.datastore.sqlite.path=target/cncf.d/02c-crud-sqlite-lab.sqlite \
       crud.entity.create-item \
       --name delta \
@@ -263,7 +263,7 @@ Parameters:
 - `help`
   - asks CNCF to describe the selected component, service, or operation instead of executing it
 
-- `--textus.runtime.command.execution-mode sync-direct-no-job`
+- `--textus.command.execution-mode sync-direct-no-job`
   - forces immediate command completion instead of returning a job id
 - `--cncf.datastore.sqlite.path=...`
   - reuses the same SQLite-backed datastore file

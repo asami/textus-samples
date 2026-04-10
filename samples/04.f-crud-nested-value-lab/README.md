@@ -208,7 +208,7 @@ Parameters:
 
 - `--cncf.datastore.sqlite.path=target/cncf.d/02f-crud-nested-value-lab.sqlite`
   - uses the SQLite datastore file for the sample
-- `--textus.runtime.command.execution-mode sync-direct-no-job`
+- `--textus.command.execution-mode sync-direct-no-job`
   - returns immediately instead of using a job id
 - `--name alice`
   - sets the top-level entity field

@@ -74,7 +74,7 @@ This sample uses the same in-memory server runtime as `02.d`.
 The difference is the route-level runtime parameter:
 
 ```bash
---textus.runtime.command.execution-mode sync-direct-no-job
+--textus.command.execution-mode sync-direct-no-job
 ```
 
 That means:
@@ -315,7 +315,7 @@ $ bash run-client-create.sh
 
 Parameters:
 
-- `--textus.runtime.command.execution-mode sync-direct-no-job`
+- `--textus.command.execution-mode sync-direct-no-job`
   - requests explicit synchronous command execution
 - `crud.entity.create-item`
   - invokes the generated create operation

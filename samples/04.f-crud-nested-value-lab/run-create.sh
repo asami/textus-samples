@@ -7,7 +7,7 @@ mkdir -p target/cncf.d
 
 exec bash ../../bin/cncf --discover=classes command \
   "--cncf.datastore.sqlite.path=$dbpath" \
-  --textus.runtime.command.execution-mode sync-direct-no-job \
+  --textus.command.execution-mode sync-direct-no-job \
   crud-nested-value-sample.entity.create-person \
   --name alice \
   --address.street Marunouchi-1-2-3 \

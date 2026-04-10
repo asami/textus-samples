@@ -202,7 +202,7 @@ data:
 ### Test Sync Override
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command --textus.runtime.command.execution-mode sync-job-async-interface TestSync.Item.createItem --name beta --title Beta
+$ bash ../../bin/cncf --discover=classes command --textus.command.execution-mode sync-job-async-interface TestSync.Item.createItem --name beta --title Beta
 ```
 
 Output example:
@@ -214,7 +214,7 @@ cncf-job-job-...
 Envelope form:
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command --textus.runtime.command.execution-mode sync-job-async-interface TestSync.Item.createItem --name beta --title Beta --textus.output.shape envelope --textus.output.format yaml
+$ bash ../../bin/cncf --discover=classes command --textus.command.execution-mode sync-job-async-interface TestSync.Item.createItem --name beta --title Beta --textus.output.shape envelope --textus.output.format yaml
 ```
 
 Output example:

@@ -13,7 +13,7 @@ bash ../../bin/cncf --discover=classes command --cncf.datastore.sqlite.path="$db
 
 created_id=$(
   bash ../../bin/cncf --discover=classes command \
-    --textus.runtime.command.execution-mode sync-direct-no-job \
+    --textus.command.execution-mode sync-direct-no-job \
     --cncf.datastore.sqlite.path="$dbpath" \
     crud.entity.create-item \
     --name delta \
