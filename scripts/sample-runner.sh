@@ -9,6 +9,11 @@ usage() {
   cat >&2 <<'EOF'
 Usage:
   sample-runner.sh --script-path <path> [--cncf-main-class <fqcn>] [--sample-main-class <fqcn>] [--command-path <path>] [--discover-classes] [--workspace <path>] [--component-repository <spec>]... [--repository-dir <path>] [--component-dir <path>] [--] [args...]
+
+Notes:
+  --repository-dir      add packaged artifacts to the search repository
+  --component-dir       add packaged artifacts to the active component source
+  --component-repository legacy search-oriented alias
 EOF
   exit 1
 }

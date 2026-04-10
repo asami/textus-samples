@@ -22,6 +22,12 @@ Examples:
   ../../bin/cncf --cncf-version 0.4.2-SNAPSHOT --help
   cd samples/01-minimal
   ../../bin/cncf --discover=classes command minimal.main.hello
+  ../../bin/cncf --repository-dir repository.d --textus.runtime.component=minimal command minimal.main.hello
+
+Notes:
+  --repository-dir      add packaged artifacts to the search repository
+  --component-dir       add packaged artifacts to the active component source
+  --component-repository legacy search-oriented alias
 EOF
   exit 1
 }

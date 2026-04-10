@@ -27,7 +27,7 @@ The command, server, client, and repository-based paths were verified from the l
   - body: `Hello CNCF`
 - `./invoke.sh`
   - succeeded
-  - startup line: `runMain org.goldenport.cncf.CncfMain --component-repository=component-dir:../component-repository.d command minimal.main.hello`
+  - startup line: `runMain org.goldenport.cncf.CncfMain --component-dir=../component.d command minimal.main.hello`
   - visible output: `Hello CNCF`
 
 ## Observations

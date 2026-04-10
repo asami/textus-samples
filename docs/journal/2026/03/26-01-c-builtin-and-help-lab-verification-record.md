@@ -117,10 +117,10 @@ cd samples/01.c-builtin-and-help-lab
 Observed result:
 
 - the jar was packaged locally
-- the artifact was copied into `samples/component-repository.d`
+- the artifact was copied into `samples/component.d`
 - the selector remained `minimal.main.hello`
 - output: `Hello CNCF`
-- the invoke path resolved through `--component-repository=component-dir:../component-repository.d`
+- the invoke path resolved through `--component-dir=../component.d`
 
 ## Step 7: Client Observation
 
