@@ -104,6 +104,13 @@ and later:
 
 - dashboard / admin console
 
+The phase 12 line now distinguishes two admin projections:
+
+- `admin.assembly.report`
+  - operational report for inspection and warnings
+- `admin.assembly.descriptor`
+  - descriptor-oriented wiring diagram that can later become an assembly descriptor input
+
 ### 6. Descriptor And Assembly Result Are Distinct
 
 The discussion clarified a useful distinction:
@@ -144,6 +151,7 @@ The sample currently uses subsystem descriptor `wiring` metadata as input for th
 - duplicate component selection is recorded as assembly warnings
 - `admin.assembly.warnings` exists
 - `admin.assembly.report` has been added
+- `admin.assembly.descriptor` has been added as a descriptor-oriented wiring diagram export
 - phase 12 sample can retrieve the assembly report from the admin surface
 - `admin.assembly.report` now returns:
   - `ports`
@@ -162,6 +170,9 @@ The sample currently uses subsystem descriptor `wiring` metadata as input for th
   - `wiring`
   - `wiring_bindings`
   - `calltree` when `--calltree` is enabled
+- phase 12 sample now retrieves both:
+  - the operational assembly report
+  - the descriptor-oriented assembly document
 
 ### Current Remaining Gap
 

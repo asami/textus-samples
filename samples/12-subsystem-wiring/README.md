@@ -46,6 +46,7 @@ This sample shows:
 - `callercomp.main.hello` returning declared `ports` and resolved `wiring_bindings`
 - `callercomp.main.hello` returning `wiring` in the YAML result
 - `callercomp.main.hello --calltree` returning `calltree` in the YAML result
+- `admin.assembly.descriptor` returning a descriptor-oriented wiring document
 
 ## Files
 
@@ -232,3 +233,25 @@ This gives the sample a concrete path from:
 - admin-observable result
 
 which is the intended foundation for later descriptor export or standalone assembly descriptors.
+
+## Assembly Descriptor
+
+This sample also retrieves the resolved assembly in a descriptor-oriented form.
+
+```bash
+bash ../../bin/cncf command admin.assembly.descriptor --format yaml --component-dir <temporary-component-dir> --textus.runtime.subsystem=testsubsystemwiring --textus.runtime.subsystem.file=<temporary-subsystem-sar>
+```
+
+The descriptor export currently includes:
+
+- `kind: assembly-descriptor`
+- `subsystem`
+- `version`
+- `components`
+- `ports`
+- `wiring`
+- `wiring_bindings`
+- `warnings`
+
+This is the CLI-facing document form of the wiring diagram.
+It is separate from the subsystem descriptor, which expresses intent.

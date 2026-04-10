@@ -16,6 +16,7 @@ Stage Status:
 - Component composition
 - Descriptor-guided delegated call
 - Port and wiring result retrieval through `admin.assembly.report`
+- Descriptor-oriented wiring diagram retrieval through `admin.assembly.descriptor`
 - Glue carried through resolved wiring bindings and applied as passthrough execution metadata
 
 ## Step
@@ -31,6 +32,7 @@ Stage Status:
 - [x] Passthrough `glue` modes are applied through the framework mediation helper during delegated execution
 - [x] The subsystem assembly approach is explained in the README
 - [x] The wiring result can be retrieved from the admin assembly surface
+- [x] The wiring diagram can be retrieved as a descriptor-oriented assembly document
 - [ ] If needed, `docker/` is updated to executable contents
 - [x] `samples/12-subsystem-wiring/README.md` is updated to match the implementation
 
