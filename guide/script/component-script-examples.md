@@ -125,7 +125,9 @@ After deployment, the preferred model is:
 
 For sample-level simulation in this repository:
 
-- `invoke.sh` should use `samples/component-repository.d`
+- `invoke.sh` should use:
+  - `samples/component.d` for active packaged sources
+  - `samples/repository.d` for searchable packaged sources
 
 For final deployment:
 

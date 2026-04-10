@@ -17,7 +17,7 @@ In this repository, the primary executable entry point should be the CNCF librar
 
 The sample itself should mainly contribute:
 
-- `component.d`
+- `component.d` or `repository.d`
 - implementation classes
 - command path definitions such as `component.service.operation`
 
@@ -47,7 +47,7 @@ This is the way implementers verify the sample while writing code.
 Typical goals:
 
 - confirm that the sample builds
-- confirm that `component.d` is loaded correctly
+- confirm that the intended local source is activated correctly
 - confirm that the intended command path executes
 - reproduce behavior quickly from the sample directory
 
@@ -62,7 +62,9 @@ This is the preferred style while programming because:
 So the programming-time default is:
 
 - run from the sample directory
-- use `cwd/component.d`
+- use:
+  - `cwd/component.d` for active packaged artifacts when needed
+  - `cwd/repository.d` for searchable packaged artifacts when needed
 - execute through `sbt runMain`
 
 Conceptually:
@@ -74,7 +76,8 @@ sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command <co
 At this stage, the preferred source composition is:
 
 - the component under active development from compiled classes via `--discover=classes`
-- dependency components not yet in a repository from `cwd/component.d`
+- active packaged dependencies from `cwd/component.d`
+- searchable packaged dependencies from `cwd/repository.d`
 - optional already-published dependencies from configured repositories
 
 ### 2. Local Verification Execution
@@ -117,11 +120,19 @@ This is useful when:
 - the environment is isolated
 - the operator intentionally wants local artifact control
 
-In this repository, `invoke.sh` should use the sample virtual repository under:
+In this repository, `invoke.sh` should use one of these local packaged-source shapes:
 
 ```text
-samples/component-repository.d
+samples/component.d
+samples/repository.d
 ```
+
+Use:
+
+- `component.d`
+  - when the sample wants an active packaged source
+- `repository.d`
+  - when the sample wants search plus explicit component/subsystem selection
 
 This preserves the deployment-style contract even before real remote repository deployment is in place.
 
@@ -170,10 +181,11 @@ Some environments need local control, for example:
 
 In those cases, a local component repository is a valid alternative, such as:
 
+- a project-local `repository.d`
 - a project-local `component.d`
 - a system-wide shared component directory
 - another locally managed repository path configured for CNCF
-- the sample virtual repository under `samples/component-repository.d`
+- the sample packaged-source directories under `samples/component.d` or `samples/repository.d`
 
 So the project should explain two deployment options:
 
@@ -182,7 +194,7 @@ So the project should explain two deployment options:
 
 For sample documentation and scripts, the immediate local stand-in is:
 
-- `samples/component-repository.d`
+- `samples/component.d` or `samples/repository.d`
 
 ## Development-Time vs Deployment-Time Loading
 
@@ -192,7 +204,8 @@ During development:
 
 - the sample under active work should be loaded from compiled classes
 - `--discover=classes` should be enabled
-- `cwd/component.d` should hold dependency components that are not yet in a repository
+- `cwd/component.d` should hold active packaged dependencies when needed
+- `cwd/repository.d` should hold searchable packaged dependencies when needed
 - the recommended working directory is the sample directory itself
 - `CncfMain` runs against the sample workspace
 
@@ -201,8 +214,9 @@ In practice, the preferred development-time pattern is:
 1. `cd` into the sample directory
 2. compile and run through `sbt`
 3. let the actively developed component load from compiled classes
-4. keep dependency components under `cwd/component.d` when they are not yet in a repository
-5. invoke `CncfMain` from that working directory
+4. keep active packaged dependencies under `cwd/component.d` when needed
+5. keep searchable packaged dependencies under `cwd/repository.d` when needed
+6. invoke `CncfMain` from that working directory
 
 And the preferred command style during programming is:
 

@@ -9,7 +9,7 @@ bash ../../bin/setup cncf
 ## Overview
 
 This sample is the baseline component packaging line.
-It shows the formal component artifact shape using `component.d/*.car`.
+It shows the formal component artifact shape using `component.d/*.car` as the active packaged source.
 
 In the `02` line, the forms are split like this:
 
@@ -28,7 +28,7 @@ In the `02` line, the forms are split like this:
 Use this sample when you want to understand the standard component distribution form before moving on to CRUD or other higher-level lines.
 
 - a component is packaged as a CAR
-- the runtime searches packaged component artifacts from `component.d`
+- the runtime activates packaged component artifacts from `component.d`
 - packaged CARs are activated explicitly by component name for command execution
 - the command path is still `component.service.operation`
 
@@ -150,8 +150,7 @@ The common parameters are:
 With the current activation policy:
 
 - `component.d/*.car`
-  - is a search target
-  - but is not auto-activated by default
+  - is the active packaged component source in this baseline sample
 - `--textus.runtime.component=testcomp`
   - selects the packaged component explicitly by component name
 
