@@ -165,18 +165,24 @@ The sample currently uses subsystem descriptor `wiring` metadata as input for th
 
 ### Current Remaining Gap
 
-The runtime now exposes the resolved assembly result, but `glue` is still metadata only.
+The runtime now exposes the resolved assembly result, and the phase 12 sample now applies minimal `glue` execution semantics.
 
 That means:
 
 - `glue` is preserved and observable
-- but it does not yet execute request / response adaptation logic
+- `callercomp` applies `request/mode: passthrough`
+- `callercomp` applies `response/mode: passthrough`
+- the result includes `glue_applied`
+
+This proves the basic execution shape, but it is still sample-local.
+The framework does not yet provide a general runtime mediation layer for applying `glue`.
 
 ## Temporary Sample Technique
 
 The current `12-subsystem-wiring` sample therefore uses a temporary technique:
 
 - `callercomp` reads wiring metadata directly from the subsystem descriptor path when needed
+- `callercomp` applies the current passthrough `glue` modes itself
 - this allows the delegated call walkthrough to succeed before framework-level wiring interpretation is implemented
 
 This is a temporary bridge, not the intended final runtime design.
@@ -185,7 +191,7 @@ This is a temporary bridge, not the intended final runtime design.
 
 The next runtime task is:
 
-- give `glue` runtime meaning beyond metadata retention
+- move `glue` execution from sample-local caller logic into framework-level runtime mediation
 
 After that, the next larger step is:
 
