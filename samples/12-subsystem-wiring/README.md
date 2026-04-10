@@ -41,7 +41,7 @@ This sample shows:
 - component-level `api` / `spi` declarations in the subsystem descriptor
 - one `wiring` section in the subsystem descriptor
 - `callercomp.main.hello` reading the target operation from descriptor wiring metadata
-- `callercomp.main.hello` applying the `glue` passthrough modes during delegated execution
+- `callercomp.main.hello` using the framework mediation helper to apply `glue` passthrough modes during delegated execution
 - `callercomp.main.hello` delegating to `calleecomp.main.hello`
 - `callercomp.main.hello` returning declared `ports` and resolved `wiring_bindings`
 - `callercomp.main.hello` returning `wiring` in the YAML result
@@ -171,7 +171,7 @@ wiring:
 ```
 
 The current runtime still uses delegated routing in the caller implementation.
-However, the caller now applies the descriptor `glue` modes while constructing the delegated call and interpreting the callee response:
+However, the caller now delegates through the framework `Subsystem.executeWired` helper so descriptor `glue` modes are applied while constructing the delegated call and interpreting the callee response:
 
 - `api`
   - caller-side required port
@@ -194,7 +194,7 @@ The runtime currently resolves:
 - caller operation -> caller `api`
 - target component + target `spi`
 - callee `spi` -> concrete service / operation
-- `glue` passthrough modes are applied during the delegated call
+- `glue` passthrough modes are applied by the framework mediation helper during the delegated call
 - the resolved `glue` metadata is also carried into the binding result
 
 This keeps the phase 12 walkthrough concrete while moving the sample closer to the intended port-based runtime model.
