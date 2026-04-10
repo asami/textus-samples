@@ -179,18 +179,18 @@ Some environments need local control, for example:
 - isolated test environments
 - systems that manage approved components inside a local shared directory
 
-In those cases, a local component repository is a valid alternative, such as:
+In those cases, local packaged sources are a valid alternative, such as:
 
 - a project-local `repository.d`
 - a project-local `component.d`
 - a system-wide shared component directory
-- another locally managed repository path configured for CNCF
+- another locally managed packaged search or active path configured for CNCF
 - the sample packaged-source directories under `samples/component.d` or `samples/repository.d`
 
 So the project should explain two deployment options:
 
-- default: remote Component Repository
-- alternative: local repository or shared component directory
+- default: remote packaged search and activation
+- alternative: local packaged directories or shared active directories
 
 For sample documentation and scripts, the immediate local stand-in is:
 
@@ -290,7 +290,7 @@ The runtime may fetch either from a remote repository, or from a locally managed
 
 For most samples, use this pattern:
 
-1. Put the executable structure in `component.d` and implementation classes.
+1. Keep the actively developed implementation in compiled classes, and place packaged dependencies in `component.d` only when needed.
 2. Use `org.goldenport.cncf.CncfMain` as the entry point.
 3. Call the target command path.
 4. Keep shell scripts thin.

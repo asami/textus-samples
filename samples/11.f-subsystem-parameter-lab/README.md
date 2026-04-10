@@ -75,11 +75,11 @@ The common parameters are:
 - `--component-dir <temporary-component-dir>`
   - activates the temporary packaged component directory generated from the baseline component jar
 
-The supported path in this lab is `bash run.sh`, because the batch runner prepares the temporary `component.d` automatically.
+The supported path in this lab is `bash run.sh`, because the batch runner prepares the temporary active `component.d` automatically.
 
 ### 1. Inspect subsystem help
 
-`run.sh` executes the equivalent command after preparing the temporary component repository.
+`run.sh` executes the equivalent command after preparing the temporary active packaged directory.
 
 Parameters:
 - `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
@@ -95,7 +95,7 @@ Parameters:
 
 ### 2. Inspect the component
 
-`run.sh` executes the equivalent command after preparing the temporary component repository.
+`run.sh` executes the equivalent command after preparing the temporary active packaged directory.
 
 Parameters:
 - `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
@@ -113,7 +113,7 @@ Parameters:
 
 ### 3. Inspect operation help
 
-`run.sh` executes the equivalent command after preparing the temporary component repository.
+`run.sh` executes the equivalent command after preparing the temporary active packaged directory.
 
 Parameters:
 - `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
@@ -129,7 +129,7 @@ Parameters:
 
 ### 4. Execute the operation
 
-`run.sh` executes the equivalent command after preparing the temporary component repository.
+`run.sh` executes the equivalent command after preparing the temporary active packaged directory.
 
 Parameters:
 - `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`

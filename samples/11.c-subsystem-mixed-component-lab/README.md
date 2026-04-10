@@ -166,7 +166,7 @@ without requiring phase 12 wiring.
 ## Assembly Observability
 
 This sample also provides a concrete example for the assembly warning model.
-If the component repository accidentally contains another `bundledcomp.car` or `genericcomp.car`
+If the active packaged directory accidentally contains another `bundledcomp.car` or `genericcomp.car`
 with the same component name, the runtime records an assembly warning instead of silently hiding the collision.
 
 That warning can be inspected through:
