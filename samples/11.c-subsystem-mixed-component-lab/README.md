@@ -140,9 +140,9 @@ This sample inspects:
 to show that the runtime keeps their origins distinct:
 
 - `genericcomp`
-  - `component-dir:car:genericcomp:0.1.0`
+  - `active car genericcomp@0.1.0`
 - `bundledcomp`
-  - `component-dir:sar:testsubsystemmixed:0.1.0:car:bundledcomp:0.1.0`
+  - `bundled sar testsubsystemmixed@0.1.0 -> bundledcomp@0.1.0`
 
 ### 3. Inspect operation help
 
