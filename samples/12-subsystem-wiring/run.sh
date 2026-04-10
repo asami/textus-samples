@@ -108,8 +108,8 @@ EOF
 
 COMMON_ARGS=(
   --component-dir "$WORK_DIR/component.d"
-  --textus.runtime.subsystem=testsubsystemwiring
-  --textus.runtime.subsystem.file="$WORK_DIR/component.d/testsubsystemwiring.sar"
+  --textus.subsystem=testsubsystemwiring
+  --textus.subsystem.file="$WORK_DIR/component.d/testsubsystemwiring.sar"
 )
 
 echo "--- subsystem help"
