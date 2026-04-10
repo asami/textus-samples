@@ -26,8 +26,6 @@ This lab shows:
 
 - `sar.d/`
   - the expanded SAR directory used for development and testing
-- `subsystem-sar-dir.conf`
-  - an optional config example for expanded `sar.d` startup
 - `run.sh`
   - convenience batch runner
 
