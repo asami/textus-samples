@@ -251,7 +251,9 @@ The descriptor export currently includes:
 - `ports`
 - `wiring`
 - `wiring_bindings`
+- `runtime.builtin_components`
 - `warnings`
 
 This is the CLI-facing document form of the wiring diagram.
 It is separate from the subsystem descriptor, which expresses intent.
+The descriptor body keeps selected application components in `components` and places runtime-provided builtin components under `runtime.builtin_components`.
