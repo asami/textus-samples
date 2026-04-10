@@ -8,7 +8,7 @@ source "$SCRIPT_DIR/cncf-common.sh"
 usage() {
   cat >&2 <<'EOF'
 Usage:
-  sample-runner.sh --script-path <path> [--cncf-main-class <fqcn>] [--sample-main-class <fqcn>] [--command-path <path>] [--discover-classes] [--workspace <path>] [--component-repository <spec>]... [--] [args...]
+  sample-runner.sh --script-path <path> [--cncf-main-class <fqcn>] [--sample-main-class <fqcn>] [--command-path <path>] [--discover-classes] [--workspace <path>] [--component-repository <spec>]... [--repository-dir <path>] [--component-dir <path>] [--] [args...]
 EOF
   exit 1
 }
@@ -20,6 +20,8 @@ command_path=""
 discover_classes="0"
 workspace=""
 component_repositories=()
+repository_dirs=()
+component_dirs=()
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -51,6 +53,14 @@ while [[ $# -gt 0 ]]; do
       component_repositories+=("${2:-}")
       shift 2
       ;;
+    --repository-dir)
+      repository_dirs+=("${2:-}")
+      shift 2
+      ;;
+    --component-dir)
+      component_dirs+=("${2:-}")
+      shift 2
+      ;;
     --)
       shift
       break
@@ -73,9 +83,18 @@ if [[ ${#component_repositories[@]} -gt 0 ]]; then
     extra_repo_args+=(--component-repository "$repo")
   done
 fi
+if [[ ${#repository_dirs[@]} -gt 0 ]]; then
+  for dir in "${repository_dirs[@]}"; do
+    extra_repo_args+=(--repository-dir "$dir")
+  done
+fi
+if [[ ${#component_dirs[@]} -gt 0 ]]; then
+  for dir in "${component_dirs[@]}"; do
+    extra_repo_args+=(--component-dir "$dir")
+  done
+fi
 
 forward_args=(
-  --sample-dir "$relative_sample_dir"
   --cncf-main-class "$cncf_main_class"
 )
 
@@ -95,6 +114,7 @@ if [[ ${#extra_repo_args[@]} -gt 0 ]]; then
   forward_args+=("${extra_repo_args[@]}")
 fi
 
+cd "$sample_dir"
 exec bash "$repo_root/bin/cncf" \
   "${forward_args[@]}" \
   -- \

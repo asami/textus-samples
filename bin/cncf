@@ -15,7 +15,7 @@ SIMPLEMODELING_REPOSITORY="https://www.simplemodeling.org/maven"
 usage() {
   cat >&2 <<'EOF'
 Usage:
-  cncf [--cncf-version <version>] [--cncf-server-port <port>] [--sample-dir <dir>] [--cncf-main-class <fqcn>] [--command-path <path>] [--discover-classes|--discover=classes] [--workspace <path>] [--component-repository <spec>]... [--] [args...]
+  cncf [--cncf-version <version>] [--cncf-server-port <port>] [--cncf-main-class <fqcn>] [--command-path <path>] [--discover-classes|--discover=classes] [--workspace <path>] [--repository-dir <path>] [--component-dir <path>] [--component-repository <spec>]... [--] [args...]
 
 Examples:
   ../../bin/setup cncf
@@ -26,7 +26,6 @@ EOF
   exit 1
 }
 
-sample_dir=""
 cncf_main_class="org.goldenport.cncf.CncfMain"
 runtime_version="${CNCF_VERSION:-$DEFAULT_RUNTIME_VERSION}"
 server_port="${CNCF_SERVER_PORT:-$DEFAULT_SERVER_PORT}"
@@ -34,6 +33,8 @@ command_path=""
 discover_classes="0"
 workspace=""
 component_repositories=()
+repository_dirs=()
+component_dirs=()
 
 resolve_sample_runtime_classpath() {
   local cp_dir="target/cncf.d"
@@ -72,10 +73,6 @@ while [[ $# -gt 0 ]]; do
       runtime_version="${1#--cncf-version=}"
       shift
       ;;
-    --sample-dir)
-      sample_dir="${2:-}"
-      shift 2
-      ;;
     --cncf-server-port)
       server_port="${2:-}"
       shift 2
@@ -104,6 +101,14 @@ while [[ $# -gt 0 ]]; do
       component_repositories+=("${2:-}")
       shift 2
       ;;
+    --repository-dir)
+      repository_dirs+=("${2:-}")
+      shift 2
+      ;;
+    --component-dir)
+      component_dirs+=("${2:-}")
+      shift 2
+      ;;
     --help|-h)
       usage
       ;;
@@ -116,14 +121,6 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
-
-repo_root="$(cncf_repo_root)"
-if [[ -z "$sample_dir" ]]; then
-  sample_dir="$(cncf_sample_dir_from_cwd)"
-fi
-if [[ -n "$sample_dir" ]]; then
-  cd "$repo_root/$sample_dir"
-fi
 
 STATE_FILE="$CACHE_ROOT/cncf-samples/cncf-launcher/$runtime_version/.setup-complete"
 
@@ -155,6 +152,16 @@ fi
 if [[ ${#component_repositories[@]} -gt 0 ]]; then
   for repo in "${component_repositories[@]}"; do
     app_args+=(--component-repository="$repo")
+  done
+fi
+if [[ ${#repository_dirs[@]} -gt 0 ]]; then
+  for dir in "${repository_dirs[@]}"; do
+    app_args+=(--repository-dir="$dir")
+  done
+fi
+if [[ ${#component_dirs[@]} -gt 0 ]]; then
+  for dir in "${component_dirs[@]}"; do
+    app_args+=(--component-dir="$dir")
   done
 fi
 if [[ -n "$command_path" ]]; then

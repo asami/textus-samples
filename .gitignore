@@ -8,6 +8,7 @@ lib
 /samples/**/target/
 /samples/component-repository.d/
 /samples/**/car.d/
+/samples/**/repository.d/
 /samples/**/sar.d/
 /project/**/target/
 boot

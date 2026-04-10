@@ -13,7 +13,7 @@ bash ../../bin/setup cncf
 
 `02` showed a hand-written component in three runtime shapes:
 
-- `component.d/*.car`
+- `repository.d/*.car`
 - `car.d`
 - `--discover=classes`
 
@@ -25,7 +25,7 @@ In the `03` line, the forms are split like this:
 
 - `03-component-cml`
   - formal generated component artifact
-  - `component.d/*.car`
+  - `repository.d/*.car`
 - `03.a-car-dir-cml-lab`
   - expanded generated `car.d`
   - development and test form
@@ -40,7 +40,7 @@ the same formal packaging shape as `02-component`:
 
 - define a component in CML
 - package the generated classes as a CAR
-- activate the packaged CAR explicitly for command execution
+- search the packaged CAR explicitly for command execution
 - inspect the generated component and operation surface
 
 This sample is intentionally small.
@@ -50,7 +50,7 @@ It focuses on generation and metadata, not runtime business behavior.
 
 - `src/main/cozy/component.cml`
   - the source model
-- `component.d/component-cml-sample.car`
+- `repository.d/component-cml-sample.car`
   - the packaged generated component artifact
 - `car.d/`
   - expanded generated CAR used for inspection
@@ -93,7 +93,7 @@ It will:
 - inspect generated component help
 - inspect generated operation help
 - inspect generated metadata
-- run from a neutral launcher sample so only the packaged CAR is visible
+- run directly from the current sample and search the packaged CAR explicitly
 
 ```bash
 bash run.sh
@@ -105,23 +105,25 @@ The common parameters are:
 
 - `command`
   - uses ordinary one-shot CNCF command execution for this sample
-- `--sample-dir samples/01-minimal`
-  - launches CNCF from a neutral sample so the packaged generated CAR is not mixed with the current sample classes
-- `--component-repository=component-dir:/absolute/path/to/component.d`
-  - activates packaged generated component artifacts from `component.d`
+- `--repository-dir /absolute/path/to/repository.d`
+  - adds packaged generated component artifacts to the search repository
+- `--textus.runtime.component=component-cml-sample`
+  - explicitly activates the packaged generated component by name
 
 With the current activation policy:
 
-- `component.d/*.car`
+- `repository.d/*.car`
   - is a search target
   - but is not auto-activated by default
-- `--component-repository=component-dir:/absolute/path/to/component.d`
-  - makes the packaged generated component active for this command
+- `--repository-dir /absolute/path/to/repository.d`
+  - makes the packaged generated component searchable for this command
+- `--textus.runtime.component=component-cml-sample`
+  - selects which packaged component to activate from that search repository
 
 ### 1. Inspect the generated component
 
 ```bash
-bash ../../bin/cncf --sample-dir samples/01-minimal --component-repository=component-dir:/absolute/path/to/component.d command meta.help component-cml-sample --format yaml
+bash ../../bin/cncf --repository-dir /absolute/path/to/repository.d --textus.runtime.component=component-cml-sample command meta.help component-cml-sample --format yaml
 ```
 
 Parameters:
@@ -133,15 +135,15 @@ Parameters:
   - identifies the generated component
 - `--format yaml`
   - renders the result in YAML
-- `--sample-dir samples/01-minimal`
-  - avoids ambiguity between the packaged CAR and the current sample's generated classes
-- `--component-repository=component-dir:/absolute/path/to/component.d`
-  - loads the packaged generated component artifact
+- `--repository-dir /absolute/path/to/repository.d`
+  - adds the packaged generated component artifact directory to the search repository
+- `--textus.runtime.component=component-cml-sample`
+  - activates the packaged generated component by name
 
 ### 2. Inspect generated operation help
 
 ```bash
-bash ../../bin/cncf --sample-dir samples/01-minimal --component-repository=component-dir:/absolute/path/to/component.d command help component-cml-sample.greeting.greeting
+bash ../../bin/cncf --repository-dir /absolute/path/to/repository.d --textus.runtime.component=component-cml-sample command help component-cml-sample.greeting.greeting
 ```
 
 Parameters:
@@ -151,15 +153,15 @@ Parameters:
   - selects the CLI-oriented help entry point
 - `component-cml-sample.greeting.greeting`
   - identifies the generated operation
-- `--sample-dir samples/01-minimal`
-  - avoids ambiguity between the packaged CAR and the current sample's generated classes
-- `--component-repository=component-dir:/absolute/path/to/component.d`
-  - loads the packaged generated component artifact
+- `--repository-dir /absolute/path/to/repository.d`
+  - adds the packaged generated component artifact directory to the search repository
+- `--textus.runtime.component=component-cml-sample`
+  - activates the packaged generated component by name
 
 ### 3. Inspect generated metadata
 
 ```bash
-bash ../../bin/cncf --sample-dir samples/01-minimal --component-repository=component-dir:/absolute/path/to/component.d command component-cml-sample.meta.describe --format yaml
+bash ../../bin/cncf --repository-dir /absolute/path/to/repository.d --textus.runtime.component=component-cml-sample command component-cml-sample.meta.describe --format yaml
 ```
 
 Parameters:
@@ -169,10 +171,10 @@ Parameters:
   - invokes the generated metadata service
 - `--format yaml`
   - renders the result in YAML
-- `--sample-dir samples/01-minimal`
-  - avoids ambiguity between the packaged CAR and the current sample's generated classes
-- `--component-repository=component-dir:/absolute/path/to/component.d`
-  - loads the packaged generated component artifact
+- `--repository-dir /absolute/path/to/repository.d`
+  - adds the packaged generated component artifact directory to the search repository
+- `--textus.runtime.component=component-cml-sample`
+  - activates the packaged generated component by name
 
 ## What To Notice
 
@@ -186,5 +188,5 @@ Parameters:
 
 - first CML-driven component generation
 - generated CAR packaging
-- explicit activation of generated packaged CARs
+- explicit search and activation of generated packaged CARs
 - generated component and operation metadata

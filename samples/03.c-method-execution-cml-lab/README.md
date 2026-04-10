@@ -28,7 +28,7 @@ Use this sample when you want to confirm:
   - the source model
 - `src/main/scala/org/sample/componentmethodexecution/ComponentMethodExecutionSampleFactory.scala`
   - the execution factory packaged into the sample jar
-- `component.d/component-method-execution-sample.car`
+- `repository.d/component-method-execution-sample.car`
   - the packaged generated component artifact used for execution
 - `run.sh`
   - convenience batch runner
@@ -61,30 +61,30 @@ The common parameters are:
 
 - `command`
   - uses ordinary one-shot CNCF command execution for this sample
-- `--sample-dir samples/01-minimal`
-  - runs from a neutral sample dir so only the packaged CAR is loaded
-- `--component-repository=component-dir:component.d`
-  - loads the packaged generated component artifact
+- `--repository-dir repository.d`
+  - adds the packaged generated component artifact directory to the search repository
+- `--textus.runtime.component=component-method-execution-sample`
+  - explicitly activates the packaged generated component by name
 
 ### 1. Inspect the generated component
 
 ```bash
-REPO_DIR="$PWD/component.d"
-bash ../../bin/cncf --sample-dir samples/01-minimal --component-repository=component-dir:"$REPO_DIR" command meta.help component-method-execution-sample --format yaml
+REPO_DIR="$PWD/repository.d"
+bash ../../bin/cncf --repository-dir "$REPO_DIR" --textus.runtime.component=component-method-execution-sample command meta.help component-method-execution-sample --format yaml
 ```
 
 ### 2. Inspect operation help
 
 ```bash
-REPO_DIR="$PWD/component.d"
-bash ../../bin/cncf --sample-dir samples/01-minimal --component-repository=component-dir:"$REPO_DIR" command help component-method-execution-sample.greeting.compose-greeting
+REPO_DIR="$PWD/repository.d"
+bash ../../bin/cncf --repository-dir "$REPO_DIR" --textus.runtime.component=component-method-execution-sample command help component-method-execution-sample.greeting.compose-greeting
 ```
 
 ### 3. Execute the method
 
 ```bash
-REPO_DIR="$PWD/component.d"
-bash ../../bin/cncf --sample-dir samples/01-minimal --component-repository=component-dir:"$REPO_DIR" command component-method-execution-sample.greeting.compose-greeting --name Alice
+REPO_DIR="$PWD/repository.d"
+bash ../../bin/cncf --repository-dir "$REPO_DIR" --textus.runtime.component=component-method-execution-sample command component-method-execution-sample.greeting.compose-greeting --name Alice
 ```
 
 Expected result:
