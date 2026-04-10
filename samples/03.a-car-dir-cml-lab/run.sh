@@ -21,24 +21,12 @@ cat > car.d/meta/manifest.json <<'EOF'
 EOF
 
 echo "--- component help"
-bash ../../bin/cncf \
-  --sample-dir samples/01-minimal \
-  --no-default-components \
-  --component-repository=component-dir:"$REPO_DIR" \
-  command meta.help component-cml-sample --format yaml
+bash ../../bin/cncf command meta.help component-cml-sample --format yaml
 
 echo
 echo "--- operation help"
-bash ../../bin/cncf \
-  --sample-dir samples/01-minimal \
-  --no-default-components \
-  --component-repository=component-dir:"$REPO_DIR" \
-  command help component-cml-sample.greeting.greeting
+bash ../../bin/cncf command help component-cml-sample.greeting.greeting
 
 echo
 echo "--- metadata"
-bash ../../bin/cncf \
-  --sample-dir samples/01-minimal \
-  --no-default-components \
-  --component-repository=component-dir:"$REPO_DIR" \
-  command component-cml-sample.meta.describe --format yaml
+bash ../../bin/cncf command component-cml-sample.meta.describe --format yaml

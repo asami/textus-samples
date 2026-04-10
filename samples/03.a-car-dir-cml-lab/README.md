@@ -47,37 +47,31 @@ The common parameters are:
 
 - `command`
   - uses ordinary one-shot CNCF command execution for this sample
-- `--sample-dir samples/01-minimal`
-  - launches CNCF from a neutral sample so only the expanded generated `car.d` is visible
-- `--no-default-components`
-  - keeps the walkthrough focused on the explicit `car.d` repository
-- `--component-repository=component-dir:/absolute/path/to/car.d`
-  - loads the expanded generated CAR directory directly
 
 With the current activation policy:
 
 - `car.d`
   - is the expanded debug/development shape
-  - and may be auto-activated by the runtime
-- this sample still uses an explicit repository and `--no-default-components`
-  - so the generated `car.d` walkthrough stays isolated and deterministic
+  - and is auto-activated by the runtime
+- no explicit repository option is required for the direct generated `car.d`
+  walkthrough
 
 ### 1. Inspect the generated component
 
 ```bash
-bash ../../bin/cncf --sample-dir samples/01-minimal --no-default-components --component-repository=component-dir:/absolute/path/to/car.d command meta.help component-cml-sample --format yaml
+bash ../../bin/cncf command meta.help component-cml-sample --format yaml
 ```
 
 ### 2. Inspect generated operation help
 
 ```bash
-bash ../../bin/cncf --sample-dir samples/01-minimal --no-default-components --component-repository=component-dir:/absolute/path/to/car.d command help component-cml-sample.greeting.greeting
+bash ../../bin/cncf command help component-cml-sample.greeting.greeting
 ```
 
 ### 3. Inspect generated metadata
 
 ```bash
-bash ../../bin/cncf --sample-dir samples/01-minimal --no-default-components --component-repository=component-dir:/absolute/path/to/car.d command component-cml-sample.meta.describe --format yaml
+bash ../../bin/cncf command component-cml-sample.meta.describe --format yaml
 ```
 
 ## Key Learnings
