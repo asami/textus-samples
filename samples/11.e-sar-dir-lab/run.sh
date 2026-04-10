@@ -30,9 +30,7 @@ EOF
 cp sar.d/meta/manifest.json sar.d/explicit-subsystem/meta/manifest.json
 
 COMMON_ARGS=(
-  --no-default-components
   --textus.runtime.subsystem=testsubsystem
-  --component-repository=component-dir:sar.d
 )
 
 echo "--- subsystem help"

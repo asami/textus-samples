@@ -20,20 +20,14 @@ EOF
 
 echo "--- component help"
 bash ../../bin/cncf \
-  --no-default-components \
-  --component-repository=component-dir:car.d \
   command meta.help testcomp --format yaml
 
 echo
 echo "--- operation help"
 bash ../../bin/cncf \
-  --no-default-components \
-  --component-repository=component-dir:car.d \
   command help testcomp.main.hello
 
 echo
 echo "--- execute"
 bash ../../bin/cncf \
-  --no-default-components \
-  --component-repository=component-dir:car.d \
   command testcomp.main.hello

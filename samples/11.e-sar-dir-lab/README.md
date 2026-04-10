@@ -89,25 +89,26 @@ bash run.sh
 The commands below use the standard CNCF CLI entry point.
 The common parameters are:
 
-- `--no-default-components`
-  - keeps this lab isolated to the expanded `sar.d` path
-  - avoids duplicate or unrelated default component activation while inspecting the unpacked subsystem layout
 - `--textus.runtime.subsystem=testsubsystem`
   - selects the subsystem name exposed by the expanded `sar.d`
-- `--component-repository=component-dir:sar.d`
-  - points the runtime at the expanded `sar.d` work area directly
 - `command`
   - uses ordinary one-shot CNCF command execution for this lab
+
+With the current activation policy:
+
+- `sar.d`
+  - is the expanded debug/development subsystem shape
+  - and is auto-activated by the runtime
+- this walkthrough only needs the subsystem name
+  - the expanded `sar.d` work area is discovered automatically
 
 ### 1. Inspect subsystem help
 
 ```bash
-bash ../../bin/cncf --no-default-components command meta.help --format yaml --textus.runtime.subsystem=testsubsystem --component-repository=component-dir:sar.d
+bash ../../bin/cncf command meta.help --format yaml --textus.runtime.subsystem=testsubsystem
 ```
 
 Parameters:
-- `--no-default-components`
-  - keeps the expanded `sar.d` walkthrough isolated from the default startup path
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
 - `meta.help`
@@ -116,18 +117,14 @@ Parameters:
   - renders the result in YAML
 - `--textus.runtime.subsystem=testsubsystem`
   - selects the subsystem defined by the expanded `sar.d`
-- `--component-repository=component-dir:sar.d`
-  - uses the expanded `sar.d` work area as the repository source
 
 ### 2. Inspect the component
 
 ```bash
-bash ../../bin/cncf --no-default-components command meta.help testcomp --format yaml --textus.runtime.subsystem=testsubsystem --component-repository=component-dir:sar.d
+bash ../../bin/cncf command meta.help testcomp --format yaml --textus.runtime.subsystem=testsubsystem
 ```
 
 Parameters:
-- `--no-default-components`
-  - keeps the expanded `sar.d` walkthrough isolated from the default startup path
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
 - `meta.help`
@@ -138,18 +135,14 @@ Parameters:
   - renders the result in YAML
 - `--textus.runtime.subsystem=testsubsystem`
   - selects the subsystem defined by the expanded `sar.d`
-- `--component-repository=component-dir:sar.d`
-  - uses the expanded `sar.d` work area as the repository source
 
 ### 3. Inspect operation help
 
 ```bash
-bash ../../bin/cncf --no-default-components command help testcomp.main.hello --textus.runtime.subsystem=testsubsystem --component-repository=component-dir:sar.d
+bash ../../bin/cncf command help testcomp.main.hello --textus.runtime.subsystem=testsubsystem
 ```
 
 Parameters:
-- `--no-default-components`
-  - keeps the expanded `sar.d` walkthrough isolated from the default startup path
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
 - `help`
@@ -158,26 +151,20 @@ Parameters:
   - identifies the operation path exposed by the expanded `sar.d`
 - `--textus.runtime.subsystem=testsubsystem`
   - selects the subsystem defined by the expanded `sar.d`
-- `--component-repository=component-dir:sar.d`
-  - uses the expanded `sar.d` work area as the repository source
 
 ### 4. Execute the operation
 
 ```bash
-bash ../../bin/cncf --no-default-components command testcomp.main.hello --textus.runtime.subsystem=testsubsystem --component-repository=component-dir:sar.d
+bash ../../bin/cncf command testcomp.main.hello --textus.runtime.subsystem=testsubsystem
 ```
 
 Parameters:
-- `--no-default-components`
-  - keeps the expanded `sar.d` walkthrough isolated from the default startup path
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
 - `testcomp.main.hello`
   - selects the operation path exposed by the expanded `sar.d`
 - `--textus.runtime.subsystem=testsubsystem`
   - selects the subsystem defined by the expanded `sar.d`
-- `--component-repository=component-dir:sar.d`
-  - uses the expanded `sar.d` work area as the repository source
 
 Expected result:
 

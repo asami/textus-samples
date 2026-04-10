@@ -56,23 +56,18 @@ The common parameters are:
 
 - `command`
   - uses ordinary one-shot CNCF command execution for this sample
-- `--no-default-components`
-  - keeps the walkthrough focused on the explicit `car.d` repository
-- `--component-repository=component-dir:car.d`
-  - loads the expanded CAR directory directly
 
 With the current activation policy:
 
 - `car.d`
   - is the expanded debug/development shape
-  - and may be auto-activated by the runtime
-- this sample still uses an explicit repository and `--no-default-components`
-  - so the walkthrough stays isolated and deterministic
+  - and is auto-activated by the runtime
+- no explicit repository option is required for the direct `car.d` walkthrough
 
 ### 1. Inspect the component
 
 ```bash
-bash ../../bin/cncf --no-default-components --component-repository=component-dir:car.d command meta.help testcomp --format yaml
+bash ../../bin/cncf command meta.help testcomp --format yaml
 ```
 
 Parameters:
@@ -84,15 +79,11 @@ Parameters:
   - identifies the component loaded from `car.d`
 - `--format yaml`
   - renders the result in YAML
-- `--no-default-components`
-  - excludes unrelated default repositories
-- `--component-repository=component-dir:car.d`
-  - loads the expanded CAR directory directly
 
 ### 2. Inspect operation help
 
 ```bash
-bash ../../bin/cncf --no-default-components --component-repository=component-dir:car.d command help testcomp.main.hello
+bash ../../bin/cncf command help testcomp.main.hello
 ```
 
 Parameters:
@@ -102,15 +93,11 @@ Parameters:
   - selects the CLI-oriented help entry point
 - `testcomp.main.hello`
   - identifies the operation path exposed by the expanded CAR
-- `--no-default-components`
-  - excludes unrelated default repositories
-- `--component-repository=component-dir:car.d`
-  - loads the expanded CAR directory directly
 
 ### 3. Execute the operation
 
 ```bash
-bash ../../bin/cncf --no-default-components --component-repository=component-dir:car.d command testcomp.main.hello
+bash ../../bin/cncf command testcomp.main.hello
 ```
 
 Parameters:
@@ -118,10 +105,6 @@ Parameters:
   - uses ordinary one-shot CNCF command execution for this step
 - `testcomp.main.hello`
   - selects the sample operation exposed by the expanded CAR
-- `--no-default-components`
-  - excludes unrelated default repositories
-- `--component-repository=component-dir:car.d`
-  - loads the expanded CAR directory directly
 
 Expected result:
 
