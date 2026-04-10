@@ -174,8 +174,6 @@ The common parameters are:
 
 - `command`
   - uses ordinary one-shot CNCF command execution for this sample
-- `--textus.component.repository=component-dir:component.d`
-  - exposes the generated packaged component and subsystem artifacts as the repository for this sample run
 - `--textus.runtime.subsystem=testsubsystem`
   - selects the subsystem named `testsubsystem`
 
@@ -185,8 +183,8 @@ With the current activation policy:
   - is a search target but is not auto-activated by default
 - `component.d/testsubsystem.sar`
   - lets the runtime resolve the subsystem by name
-- `textus.component.repository=component-dir:component.d`
-  - makes the selected subsystem bind its declared reusable component from the same repository
+- once the subsystem descriptor is selected from `component.d`
+  - the runtime activates the matching packaged component source from the same repository for that subsystem context
 
 The same parameter can also be placed in a config file.
 That is not a subsystem-specific feature.
@@ -195,7 +193,7 @@ It is the ordinary CNCF rule that command-line parameters and config parameters 
 ### 1. Inspect subsystem help
 
 ```bash
-bash ../../bin/cncf command meta.help --format yaml --textus.component.repository=component-dir:component.d --textus.runtime.subsystem=testsubsystem
+bash ../../bin/cncf command meta.help --format yaml --textus.runtime.subsystem=testsubsystem
 ```
 
 Parameters:
@@ -205,15 +203,13 @@ Parameters:
   - selects structured subsystem introspection
 - `--format yaml`
   - renders the result in YAML
-- `--textus.component.repository=component-dir:component.d`
-  - points the subsystem runtime at the generated packaged artifacts for this sample
 - `--textus.runtime.subsystem=testsubsystem`
   - selects the subsystem named `testsubsystem`
 
 ### 2. Inspect the component
 
 ```bash
-bash ../../bin/cncf command meta.help testcomp --format yaml --textus.component.repository=component-dir:component.d --textus.runtime.subsystem=testsubsystem
+bash ../../bin/cncf command meta.help testcomp --format yaml --textus.runtime.subsystem=testsubsystem
 ```
 
 Parameters:
@@ -225,15 +221,13 @@ Parameters:
   - identifies the generic component surface wired into the selected subsystem
 - `--format yaml`
   - renders the result in YAML
-- `--textus.component.repository=component-dir:component.d`
-  - points the subsystem runtime at the generated packaged artifacts for this sample
 - `--textus.runtime.subsystem=testsubsystem`
   - selects the subsystem named `testsubsystem`
 
 ### 3. Inspect operation help
 
 ```bash
-bash ../../bin/cncf command help testcomp.main.hello --textus.component.repository=component-dir:component.d --textus.runtime.subsystem=testsubsystem
+bash ../../bin/cncf command help testcomp.main.hello --textus.runtime.subsystem=testsubsystem
 ```
 
 Parameters:
@@ -243,15 +237,13 @@ Parameters:
   - selects the CLI-oriented help entry point
 - `testcomp.main.hello`
   - identifies the operation path exposed by the selected subsystem
-- `--textus.component.repository=component-dir:component.d`
-  - points the subsystem runtime at the generated packaged artifacts for this sample
 - `--textus.runtime.subsystem=testsubsystem`
   - selects the subsystem named `testsubsystem`
 
 ### 4. Execute the operation
 
 ```bash
-bash ../../bin/cncf command testcomp.main.hello --textus.component.repository=component-dir:component.d --textus.runtime.subsystem=testsubsystem
+bash ../../bin/cncf command testcomp.main.hello --textus.runtime.subsystem=testsubsystem
 ```
 
 Parameters:
@@ -259,8 +251,6 @@ Parameters:
   - uses ordinary one-shot CNCF command execution for this step
 - `testcomp.main.hello`
   - selects the operation path exposed by the selected subsystem
-- `--textus.component.repository=component-dir:component.d`
-  - points the subsystem runtime at the generated packaged artifacts for this sample
 - `--textus.runtime.subsystem=testsubsystem`
   - selects the subsystem named `testsubsystem`
 
