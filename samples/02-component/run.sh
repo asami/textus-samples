@@ -22,11 +22,11 @@ cp "$TMPDIR/meta/manifest.json" car.d/testcomp/meta/manifest.json
 
 echo "--- component help"
 bash ../../bin/cncf \
-  --component-repository=component-dir:component.d \
+  --textus.runtime.component=testcomp \
   command meta.help testcomp --format yaml
 
 echo
 echo "--- operation help"
 bash ../../bin/cncf \
-  --component-repository=component-dir:component.d \
+  --textus.runtime.component=testcomp \
   command help testcomp.main.hello

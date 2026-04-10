@@ -29,7 +29,7 @@ Use this sample when you want to understand the standard component distribution 
 
 - a component is packaged as a CAR
 - the runtime searches packaged component artifacts from `component.d`
-- packaged CARs are activated explicitly for command execution
+- packaged CARs are activated explicitly by component name for command execution
 - the command path is still `component.service.operation`
 
 ## What This Sample Will Show
@@ -144,21 +144,21 @@ The common parameters are:
 
 - `command`
   - uses ordinary one-shot CNCF command execution for this sample
-- `--component-repository=component-dir:component.d`
-  - activates packaged CARs from `component.d` for this run
+- `--textus.runtime.component=testcomp`
+  - activates the packaged component named `testcomp` from `component.d`
 
 With the current activation policy:
 
 - `component.d/*.car`
   - is a search target
   - but is not auto-activated by default
-- `--component-repository=component-dir:component.d`
-  - makes the packaged component active for this command
+- `--textus.runtime.component=testcomp`
+  - selects the packaged component explicitly by component name
 
 ### 1. Inspect the component
 
 ```bash
-bash ../../bin/cncf --component-repository=component-dir:component.d command meta.help testcomp --format yaml
+bash ../../bin/cncf --textus.runtime.component=testcomp command meta.help testcomp --format yaml
 ```
 
 Parameters:
@@ -170,13 +170,13 @@ Parameters:
   - identifies the packaged component to inspect
 - `--format yaml`
   - renders the result in YAML
-- `--component-repository=component-dir:component.d`
-  - loads the component artifact from `component.d`
+- `--textus.runtime.component=testcomp`
+  - selects the packaged component artifact from `component.d`
 
 ### 2. Inspect operation help
 
 ```bash
-bash ../../bin/cncf --component-repository=component-dir:component.d command help testcomp.main.hello
+bash ../../bin/cncf --textus.runtime.component=testcomp command help testcomp.main.hello
 ```
 
 Parameters:
@@ -186,8 +186,8 @@ Parameters:
   - selects the CLI-oriented help entry point
 - `testcomp.main.hello`
   - identifies the operation path exposed by the component
-- `--component-repository=component-dir:component.d`
-  - loads the component artifact from `component.d`
+- `--textus.runtime.component=testcomp`
+  - selects the component artifact from `component.d`
 
 ## What To Notice
 
@@ -195,6 +195,7 @@ Parameters:
 - the user-facing selector is still `component.service.operation`
 - `component.d/*.car` is the baseline distribution form
 - packaged CARs are explicit runtime inputs, not always-on defaults
+- explicit activation is now expressed by component name rather than by repository option
 - `car.d` and `--discover=classes` are later variants for development and test
 - the `02` baseline focuses on packaging and surface inspection; `02.b` is where the same component is executed via class discovery
 
@@ -202,5 +203,5 @@ Parameters:
 
 - component artifact basics
 - CAR as the formal component package
-- explicit activation of packaged CARs from `component.d`
+- explicit activation of packaged CARs from `component.d` by component name
 - selector format: `component.service.operation`

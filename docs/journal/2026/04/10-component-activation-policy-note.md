@@ -54,6 +54,12 @@ The preferred direction is:
   - not auto-activated
 - explicit component activation by component name
 
+The current runtime line is:
+
+- `--textus.runtime.component=<name>`
+  - search `component.d`
+  - promote the matching packaged component source into the active repository set
+
 This mirrors the subsystem approach:
 
 - subsystem artifact
