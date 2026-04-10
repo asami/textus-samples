@@ -38,7 +38,7 @@ The runtime line is:
 - `component.d/explicit-subsystem.sar`
 - `--textus.runtime.subsystem=testsubsystem`
 
-The important detail is that `component.d` must contain only the bundled SAR for this walkthrough.
+The important detail is that the active packaged directory (`component.d`) must contain only the bundled SAR for this walkthrough.
 If a standalone `base.car` is left in the same directory, the same `testcomp` component is loaded twice:
 
 - once directly from `base.car`

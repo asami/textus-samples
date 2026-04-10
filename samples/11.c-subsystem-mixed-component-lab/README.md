@@ -100,7 +100,7 @@ They are created in a temporary working directory and are not committed inputs.
 The mixed shape is:
 
 - `genericcomp.car`
-  - placed directly in the component repository
+  - placed directly in the active packaged directory
 - `testsubsystemmixed.sar`
   - selected as the subsystem artifact
   - contains `bundledcomp.car`
