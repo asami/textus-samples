@@ -81,7 +81,7 @@ wiring:
     glue:
       request/mode: passthrough
       response/mode: passthrough
-    mode: api-spi-routing
+    mode: assembly-descriptor-routing
 EOF
 (cd "$SAR_WORK" && zip -qr "$WORK_DIR/component.d/testsubsystemwiring.sar" subsystem-descriptor.yaml assembly-descriptor.yaml)
 
