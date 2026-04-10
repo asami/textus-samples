@@ -130,7 +130,9 @@ wiring:
         glue:
           request/mode: passthrough
           response/mode: passthrough
-calltree: ...
+calltree:
+  - kind: enter
+    label: action:callercomp.main.hello
 ```
 
 ## What This Sample Generates

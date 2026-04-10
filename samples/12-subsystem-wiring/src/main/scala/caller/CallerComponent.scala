@@ -101,7 +101,7 @@ final case class HelloActionCall(
       fields += "wiring" -> wiring
       fields += "wiring_bindings" -> wiringBindings
       if (includeCalltree) {
-        val calltree = executionContext.observability.callTreeContext.build().map(_.toRecord).getOrElse(Record.empty)
+        val calltree = executionContext.observability.callTreeContext.build().map(x => _calltree_records(x.toRecord)).getOrElse(Vector.empty)
         fields += "calltree" -> calltree
       }
       val result = Record.data(fields.result()*)
@@ -124,6 +124,11 @@ final case class HelloActionCall(
             .getOrElse(Record.empty)
       }
       .getOrElse(Record.empty)
+
+  private def _calltree_records(record: Record): Vector[Any] =
+    record.asMap.toVector
+      .sortBy { case (k, _) => scala.util.Try(k.toString.toInt).toOption.getOrElse(Int.MaxValue) }
+      .map(_._2)
 
   private def _load_descriptor_record(path: java.nio.file.Path): Option[Record] = {
     val name = path.getFileName.toString.toLowerCase
