@@ -8,12 +8,11 @@ source "$SCRIPT_DIR/cncf-common.sh"
 usage() {
   cat >&2 <<'EOF'
 Usage:
-  sample-runner.sh --script-path <path> [--cncf-main-class <fqcn>] [--sample-main-class <fqcn>] [--command-path <path>] [--discover-classes] [--workspace <path>] [--component-repository <spec>]... [--repository-dir <path>] [--component-dir <path>] [--] [args...]
+  sample-runner.sh --script-path <path> [--cncf-main-class <fqcn>] [--sample-main-class <fqcn>] [--command-path <path>] [--discover-classes] [--workspace <path>] [--repository-dir <path>] [--component-dir <path>] [--] [args...]
 
 Notes:
   --repository-dir      add packaged artifacts to the search repository
   --component-dir       add packaged artifacts to the active component source
-  --component-repository legacy search-oriented alias
 EOF
   exit 1
 }
@@ -24,7 +23,6 @@ sample_main_class=""
 command_path=""
 discover_classes="0"
 workspace=""
-component_repositories=()
 repository_dirs=()
 component_dirs=()
 
@@ -54,10 +52,6 @@ while [[ $# -gt 0 ]]; do
       workspace="${2:-}"
       shift 2
       ;;
-    --component-repository)
-      component_repositories+=("${2:-}")
-      shift 2
-      ;;
     --repository-dir)
       repository_dirs+=("${2:-}")
       shift 2
@@ -83,11 +77,6 @@ sample_dir="$(cncf_sample_dir_from_script "$script_path")"
 relative_sample_dir="${sample_dir#"$repo_root"/}"
 
 extra_repo_args=()
-if [[ ${#component_repositories[@]} -gt 0 ]]; then
-  for repo in "${component_repositories[@]}"; do
-    extra_repo_args+=(--component-repository "$repo")
-  done
-fi
 if [[ ${#repository_dirs[@]} -gt 0 ]]; then
   for dir in "${repository_dirs[@]}"; do
     extra_repo_args+=(--repository-dir "$dir")

@@ -15,7 +15,7 @@ SIMPLEMODELING_REPOSITORY="https://www.simplemodeling.org/maven"
 usage() {
   cat >&2 <<'EOF'
 Usage:
-  cncf [--cncf-version <version>] [--cncf-server-port <port>] [--cncf-main-class <fqcn>] [--command-path <path>] [--discover-classes|--discover=classes] [--workspace <path>] [--repository-dir <path>] [--component-dir <path>] [--component-repository <spec>]... [--] [args...]
+  cncf [--cncf-version <version>] [--cncf-server-port <port>] [--cncf-main-class <fqcn>] [--command-path <path>] [--discover-classes|--discover=classes] [--workspace <path>] [--repository-dir <path>] [--component-dir <path>] [--] [args...]
 
 Examples:
   ../../bin/setup cncf
@@ -27,7 +27,6 @@ Examples:
 Notes:
   --repository-dir      add packaged artifacts to the search repository
   --component-dir       add packaged artifacts to the active component source
-  --component-repository legacy search-oriented alias
 EOF
   exit 1
 }
@@ -38,7 +37,6 @@ server_port="${CNCF_SERVER_PORT:-$DEFAULT_SERVER_PORT}"
 command_path=""
 discover_classes="0"
 workspace=""
-component_repositories=()
 repository_dirs=()
 component_dirs=()
 
@@ -103,10 +101,6 @@ while [[ $# -gt 0 ]]; do
       workspace="${2:-}"
       shift 2
       ;;
-    --component-repository)
-      component_repositories+=("${2:-}")
-      shift 2
-      ;;
     --repository-dir)
       repository_dirs+=("${2:-}")
       shift 2
@@ -154,11 +148,6 @@ if [[ "$discover_classes" == "1" ]]; then
 fi
 if [[ -n "$workspace" ]]; then
   app_args+=(--workspace "$workspace")
-fi
-if [[ ${#component_repositories[@]} -gt 0 ]]; then
-  for repo in "${component_repositories[@]}"; do
-    app_args+=(--component-repository="$repo")
-  done
 fi
 if [[ ${#repository_dirs[@]} -gt 0 ]]; then
   for dir in "${repository_dirs[@]}"; do
