@@ -251,13 +251,14 @@ The descriptor export currently includes:
 - `components`
 - `ports`
 - `wiring`
-- `wiring_bindings`
+- `source.wiring`
 - `runtime.builtin_components`
 - `warnings`
 
 This is the CLI-facing document form of the wiring diagram.
 It is separate from the subsystem descriptor, which expresses intent.
 The descriptor body keeps selected application components in `components` and places runtime-provided builtin components under `runtime.builtin_components`.
+In the descriptor export, `wiring` is the resolved binding list and `source.wiring` preserves the raw subsystem descriptor wiring block.
 
 ## Assembly Diagram
 
