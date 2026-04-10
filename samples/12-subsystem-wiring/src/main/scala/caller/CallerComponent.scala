@@ -14,6 +14,7 @@ import org.goldenport.protocol.spec.*
 import org.goldenport.cncf.action.{ActionCall, QueryAction}
 import org.goldenport.cncf.component.{Component, ComponentCreate, ComponentId}
 import org.goldenport.cncf.component.DescriptorRecordLoader
+import org.goldenport.cncf.subsystem.GenericSubsystemResolvedWiringBinding
 import org.goldenport.schema.DataType
 
 final class CallerComponent extends Component {
@@ -80,12 +81,18 @@ final case class HelloActionCall(
       targetComponent = binding.map(_.toComponent).getOrElse("calleecomp")
       targetService = binding.map(_.toService).getOrElse("main")
       targetOperation = binding.map(_.toOperation).getOrElse("hello")
-      delegatedRequest = Request.of(targetComponent, targetService, targetOperation)
+      glue = binding.map(_.glue).getOrElse(Record.empty)
+      delegatedRequest <- _apply_request_glue(
+        binding,
+        Request.of(targetComponent, targetService, targetOperation)
+      )
       response <- subsystem.execute(delegatedRequest)
-      text <- _response_text(response)
+      text <- _apply_response_glue(binding, response)
     } yield {
       val ports = subsystem.descriptor.map(_.declaredPorts).getOrElse(Vector.empty)
       val wiringBindings = subsystem.descriptor.map(_.resolvedWiringBindings).getOrElse(Vector.empty)
+      val requestMode = _glue_mode(glue, "request/mode")
+      val responseMode = _glue_mode(glue, "response/mode")
       val fields = Vector.newBuilder[(String, Any)]
       fields += "message" -> s"callercomp delegated to ${targetComponent}.${targetService}.${targetOperation} -> ${text}"
       fields += "delegated_to" -> Record.data(
@@ -94,6 +101,10 @@ final case class HelloActionCall(
         "operation" -> targetOperation
       )
       fields += "callee_result" -> text
+      fields += "glue_applied" -> Record.data(
+        "request_mode" -> requestMode,
+        "response_mode" -> responseMode
+      )
       fields += "ports" -> ports
       fields += "wiring" -> wiring
       fields += "wiring_bindings" -> wiringBindings
@@ -207,4 +218,40 @@ final case class HelloActionCall(
       case Response.Opaque(value) =>
         Consequence.success(value.toString)
     }
+
+  private def _apply_request_glue(
+    binding: Option[GenericSubsystemResolvedWiringBinding],
+    request: Request
+  ): Consequence[Request] = {
+    val mode = _glue_mode(binding.map(_.glue).getOrElse(Record.empty), "request/mode")
+    mode match {
+      case "passthrough" =>
+        Consequence.success(request)
+      case other =>
+        Consequence.failure(s"unsupported request glue mode: ${other}")
+    }
+  }
+
+  private def _apply_response_glue(
+    binding: Option[GenericSubsystemResolvedWiringBinding],
+    response: Response
+  ): Consequence[String] = {
+    val mode = _glue_mode(binding.map(_.glue).getOrElse(Record.empty), "response/mode")
+    mode match {
+      case "passthrough" =>
+        _response_text(response)
+      case other =>
+        Consequence.failure(s"unsupported response glue mode: ${other}")
+    }
+  }
+
+  private def _glue_mode(
+    glue: Record,
+    key: String
+  ): String =
+    glue.asMap
+      .get(key)
+      .map(_.toString)
+      .filter(_.nonEmpty)
+      .getOrElse("passthrough")
 }

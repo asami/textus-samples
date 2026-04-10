@@ -41,6 +41,7 @@ This sample shows:
 - component-level `api` / `spi` declarations in the subsystem descriptor
 - one `wiring` section in the subsystem descriptor
 - `callercomp.main.hello` reading the target operation from descriptor wiring metadata
+- `callercomp.main.hello` applying the `glue` passthrough modes during delegated execution
 - `callercomp.main.hello` delegating to `calleecomp.main.hello`
 - `callercomp.main.hello` returning declared `ports` and resolved `wiring_bindings`
 - `callercomp.main.hello` returning `wiring` in the YAML result
@@ -86,6 +87,9 @@ delegated_to:
   service: main
   operation: hello
 callee_result: Hello from calleecomp in testsubsystemwiring
+glue_applied:
+  request_mode: passthrough
+  response_mode: passthrough
 ports:
   - component: callercomp
     api:
@@ -166,8 +170,8 @@ wiring:
           response/mode: passthrough
 ```
 
-The current runtime still uses direct delegated routing in the caller implementation.
-However, the descriptor now records the intended abstraction level more clearly:
+The current runtime still uses delegated routing in the caller implementation.
+However, the caller now applies the descriptor `glue` modes while constructing the delegated call and interpreting the callee response:
 
 - `api`
   - caller-side required port
@@ -176,7 +180,8 @@ However, the descriptor now records the intended abstraction level more clearly:
 - `wiring`
   - the current route that binds the caller-side operation and `api` to the callee-side `spi`
 - `glue`
-  - optional adapter metadata between `api` and `spi`
+  - optional adapter rule between `api` and `spi`
+  - this sample implements `request/mode: passthrough` and `response/mode: passthrough`
 
 `admin.assembly.report` and the caller result both project:
 
@@ -189,7 +194,8 @@ The runtime currently resolves:
 - caller operation -> caller `api`
 - target component + target `spi`
 - callee `spi` -> concrete service / operation
-- optional `glue` metadata is carried into the resolved binding result
+- `glue` passthrough modes are applied during the delegated call
+- the resolved `glue` metadata is also carried into the binding result
 
 This keeps the phase 12 walkthrough concrete while moving the sample closer to the intended port-based runtime model.
 
