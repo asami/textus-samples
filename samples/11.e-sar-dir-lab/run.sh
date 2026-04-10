@@ -29,29 +29,31 @@ cat > sar.d/meta/manifest.json <<'EOF'
 EOF
 cp sar.d/meta/manifest.json sar.d/explicit-subsystem/meta/manifest.json
 
+COMMON_ARGS=(
+  --no-default-components
+  --textus.runtime.subsystem=testsubsystem
+  --component-repository=component-dir:sar.d
+)
+
 echo "--- subsystem help"
 bash ../../bin/cncf \
-  --no-default-components \
   command meta.help --format yaml \
-  --cncf.config.file=subsystem-sar-dir.conf
+  "${COMMON_ARGS[@]}"
 
 echo
 echo "--- component help"
 bash ../../bin/cncf \
-  --no-default-components \
   command meta.help testcomp --format yaml \
-  --cncf.config.file=subsystem-sar-dir.conf
+  "${COMMON_ARGS[@]}"
 
 echo
 echo "--- operation help"
 bash ../../bin/cncf \
-  --no-default-components \
   command help testcomp.main.hello \
-  --cncf.config.file=subsystem-sar-dir.conf
+  "${COMMON_ARGS[@]}"
 
 echo
 echo "--- execute"
 bash ../../bin/cncf \
-  --no-default-components \
   command testcomp.main.hello \
-  --cncf.config.file=subsystem-sar-dir.conf
+  "${COMMON_ARGS[@]}"

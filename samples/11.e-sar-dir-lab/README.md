@@ -27,7 +27,7 @@ This lab shows:
 - `sar.d/`
   - the expanded SAR directory used for development and testing
 - `subsystem-sar-dir.conf`
-  - the runtime configuration for expanded `sar.d` startup
+  - an optional config example for expanded `sar.d` startup
 - `run.sh`
   - convenience batch runner
 
@@ -89,40 +89,45 @@ bash run.sh
 The commands below use the standard CNCF CLI entry point.
 The common parameters are:
 
+- `--no-default-components`
+  - keeps this lab isolated to the expanded `sar.d` path
+  - avoids duplicate or unrelated default component activation while inspecting the unpacked subsystem layout
+- `--textus.runtime.subsystem=testsubsystem`
+  - selects the subsystem name exposed by the expanded `sar.d`
+- `--component-repository=component-dir:sar.d`
+  - points the runtime at the expanded `sar.d` work area directly
 - `command`
   - uses ordinary one-shot CNCF command execution for this lab
-- `--cncf.config.file=subsystem-sar-dir.conf`
-  - loads the explicit subsystem name and the repository path for the expanded `sar.d`
-- `--no-default-components`
-  - prevents the main runtime path from adding the same component a second time
 
 ### 1. Inspect subsystem help
 
 ```bash
-bash ../../bin/cncf --no-default-components command meta.help --format yaml --cncf.config.file=subsystem-sar-dir.conf
+bash ../../bin/cncf --no-default-components command meta.help --format yaml --textus.runtime.subsystem=testsubsystem --component-repository=component-dir:sar.d
 ```
 
 Parameters:
 - `--no-default-components`
-  - prevents duplicate loading from the default runtime path
+  - keeps the expanded `sar.d` walkthrough isolated from the default startup path
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
 - `meta.help`
   - selects structured subsystem introspection
 - `--format yaml`
   - renders the result in YAML
-- `--cncf.config.file=subsystem-sar-dir.conf`
-  - loads the subsystem name and expanded `sar.d` repository path for this lab
+- `--textus.runtime.subsystem=testsubsystem`
+  - selects the subsystem defined by the expanded `sar.d`
+- `--component-repository=component-dir:sar.d`
+  - uses the expanded `sar.d` work area as the repository source
 
 ### 2. Inspect the component
 
 ```bash
-bash ../../bin/cncf --no-default-components command meta.help testcomp --format yaml --cncf.config.file=subsystem-sar-dir.conf
+bash ../../bin/cncf --no-default-components command meta.help testcomp --format yaml --textus.runtime.subsystem=testsubsystem --component-repository=component-dir:sar.d
 ```
 
 Parameters:
 - `--no-default-components`
-  - prevents duplicate loading from the default runtime path
+  - keeps the expanded `sar.d` walkthrough isolated from the default startup path
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
 - `meta.help`
@@ -131,42 +136,48 @@ Parameters:
   - identifies the component surface loaded from the expanded `sar.d`
 - `--format yaml`
   - renders the result in YAML
-- `--cncf.config.file=subsystem-sar-dir.conf`
-  - loads the subsystem name and expanded `sar.d` repository path for this lab
+- `--textus.runtime.subsystem=testsubsystem`
+  - selects the subsystem defined by the expanded `sar.d`
+- `--component-repository=component-dir:sar.d`
+  - uses the expanded `sar.d` work area as the repository source
 
 ### 3. Inspect operation help
 
 ```bash
-bash ../../bin/cncf --no-default-components command help testcomp.main.hello --cncf.config.file=subsystem-sar-dir.conf
+bash ../../bin/cncf --no-default-components command help testcomp.main.hello --textus.runtime.subsystem=testsubsystem --component-repository=component-dir:sar.d
 ```
 
 Parameters:
 - `--no-default-components`
-  - prevents duplicate loading from the default runtime path
+  - keeps the expanded `sar.d` walkthrough isolated from the default startup path
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
 - `help`
   - selects the CLI-oriented help entry point
 - `testcomp.main.hello`
   - identifies the operation path exposed by the expanded `sar.d`
-- `--cncf.config.file=subsystem-sar-dir.conf`
-  - loads the subsystem name and expanded `sar.d` repository path for this lab
+- `--textus.runtime.subsystem=testsubsystem`
+  - selects the subsystem defined by the expanded `sar.d`
+- `--component-repository=component-dir:sar.d`
+  - uses the expanded `sar.d` work area as the repository source
 
 ### 4. Execute the operation
 
 ```bash
-bash ../../bin/cncf --no-default-components command testcomp.main.hello --cncf.config.file=subsystem-sar-dir.conf
+bash ../../bin/cncf --no-default-components command testcomp.main.hello --textus.runtime.subsystem=testsubsystem --component-repository=component-dir:sar.d
 ```
 
 Parameters:
 - `--no-default-components`
-  - prevents duplicate loading from the default runtime path
+  - keeps the expanded `sar.d` walkthrough isolated from the default startup path
 - `command`
   - uses ordinary one-shot CNCF command execution for this step
 - `testcomp.main.hello`
   - selects the operation path exposed by the expanded `sar.d`
-- `--cncf.config.file=subsystem-sar-dir.conf`
-  - loads the subsystem name and expanded `sar.d` repository path for this lab
+- `--textus.runtime.subsystem=testsubsystem`
+  - selects the subsystem defined by the expanded `sar.d`
+- `--component-repository=component-dir:sar.d`
+  - uses the expanded `sar.d` work area as the repository source
 
 Expected result:
 

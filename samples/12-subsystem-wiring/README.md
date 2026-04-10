@@ -198,7 +198,7 @@ This keeps the phase 12 walkthrough concrete while moving the sample closer to t
 This sample still shows how to retrieve the current assembly result from the admin surface.
 
 ```bash
-bash ../../bin/cncf command admin.assembly.report --format yaml --no-default-components --component-repository=component-dir:<temporary-component-dir> --textus.runtime.subsystem=testsubsystemwiring --textus.runtime.subsystem.file=<temporary-subsystem-sar>
+bash ../../bin/cncf command admin.assembly.report --format yaml --component-repository=component-dir:<temporary-component-dir> --textus.runtime.subsystem=testsubsystemwiring --textus.runtime.subsystem.file=<temporary-subsystem-sar>
 ```
 
 The report currently includes:
