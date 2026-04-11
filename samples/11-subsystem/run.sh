@@ -34,22 +34,22 @@ EOF
 echo "--- subsystem help"
 bash ../../bin/cncf \
   command meta.help --format yaml \
-  --textus.runtime.subsystem=testsubsystem
+  --textus.subsystem=testsubsystem
 
 echo
 echo "--- component help"
 bash ../../bin/cncf \
   command meta.help testcomp --format yaml \
-  --textus.runtime.subsystem=testsubsystem
+  --textus.subsystem=testsubsystem
 
 echo
 echo "--- operation help"
 bash ../../bin/cncf \
   command help testcomp.main.hello \
-  --textus.runtime.subsystem=testsubsystem
+  --textus.subsystem=testsubsystem
 
 echo
 echo "--- execute"
 bash ../../bin/cncf \
   command testcomp.main.hello \
-  --textus.runtime.subsystem=testsubsystem
+  --textus.subsystem=testsubsystem

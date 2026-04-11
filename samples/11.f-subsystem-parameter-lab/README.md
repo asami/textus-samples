@@ -70,7 +70,7 @@ The common parameters are:
 
 - `command`
   - uses ordinary one-shot CNCF command execution for this lab
-- `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
+- `--textus.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - points the runtime at the subsystem descriptor file directly
 - `--component-dir <temporary-component-dir>`
   - activates the temporary packaged component directory generated from the baseline component jar
@@ -82,7 +82,7 @@ The supported path in this lab is `bash run.sh`, because the batch runner prepar
 `run.sh` executes the equivalent command after preparing the temporary active packaged directory.
 
 Parameters:
-- `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
+- `--textus.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - selects the subsystem descriptor directly
 - `--component-dir <temporary-component-dir>`
   - activates the packaged component artifact directory
@@ -98,7 +98,7 @@ Parameters:
 `run.sh` executes the equivalent command after preparing the temporary active packaged directory.
 
 Parameters:
-- `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
+- `--textus.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - selects the subsystem descriptor directly
 - `--component-dir <temporary-component-dir>`
   - activates the packaged component artifact directory
@@ -116,7 +116,7 @@ Parameters:
 `run.sh` executes the equivalent command after preparing the temporary active packaged directory.
 
 Parameters:
-- `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
+- `--textus.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - selects the subsystem descriptor directly
 - `--component-dir <temporary-component-dir>`
   - activates the packaged component artifact directory
@@ -132,7 +132,7 @@ Parameters:
 `run.sh` executes the equivalent command after preparing the temporary active packaged directory.
 
 Parameters:
-- `--textus.runtime.subsystem.descriptor=../11-subsystem/subsystem.cml`
+- `--textus.subsystem.descriptor=../11-subsystem/subsystem.cml`
   - selects the subsystem descriptor directly
 - `--component-dir <temporary-component-dir>`
   - activates the packaged component artifact directory

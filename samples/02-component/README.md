@@ -144,20 +144,20 @@ The common parameters are:
 
 - `command`
   - uses ordinary one-shot CNCF command execution for this sample
-- `--textus.runtime.component=testcomp`
+- `--textus.component=testcomp`
   - activates the packaged component named `testcomp` from `component.d`
 
 With the current activation policy:
 
 - `component.d/*.car`
   - is the active packaged component source in this baseline sample
-- `--textus.runtime.component=testcomp`
+- `--textus.component=testcomp`
   - selects the packaged component explicitly by component name
 
 ### 1. Inspect the component
 
 ```bash
-bash ../../bin/cncf --textus.runtime.component=testcomp command meta.help testcomp --format yaml
+bash ../../bin/cncf --textus.component=testcomp command meta.help testcomp --format yaml
 ```
 
 Parameters:
@@ -169,13 +169,13 @@ Parameters:
   - identifies the packaged component to inspect
 - `--format yaml`
   - renders the result in YAML
-- `--textus.runtime.component=testcomp`
+- `--textus.component=testcomp`
   - selects the packaged component artifact from `component.d`
 
 ### 2. Inspect operation help
 
 ```bash
-bash ../../bin/cncf --textus.runtime.component=testcomp command help testcomp.main.hello
+bash ../../bin/cncf --textus.component=testcomp command help testcomp.main.hello
 ```
 
 Parameters:
@@ -185,7 +185,7 @@ Parameters:
   - selects the CLI-oriented help entry point
 - `testcomp.main.hello`
   - identifies the operation path exposed by the component
-- `--textus.runtime.component=testcomp`
+- `--textus.component=testcomp`
   - selects the component artifact from `component.d`
 
 ## What To Notice

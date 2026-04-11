@@ -52,7 +52,7 @@ cp "$WORK_DIR/bundledcomp.car" "$SAR_WORK/component/bundledcomp.car"
 COMMON_ARGS=(
   --no-default-components
   --component-dir "$WORK_DIR/component.d"
-  --textus.runtime.subsystem=testsubsystemmixed
+  --textus.subsystem=testsubsystemmixed
 )
 
 echo "--- subsystem help"

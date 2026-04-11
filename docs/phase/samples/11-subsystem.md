@@ -18,7 +18,7 @@ Stage Status:
 
 ## Step
 
-- Show the minimum executable form of an explicitly selected subsystem wired to a generic component artifact, started by `--textus.runtime.subsystem=...`.
+- Show the minimum executable form of an explicitly selected subsystem wired to a generic component artifact, started by `--textus.subsystem=...`.
 
 ## Checklist
 

@@ -50,7 +50,7 @@ EOF
 COMMON_ARGS=(
   --no-default-components
   --component-dir "$WORK_DIR/component.d"
-  --textus.runtime.subsystem=testsubsystemmulti
+  --textus.subsystem=testsubsystemmulti
 )
 
 echo "--- subsystem help"

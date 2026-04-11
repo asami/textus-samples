@@ -33,19 +33,19 @@ cp "$TMPDIR/meta/manifest.json" car.d/meta/manifest.json
 echo "--- component help"
 bash ../../bin/cncf \
   --repository-dir "$REPO_DIR" \
-  --textus.runtime.component=component-method-execution-sample \
+  --textus.component=component-method-execution-sample \
   command meta.help component-method-execution-sample --format yaml
 
 echo
 echo "--- operation help"
 bash ../../bin/cncf \
   --repository-dir "$REPO_DIR" \
-  --textus.runtime.component=component-method-execution-sample \
+  --textus.component=component-method-execution-sample \
   command help component-method-execution-sample.greeting.compose-greeting
 
 echo
 echo "--- execute"
 bash ../../bin/cncf \
   --repository-dir "$REPO_DIR" \
-  --textus.runtime.component=component-method-execution-sample \
+  --textus.component=component-method-execution-sample \
   command component-method-execution-sample.greeting.compose-greeting --name Alice

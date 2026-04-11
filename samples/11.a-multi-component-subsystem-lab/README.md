@@ -31,7 +31,7 @@ The current runtime line is:
 - `component.d/testsubsystemmulti.sar`
 - `component.d/alphacomp.car`
 - `component.d/betacomp.car`
-- `--textus.runtime.subsystem=testsubsystemmulti`
+- `--textus.subsystem=testsubsystemmulti`
 
 ## What This Lab Needs
 
@@ -102,7 +102,7 @@ The common parameters are:
   - prevents duplicate loading from the default runtime search path
 - `--component-dir <temporary-component-dir>`
   - activates the generated component and subsystem artifacts for this walkthrough
-- `--textus.runtime.subsystem=testsubsystemmulti`
+- `--textus.subsystem=testsubsystemmulti`
   - selects the multi-component subsystem
 
 ### 1. Inspect subsystem help

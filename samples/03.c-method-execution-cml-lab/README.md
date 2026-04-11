@@ -63,28 +63,28 @@ The common parameters are:
   - uses ordinary one-shot CNCF command execution for this sample
 - `--repository-dir repository.d`
   - adds the packaged generated component artifact directory to the search repository
-- `--textus.runtime.component=component-method-execution-sample`
+- `--textus.component=component-method-execution-sample`
   - explicitly activates the packaged generated component by name
 
 ### 1. Inspect the generated component
 
 ```bash
 REPO_DIR="$PWD/repository.d"
-bash ../../bin/cncf --repository-dir "$REPO_DIR" --textus.runtime.component=component-method-execution-sample command meta.help component-method-execution-sample --format yaml
+bash ../../bin/cncf --repository-dir "$REPO_DIR" --textus.component=component-method-execution-sample command meta.help component-method-execution-sample --format yaml
 ```
 
 ### 2. Inspect operation help
 
 ```bash
 REPO_DIR="$PWD/repository.d"
-bash ../../bin/cncf --repository-dir "$REPO_DIR" --textus.runtime.component=component-method-execution-sample command help component-method-execution-sample.greeting.compose-greeting
+bash ../../bin/cncf --repository-dir "$REPO_DIR" --textus.component=component-method-execution-sample command help component-method-execution-sample.greeting.compose-greeting
 ```
 
 ### 3. Execute the method
 
 ```bash
 REPO_DIR="$PWD/repository.d"
-bash ../../bin/cncf --repository-dir "$REPO_DIR" --textus.runtime.component=component-method-execution-sample command component-method-execution-sample.greeting.compose-greeting --name Alice
+bash ../../bin/cncf --repository-dir "$REPO_DIR" --textus.component=component-method-execution-sample command component-method-execution-sample.greeting.compose-greeting --name Alice
 ```
 
 Expected result:

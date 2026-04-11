@@ -32,19 +32,19 @@ cp "$TMPDIR/meta/manifest.json" car.d/meta/manifest.json
 echo "--- component help"
 bash ../../bin/cncf \
   --repository-dir "$REPO_DIR" \
-  --textus.runtime.component=component-cml-sample \
+  --textus.component=component-cml-sample \
   command meta.help component-cml-sample --format yaml
 
 echo
 echo "--- operation help"
 bash ../../bin/cncf \
   --repository-dir "$REPO_DIR" \
-  --textus.runtime.component=component-cml-sample \
+  --textus.component=component-cml-sample \
   command help component-cml-sample.greeting.greeting
 
 echo
 echo "--- metadata"
 bash ../../bin/cncf \
   --repository-dir "$REPO_DIR" \
-  --textus.runtime.component=component-cml-sample \
+  --textus.component=component-cml-sample \
   command component-cml-sample.meta.describe --format yaml

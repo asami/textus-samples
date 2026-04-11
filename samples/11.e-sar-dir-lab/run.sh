@@ -30,7 +30,7 @@ EOF
 cp sar.d/meta/manifest.json sar.d/explicit-subsystem/meta/manifest.json
 
 COMMON_ARGS=(
-  --textus.runtime.subsystem=testsubsystem
+  --textus.subsystem=testsubsystem
 )
 
 echo "--- subsystem help"

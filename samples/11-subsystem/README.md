@@ -34,7 +34,7 @@ Use this sample when you want to learn the baseline explicit subsystem form:
 
 This sample shows:
 
-- startup by `--textus.runtime.subsystem=testsubsystem`
+- startup by `--textus.subsystem=testsubsystem`
 - a generic component artifact generated from the sample build output
 - a descriptor-only subsystem SAR generated into `component.d`
 - the distinction between subsystem name `testsubsystem` and component name `testcomp`
@@ -174,7 +174,7 @@ The common parameters are:
 
 - `command`
   - uses ordinary one-shot CNCF command execution for this sample
-- `--textus.runtime.subsystem=testsubsystem`
+- `--textus.subsystem=testsubsystem`
   - selects the subsystem named `testsubsystem`
 
 With the current activation policy:
@@ -193,7 +193,7 @@ It is the ordinary CNCF rule that command-line parameters and config parameters 
 ### 1. Inspect subsystem help
 
 ```bash
-bash ../../bin/cncf command meta.help --format yaml --textus.runtime.subsystem=testsubsystem
+bash ../../bin/cncf command meta.help --format yaml --textus.subsystem=testsubsystem
 ```
 
 Parameters:
@@ -203,13 +203,13 @@ Parameters:
   - selects structured subsystem introspection
 - `--format yaml`
   - renders the result in YAML
-- `--textus.runtime.subsystem=testsubsystem`
+- `--textus.subsystem=testsubsystem`
   - selects the subsystem named `testsubsystem`
 
 ### 2. Inspect the component
 
 ```bash
-bash ../../bin/cncf command meta.help testcomp --format yaml --textus.runtime.subsystem=testsubsystem
+bash ../../bin/cncf command meta.help testcomp --format yaml --textus.subsystem=testsubsystem
 ```
 
 Parameters:
@@ -221,13 +221,13 @@ Parameters:
   - identifies the generic component surface wired into the selected subsystem
 - `--format yaml`
   - renders the result in YAML
-- `--textus.runtime.subsystem=testsubsystem`
+- `--textus.subsystem=testsubsystem`
   - selects the subsystem named `testsubsystem`
 
 ### 3. Inspect operation help
 
 ```bash
-bash ../../bin/cncf command help testcomp.main.hello --textus.runtime.subsystem=testsubsystem
+bash ../../bin/cncf command help testcomp.main.hello --textus.subsystem=testsubsystem
 ```
 
 Parameters:
@@ -237,13 +237,13 @@ Parameters:
   - selects the CLI-oriented help entry point
 - `testcomp.main.hello`
   - identifies the operation path exposed by the selected subsystem
-- `--textus.runtime.subsystem=testsubsystem`
+- `--textus.subsystem=testsubsystem`
   - selects the subsystem named `testsubsystem`
 
 ### 4. Execute the operation
 
 ```bash
-bash ../../bin/cncf command testcomp.main.hello --textus.runtime.subsystem=testsubsystem
+bash ../../bin/cncf command testcomp.main.hello --textus.subsystem=testsubsystem
 ```
 
 Parameters:
@@ -251,7 +251,7 @@ Parameters:
   - uses ordinary one-shot CNCF command execution for this step
 - `testcomp.main.hello`
   - selects the operation path exposed by the selected subsystem
-- `--textus.runtime.subsystem=testsubsystem`
+- `--textus.subsystem=testsubsystem`
   - selects the subsystem named `testsubsystem`
 
 Expected result:

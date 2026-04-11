@@ -87,7 +87,7 @@ bash run.sh
 The commands below use the standard CNCF CLI entry point.
 The common parameters are:
 
-- `--textus.runtime.subsystem=testsubsystem`
+- `--textus.subsystem=testsubsystem`
   - selects the subsystem name exposed by the expanded `sar.d`
 - `command`
   - uses ordinary one-shot CNCF command execution for this lab
@@ -103,7 +103,7 @@ With the current activation policy:
 ### 1. Inspect subsystem help
 
 ```bash
-bash ../../bin/cncf command meta.help --format yaml --textus.runtime.subsystem=testsubsystem
+bash ../../bin/cncf command meta.help --format yaml --textus.subsystem=testsubsystem
 ```
 
 Parameters:
@@ -113,13 +113,13 @@ Parameters:
   - selects structured subsystem introspection
 - `--format yaml`
   - renders the result in YAML
-- `--textus.runtime.subsystem=testsubsystem`
+- `--textus.subsystem=testsubsystem`
   - selects the subsystem defined by the expanded `sar.d`
 
 ### 2. Inspect the component
 
 ```bash
-bash ../../bin/cncf command meta.help testcomp --format yaml --textus.runtime.subsystem=testsubsystem
+bash ../../bin/cncf command meta.help testcomp --format yaml --textus.subsystem=testsubsystem
 ```
 
 Parameters:
@@ -131,13 +131,13 @@ Parameters:
   - identifies the component surface loaded from the expanded `sar.d`
 - `--format yaml`
   - renders the result in YAML
-- `--textus.runtime.subsystem=testsubsystem`
+- `--textus.subsystem=testsubsystem`
   - selects the subsystem defined by the expanded `sar.d`
 
 ### 3. Inspect operation help
 
 ```bash
-bash ../../bin/cncf command help testcomp.main.hello --textus.runtime.subsystem=testsubsystem
+bash ../../bin/cncf command help testcomp.main.hello --textus.subsystem=testsubsystem
 ```
 
 Parameters:
@@ -147,13 +147,13 @@ Parameters:
   - selects the CLI-oriented help entry point
 - `testcomp.main.hello`
   - identifies the operation path exposed by the expanded `sar.d`
-- `--textus.runtime.subsystem=testsubsystem`
+- `--textus.subsystem=testsubsystem`
   - selects the subsystem defined by the expanded `sar.d`
 
 ### 4. Execute the operation
 
 ```bash
-bash ../../bin/cncf command testcomp.main.hello --textus.runtime.subsystem=testsubsystem
+bash ../../bin/cncf command testcomp.main.hello --textus.subsystem=testsubsystem
 ```
 
 Parameters:
@@ -161,7 +161,7 @@ Parameters:
   - uses ordinary one-shot CNCF command execution for this step
 - `testcomp.main.hello`
   - selects the operation path exposed by the expanded `sar.d`
-- `--textus.runtime.subsystem=testsubsystem`
+- `--textus.subsystem=testsubsystem`
   - selects the subsystem defined by the expanded `sar.d`
 
 Expected result:

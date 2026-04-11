@@ -107,7 +107,7 @@ The common parameters are:
   - uses ordinary one-shot CNCF command execution for this sample
 - `--repository-dir /absolute/path/to/repository.d`
   - adds packaged generated component artifacts to the search repository
-- `--textus.runtime.component=component-cml-sample`
+- `--textus.component=component-cml-sample`
   - explicitly activates the packaged generated component by name
 
 With the current activation policy:
@@ -117,13 +117,13 @@ With the current activation policy:
   - but is not auto-activated by default
 - `--repository-dir /absolute/path/to/repository.d`
   - makes the packaged generated component searchable for this command
-- `--textus.runtime.component=component-cml-sample`
+- `--textus.component=component-cml-sample`
   - selects which packaged component to activate from that search repository
 
 ### 1. Inspect the generated component
 
 ```bash
-bash ../../bin/cncf --repository-dir /absolute/path/to/repository.d --textus.runtime.component=component-cml-sample command meta.help component-cml-sample --format yaml
+bash ../../bin/cncf --repository-dir /absolute/path/to/repository.d --textus.component=component-cml-sample command meta.help component-cml-sample --format yaml
 ```
 
 Parameters:
@@ -137,13 +137,13 @@ Parameters:
   - renders the result in YAML
 - `--repository-dir /absolute/path/to/repository.d`
   - adds the packaged generated component artifact directory to the search repository
-- `--textus.runtime.component=component-cml-sample`
+- `--textus.component=component-cml-sample`
   - activates the packaged generated component by name
 
 ### 2. Inspect generated operation help
 
 ```bash
-bash ../../bin/cncf --repository-dir /absolute/path/to/repository.d --textus.runtime.component=component-cml-sample command help component-cml-sample.greeting.greeting
+bash ../../bin/cncf --repository-dir /absolute/path/to/repository.d --textus.component=component-cml-sample command help component-cml-sample.greeting.greeting
 ```
 
 Parameters:
@@ -155,13 +155,13 @@ Parameters:
   - identifies the generated operation
 - `--repository-dir /absolute/path/to/repository.d`
   - adds the packaged generated component artifact directory to the search repository
-- `--textus.runtime.component=component-cml-sample`
+- `--textus.component=component-cml-sample`
   - activates the packaged generated component by name
 
 ### 3. Inspect generated metadata
 
 ```bash
-bash ../../bin/cncf --repository-dir /absolute/path/to/repository.d --textus.runtime.component=component-cml-sample command component-cml-sample.meta.describe --format yaml
+bash ../../bin/cncf --repository-dir /absolute/path/to/repository.d --textus.component=component-cml-sample command component-cml-sample.meta.describe --format yaml
 ```
 
 Parameters:
@@ -173,7 +173,7 @@ Parameters:
   - renders the result in YAML
 - `--repository-dir /absolute/path/to/repository.d`
   - adds the packaged generated component artifact directory to the search repository
-- `--textus.runtime.component=component-cml-sample`
+- `--textus.component=component-cml-sample`
   - activates the packaged generated component by name
 
 ## What To Notice
