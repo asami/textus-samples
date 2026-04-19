@@ -36,7 +36,7 @@ final class OperationEntitySampleFactory extends OperationEntitySampleComponent.
           personId <- exec_from(_person_id_c)
           name <- exec_pure(Name.parse("Alice").TAKE)
           person <- exec_pure(org.sample.operationentity.entity.Person(personId, name))
-          card <- exec_pure(domain.value.PersonCard.create(person.name))
+          card <- exec_pure(org.sample.operationentity.value.PersonCard.create(person.name))
         } yield OperationResponse.RecordResponse(card.toRecord())
       }
 

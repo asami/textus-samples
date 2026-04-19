@@ -86,18 +86,4 @@ blocking-task
 CreateItem
 
 ### OUTPUT
-Control-ready job result.
-
-#### VALUE
-
-##### CreateItemResult
-
-###### EXTENDS
-
-OperationResult
-
-###### ATTRIBUTE
-
-| name   | type   | multiplicity |
-|--------+--------+--------------|
-| job_id | string | 1            |
+CreateItemResult

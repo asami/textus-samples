@@ -66,7 +66,7 @@ final class JobControlLabComponentFactory extends JobControlLabComponent.Factory
     ) extends JobControlLabComponent.EntityService.CreateItemRecordActionCall {
       protected def build_Program: ExecUowM[OperationResponse] =
         for {
-          entity <- exec_pure(org.sample.jobcontrol.entity.create.Item.create(action.record))
+          entity <- exec_pure(action.record)
           _ <- exec_pure(Thread.sleep(30000L))
           r <- entity_create(entity)
         } yield {
