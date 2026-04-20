@@ -164,8 +164,7 @@ final class AggregateSampleComponentFactory extends org.sample.aggregate.Aggrega
     ) extends org.sample.aggregate.AggregateSampleComponent.EntityService.CreateOrderRecordActionCall {
       protected def build_Program: ExecUowM[OperationResponse] = {
         for {
-          entity <- exec_pure(org.sample.aggregate.entity.create.Order.create(action.record))
-          created <- entity_create(entity)
+          created <- entity_create(action.record)
         } yield OperationResponse(created.toRecord)
       }
     }
@@ -184,8 +183,7 @@ final class AggregateSampleComponentFactory extends org.sample.aggregate.Aggrega
     ) extends org.sample.aggregate.AggregateSampleComponent.EntityService.CreateOrderLineRecordActionCall {
       protected def build_Program: ExecUowM[OperationResponse] = {
         for {
-          entity <- exec_pure(org.sample.aggregate.entity.create.OrderLine.create(action.record))
-          created <- entity_create(entity)
+          created <- entity_create(action.record)
         } yield OperationResponse(created.toRecord)
       }
     }
