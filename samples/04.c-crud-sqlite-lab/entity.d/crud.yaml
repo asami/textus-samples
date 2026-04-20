@@ -4,3 +4,4 @@ entitystore:
       - id: major-minor-entity-item-20260328000000-aaa111
         name: alpha
         title: Alpha
+        post_status: published
