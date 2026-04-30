@@ -9,12 +9,14 @@ bash ../../bin/setup cncf
 ## Overview
 
 This sample shows the expanded generated `car.d` form.
-It is the development and test variant of `03-component-cml`.
+It is the CAR loader/debug variant of `03-component-cml`.
 
 ## Intended Use Case
 
 Use this sample when you want to inspect or edit the expanded generated
 component archive contents without first rebuilding a zipped `*.car`.
+For the normal Cozy/sbt edit/run loop, prefer `--component-dev-dir <project>`
+so generated classes and `src/main/car` are used directly.
 
 ## Files
 
@@ -51,27 +53,25 @@ The common parameters are:
 With the current activation policy:
 
 - `car.d`
-  - is the expanded debug/development shape
-  - and is auto-activated by the runtime
-- no explicit repository option is required for the direct generated `car.d`
-  walkthrough
+  - is the expanded CAR debug/inspection shape
+  - and is activated explicitly with `--component-car-dir car.d`
 
 ### 1. Inspect the generated component
 
 ```bash
-bash ../../bin/cncf command meta.help component-cml-sample --format yaml
+bash ../../bin/cncf --component-car-dir car.d command meta.help component-cml-sample --format yaml
 ```
 
 ### 2. Inspect generated operation help
 
 ```bash
-bash ../../bin/cncf command help component-cml-sample.greeting.greeting
+bash ../../bin/cncf --component-car-dir car.d command help component-cml-sample.greeting.greeting
 ```
 
 ### 3. Inspect generated metadata
 
 ```bash
-bash ../../bin/cncf command component-cml-sample.meta.describe --format yaml
+bash ../../bin/cncf --component-car-dir car.d command component-cml-sample.meta.describe --format yaml
 ```
 
 ## Key Learnings

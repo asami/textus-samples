@@ -13,32 +13,30 @@ COMPONENT_BINARY="$BASELINE_DIR/target/scala-3.3.7/cncf-samples-09-subsystem_3-0
 mkdir -p "$SCRIPT_DIR/component.d"
 rm -rf "$CAR_DIR" "$SAR_DIR"
 rm -f "$SCRIPT_DIR/component.d/base.car" "$SCRIPT_DIR/component.d/explicit-subsystem.sar"
-mkdir -p "$CAR_DIR/component" "$CAR_DIR/meta" "$SAR_DIR/component" "$SAR_DIR/meta"
+mkdir -p "$CAR_DIR/component" "$SAR_DIR/component"
 
 (cd "$BASELINE_DIR" && sbt --batch compile packageBin >/dev/null)
 
 cp "$COMPONENT_BINARY" "$CAR_DIR/component/main.jar"
-cat > "$CAR_DIR/meta/manifest.json" <<'EOF'
-{
-  "name": "testcomp",
-  "version": "0.1.0",
-  "component": "testcomp",
-  "subsystem": "testsubsystem"
-}
+cat > "$CAR_DIR/component-descriptor.yaml" <<'EOF'
+name: testcomp
+version: 0.1.0
+component: testcomp
+subsystem: testsubsystem
 EOF
 
-(cd "$CAR_DIR" && zip -qr "$CAR_FILE" component meta)
+(cd "$CAR_DIR" && zip -qr "$CAR_FILE" component-descriptor.yaml component)
 
 cp "$CAR_FILE" "$SAR_DIR/component/base.car"
-cat > "$SAR_DIR/meta/manifest.json" <<'EOF'
-{
-  "name": "explicit-subsystem",
-  "version": "0.1.0",
-  "subsystem": "testsubsystem"
-}
+cat > "$SAR_DIR/subsystem-descriptor.yaml" <<'EOF'
+subsystem: testsubsystem
+version: 0.1.0
+components:
+  - component: testcomp
+    coordinate: org.simplemodeling.car:testcomp:0.1.0
 EOF
 
-(cd "$SAR_DIR" && zip -qr "$SAR_FILE" component meta)
+(cd "$SAR_DIR" && zip -qr "$SAR_FILE" subsystem-descriptor.yaml component)
 
 echo "--- subsystem help"
 bash ../../bin/cncf \

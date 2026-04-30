@@ -265,12 +265,30 @@ cd samples/01-minimal
 
 For development, the preferred working style is:
 
+- `--component-dev-dir <project>`
+  - runs a component development directory without building a CAR first
+  - reads runtime classpath data from `target/cncf.d/runtime-classpath.txt`
+  - reads CAR-root resources from `src/main/car`
+- `--subsystem-dev-dir <project>`
+  - runs an application/subsystem development root without building a SAR first
+  - reads the subsystem descriptor from the root or `subsystem/`
+  - reads component development output from `component/`
 - `cwd/component.d`
   - active local packaged source
 - `cwd/repository.d`
   - local packaged search repository
 - `car.d` / `sar.d`
-  - auto-activated development layouts
+  - expanded archive layouts for loader debugging and inspection
+  - use `--component-car-dir` or `--subsystem-sar-dir` explicitly when running them
+
+Development roots infer their component or subsystem identity from descriptors,
+so the usual edit/run form does not need `--textus.component` or
+`--textus.subsystem`:
+
+```bash
+cncf --component-dev-dir . server
+cncf --subsystem-dev-dir . server
+```
 
 Programming-time example:
 

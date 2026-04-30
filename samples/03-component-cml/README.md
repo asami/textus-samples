@@ -28,7 +28,7 @@ In the `03` line, the forms are split like this:
   - `repository.d/*.car`
 - `03.a-car-dir-cml-lab`
   - expanded generated `car.d`
-  - development and test form
+  - CAR loader/debug form
 - `03.b-discover-classes-cml-lab`
   - `--discover=classes`
   - development-time implicit loading of generated classes
@@ -78,7 +78,6 @@ The generated component artifact in this sample is a CAR:
 component-cml-sample.car
   descriptor.yaml
   component/main.jar
-  meta/manifest.json
 ```
 
 This is the generated counterpart of the hand-written `02-component` line.
@@ -183,6 +182,7 @@ Parameters:
 - generation changes the authoring method, not the CNCF help surface
 - packaged generated CARs are explicit runtime inputs, not always-on defaults
 - `03` mirrors the same `CAR / car.d / --discover=classes` comparison shape as `02`
+- `--component-dev-dir` is the preferred Cozy/sbt edit/run loop; `car.d` is for expanded archive inspection
 
 ## Key Learnings
 

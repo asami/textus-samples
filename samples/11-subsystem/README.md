@@ -44,7 +44,7 @@ This sample shows:
 - `component.d/`
   - the location where the generated generic component artifact and subsystem descriptor artifact are placed for execution
 - `car.d/testcomp/`
-  - the expanded CAR directory used for development and inspection
+  - the expanded CAR directory used for archive inspection
 - `subsystem.cml`
   - the subsystem descriptor used by `11.e`
 - `run.sh`
@@ -71,27 +71,14 @@ The reusable component artifact in this sample is a generated CAR, and the expli
 ```text
 testcomp.car
   component/main.jar
-  meta/manifest.json
+  component-descriptor.yaml
 
 testsubsystem.sar
   subsystem-descriptor.yaml
 ```
 
-`meta/manifest.json` is still used by the current runtime for archive loading.
-This is a transitional compatibility shape. The planned direction is to retire
-manifest-specific handling and converge CAR/SAR metadata into a top-level
-descriptor.
-
-The manifest in this sample is:
-
-```json
-{
-  "name": "testcomp",
-  "version": "0.1.0",
-  "component": "testcomp",
-  "subsystem": "testsubsystem"
-}
-```
+The component descriptor is the canonical CAR metadata. `meta/manifest.json` is
+not accepted by this sample line.
 
 Build the component jar:
 
@@ -103,15 +90,13 @@ Prepare the CAR work directory:
 
 ```bash
 rm -rf /tmp/testcomp.car.d
-mkdir -p /tmp/testcomp.car.d/component /tmp/testcomp.car.d/meta
+mkdir -p /tmp/testcomp.car.d/component
 cp "$COMPONENT_BINARY" /tmp/testcomp.car.d/component/main.jar
-cat > /tmp/testcomp.car.d/meta/manifest.json <<'EOF'
-{
-  "name": "testcomp",
-  "version": "0.1.0",
-  "component": "testcomp",
-  "subsystem": "testsubsystem"
-}
+cat > /tmp/testcomp.car.d/component-descriptor.yaml <<'EOF'
+name: testcomp
+version: 0.1.0
+component: testcomp
+subsystem: testsubsystem
 EOF
 ```
 
@@ -119,7 +104,7 @@ Create `testcomp.car`:
 
 ```bash
 cd /tmp/testcomp.car.d
-zip -qr /tmp/testcomp.car component meta
+zip -qr /tmp/testcomp.car component-descriptor.yaml component
 mkdir -p component.d
 cp /tmp/testcomp.car component.d/testcomp.car
 ```

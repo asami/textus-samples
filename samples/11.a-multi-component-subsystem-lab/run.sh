@@ -23,12 +23,15 @@ create_car() {
   local component_jar="$2"
   local target_car="$3"
   local car_work="$WORK_DIR/${component_name}.car.d"
-  mkdir -p "$car_work/component" "$car_work/meta"
+  mkdir -p "$car_work/component"
   cp "$component_jar" "$car_work/component/main.jar"
-  cat > "$car_work/meta/manifest.json" <<EOF
-{"name":"${component_name}","version":"0.1.0","component":"${component_name}","subsystem":"testsubsystemmulti"}
+  cat > "$car_work/component-descriptor.yaml" <<EOF
+name: ${component_name}
+version: 0.1.0
+component: ${component_name}
+subsystem: testsubsystemmulti
 EOF
-  (cd "$car_work" && zip -qr "$target_car" component meta)
+  (cd "$car_work" && zip -qr "$target_car" component-descriptor.yaml component)
 }
 
 create_car "alphacomp" "$WORK_DIR/alphacomp.jar" "$WORK_DIR/component.d/alphacomp.car"

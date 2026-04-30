@@ -40,7 +40,7 @@ The consolidated explanation is expected to move into `docs/notes` or `docs/desi
 - Therefore the baseline formal subsystem uses reusable generic component artifacts distributed separately from the subsystem.
 - Bundled subsystem packaging is allowed, but it is an exceptional variant.
 - Mixed packaging is an extension of that exceptional case.
-- Expanded `sar.d` is treated as development/test startup rather than the baseline distribution form.
+- Expanded `sar.d` is treated as loader/debug startup rather than the baseline distribution form.
 
 ### 5. Generated Artifacts
 

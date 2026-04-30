@@ -11,12 +11,15 @@ fi
 
 WORK_DIR="$(mktemp -d)"
 trap 'rm -rf "$WORK_DIR"' EXIT
-mkdir -p "$WORK_DIR/component.d" "$WORK_DIR/testcomp.car.d/component" "$WORK_DIR/testcomp.car.d/meta"
+mkdir -p "$WORK_DIR/component.d" "$WORK_DIR/testcomp.car.d/component"
 cp "$BASELINE_JAR" "$WORK_DIR/testcomp.car.d/component/main.jar"
-cat > "$WORK_DIR/testcomp.car.d/meta/manifest.json" <<'EOF'
-{"name": "testcomp", "version": "0.1.0", "component": "testcomp", "subsystem": "testsubsystem"}
+cat > "$WORK_DIR/testcomp.car.d/component-descriptor.yaml" <<'EOF'
+name: testcomp
+version: 0.1.0
+component: testcomp
+subsystem: testsubsystem
 EOF
-(cd "$WORK_DIR/testcomp.car.d" && zip -qr "$WORK_DIR/component.d/testcomp.car" component meta)
+(cd "$WORK_DIR/testcomp.car.d" && zip -qr "$WORK_DIR/component.d/testcomp.car" component-descriptor.yaml component)
 
 echo "--- subsystem help"
 bash ../../bin/cncf \

@@ -33,11 +33,11 @@ Fix the formal specification of phase `11-*` by comparing the original intent of
   - [x] the baseline formal subsystem uses reusable generic component artifacts distributed separately from the subsystem
   - [x] bundled subsystem packaging is treated as an exceptional variant rather than the recommended default
   - [x] mixed subsystem packaging is treated as an extension of that exceptional bundled case
-  - [x] expanded `sar.d` is positioned as development/test startup, not the baseline distribution form
+  - [x] expanded `sar.d` is positioned as loader/debug startup, not the baseline distribution form
 - [x] What is the official handling of generated artifacts in samples?
   - [x] `*.car` and `*.sar` are treated as generated artifacts rather than committed sample inputs
   - [x] READMEs describe how to generate and place them instead of assuming they are already present in the repository
-  - [x] `car.d` and `sar.d` are treated as development and inspection shapes around generated artifacts
+  - [x] `car.d` and `sar.d` are treated as expanded archive inspection shapes around generated artifacts
 - [ ] What is the official status of the mixed subsystem sample?
   - [x] subsystem is confirmed to support multiple components as part of the formal phase 11 line
   - [x] the baseline extension after `11-subsystem` should be a multi-component subsystem sample

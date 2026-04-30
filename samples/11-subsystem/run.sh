@@ -13,14 +13,17 @@ if [[ -z "${COMPONENT_BINARY:-}" ]]; then
   exit 1
 fi
 
-mkdir -p component.d "$WORK_DIR/testcomp.car.d/component" "$WORK_DIR/testcomp.car.d/meta" "$WORK_DIR/testsubsystem.sar.d"
+mkdir -p component.d "$WORK_DIR/testcomp.car.d/component" "$WORK_DIR/testsubsystem.sar.d"
 rm -f component.d/testcomp.car component.d/testsubsystem.sar
 
 cp "$COMPONENT_BINARY" "$WORK_DIR/testcomp.car.d/component/main.jar"
-cat > "$WORK_DIR/testcomp.car.d/meta/manifest.json" <<'EOF'
-{"name": "testcomp", "version": "0.1.0", "component": "testcomp", "subsystem": "testsubsystem"}
+cat > "$WORK_DIR/testcomp.car.d/component-descriptor.yaml" <<'EOF'
+name: testcomp
+version: 0.1.0
+component: testcomp
+subsystem: testsubsystem
 EOF
-(cd "$WORK_DIR/testcomp.car.d" && zip -qr "$SCRIPT_DIR/component.d/testcomp.car" component meta)
+(cd "$WORK_DIR/testcomp.car.d" && zip -qr "$SCRIPT_DIR/component.d/testcomp.car" component-descriptor.yaml component)
 
 cat > "$WORK_DIR/testsubsystem.sar.d/subsystem-descriptor.yaml" <<'EOF'
 subsystem: testsubsystem

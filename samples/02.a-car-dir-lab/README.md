@@ -9,11 +9,14 @@ bash ../../bin/setup cncf
 ## Overview
 
 This sample shows the expanded `car.d` form.
-It is the development and test variant of `02-component`.
+It is the CAR loader/debug variant of `02-component`.
 
 ## Intended Use Case
 
 Use this sample when you want to inspect or edit the expanded component archive contents before packaging them back into a runnable `*.car`.
+For the normal sbt edit/run loop, prefer `--component-dev-dir <project>` so the
+runtime uses the development classpath and `src/main/car` without rebuilding a
+CAR.
 
 ## Files
 
@@ -38,13 +41,12 @@ The main development shape is:
 car.d/
   descriptor.yaml
   component/main.jar
-  meta/manifest.json
 ```
 
 ## Run The Whole Scenario
 
 This command runs the full expanded-CAR walkthrough in one shot.
-It loads `car.d` directly as the formal development-time CAR layout.
+It loads `car.d` directly as an expanded CAR directory.
 
 ```bash
 bash run.sh
@@ -60,14 +62,13 @@ The common parameters are:
 With the current activation policy:
 
 - `car.d`
-  - is the expanded debug/development shape
-  - and is auto-activated by the runtime
-- no explicit repository option is required for the direct `car.d` walkthrough
+  - is the expanded CAR debug/inspection shape
+  - and is activated explicitly with `--component-car-dir car.d`
 
 ### 1. Inspect the component
 
 ```bash
-bash ../../bin/cncf command meta.help testcomp --format yaml
+bash ../../bin/cncf --component-car-dir car.d command meta.help testcomp --format yaml
 ```
 
 Parameters:
@@ -83,7 +84,7 @@ Parameters:
 ### 2. Inspect operation help
 
 ```bash
-bash ../../bin/cncf command help testcomp.main.hello
+bash ../../bin/cncf --component-car-dir car.d command help testcomp.main.hello
 ```
 
 Parameters:
@@ -97,7 +98,7 @@ Parameters:
 ### 3. Execute the operation
 
 ```bash
-bash ../../bin/cncf command testcomp.main.hello
+bash ../../bin/cncf --component-car-dir car.d command testcomp.main.hello
 ```
 
 Parameters:
@@ -115,5 +116,5 @@ Hello from testcomp
 ## Key Learnings
 
 - expanded `car.d`
-- development-time archive inspection
+- archive loader/debug inspection
 - direct execution from the expanded CAR layout

@@ -18,7 +18,7 @@ In the `02` line, the forms are split like this:
   - `component.d/*.car`
 - `02.a-car-dir-lab`
   - expanded `car.d`
-  - development and test form
+  - CAR loader/debug form
 - `02.b-discover-classes-lab`
   - `--discover=classes`
   - development-time implicit component construction
@@ -46,7 +46,7 @@ This sample shows:
 - `component.d/testcomp.car`
   - the packaged component artifact
 - `car.d/testcomp/`
-  - the expanded CAR directory used for inspection and development
+  - the expanded CAR directory used for archive inspection
 - `src/main/scala/testcomp/TestcompComponent.scala`
   - the sample component source used to build the jar placed into the CAR
 - `run.sh`
@@ -67,23 +67,11 @@ The reusable component artifact in this sample is a CAR:
 ```text
 testcomp.car
   component/main.jar
-  meta/manifest.json
+  component-descriptor.yaml
 ```
 
-`meta/manifest.json` is still used by the current runtime for archive loading.
-This is a transitional compatibility shape. The planned direction is to retire
-manifest-specific handling and converge CAR/SAR metadata into a top-level
-descriptor.
-
-The manifest in this sample is:
-
-```json
-{
-  "name": "testcomp",
-  "version": "0.1.0",
-  "component": "testcomp"
-}
-```
+The descriptor is the canonical CAR metadata. `meta/manifest.json` is not
+accepted by this sample line.
 
 Build the component jar:
 
@@ -95,14 +83,12 @@ Prepare the CAR work directory:
 
 ```bash
 rm -rf /tmp/testcomp.car.d
-mkdir -p /tmp/testcomp.car.d/component /tmp/testcomp.car.d/meta
+mkdir -p /tmp/testcomp.car.d/component
 cp "$COMPONENT_BINARY" /tmp/testcomp.car.d/component/main.jar
-cat > /tmp/testcomp.car.d/meta/manifest.json <<'EOF'
-{
-  "name": "testcomp",
-  "version": "0.1.0",
-  "component": "testcomp"
-}
+cat > /tmp/testcomp.car.d/component-descriptor.yaml <<'EOF'
+name: testcomp
+version: 0.1.0
+component: testcomp
 EOF
 ```
 
@@ -110,7 +96,7 @@ Create `testcomp.car`:
 
 ```bash
 cd /tmp/testcomp.car.d
-zip -qr /tmp/testcomp.car component meta
+zip -qr /tmp/testcomp.car component-descriptor.yaml component
 cp /tmp/testcomp.car component.d/testcomp.car
 ```
 
@@ -195,7 +181,9 @@ Parameters:
 - `component.d/*.car` is the baseline distribution form
 - packaged CARs are explicit runtime inputs, not always-on defaults
 - explicit activation is now expressed by component name rather than by repository option
-- `car.d` and `--discover=classes` are later variants for development and test
+- `--discover=classes` is the classpath-based development variant
+- `car.d` is the expanded archive inspection variant
+- `--component-dev-dir` is the preferred component edit/run loop; `car.d` is for expanded archive inspection
 - the `02` baseline focuses on packaging and surface inspection; `02.b` is where the same component is executed via class discovery
 
 ## Key Learnings

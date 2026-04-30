@@ -35,7 +35,7 @@ The line now covers:
 5. `11.d-implicit-subsystem-lab`
    - the implicit subsystem form
 6. `11.e-sar-dir-lab`
-   - expanded `sar.d` startup for development and testing
+   - expanded `sar.d` startup for loader/debug inspection
 7. `11.f-subsystem-parameter-lab`
    - descriptor-direct startup for development and testing
 

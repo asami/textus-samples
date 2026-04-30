@@ -174,7 +174,7 @@ Status:
 - [x] `11.b-subsystem-bundled-component-lab` established as the bundled explicit subsystem variant
 - [x] `11.c-subsystem-mixed-component-lab` completed as the mixed packaging variant where generic and bundled components coexist without wiring
 - [x] `11.d-implicit-subsystem-lab` completed as the shell-first implicit subsystem sample where runtime composition assembles the effective subsystem from a component-only definition
-- [x] `11.e-sar-dir-lab` completed as the development/test expanded `sar.d` startup sample
+- [x] `11.e-sar-dir-lab` completed as the loader/debug expanded `sar.d` startup sample
 - [x] `11.f-subsystem-parameter-lab` completed as the descriptor-direct explicit subsystem startup sample
 
 ### Phase 5. Future lines

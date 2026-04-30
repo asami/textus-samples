@@ -10,27 +10,34 @@ if [[ -z "${BASELINE_JAR:-}" ]]; then
 fi
 
 rm -rf sar.d/component sar.d/explicit-subsystem
-mkdir -p sar.d/component sar.d/meta sar.d/explicit-subsystem/component sar.d/explicit-subsystem/meta
+mkdir -p sar.d/component sar.d/explicit-subsystem/component
 
 WORK_DIR="$(mktemp -d)"
 trap 'rm -rf "$WORK_DIR"' EXIT
 
-mkdir -p "$WORK_DIR/base.car.d/component" "$WORK_DIR/base.car.d/meta"
+mkdir -p "$WORK_DIR/base.car.d/component"
 cp "$BASELINE_JAR" "$WORK_DIR/base.car.d/component/main.jar"
-cat > "$WORK_DIR/base.car.d/meta/manifest.json" <<'EOF'
-{"name": "testcomp", "version": "0.1.0", "component": "testcomp", "subsystem": "testsubsystem"}
+cat > "$WORK_DIR/base.car.d/component-descriptor.yaml" <<'EOF'
+name: testcomp
+version: 0.1.0
+component: testcomp
+subsystem: testsubsystem
 EOF
-(cd "$WORK_DIR/base.car.d" && zip -qr "$WORK_DIR/base.car" component meta)
+(cd "$WORK_DIR/base.car.d" && zip -qr "$WORK_DIR/base.car" component-descriptor.yaml component)
 
 cp "$WORK_DIR/base.car" sar.d/component/base.car
 cp "$WORK_DIR/base.car" sar.d/explicit-subsystem/component/base.car
-cat > sar.d/meta/manifest.json <<'EOF'
-{"name": "explicit-subsystem", "version": "0.1.0", "subsystem": "testsubsystem"}
+cat > sar.d/subsystem-descriptor.yaml <<'EOF'
+subsystem: testsubsystem
+version: 0.1.0
+components:
+  - component: testcomp
+    coordinate: org.simplemodeling.car:testcomp:0.1.0
 EOF
-cp sar.d/meta/manifest.json sar.d/explicit-subsystem/meta/manifest.json
+cp sar.d/subsystem-descriptor.yaml sar.d/explicit-subsystem/subsystem-descriptor.yaml
 
 COMMON_ARGS=(
-  --textus.subsystem=testsubsystem
+  --subsystem-sar-dir sar.d
 )
 
 echo "--- subsystem help"
