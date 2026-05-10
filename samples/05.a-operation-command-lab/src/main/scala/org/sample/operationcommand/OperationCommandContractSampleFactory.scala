@@ -12,7 +12,7 @@ final class OperationCommandContractSampleFactory extends OperationCommandContra
   class GreetingServiceFactory extends OperationCommandContractSampleComponent.GreetingServiceFactory {
     override def createSubmitGreetingActionCall(
       core: ActionCall.Core,
-      action: OperationCommandContractSampleComponent.GreetingService.SubmitGreetingCommand
+      action: OperationCommandContractSampleComponent.GreetingService.GreetingCommand
     ): OperationCommandContractSampleComponent.GreetingService.SubmitGreetingActionCall =
       SubmitGreetingActionCall(core, action)
   }
@@ -20,13 +20,13 @@ final class OperationCommandContractSampleFactory extends OperationCommandContra
   object SubmitGreetingActionCall {
     def apply(
       core: ActionCall.Core,
-      action: OperationCommandContractSampleComponent.GreetingService.SubmitGreetingCommand
+      action: OperationCommandContractSampleComponent.GreetingService.GreetingCommand
     ): OperationCommandContractSampleComponent.GreetingService.SubmitGreetingActionCall =
       Instance(core, action)
 
     final case class Instance(
       core: ActionCall.Core,
-      override val action: OperationCommandContractSampleComponent.GreetingService.SubmitGreetingCommand
+      override val action: OperationCommandContractSampleComponent.GreetingService.GreetingCommand
     ) extends OperationCommandContractSampleComponent.GreetingService.SubmitGreetingActionCall {
       protected def build_Program: ExecUowM[OperationResponse] =
         exec_pure(

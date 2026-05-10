@@ -25,8 +25,8 @@ object CallerComponent extends Component.Factory {
   val name = "callercomp"
   val componentId = ComponentId(name)
 
-  protected def create_Components(params: ComponentCreate): Vector[Component] =
-    Vector(CallerComponent())
+  protected def create_Component(params: ComponentCreate): Component =
+    CallerComponent()
 
   protected def create_Core(
     params: ComponentCreate,

@@ -34,6 +34,11 @@ Typical flow:
 
 Item-facing CQRS operations.
 
+### ACCESS
+
+#### OPERATION_MODEL
+internal-service
+
 ### OPERATION
 
 #### createItem
@@ -42,13 +47,18 @@ Item-facing CQRS operations.
 
 Creates a new item through the command side.
 
-##### IN
+##### TYPE
+COMMAND
 
-Item creation payload.
+##### INPUT
 
-##### OUT
+###### TYPE
+CreateItem
 
-Command job result.
+##### OUTPUT
+
+###### TYPE
+CreateItemResult
 
 #### getItem
 
@@ -56,14 +66,18 @@ Command job result.
 
 Reads an item through the query side.
 
-##### IN
+##### TYPE
+QUERY
 
-Identifier of the item to retrieve.
+##### INPUT
 
-##### OUT
+###### TYPE
+GetItem
 
-Current item state.
+##### OUTPUT
 
+###### TYPE
+ItemResult
 # ENTITY
 
 ## Item
@@ -108,27 +122,3 @@ Query to read an item.
 | name | type     | multiplicity |
 |------|----------|--------------|
 | id   | entityid | 1            |
-
-# OPERATION
-
-## createItem
-
-### TYPE
-COMMAND
-
-### INPUT
-CreateItem
-
-### OUTPUT
-CreateItemResult
-
-## getItem
-
-### TYPE
-QUERY
-
-### INPUT
-GetItem
-
-### OUTPUT
-ItemResult

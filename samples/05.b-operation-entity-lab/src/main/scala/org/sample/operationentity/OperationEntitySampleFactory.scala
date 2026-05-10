@@ -15,7 +15,7 @@ final class OperationEntitySampleFactory extends OperationEntitySampleComponent.
   class PersonAppServiceFactory extends OperationEntitySampleComponent.PersonAppServiceFactory {
     override def createGetPersonCardActionCall(
       core: ActionCall.Core,
-      action: OperationEntitySampleComponent.PersonAppService.GetPersonCardQuery
+      action: OperationEntitySampleComponent.PersonAppService.PersonLookup
     ): OperationEntitySampleComponent.PersonAppService.GetPersonCardActionCall =
       GetPersonCardActionCall(core, action)
   }
@@ -23,13 +23,13 @@ final class OperationEntitySampleFactory extends OperationEntitySampleComponent.
   object GetPersonCardActionCall {
     def apply(
       core: ActionCall.Core,
-      action: OperationEntitySampleComponent.PersonAppService.GetPersonCardQuery
+      action: OperationEntitySampleComponent.PersonAppService.PersonLookup
     ): OperationEntitySampleComponent.PersonAppService.GetPersonCardActionCall =
       Instance(core, action)
 
     final case class Instance(
       core: ActionCall.Core,
-      override val action: OperationEntitySampleComponent.PersonAppService.GetPersonCardQuery
+      override val action: OperationEntitySampleComponent.PersonAppService.PersonLookup
     ) extends OperationEntitySampleComponent.PersonAppService.GetPersonCardActionCall {
       protected def build_Program: ExecUowM[OperationResponse] = {
         for {

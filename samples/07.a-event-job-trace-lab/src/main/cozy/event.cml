@@ -31,13 +31,21 @@ Event emission and observation operations.
 
 Emits the `item.changed` event.
 
-##### IN
+##### TYPE
+COMMAND
 
-name, title
+##### IMPLEMENTATION
+event-emit
 
-##### OUT
+##### INPUT
 
-Event emission result.
+###### TYPE
+EmitEvent
+
+##### OUTPUT
+
+###### TYPE
+EmitEventResult
 
 #### recordEffect
 
@@ -45,13 +53,24 @@ Event emission result.
 
 Receives the emitted event and records the visible effect.
 
-##### IN
+##### TYPE
+COMMAND
 
-event payload
+##### EXECUTION
+sync
 
-##### OUT
+##### IMPLEMENTATION
+event-effect-record
 
-Recorded effect.
+##### INPUT
+
+###### TYPE
+RecordEffect
+
+##### OUTPUT
+
+###### TYPE
+RecordEffectResult
 
 #### loadEffect
 
@@ -59,13 +78,21 @@ Recorded effect.
 
 Reads the current post-event effect.
 
-##### IN
+##### TYPE
+QUERY
 
-None.
+##### IMPLEMENTATION
+event-effect-load
 
-##### OUT
+##### INPUT
 
-Recorded effect.
+###### TYPE
+LoadEffect
+
+##### OUTPUT
+
+###### TYPE
+LoadEffectResult
 
 # ENTITY
 
@@ -118,53 +145,6 @@ Command to record the received event effect.
 ### DESCRIPTION
 
 Query to read the current visible effect.
-
-# OPERATION
-
-## emitEvent
-
-### TYPE
-COMMAND
-
-### IMPLEMENTATION
-event-emit
-
-### INPUT
-EmitEvent
-
-### OUTPUT
-EmitEventResult
-
-## recordEffect
-
-### TYPE
-COMMAND
-
-### EXECUTION
-sync
-
-### IMPLEMENTATION
-event-effect-record
-
-### INPUT
-RecordEffect
-
-### OUTPUT
-RecordEffectResult
-
-## loadEffect
-
-### TYPE
-QUERY
-
-### IMPLEMENTATION
-event-effect-load
-
-### INPUT
-LoadEffect
-
-### OUTPUT
-LoadEffectResult
 
 # EVENT
 

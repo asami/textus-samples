@@ -18,8 +18,8 @@ object BetaComponent extends Component.Factory {
   val name = "betacomp"
   val componentId = ComponentId(name)
 
-  protected def create_Components(params: ComponentCreate): Vector[Component] =
-    Vector(BetaComponent())
+  protected def create_Component(params: ComponentCreate): Component =
+    BetaComponent()
 
   protected def create_Core(
     params: ComponentCreate,

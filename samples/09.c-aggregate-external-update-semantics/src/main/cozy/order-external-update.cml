@@ -20,19 +20,42 @@ Order-facing operations for external update semantics.
 
 ### OPERATION
 
+#### loadOrderAggregate
+
+##### TYPE
+QUERY
+
+##### IMPLEMENTATION
+aggregate-load
+
+##### INPUT
+
+###### TYPE
+LoadOrderAggregate
+
+##### OUTPUT
+
+###### TYPE
+LoadOrderAggregateResult
+
 #### cancelOrder
 
 ##### DESCRIPTION
 
 Cancels an order aggregate and applies follow-up updates to external aggregated members.
 
-##### IN
+##### TYPE
+COMMAND
 
-Aggregate cancellation command.
+##### INPUT
 
-##### OUT
+###### TYPE
+CancelOrder
 
-Updated aggregate projection.
+##### OUTPUT
+
+###### TYPE
+CancelOrderResult
 
 # ENTITY
 
@@ -100,30 +123,3 @@ Updated aggregate projection.
 | name    | type     | multiplicity |
 |---------+----------+--------------|
 | orderId | entityid | 1            |
-
-# OPERATION
-
-## loadOrderAggregate
-
-### TYPE
-QUERY
-
-### IMPLEMENTATION
-aggregate-load
-
-### INPUT
-LoadOrderAggregate
-
-### OUTPUT
-LoadOrderAggregateResult
-
-## cancelOrder
-
-### TYPE
-COMMAND
-
-### INPUT
-CancelOrder
-
-### OUTPUT
-CancelOrderResult

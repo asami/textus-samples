@@ -40,14 +40,21 @@ Item-facing designed-sync command.
 
 Creates a new item immediately through the command side.
 
-##### IN
+##### TYPE
+COMMAND
 
-Item creation payload.
+##### EXECUTION
+sync
 
-##### OUT
+##### INPUT
 
-Created item record.
+###### TYPE
+CreateItem
 
+##### OUTPUT
+
+###### TYPE
+CreateItemResult
 # ENTITY
 
 ## Item
@@ -78,19 +85,3 @@ Command to create an item immediately.
 |-------+--------+--------------|
 | name  | name   | 1            |
 | title | string | 1            |
-
-# OPERATION
-
-## createItem
-
-### TYPE
-COMMAND
-
-### EXECUTION
-sync
-
-### INPUT
-CreateItem
-
-### OUTPUT
-CreateItemResult

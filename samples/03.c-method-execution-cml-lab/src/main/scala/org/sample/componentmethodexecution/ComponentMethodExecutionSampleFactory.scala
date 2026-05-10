@@ -12,7 +12,7 @@ final class ComponentMethodExecutionSampleFactory extends ComponentMethodExecuti
   class GreetingServiceFactory extends ComponentMethodExecutionSampleComponent.GreetingServiceFactory {
     override def createComposeGreetingActionCall(
       core: ActionCall.Core,
-      action: ComponentMethodExecutionSampleComponent.GreetingService.ComposeGreetingQuery
+      action: ComponentMethodExecutionSampleComponent.GreetingService.GreetingQuery
     ): ComponentMethodExecutionSampleComponent.GreetingService.ComposeGreetingActionCall =
       ComposeGreetingActionCall(core, action)
   }
@@ -20,13 +20,13 @@ final class ComponentMethodExecutionSampleFactory extends ComponentMethodExecuti
   object ComposeGreetingActionCall {
     def apply(
       core: ActionCall.Core,
-      action: ComponentMethodExecutionSampleComponent.GreetingService.ComposeGreetingQuery
+      action: ComponentMethodExecutionSampleComponent.GreetingService.GreetingQuery
     ): ComponentMethodExecutionSampleComponent.GreetingService.ComposeGreetingActionCall =
       Instance(core, action)
 
     final case class Instance(
       core: ActionCall.Core,
-      override val action: ComponentMethodExecutionSampleComponent.GreetingService.ComposeGreetingQuery
+      override val action: ComponentMethodExecutionSampleComponent.GreetingService.GreetingQuery
     ) extends ComponentMethodExecutionSampleComponent.GreetingService.ComposeGreetingActionCall {
       protected def build_Program: ExecUowM[OperationResponse] =
         exec_pure(

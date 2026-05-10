@@ -7,7 +7,7 @@
 It makes both sides explicit:
 
 - command side
-  - accepts a state-changing request and returns a job id
+  - accepts a state-changing request through the generated command surface
 - query side
   - reads the current state immediately
 
@@ -41,7 +41,7 @@ CNCF approaches CQRS by making that split visible in the runtime surface itself.
 The basic approach is:
 
 - model command-side operations explicitly
-- treat command execution as job-backed by default
+- treat command execution policy as part of the modeled command contract
 - expose query-side selectors separately
 - let the read side observe the state after command completion
 
@@ -49,7 +49,7 @@ This sample covers the first visible step of that approach:
 
 - a modeled command-side contract
 - a concrete write-side selector
-- job submission and `await-job-result`
+- generated entity write/read selectors executed in one runtime
 - a query-side read after the write
 
 It does not yet try to show:
@@ -73,14 +73,14 @@ It does not yet try to show:
 Use this sample when you want to confirm:
 
 - how CNCF exposes the command side and the query side separately
-- that write requests are job-backed and asynchronous in shape
+- that write requests are command-oriented in shape
 - that read requests are immediate and query-oriented
 - how a single model can provide both command and query selectors
 
 Typical use cases are:
 
 - teaching the visible runtime shape of CQRS
-- explaining why command completion is observed through job control
+- comparing command-side write and query-side read behavior
 - comparing write-side flow and read-side flow in one sample
 - showing that the query side can read the state produced by the command side
 
@@ -217,56 +217,28 @@ This is the conceptual CQRS split in the model.
 
 ### Execute The Write Side
 
-Start the server in one shell:
+The executable flow uses `CqrsSampleRunner` so the write and read happen in one embedded CNCF runtime. This keeps the in-memory sample state visible to the read side without packaging or starting an HTTP server.
 
 ```bash
-$ bash ../../bin/cncf --discover=classes server
-```
-
-Submit the write request from another shell:
-
-```bash
-$ bash ../../bin/cncf --discover=classes client cqrs.entity.create-item-record --id org-sample-entity-item-20260406000000-gamma111 --name gamma --title Gamma
-```
-
-Output example:
-
-```text
-cncf-job-job-1775464037872-4sq5QOCmaYVVX8Vx2vjT23
-```
-
-The write side returns a job id first.
-
-Await the final result:
-
-```bash
-$ bash ../../bin/cncf --discover=classes client job-control.job.await-job-result --id cncf-job-job-1775464037872-4sq5QOCmaYVVX8Vx2vjT23
+$ sbt --batch "runMain org.sample.cqrs.CqrsSampleRunner org-sample-entity-item-1775457600000-gamma111"
 ```
 
 Output example:
 
 ```json
-{"id":"org-sample-entity-item-20260406000000-gamma111"}
+{"created":"id: org-sample-entity-item-1775457600000-gamma111\n","loaded":"id: org-sample-entity-item-1775457600000-gamma111\nname: gamma\ntitle: Gamma\n"}
 ```
 
 ### Execute The Read Side
 
-```bash
-$ bash ../../bin/cncf --discover=classes client cqrs.entity.load-item --id org-sample-entity-item-20260406000000-gamma111
-```
-
-Output example:
-
-```json
-{"id":"org-sample-entity-item-20260406000000-gamma111","name":"gamma","title":"Gamma"}
-```
+The runner immediately reads the same entity after the write side completes.
 
 This is the point of the sample:
 
-- the write side is asynchronous and job-backed
+- the write side is command-oriented
 - the read side is immediate
 - both sides come from the same modeled component
-- the read side can observe the state produced by the write side after the job completes
+- the read side can observe the state produced by the write side
 
 ## What This Sample Does Not Try To Show
 

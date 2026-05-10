@@ -18,6 +18,44 @@ Aggregate sample for relation/boundary separation.
 
 Order-facing operations for relation/boundary aggregate access.
 
+### OPERATION
+
+#### loadOrderAggregate
+
+##### TYPE
+QUERY
+
+##### IMPLEMENTATION
+aggregate-load
+
+##### INPUT
+
+###### TYPE
+LoadOrderAggregate
+
+##### OUTPUT
+
+###### TYPE
+LoadOrderAggregateResult
+
+#### searchOrderAggregate
+
+##### TYPE
+QUERY
+
+##### IMPLEMENTATION
+aggregate-search
+
+##### INPUT
+
+###### TYPE
+SearchOrderAggregate
+
+##### OUTPUT
+
+###### TYPE
+SearchOrderAggregateResult
+
 # VALUE
 
 ## OrderLine
@@ -88,33 +126,3 @@ Order-facing operations for relation/boundary aggregate access.
 | name | type | multiplicity |
 |------|------|--------------|
 | name | name | ?            |
-
-# OPERATION
-
-## loadOrderAggregate
-
-### TYPE
-QUERY
-
-### IMPLEMENTATION
-aggregate-load
-
-### INPUT
-LoadOrderAggregate
-
-### OUTPUT
-LoadOrderAggregateResult
-
-## searchOrderAggregate
-
-### TYPE
-QUERY
-
-### IMPLEMENTATION
-aggregate-search
-
-### INPUT
-SearchOrderAggregate
-
-### OUTPUT
-SearchOrderAggregateResult

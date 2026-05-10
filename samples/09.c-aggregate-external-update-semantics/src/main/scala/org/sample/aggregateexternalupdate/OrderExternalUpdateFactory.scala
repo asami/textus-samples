@@ -26,7 +26,7 @@ final class OrderExternalUpdateFactory extends AggregateExternalUpdateSampleComp
       extends AggregateExternalUpdateSampleComponent.OrderServiceFactory {
     override def createCancelOrderActionCall(
       core: ActionCall.Core,
-      action: AggregateExternalUpdateSampleComponent.OrderService.CancelOrderCommand
+      action: AggregateExternalUpdateSampleComponent.OrderService.CancelOrder
     ): AggregateExternalUpdateSampleComponent.OrderService.CancelOrderActionCall =
       CancelOrderActionCall(core, action)
   }
@@ -34,21 +34,21 @@ final class OrderExternalUpdateFactory extends AggregateExternalUpdateSampleComp
   object CancelOrderActionCall {
     def apply(
       core: ActionCall.Core,
-      action: AggregateExternalUpdateSampleComponent.OrderService.CancelOrderCommand
+      action: AggregateExternalUpdateSampleComponent.OrderService.CancelOrder
     ): AggregateExternalUpdateSampleComponent.OrderService.CancelOrderActionCall =
       Instance(core, action)
 
     final case class Instance(
       core: ActionCall.Core,
-      override val action: AggregateExternalUpdateSampleComponent.OrderService.CancelOrderCommand
+      override val action: AggregateExternalUpdateSampleComponent.OrderService.CancelOrder
     ) extends AggregateExternalUpdateSampleComponent.OrderService.CancelOrderActionCall {
       protected def build_Program: ExecUowM[OperationResponse] = {
         for {
-          orderId <- exec_pure(Consequence.successOrRecordNotFound[EntityId]("orderId", action.record).TAKE)
+          orderId <- exec_pure(_order_id(action.record).TAKE)
           behavior <- exec_from(resolve_aggregate_behavior().map(_.asInstanceOf[AggregateBehavior[Record]]))
           _ <- exec_from(invoke_aggregate_behavior(behavior, action.record))
           aggregate <- exec_from(
-            aggregate_load_c[org.sample.aggregateexternalupdate.entity.aggregate.Order]("order", orderId)
+            aggregate_load_c[org.sample.aggregateexternalupdate.entity.aggregate.Order](orderId)
               .map(_.toRecord())
           )
         } yield OperationResponse.RecordResponse(aggregate)
@@ -65,29 +65,39 @@ final class OrderExternalUpdateFactory extends AggregateExternalUpdateSampleComp
   sealed trait CancelOrderAggregateBehavior extends AggregateBehavior[Record] {
     protected def build_Program(target: Record): ExecUowM[OperationResponse] = {
       for {
-        orderId <- exec_pure(Consequence.successOrRecordNotFound[EntityId]("orderId", target).TAKE)
+        orderId <- exec_pure(_order_id(target).TAKE)
         aggregate <- exec_from(
-          aggregate_load_c[org.sample.aggregateexternalupdate.entity.aggregate.Order]("order", orderId)
+          aggregate_load_c[org.sample.aggregateexternalupdate.entity.aggregate.Order](orderId)
         )
         _ <- entity_update(
-          orderId,
-          org.sample.aggregateexternalupdate.entity.update.Order.Builder()
-            .withName(aggregate.name)
-            .withStatus("Cancelled")
-            .build()
+          org.sample.aggregateexternalupdate.entity.Order(
+            orderId,
+            aggregate.userId,
+            aggregate.name,
+            "Cancelled"
+          )
         )
         _ <- aggregate.shipmentOrders.foldLeft(exec_pure(())) { (z, shipment) =>
           z.flatMap { _ =>
+            val shipmentId = shipment.id.copy(
+              collection = org.sample.aggregateexternalupdate.entity.ShipmentOrder.collectionId
+            )
             entity_update(
-              shipment.id,
-              org.sample.aggregateexternalupdate.entity.update.ShipmentOrder.Builder()
-                .withTitle(shipment.title)
-                .withStatus("Cancelled")
-                .build()
+              org.sample.aggregateexternalupdate.entity.ShipmentOrder(
+                shipmentId,
+                orderId,
+                shipment.title,
+                "Cancelled"
+              )
             )
           }
         }
       } yield OperationResponse.void
     }
   }
+
+  private def _order_id(record: Record): Consequence[EntityId] =
+    Consequence.successOrRecordNotFound[EntityId]("orderId", record).map(
+      _.copy(collection = org.sample.aggregateexternalupdate.entity.Order.collectionId)
+    )
 }

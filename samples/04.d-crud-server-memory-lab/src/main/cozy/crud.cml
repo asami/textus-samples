@@ -48,13 +48,18 @@ Item-facing operations for basic CRUD access.
 
 Creates a new item record.
 
-##### IN
+##### TYPE
+COMMAND
 
-Item creation payload.
+##### INPUT
 
-##### OUT
+###### TYPE
+CreateItem
 
-Result of item creation.
+##### OUTPUT
+
+###### TYPE
+CreateItemResult
 
 #### getItem
 
@@ -62,13 +67,18 @@ Result of item creation.
 
 Returns a single item by identifier.
 
-##### IN
+##### TYPE
+QUERY
 
-Identifier of the item to retrieve.
+##### INPUT
 
-##### OUT
+###### TYPE
+GetItem
 
-Item lookup result.
+##### OUTPUT
+
+###### TYPE
+ItemResult
 
 #### listItems
 
@@ -76,14 +86,18 @@ Item lookup result.
 
 Lists item records with optional filters.
 
-##### IN
+##### TYPE
+QUERY
 
-Filter and pagination fields for item listing.
+##### INPUT
 
-##### OUT
+###### TYPE
+ListItems
 
-List/search result projection.
+##### OUTPUT
 
+###### TYPE
+ListItemsResult
 # ENTITY
 
 ## SimpleEntity
@@ -158,38 +172,3 @@ Query to list item records.
 |--------|--------|--------------|
 | offset | int    | ?            |
 | limit  | int    | ?            |
-
-# OPERATION
-
-## createItem
-
-### TYPE
-COMMAND
-
-### INPUT
-CreateItem
-
-### OUTPUT
-CreateItemResult
-
-## getItem
-
-### TYPE
-QUERY
-
-### INPUT
-GetItem
-
-### OUTPUT
-ItemResult
-
-## listItems
-
-### TYPE
-QUERY
-
-### INPUT
-ListItems
-
-### OUTPUT
-ListItemsResult

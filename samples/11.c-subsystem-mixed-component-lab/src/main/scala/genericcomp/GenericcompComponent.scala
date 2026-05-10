@@ -18,8 +18,8 @@ object GenericcompComponent extends Component.Factory {
   val name = "genericcomp"
   val componentId = ComponentId(name)
 
-  protected def create_Components(params: ComponentCreate): Vector[Component] =
-    Vector(GenericcompComponent())
+  protected def create_Component(params: ComponentCreate): Component =
+    GenericcompComponent()
 
   protected def create_Core(
     params: ComponentCreate,

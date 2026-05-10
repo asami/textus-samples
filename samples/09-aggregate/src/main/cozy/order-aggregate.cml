@@ -40,13 +40,21 @@ Order-facing operations for aggregate-oriented access.
 
 Loads one order aggregate.
 
-##### IN
+##### TYPE
+QUERY
 
-Aggregate identifier.
+##### IMPLEMENTATION
+aggregate-load
 
-##### OUT
+##### INPUT
 
-Aggregate projection.
+###### TYPE
+LoadOrderAggregate
+
+##### OUTPUT
+
+###### TYPE
+LoadOrderAggregateResult
 
 #### searchOrderAggregate
 
@@ -54,13 +62,21 @@ Aggregate projection.
 
 Searches order aggregates.
 
-##### IN
+##### TYPE
+QUERY
 
-Aggregate search condition.
+##### IMPLEMENTATION
+aggregate-search
 
-##### OUT
+##### INPUT
 
-Aggregate search result.
+###### TYPE
+SearchOrderAggregate
+
+##### OUTPUT
+
+###### TYPE
+SearchOrderAggregateResult
 
 #### addLine
 
@@ -68,14 +84,18 @@ Aggregate search result.
 
 Adds one line to an order aggregate.
 
-##### IN
+##### TYPE
+COMMAND
 
-Order aggregate mutation command.
+##### INPUT
 
-##### OUT
+###### TYPE
+AddLine
 
-Updated aggregate projection.
+##### OUTPUT
 
+###### TYPE
+AddLineResult
 # ENTITY
 
 ## Order
@@ -177,44 +197,3 @@ Command to add one order line.
 | orderId  | entityid | 1            |
 | lineName | name     | 1            |
 | quantity | int      | 1            |
-
-# OPERATION
-
-## loadOrderAggregate
-
-### TYPE
-QUERY
-
-### IMPLEMENTATION
-aggregate-load
-
-### INPUT
-LoadOrderAggregate
-
-### OUTPUT
-LoadOrderAggregateResult
-
-## searchOrderAggregate
-
-### TYPE
-QUERY
-
-### IMPLEMENTATION
-aggregate-search
-
-### INPUT
-SearchOrderAggregate
-
-### OUTPUT
-SearchOrderAggregateResult
-
-## addLine
-
-### TYPE
-COMMAND
-
-### INPUT
-AddLine
-
-### OUTPUT
-AddLineResult

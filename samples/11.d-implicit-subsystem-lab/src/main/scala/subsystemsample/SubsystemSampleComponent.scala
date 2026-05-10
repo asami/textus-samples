@@ -14,8 +14,8 @@ object SubsystemSampleComponent extends Component.Factory {
   val name = "subsystem"
   val componentId = ComponentId(name)
 
-  protected def create_Components(params: ComponentCreate): Vector[Component] =
-    Vector(SubsystemSampleComponent())
+  protected def create_Component(params: ComponentCreate): Component =
+    SubsystemSampleComponent()
 
   protected def create_Core(
     params: ComponentCreate,

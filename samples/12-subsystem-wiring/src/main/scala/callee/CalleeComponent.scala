@@ -18,8 +18,8 @@ object CalleeComponent extends Component.Factory {
   val name = "calleecomp"
   val componentId = ComponentId(name)
 
-  protected def create_Components(params: ComponentCreate): Vector[Component] =
-    Vector(CalleeComponent())
+  protected def create_Component(params: ComponentCreate): Component =
+    CalleeComponent()
 
   protected def create_Core(
     params: ComponentCreate,

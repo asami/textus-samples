@@ -18,8 +18,8 @@ object BundledcompComponent extends Component.Factory {
   val name = "bundledcomp"
   val componentId = ComponentId(name)
 
-  protected def create_Components(params: ComponentCreate): Vector[Component] =
-    Vector(BundledcompComponent())
+  protected def create_Component(params: ComponentCreate): Component =
+    BundledcompComponent()
 
   protected def create_Core(
     params: ComponentCreate,

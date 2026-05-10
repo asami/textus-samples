@@ -38,7 +38,8 @@ Accepts a greeting request payload and returns a command result contract.
 
 ##### INPUT
 
-Greeting command payload.
+###### TYPE
+GreetingCommand
 
 ###### SUMMARY
 
@@ -72,7 +73,8 @@ CommandAction
 
 ##### OUTPUT
 
-Command result payload.
+###### TYPE
+GreetingAccepted
 
 ###### SUMMARY
 

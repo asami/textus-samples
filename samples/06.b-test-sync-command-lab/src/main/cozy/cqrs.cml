@@ -43,14 +43,18 @@ Item-facing command operations used to compare default and overridden execution.
 
 Creates a new item through the command side.
 
-##### IN
+##### TYPE
+COMMAND
 
-Item creation payload.
+##### INPUT
 
-##### OUT
+###### TYPE
+CreateItem
 
-Default command job result.
+##### OUTPUT
 
+###### TYPE
+CreateItemResult
 # ENTITY
 
 ## Item
@@ -81,16 +85,3 @@ Command to create an item.
 |-------+--------+--------------|
 | name  | name   | 1            |
 | title | string | 1            |
-
-# OPERATION
-
-## createItem
-
-### TYPE
-COMMAND
-
-### INPUT
-CreateItem
-
-### OUTPUT
-CreateItemResult

@@ -20,7 +20,7 @@ final class JobControlLabComponentFactory extends JobControlLabComponent.Factory
   class ItemServiceFactory extends JobControlLabComponent.ItemServiceFactory {
     override def createCreateItemActionCall(
       core: ActionCall.Core,
-      action: JobControlLabComponent.ItemService.CreateItemCommand
+      action: JobControlLabComponent.ItemService.CreateItem
     ): JobControlLabComponent.ItemService.CreateItemActionCall =
       SubmitControllableJobActionCall(core, action)
   }
@@ -36,17 +36,17 @@ final class JobControlLabComponentFactory extends JobControlLabComponent.Factory
   object SubmitControllableJobActionCall {
     def apply(
       core: ActionCall.Core,
-      action: JobControlLabComponent.ItemService.CreateItemCommand
+      action: JobControlLabComponent.ItemService.CreateItem
     ): JobControlLabComponent.ItemService.CreateItemActionCall =
       Instance(core, action)
 
     final case class Instance(
       core: ActionCall.Core,
-      override val action: JobControlLabComponent.ItemService.CreateItemCommand
+      override val action: JobControlLabComponent.ItemService.CreateItem
     ) extends JobControlLabComponent.ItemService.CreateItemActionCall {
       protected def build_Program: ExecUowM[OperationResponse] =
         for {
-          jobid <- exec_pure(_submit(core, action.request.toRecord))
+          jobid <- exec_from(_submit(core, action.request.toRecord))
         } yield {
           OperationResponse(Record.data("job_id" -> jobid.value))
         }

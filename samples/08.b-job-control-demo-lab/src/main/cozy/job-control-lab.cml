@@ -30,14 +30,24 @@ Item-facing command target used by the lab.
 
 Creates a controllable job-backed execution example.
 
-##### IN
+##### TYPE
+COMMAND
 
-Item control payload.
+##### EXECUTION
+async
 
-##### OUT
+##### IMPLEMENTATION
+blocking-task
 
-Job-backed command result.
+##### INPUT
 
+###### TYPE
+CreateItem
+
+##### OUTPUT
+
+###### TYPE
+CreateItemResult
 # ENTITY
 
 ## Item
@@ -68,22 +78,3 @@ Command that creates a job-control demo item.
 |-------+--------+--------------|
 | name  | name   | 1            |
 | title | string | 1            |
-
-# OPERATION
-
-## createItem
-
-### TYPE
-COMMAND
-
-### EXECUTION
-async
-
-### IMPLEMENTATION
-blocking-task
-
-### INPUT
-CreateItem
-
-### OUTPUT
-CreateItemResult

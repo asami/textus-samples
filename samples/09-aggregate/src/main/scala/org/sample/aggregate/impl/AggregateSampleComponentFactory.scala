@@ -38,19 +38,19 @@ final class AggregateSampleComponentFactory extends org.sample.aggregate.Aggrega
   class OrderAggregateServiceFactory extends org.sample.aggregate.AggregateSampleComponent.OrderServiceFactory {
     override def createLoadOrderAggregateActionCall(
       core: ActionCall.Core,
-      action: org.sample.aggregate.AggregateSampleComponent.OrderService.LoadOrderAggregateQuery
+      action: org.sample.aggregate.AggregateSampleComponent.OrderService.LoadOrderAggregate
     ): org.sample.aggregate.AggregateSampleComponent.OrderService.LoadOrderAggregateActionCall =
       LoadOrderAggregateActionCall(core, action)
 
     override def createSearchOrderAggregateActionCall(
       core: ActionCall.Core,
-      action: org.sample.aggregate.AggregateSampleComponent.OrderService.SearchOrderAggregateQuery
+      action: org.sample.aggregate.AggregateSampleComponent.OrderService.SearchOrderAggregate
     ): org.sample.aggregate.AggregateSampleComponent.OrderService.SearchOrderAggregateActionCall =
       SearchOrderAggregateActionCall(core, action)
 
     override def createAddLineActionCall(
       core: ActionCall.Core,
-      action: org.sample.aggregate.AggregateSampleComponent.OrderService.AddLineCommand
+      action: org.sample.aggregate.AggregateSampleComponent.OrderService.AddLine
     ): org.sample.aggregate.AggregateSampleComponent.OrderService.AddLineActionCall =
       AddLineActionCall(core, action)
   }
@@ -58,13 +58,13 @@ final class AggregateSampleComponentFactory extends org.sample.aggregate.Aggrega
   object LoadOrderAggregateActionCall {
     def apply(
       core: ActionCall.Core,
-      action: org.sample.aggregate.AggregateSampleComponent.OrderService.LoadOrderAggregateQuery
+      action: org.sample.aggregate.AggregateSampleComponent.OrderService.LoadOrderAggregate
     ): org.sample.aggregate.AggregateSampleComponent.OrderService.LoadOrderAggregateActionCall =
       Instance(core, action)
 
     final case class Instance(
       core: ActionCall.Core,
-      override val action: org.sample.aggregate.AggregateSampleComponent.OrderService.LoadOrderAggregateQuery
+      override val action: org.sample.aggregate.AggregateSampleComponent.OrderService.LoadOrderAggregate
     ) extends org.sample.aggregate.AggregateSampleComponent.OrderService.LoadOrderAggregateActionCall {
       protected def build_Program: ExecUowM[OperationResponse] = {
         for {
@@ -78,13 +78,13 @@ final class AggregateSampleComponentFactory extends org.sample.aggregate.Aggrega
   object SearchOrderAggregateActionCall {
     def apply(
       core: ActionCall.Core,
-      action: org.sample.aggregate.AggregateSampleComponent.OrderService.SearchOrderAggregateQuery
+      action: org.sample.aggregate.AggregateSampleComponent.OrderService.SearchOrderAggregate
     ): org.sample.aggregate.AggregateSampleComponent.OrderService.SearchOrderAggregateActionCall =
       Instance(core, action)
 
     final case class Instance(
       core: ActionCall.Core,
-      override val action: org.sample.aggregate.AggregateSampleComponent.OrderService.SearchOrderAggregateQuery
+      override val action: org.sample.aggregate.AggregateSampleComponent.OrderService.SearchOrderAggregate
     ) extends org.sample.aggregate.AggregateSampleComponent.OrderService.SearchOrderAggregateActionCall {
       protected def build_Program: ExecUowM[OperationResponse] = {
         val query = Query.fromRecord(_search_record(action.request.toRecord))
@@ -113,13 +113,13 @@ final class AggregateSampleComponentFactory extends org.sample.aggregate.Aggrega
   object AddLineActionCall {
     def apply(
       core: ActionCall.Core,
-      action: org.sample.aggregate.AggregateSampleComponent.OrderService.AddLineCommand
+      action: org.sample.aggregate.AggregateSampleComponent.OrderService.AddLine
     ): org.sample.aggregate.AggregateSampleComponent.OrderService.AddLineActionCall =
       Instance(core, action)
 
     final case class Instance(
       core: ActionCall.Core,
-      override val action: org.sample.aggregate.AggregateSampleComponent.OrderService.AddLineCommand
+      override val action: org.sample.aggregate.AggregateSampleComponent.OrderService.AddLine
     ) extends org.sample.aggregate.AggregateSampleComponent.OrderService.AddLineActionCall {
       protected def build_Program: ExecUowM[OperationResponse] = {
         for {

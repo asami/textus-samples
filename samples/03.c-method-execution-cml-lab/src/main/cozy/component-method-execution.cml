@@ -34,7 +34,8 @@ Compose a greeting message.
 
 ##### INPUT
 
-Greeting query payload.
+###### TYPE
+GreetingQuery
 
 ###### VALUE
 
@@ -52,7 +53,8 @@ QueryAction
 
 ##### OUTPUT
 
-Greeting result payload.
+###### TYPE
+GreetingResult
 
 ###### VALUE
 

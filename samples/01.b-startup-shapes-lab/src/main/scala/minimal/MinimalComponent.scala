@@ -14,8 +14,8 @@ object MinimalComponent extends Component.Factory {
   val name = "minimal"
   val componentId = ComponentId(name)
 
-  protected def create_Components(params: ComponentCreate): Vector[Component] =
-    Vector(MinimalComponent())
+  protected def create_Component(params: ComponentCreate): Component =
+    MinimalComponent()
 
   protected def create_Core(
     params: ComponentCreate,

@@ -57,7 +57,8 @@ Shows a query-oriented operation contract in a component that also owns an entit
 
 ##### INPUT
 
-Person lookup payload.
+###### TYPE
+PersonLookup
 
 ###### SUMMARY
 
@@ -83,7 +84,8 @@ QueryAction
 
 ##### OUTPUT
 
-Person card payload.
+###### TYPE
+PersonCard
 
 ###### SUMMARY
 

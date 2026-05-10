@@ -22,8 +22,8 @@ object TestcompComponent extends Component.Factory {
   val name = "testcomp"
   val componentId = ComponentId(name)
 
-  protected def create_Components(params: ComponentCreate): Vector[Component] =
-    Vector(TestcompComponent())
+  protected def create_Component(params: ComponentCreate): Component =
+    TestcompComponent()
 
   protected def create_Core(
     params: ComponentCreate,
