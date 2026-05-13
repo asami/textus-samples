@@ -48,17 +48,17 @@ The aggregate is assembled from multiple persisted entities at runtime.
 
 The aggregate sample family is split so each sample can focus on one point.
 
-- [07-aggregate](/Users/asami/src/dev2026/cncf-samples/samples/09-aggregate/README.md)
+- [07-aggregate](../09-aggregate/README.md)
   - first aggregate line
   - focus on `create -> await -> add-line -> load`
   - this is the entry point for understanding aggregate-shaped shell operations
-- [07.a-aggregate-single-record-lab](/Users/asami/src/dev2026/cncf-samples/samples/09.a-aggregate-single-record-lab)
+- [07.a-aggregate-single-record-lab](../09.a-aggregate-single-record-lab)
   - focus on the single-record aggregate encoding pattern
   - use this when the aggregate is persisted as one encoded document or record
-- [07.b-aggregate-relation-boundary-model](/Users/asami/src/dev2026/cncf-samples/samples/09.b-aggregate-relation-boundary-model)
+- [07.b-aggregate-relation-boundary-model](../09.b-aggregate-relation-boundary-model)
   - focus on relation kind and boundary semantics
   - use this to understand why some members are internal and others must remain external
-- [07.c-aggregate-external-update-semantics](/Users/asami/src/dev2026/cncf-samples/samples/09.c-aggregate-external-update-semantics)
+- [07.c-aggregate-external-update-semantics](../09.c-aggregate-external-update-semantics)
   - focus on updates that cross aggregate boundaries
   - use this to understand when a change should remain outside the current aggregate transaction/consistency boundary
 

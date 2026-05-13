@@ -7,7 +7,7 @@ ThisBuild / scalaVersion := "3.3.7"
 lazy val root = (project in file("."))
   .enablePlugins(org.goldenport.cozy.CozyPlugin)
   .settings(
-    name := "cncf-samples-03-component-cml",
+    name := "textus-samples-03-component-cml",
     scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked"),
     cozyGeneratorBackend := "cozy",
     cozyDelegateProjectDir := None,

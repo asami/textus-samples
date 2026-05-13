@@ -7,7 +7,7 @@ ThisBuild / scalaVersion := "3.3.7"
 lazy val root = (project in file("."))
   .enablePlugins(org.goldenport.cozy.CozyPlugin)
   .settings(
-    name := "cncf-samples-07-a-aggregate-single-record-lab",
+    name := "textus-samples-07-a-aggregate-single-record-lab",
     scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked"),
     cozyGeneratorBackend := "cozy",
     cozyDelegateProjectDir := None,

@@ -201,13 +201,13 @@ Reference:
 
 - `docs/phase/samples/10-view.md`
 
-### Subphase 2.13 09-subsystem
+### Subphase 2.13 11-subsystem
 
 Reference:
 
 - `docs/phase/samples/11-subsystem.md`
 
-### Subphase 2.14 10-subsystem-wiring
+### Subphase 2.14 12-subsystem-wiring
 
 Reference:
 

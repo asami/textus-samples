@@ -8,7 +8,7 @@ CAR_DIR="$WORK_DIR/base.car.d"
 SAR_DIR="$WORK_DIR/explicit-subsystem.sar.d"
 CAR_FILE="$WORK_DIR/base.car"
 SAR_FILE="$SCRIPT_DIR/component.d/explicit-subsystem.sar"
-COMPONENT_BINARY="$BASELINE_DIR/target/scala-3.3.7/cncf-samples-09-subsystem_3-0.1.0-SNAPSHOT.jar"
+COMPONENT_BINARY="$BASELINE_DIR/target/scala-3.3.7/textus-samples-11-subsystem_3-0.1.0-SNAPSHOT.jar"
 
 mkdir -p "$SCRIPT_DIR/component.d"
 rm -rf "$CAR_DIR" "$SAR_DIR"

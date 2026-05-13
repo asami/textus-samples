@@ -43,24 +43,28 @@ component_dirs=()
 resolve_sample_runtime_classpath() {
   local cp_dir="target/cncf.d"
   local cp_file="$cp_dir/runtime-classpath.txt"
+  local cp_log="$cp_dir/runtime-classpath.sbt.log"
 
   mkdir -p "$cp_dir"
 
   local sbt_output
-  sbt_output="$(sbt --batch 'show Runtime / fullClasspath')"
+  sbt_output="$(SBT_OPTS="${SBT_OPTS:-} -Dsbt.log.noformat=true" sbt --batch 'show Runtime / fullClasspath')"
+  printf '%s\n' "$sbt_output" > "$cp_log"
 
   printf '%s\n' "$sbt_output" \
     | awk '
-        /^\[info\] \* Attributed\(/ {
+        /Attributed\(/ {
           line = $0
-          sub(/^\[info\] \* Attributed\(/, "", line)
-          sub(/\)$/, "", line)
-          print line
+          gsub(/\033\[[0-9;]*[A-Za-z]/, "", line)
+          sub(/^.*Attributed\(/, "", line)
+          sub(/\).*$/, "", line)
+          if (line != "") print line
         }
       ' > "$cp_file"
 
   if [[ ! -s "$cp_file" ]]; then
     echo "Failed to resolve Runtime / fullClasspath for --discover=classes." >&2
+    echo "SBT output saved to: $cp_log" >&2
     exit 1
   fi
 

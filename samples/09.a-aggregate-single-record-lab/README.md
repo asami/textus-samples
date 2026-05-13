@@ -2,11 +2,11 @@
 
 ## Overview
 
-This sample explains the single-record aggregate pattern as the companion to [07-aggregate](/Users/asami/src/dev2026/cncf-samples/samples/09-aggregate/README.md).
+This sample explains the single-record aggregate pattern as the companion to [07-aggregate](../09-aggregate/README.md).
 
 The contrast is:
 
-- [07-aggregate](/Users/asami/src/dev2026/cncf-samples/samples/09-aggregate/README.md)
+- [07-aggregate](../09-aggregate/README.md)
   - application-join aggregate
   - root and members are persisted separately
   - aggregate is assembled at runtime

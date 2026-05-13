@@ -3,7 +3,7 @@ set -euo pipefail
 
 mkdir -p repository.d car.d/component
 sbt --batch compile packageBin >/dev/null
-JAR="$(find target/scala-3.3.7 -name 'cncf-samples-03-component-cml_3-*.jar' | head -n 1)"
+JAR="$(find target/scala-3.3.7 -name 'textus-samples-03-component-cml_3-*.jar' | head -n 1)"
 TMPDIR="$(mktemp -d)"
 ROOT_DIR="$(pwd)"
 REPO_DIR="$ROOT_DIR/repository.d"

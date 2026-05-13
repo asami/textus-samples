@@ -4,9 +4,9 @@
 
 This sample continues the aggregate line after:
 
-- [07-aggregate](/Users/asami/src/dev2026/cncf-samples/samples/09-aggregate/README.md)
-- [07.a-aggregate-single-record-lab](/Users/asami/src/dev2026/cncf-samples/samples/09.a-aggregate-single-record-lab/README.md)
-- [07.b-aggregate-relation-boundary-model](/Users/asami/src/dev2026/cncf-samples/samples/09.b-aggregate-relation-boundary-model/README.md)
+- [07-aggregate](../09-aggregate/README.md)
+- [07.a-aggregate-single-record-lab](../09.a-aggregate-single-record-lab/README.md)
+- [07.b-aggregate-relation-boundary-model](../09.b-aggregate-relation-boundary-model/README.md)
 
 The focus here is the update side of:
 

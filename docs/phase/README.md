@@ -1,6 +1,6 @@
 # Phase
 
-This directory manages the work plan and progress checklists for `cncf-samples`.
+This directory manages the work plan and progress checklists for `textus-samples`.
 
 - A Phase represents a broad work objective
 - A Subphase represents a focused area within that Phase

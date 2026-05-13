@@ -36,7 +36,7 @@ The point is the shell-visible shape of:
 - custom `VIEW > QUERY` aliases
 - metadata that describes how those named views are exposed
 
-The basic view/read-model line is introduced in [08-view](/Users/asami/src/dev2026/cncf-samples/samples/10-view/README.md).
+The basic view/read-model line is introduced in [08-view](../10-view/README.md).
 This `08.a` sample assumes that baseline and focuses on explicit named view definition.
 
 ## First Completion Line

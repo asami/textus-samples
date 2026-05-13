@@ -3,7 +3,7 @@ set -euo pipefail
 
 mkdir -p component.d car.d/testcomp/component
 sbt --batch compile packageBin >/dev/null
-JAR="$(find target/scala-3.3.7 -name 'cncf-samples-02-component_3-*.jar' | head -n 1)"
+JAR="$(find target/scala-3.3.7 -name 'textus-samples-02-component_3-*.jar' | head -n 1)"
 TMPDIR="$(mktemp -d)"
 ROOT_DIR="$(pwd)"
 trap 'rm -rf "$TMPDIR"' EXIT

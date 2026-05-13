@@ -49,6 +49,7 @@ project/**/bsp.log
 # OS / env
 .DS_Store
 .env
+.cozy/
 
 ### IntelliJ IDEA ###
 .idea/

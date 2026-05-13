@@ -83,7 +83,7 @@ not accepted by this sample line.
 Build the component jar:
 
 ```bash
-COMPONENT_BINARY=target/scala-3.3.7/cncf-samples-11-subsystem_3-0.1.0-SNAPSHOT.jar
+COMPONENT_BINARY=target/scala-3.3.7/textus-samples-11-subsystem_3-0.1.0-SNAPSHOT.jar
 ```
 
 Prepare the CAR work directory:

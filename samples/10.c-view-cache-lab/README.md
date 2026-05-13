@@ -43,7 +43,7 @@ In other words, this sample is intended to show both:
 1. the UI-facing command shape for paged view search
 2. the runtime policy that treats paged search as a cache-aware path instead of an always-cold full search
 
-The broader view line is introduced in [08-view](/Users/asami/src/dev2026/cncf-samples/samples/10-view/README.md).
+The broader view line is introduced in [08-view](../10-view/README.md).
 That sample explains the more basic position that a view provides the read model corresponding to a CQRS query,
 with UI-facing consumption as the main intended use case.
 

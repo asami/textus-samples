@@ -1,4 +1,4 @@
-# cncf-samples
+# textus-samples
 
 This repository incrementally builds a catalog of executable CNCF sample patterns.
 Each sample demonstrates a structural pattern rather than a business domain and is expected to remain independently buildable and runnable.
@@ -317,16 +317,16 @@ Preferred pattern:
 Sample generation is fixed to the following shape for now:
 
 - sample-local `project/plugins.sbt`
-  - reads the `sbt-cozy` version from [sbt-cozy-version.conf](/Users/asami/src/dev2026/cncf-samples/versions/sbt-cozy-version.conf)
+  - reads the `sbt-cozy` version from [sbt-cozy-version.conf](versions/sbt-cozy-version.conf)
 - sample-local `build.sbt`
   - uses `cozyDelegateCommand`
-  - calls [bin/cozy](/Users/asami/src/dev2026/cncf-samples/bin/cozy)
-- [bin/setup](/Users/asami/src/dev2026/cncf-samples/bin/setup)
+  - calls [bin/cozy](bin/cozy)
+- [bin/setup](bin/setup)
   - prepares the cozy launcher for the configured version
   - verifies dependency resolution before samples use it
-- [bin/cozy](/Users/asami/src/dev2026/cncf-samples/bin/cozy)
-  - reads the target `cozy` version from [cozy-version.conf](/Users/asami/src/dev2026/cncf-samples/versions/cozy-version.conf)
-  - uses the prepared launcher created by [bin/setup](/Users/asami/src/dev2026/cncf-samples/bin/setup)
+- [bin/cozy](bin/cozy)
+  - reads the target `cozy` version from [cozy-version.conf](versions/cozy-version.conf)
+  - uses the prepared launcher created by [bin/setup](bin/setup)
   - executes `cozy.Cozy` through `sbt runMain`
 
 Current intent:
@@ -360,16 +360,16 @@ The purpose of the current stage is to preserve development efficiency without c
 
 ## Using sbt-cozy
 
-`cncf-samples` consumes `sbt-cozy` as a normal published sbt plugin.
+`textus-samples` consumes `sbt-cozy` as a normal published sbt plugin.
 
-Each sample-local `project/plugins.sbt` reads the version from [sbt-cozy-version.conf](/Users/asami/src/dev2026/cncf-samples/versions/sbt-cozy-version.conf) and adds:
+Each sample-local `project/plugins.sbt` reads the version from [sbt-cozy-version.conf](versions/sbt-cozy-version.conf) and adds:
 
 - `Resolver.defaultLocal`
 - `addSbtPlugin("org.goldenport" % "sbt-cozy" % sbtCozyVersion)`
 
 In practice, sample users only need two things:
 
-1. the desired `sbt-cozy` version in [sbt-cozy-version.conf](/Users/asami/src/dev2026/cncf-samples/versions/sbt-cozy-version.conf)
+1. the desired `sbt-cozy` version in [sbt-cozy-version.conf](versions/sbt-cozy-version.conf)
 2. a repository path that can resolve that version
 
 Operationally this means:
@@ -391,6 +391,70 @@ Deployment guidance in this repository assumes:
 - sample-level deployment simulation from `samples/component.d` or `samples/repository.d`
 
 If a sample is not implemented yet, its `run.sh` exits with a clear message until the sample-specific command path is defined.
+
+## Site Publication
+
+`textus-samples` is distributed as source code. Users unpack the source archive
+and run the samples themselves from the sample directories.
+
+Deployment to `simplemodeling.org` is handled by `cozy` or `sbt-cozy`, not by a
+sample-local deployment script. Public publication metadata is committed in
+`project.yaml`:
+
+```yaml
+project:
+  name: textus-tutorial
+  title: Textus Tutorial
+  kind: sample-multi
+  path: textus/tutorial/textus-tutorial
+```
+
+Local output and warehouse paths are read from `.cozy/config.yaml`, which is
+intentionally ignored by git:
+
+```yaml
+publication:
+  output: /path/to/simplemodeling-org/publish.d
+  samples_dir: samples
+  source_manifest:
+    excludes:
+      - target
+      - .git
+      - .bsp
+      - .metals
+      - .idea
+      - repository.d
+
+distribution:
+  repository: /path/to/distribution-warehouse
+  require_release_version: true
+
+warehouse:
+  repository: /path/to/distribution-warehouse
+  repository_artifacts:
+    include:
+      - car
+      - sar
+    modules:
+      - textus-tutorial
+```
+
+The warehouse repository is intended for machine-readable publication artifacts
+under `https://simplemodeling.org/repository/download/textus/tutorial/textus-tutorial/...`.
+The publication output is the site source area consumed by the
+`simplemodeling.org` build.
+
+The root project enables `sbt-cozy` for repository-level publication tasks.
+Normal operation is:
+
+```bash
+sbt cozyPublishProject
+sbt cozyIndexWarehouse
+```
+
+SmartDox consumes the generated publication sources and warehouse index for the
+public site. Source archive generation is owned by the `cozy`/`sbt-cozy`
+publication pipeline, not by sample-local shell scripts.
 
 ## Current Status
 
