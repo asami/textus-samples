@@ -4,7 +4,38 @@ project:
   kind: sample-multi
   path: textus/tutorial/textus-tutorial
   summary: Executable Textus and CNCF tutorial sample collection.
+  summary_i18n:
+    ja: Textus と CNCF の基本を実行しながら学ぶサンプル集です。
   description: >
     Textus Tutorial is a multi-sample project for learning CNCF component,
     subsystem, operation, CRUD, aggregate, view, job, wiring, and observability
     patterns through independently buildable and runnable sample projects.
+  description_i18n:
+    ja: >
+      Textus Tutorial は、CNCF のコンポーネント、サブシステム、操作、
+      CRUD、集約、ビュー、ジョブ、結合、オブザーバビリティのパターンを、
+      個別にビルドして実行できるサンプルプロジェクトを通じて学ぶための
+      マルチサンプルプロジェクトです。
+
+publication:
+  pages:
+    - path: textus/tutorial
+      title: Textus Tutorials
+      title_i18n:
+        ja: Textus チュートリアル
+      summary: Tutorial collections for learning Textus.
+      summary_i18n:
+        ja: Textus を学ぶためのチュートリアル一覧です。
+      description: Choose a tutorial collection and follow its samples.
+      description_i18n:
+        ja: チュートリアルを選び、含まれるサンプルを順に確認できます。
+    - path: textus/tutorial/textus-tutorial
+      title: Textus Tutorial
+      title_i18n:
+        ja: Textus チュートリアル
+      summary: Executable Textus and CNCF tutorial sample collection.
+      summary_i18n:
+        ja: Textus と CNCF の基本を実行しながら学ぶサンプル集です。
+      description: Tutorial samples for CozyTextus users.
+      description_i18n:
+        ja: CozyTextus 利用者向けの実行可能なチュートリアルサンプルです。
