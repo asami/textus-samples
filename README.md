@@ -448,13 +448,40 @@ The root project enables `sbt-cozy` for repository-level publication tasks.
 Normal operation is:
 
 ```bash
+sbt cozyPlanDistributeSamples
 sbt cozyPublishProject
+sbt cozyDistributeSamples
 sbt cozyIndexWarehouse
 ```
 
+`cozyPlanDistributeSamples` is the dry-run path. It prints the planned
+collection and per-sample ZIP archive paths without writing to the warehouse.
+
+`cozyPublishProject` generates the SmartDox publication source metadata,
+including the expected download paths for the sample archives.
+
+`cozyDistributeSamples` writes user-facing sample ZIP archives into the
+configured warehouse under:
+
+```text
+repository/download/<publication.path>/<version>/<publication>-<version>.zip
+repository/download/<publication.path>/<sample>/<version>/<sample>-<version>.zip
+```
+
+The collection archive contains all child sample directories. Each per-sample
+archive contains one child sample project.
+
+`cozyIndexWarehouse` indexes the warehouse and generates the download/release
+metadata consumed by the public site. It also checks that the expected download
+paths written by `cozyPublishProject` exist in the warehouse. Maven repository
+metadata is handled by Cozy's separate `publish-maven-repository` operation, not
+by the sample publication flow.
+
 SmartDox consumes the generated publication sources and warehouse index for the
 public site. Source archive generation is owned by the `cozy`/`sbt-cozy`
-publication pipeline, not by sample-local shell scripts.
+publication pipeline, not by sample-local shell scripts. Release distribution
+rejects `SNAPSHOT` versions; use `cozyPlanDistributeSamples` when checking
+planned paths during development.
 
 ## Current Status
 

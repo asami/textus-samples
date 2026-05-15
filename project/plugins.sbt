@@ -14,5 +14,6 @@ def sbtCozyVersion: String = {
 }
 
 resolvers += Resolver.defaultLocal
+resolvers += "simplemodeling-maven" at "https://www.simplemodeling.org/repository/maven"
 
 addSbtPlugin("org.goldenport" % "sbt-cozy" % sbtCozyVersion)
