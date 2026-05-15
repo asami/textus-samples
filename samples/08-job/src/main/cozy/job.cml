@@ -33,6 +33,9 @@ Creates an item through the standard job-backed command path.
 ##### TYPE
 COMMAND
 
+##### EXECUTION
+async
+
 ##### IMPLEMENTATION
 echo-record
 

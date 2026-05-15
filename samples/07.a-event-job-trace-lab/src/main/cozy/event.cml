@@ -34,6 +34,9 @@ Emits the `item.changed` event.
 ##### TYPE
 COMMAND
 
+##### EXECUTION
+async
+
 ##### IMPLEMENTATION
 event-emit
 
@@ -135,8 +138,8 @@ Command to record the received event effect.
 
 | name  | type   | multiplicity |
 |-------+--------+--------------|
-| name  | name   | 1            |
-| title | string | 1            |
+| name  | name   | ?            |
+| title | string | ?            |
 
 # QUERY
 

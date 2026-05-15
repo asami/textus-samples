@@ -28,6 +28,10 @@ Accepts a greeting request through the command path.
 
 COMMAND
 
+##### EXECUTION
+
+async
+
 ##### SUMMARY
 
 Submit a greeting request.

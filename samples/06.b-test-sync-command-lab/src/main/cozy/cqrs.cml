@@ -46,6 +46,9 @@ Creates a new item through the command side.
 ##### TYPE
 COMMAND
 
+##### EXECUTION
+async
+
 ##### INPUT
 
 ###### TYPE

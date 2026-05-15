@@ -34,7 +34,7 @@ Creates a controllable job-backed execution example.
 COMMAND
 
 ##### EXECUTION
-sync
+async
 
 ##### IMPLEMENTATION
 blocking-task
