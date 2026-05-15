@@ -244,7 +244,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(cncf_action_execution_executions_count)",
+          "expr": "sum(cncf_action_execution_executions_count_total)",
           "instant": true,
           "legendFormat": "actions",
           "range": false,
@@ -313,7 +313,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(cncf_web_request_requests_count)",
+          "expr": "sum(cncf_web_request_requests_count_total)",
           "instant": true,
           "legendFormat": "requests",
           "range": false,
@@ -397,7 +397,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(cncf_action_execution_executions_count[$__rate_interval]))",
+          "expr": "sum(rate(cncf_action_execution_executions_count_total[$__rate_interval]))",
           "legendFormat": "action executions",
           "range": true,
           "refId": "A"
@@ -408,7 +408,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(cncf_web_request_requests_count[$__rate_interval]))",
+          "expr": "sum(rate(cncf_web_request_requests_count_total[$__rate_interval]))",
           "hide": false,
           "legendFormat": "web requests",
           "range": true,
@@ -645,7 +645,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "{__name__=~\"cncf_.*_count\"}",
+          "expr": "{__name__=~\"cncf_.*_count_total\"}",
           "legendFormat": "{{__name__}}",
           "range": true,
           "refId": "A"
