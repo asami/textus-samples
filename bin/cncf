@@ -130,6 +130,19 @@ extract_runtime_args_from_mode_args() {
   fi
 }
 
+has_explicit_runtime_source() {
+  local arg name
+  for arg in "$@"; do
+    name="${arg%%=*}"
+    case "$name" in
+      --repository-dir|--component-dir|--component-car-dir|--component-sar-dir|--component-factory-class|--subsystem-sar-dir|--subsystem-dir|--subsystem)
+        return 0
+        ;;
+    esac
+  done
+  return 1
+}
+
 prepare_project_classpath() {
   local output
   output="$(mktemp)"
@@ -282,7 +295,9 @@ fi
 
 extract_runtime_args_from_mode_args "${mode_args[@]}"
 
-if ! prepare_project_classpath; then
+if [[ "$discover_classes" != "1" ]] && has_explicit_runtime_source "${runtime_args[@]}"; then
+  launcher_args+=(--no-project-classpath)
+elif ! prepare_project_classpath; then
   launcher_args+=(--no-project-classpath)
 fi
 
