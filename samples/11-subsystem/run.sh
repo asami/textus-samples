@@ -7,7 +7,7 @@ trap 'rm -rf "$WORK_DIR"' EXIT
 
 sbt --batch compile packageBin >/dev/null
 
-COMPONENT_BINARY="$(find target/scala-3.3.7 -maxdepth 1 -name '*.jar' | head -n 1)"
+COMPONENT_BINARY="$(find target/scala-3.3.7 -maxdepth 1 -name 'textus-samples-11-subsystem_3-*.jar' | head -n 1)"
 if [[ -z "${COMPONENT_BINARY:-}" ]]; then
   echo "Component jar not found." >&2
   exit 1

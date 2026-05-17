@@ -7,69 +7,154 @@ source "$SCRIPT_DIR/../scripts/cncf-common.sh"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 DEFAULT_RUNTIME_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cncf-version.conf")"
 DEFAULT_SERVER_PORT="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cncf-server-port.conf")"
-CACHE_ROOT="${XDG_CACHE_HOME:-$HOME/.cache}"
-LAUNCHER_BIN="$REPO_ROOT/bin/launcher"
-LAUNCHER_CACHE="$REPO_ROOT/.cache/coursier"
-SIMPLEMODELING_REPOSITORY="https://www.simplemodeling.org/repository/maven"
 
 usage() {
+  local code="${1:-1}"
   cat >&2 <<'EOF'
 Usage:
-  cncf [--cncf-version <version>] [--cncf-server-port <port>] [--cncf-main-class <fqcn>] [--command-path <path>] [--discover-classes|--discover=classes] [--workspace <path>] [--repository-dir <path>] [--component-dir <path>] [--] [args...]
+  cncf [--cncf-version <version>] [--cncf-server-port <port>] [--runtime-dev-dir <dir>] [--command-path <path>] [--discover-classes|--discover=classes] [--workspace <path>] [--repository-dir <path>] [--component-dir <path>] [--] [args...]
 
 Examples:
+  cs install cncf
   ../../bin/setup cncf
   ../../bin/cncf --cncf-version 0.4.2-SNAPSHOT --help
-  cd samples/01-minimal
-  ../../bin/cncf --discover=classes command minimal.main.hello
-  ../../bin/cncf --repository-dir repository.d --textus.runtime.component=minimal command minimal.main.hello
+  cd samples/<sample>
+  ../../bin/cncf --discover=classes command <component.service.operation>
+  ../../bin/cncf --repository-dir repository.d --textus.runtime.component=<component> command <component.service.operation>
+  ../../bin/cncf --runtime-dev-dir /path/to/cloud-native-component-framework --discover=classes command <component.service.operation>
 
 Notes:
   --repository-dir      add packaged artifacts to the search repository
   --component-dir       add packaged artifacts to the active component source
+  --runtime-dev-dir     use a local CNCF runtime checkout through the installed cncf launcher
+  --discover=classes    legacy compatibility input; forwards runtime class discovery and disables project component-dev-dir activation
 EOF
-  exit 1
+  exit "$code"
 }
 
-cncf_main_class="org.goldenport.cncf.CncfMain"
+canonical_path() {
+  local path="$1"
+  local dir
+  dir="$(cd "$(dirname "$path")" && pwd -P)"
+  printf '%s/%s\n' "$dir" "$(basename "$path")"
+}
+
+find_cncf_command() {
+  if [[ -n "${CNCF_COMMAND:-}" ]]; then
+    printf '%s\n' "$CNCF_COMMAND"
+    return
+  fi
+  local candidate=""
+  candidate="$(command -v cncf || true)"
+  if [[ -n "$candidate" ]]; then
+    local self candidate_path
+    self="$(canonical_path "$SCRIPT_DIR/cncf")"
+    candidate_path="$(canonical_path "$candidate")"
+    if [[ "$candidate_path" != "$self" ]]; then
+      printf '%s\n' "$candidate"
+      return
+    fi
+  fi
+  echo "Installed cncf command was not found." >&2
+  echo "Install it with coursier, for example: cs install cncf" >&2
+  echo "If needed, set CNCF_COMMAND=/path/to/cncf." >&2
+  exit 3
+}
+
+path_runtime_arg() {
+  case "$1" in
+    --workspace|--repository-dir|--component-dir|--component-car-dir|--component-sar-dir|--subsystem-sar-dir|--subsystem-dir)
+      return 0
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+resolve_runtime_arg_value() {
+  local key="$1"
+  local value="$2"
+  if path_runtime_arg "$key" && [[ -n "$value" && "$value" != /* ]]; then
+    printf '%s/%s\n' "$(pwd)" "$value"
+  else
+    printf '%s\n' "$value"
+  fi
+}
+
+runtime_arg_takes_value() {
+  case "$1" in
+    --textus.*|--cncf.*|--workspace|--repository-dir|--component-dir|--component-car-dir|--component-sar-dir|--component-factory-class|--sample-main-class|--subsystem-sar-dir|--subsystem-dir|--subsystem)
+      return 0
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+extract_runtime_args_from_mode_args() {
+  local extracted=()
+  local remaining=()
+  local arg key value
+  while [[ $# -gt 0 ]]; do
+    arg="$1"
+    case "$arg" in
+      --workspace=*|--repository-dir=*|--component-dir=*|--component-car-dir=*|--component-sar-dir=*|--subsystem-sar-dir=*|--subsystem-dir=*)
+        key="${arg%%=*}"
+        value="${arg#*=}"
+        extracted+=("$key=$(resolve_runtime_arg_value "$key" "$value")")
+        shift
+        ;;
+      --component-factory-class=*|--sample-main-class=*|--subsystem=*|--textus.*=*|--cncf.*=*)
+        extracted+=("$arg")
+        shift
+        ;;
+      --workspace|--repository-dir|--component-dir|--component-car-dir|--component-sar-dir|--component-factory-class|--sample-main-class|--subsystem-sar-dir|--subsystem-dir|--subsystem|--textus.*|--cncf.*)
+        extracted+=("$arg" "$(resolve_runtime_arg_value "$arg" "${2:-}")")
+        shift 2
+        ;;
+      *)
+        remaining+=("$arg")
+        shift
+        ;;
+    esac
+  done
+  if [[ ${#extracted[@]} -gt 0 ]]; then
+    runtime_args+=("${extracted[@]}")
+  fi
+  if [[ ${#remaining[@]} -gt 0 ]]; then
+    mode_args=("${remaining[@]}")
+  else
+    mode_args=()
+  fi
+}
+
+prepare_project_classpath() {
+  local output
+  output="$(mktemp)"
+  if "$cncf_command" --runtime "$runtime_version" dev classpath --project "$project_dir" >"$output" 2>&1; then
+    cat "$output"
+    rm -f "$output"
+    return 0
+  fi
+  if grep -q "contains no class directories" "$output"; then
+    cat "$output" >&2
+    rm -f "$output"
+    return 1
+  fi
+  cat "$output" >&2
+  rm -f "$output"
+  exit 2
+}
+
 runtime_version="${CNCF_VERSION:-$DEFAULT_RUNTIME_VERSION}"
 server_port="${CNCF_SERVER_PORT:-$DEFAULT_SERVER_PORT}"
+runtime_dev_dir=""
+cncf_main_class="org.goldenport.cncf.CncfMain"
 command_path=""
 discover_classes="0"
-workspace=""
-repository_dirs=()
-component_dirs=()
-
-resolve_sample_runtime_classpath() {
-  local cp_dir="target/cncf.d"
-  local cp_file="$cp_dir/runtime-classpath.txt"
-  local cp_log="$cp_dir/runtime-classpath.sbt.log"
-
-  mkdir -p "$cp_dir"
-
-  local sbt_output
-  sbt_output="$(SBT_OPTS="${SBT_OPTS:-} -Dsbt.log.noformat=true" sbt --batch 'show Runtime / fullClasspath')"
-  printf '%s\n' "$sbt_output" > "$cp_log"
-
-  printf '%s\n' "$sbt_output" \
-    | awk '
-        /Attributed\(/ {
-          line = $0
-          gsub(/\033\[[0-9;]*[A-Za-z]/, "", line)
-          sub(/^.*Attributed\(/, "", line)
-          sub(/\).*$/, "", line)
-          if (line != "") print line
-        }
-      ' > "$cp_file"
-
-  if [[ ! -s "$cp_file" ]]; then
-    echo "Failed to resolve Runtime / fullClasspath for --discover=classes." >&2
-    echo "SBT output saved to: $cp_log" >&2
-    exit 1
-  fi
-
-  paste -sd: "$cp_file"
-}
+runtime_args=()
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -89,36 +174,63 @@ while [[ $# -gt 0 ]]; do
       server_port="${1#--cncf-server-port=}"
       shift
       ;;
+    --runtime-dev-dir|--cncf-dev-dir)
+      runtime_dev_dir="${2:-}"
+      shift 2
+      ;;
+    --runtime-dev-dir=*|--cncf-dev-dir=*)
+      runtime_dev_dir="${1#*=}"
+      shift
+      ;;
     --cncf-main-class)
       cncf_main_class="${2:-}"
       shift 2
+      ;;
+    --cncf-main-class=*)
+      cncf_main_class="${1#--cncf-main-class=}"
+      shift
       ;;
     --command-path)
       command_path="${2:-}"
       shift 2
       ;;
+    --command-path=*)
+      command_path="${1#--command-path=}"
+      shift
+      ;;
     --discover-classes|--discover=classes)
       discover_classes="1"
       shift
       ;;
-    --workspace)
-      workspace="${2:-}"
-      shift 2
+    --workspace=*|--repository-dir=*|--component-dir=*|--component-car-dir=*|--component-sar-dir=*|--subsystem-sar-dir=*|--subsystem-dir=*)
+      key="${1%%=*}"
+      value="${1#*=}"
+      runtime_args+=("$key=$(resolve_runtime_arg_value "$key" "$value")")
+      shift
       ;;
-    --repository-dir)
-      repository_dirs+=("${2:-}")
-      shift 2
+    --component-factory-class=*|--sample-main-class=*|--subsystem=*|--textus.*=*|--cncf.*=*)
+      runtime_args+=("$1")
+      shift
       ;;
-    --component-dir)
-      component_dirs+=("${2:-}")
+    --workspace|--repository-dir|--component-dir|--component-car-dir|--component-sar-dir|--component-factory-class|--sample-main-class|--subsystem-sar-dir|--subsystem-dir|--subsystem|--textus.*|--cncf.*)
+      runtime_args+=("$1" "$(resolve_runtime_arg_value "$1" "${2:-}")")
       shift 2
       ;;
     --help|-h)
-      usage
+      usage 0
       ;;
     --)
       shift
       break
+      ;;
+    --*)
+      runtime_args+=("$1")
+      if [[ "$1" != *=* ]] && runtime_arg_takes_value "$1" && [[ $# -gt 1 ]]; then
+        runtime_args+=("$(resolve_runtime_arg_value "$1" "$2")")
+        shift 2
+      else
+        shift
+      fi
       ;;
     *)
       break
@@ -126,65 +238,58 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-STATE_FILE="$CACHE_ROOT/cncf-samples/cncf-launcher/$runtime_version/.setup-complete"
-
-if [[ ! -x "$LAUNCHER_BIN" || ! -f "$STATE_FILE" ]]; then
-  echo "CNCF launcher is not prepared." >&2
-  echo "Run: $REPO_ROOT/bin/setup cncf --cncf-version $runtime_version" >&2
-  exit 1
+if [[ "$cncf_main_class" != "org.goldenport.cncf.CncfMain" ]]; then
+  echo "--cncf-main-class is no longer supported by cncf-samples/bin/cncf after migration to the installed cncf launcher: $cncf_main_class" >&2
+  exit 2
 fi
 
-classpath=""
-if [[ "$discover_classes" == "1" ]]; then
-  sample_classpath="$(resolve_sample_runtime_classpath)"
-  resolved_runtime_cp="$("$LAUNCHER_BIN" \
-    --dependency "org.goldenport:goldenport-cncf_3:$runtime_version" \
-    --main-class "$cncf_main_class" \
-    --repository "$SIMPLEMODELING_REPOSITORY" \
-    --cache "$LAUNCHER_CACHE" \
-    --resolve-only)"
-  classpath="${resolved_runtime_cp}:${sample_classpath}"
-fi
+cncf_command="$(find_cncf_command)"
+project_dir="$(pwd)"
+launcher_args=(--runtime "$runtime_version" dev)
 
-app_args=()
-if [[ "$discover_classes" == "1" ]]; then
-  app_args+=(--discover=classes)
-fi
-if [[ -n "$workspace" ]]; then
-  app_args+=(--workspace "$workspace")
-fi
-if [[ ${#repository_dirs[@]} -gt 0 ]]; then
-  for dir in "${repository_dirs[@]}"; do
-    app_args+=(--repository-dir="$dir")
-  done
-fi
-if [[ ${#component_dirs[@]} -gt 0 ]]; then
-  for dir in "${component_dirs[@]}"; do
-    app_args+=(--component-dir="$dir")
-  done
-fi
 if [[ -n "$command_path" ]]; then
-  app_args+=(command "$command_path")
-fi
-if [[ $# -gt 0 ]]; then
-  app_args+=("$@")
+  mode="command"
+  mode_args=("$command_path" "$@")
+else
+  if [[ $# -eq 0 ]]; then
+    usage
+  fi
+  mode="$1"
+  shift
+  case "$mode" in
+    server|client|command)
+      mode_args=("$@")
+      ;;
+    server-emulation|server-emulator|emulate)
+      mode="server-emulation"
+      mode_args=("$@")
+      ;;
+    *)
+      echo "Unknown CNCF mode: $mode" >&2
+      usage
+      ;;
+  esac
 fi
 
-if [[ "$discover_classes" == "1" ]]; then
-  exec java \
-    -Dcncf.server.port="$server_port" \
-    -Dcncf.http.baseurl="http://127.0.0.1:$server_port" \
-    -cp "$classpath" \
-    "$cncf_main_class" \
-    "${app_args[@]}"
-else
-  exec "$LAUNCHER_BIN" \
-    --dependency "org.goldenport:goldenport-cncf_3:$runtime_version" \
-    --main-class "$cncf_main_class" \
-    --repository "$SIMPLEMODELING_REPOSITORY" \
-    --cache "$LAUNCHER_CACHE" \
-    --java-opt="-Dcncf.server.port=$server_port" \
-    --java-opt="-Dcncf.http.baseurl=http://127.0.0.1:$server_port" \
-    -- \
-    "${app_args[@]}"
+launcher_args+=("$mode" --project "$project_dir" --port "$server_port")
+if [[ -n "$runtime_dev_dir" ]]; then
+  launcher_args+=(--runtime-dev-dir "$runtime_dev_dir")
 fi
+if [[ "$discover_classes" == "1" ]]; then
+  launcher_args+=(--no-project-component-dev-dir)
+  runtime_args+=(--discover=classes)
+fi
+
+extract_runtime_args_from_mode_args "${mode_args[@]}"
+
+if ! prepare_project_classpath; then
+  launcher_args+=(--no-project-classpath)
+fi
+
+if [[ ${#runtime_args[@]} -gt 0 ]]; then
+  launcher_args+=("${runtime_args[@]}")
+fi
+if [[ ${#mode_args[@]} -gt 0 ]]; then
+  launcher_args+=("${mode_args[@]}")
+fi
+exec "$cncf_command" "${launcher_args[@]}"

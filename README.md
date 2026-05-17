@@ -21,7 +21,7 @@ bash bin/setup
 This repository-level setup prepares both:
 
 - the local `cozy` command used for sample generation
-- the local `cncf` command used for sample execution
+- the sample-local `bin/cncf` wrapper, which delegates to the coursier-installed `cncf` command
 
 Use explicit version overrides when needed:
 
@@ -41,7 +41,13 @@ Repository defaults live in:
 - `versions/goldenport-core-version.conf`
 - `versions/simplemodeling-model-version.conf`
 
-Then each sample can use:
+Install the CNCF launcher once through Coursier before running samples:
+
+```bash
+cs install cncf
+```
+
+Then each sample can use the compatibility wrapper:
 
 ```bash
 bash ../../bin/cncf ...
@@ -52,6 +58,14 @@ or explicitly choose the runtime version:
 ```bash
 bash ../../bin/cncf --cncf-version 0.4.2-SNAPSHOT ...
 ```
+
+For CNCF core development, point the wrapper at a local CNCF runtime checkout:
+
+```bash
+bash ../../bin/cncf --runtime-dev-dir /path/to/cloud-native-component-framework --discover=classes ...
+```
+
+`--discover=classes` is retained as a legacy programming-time compatibility input in `bin/cncf`; it uses the wrapper-prepared project classpath and suppresses automatic `component-dev-dir` activation. Prefer explicit repository/component sources for packaged-artifact samples.
 
 Development order follows the stages recorded in `docs/journal/2026/03/cncf-samples-project.md`.
 

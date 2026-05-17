@@ -18,7 +18,7 @@ final class TestcompComponent extends Component {
     )
 }
 
-object TestcompComponent extends Component.Factory {
+class TestcompComponentFactory extends Component.SinglePrimaryBundleFactory {
   val name = "testcomp"
   val componentId = ComponentId(name)
 
@@ -35,6 +35,8 @@ object TestcompComponent extends Component.Factory {
       MainService
     )
 }
+
+object TestcompComponent extends TestcompComponentFactory
 
 object MainService extends ServiceDefinition {
   val specification = ServiceDefinition.Specification.Builder("main")

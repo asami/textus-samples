@@ -2,7 +2,7 @@
 set -euo pipefail
 
 BASELINE_DIR="../11-subsystem"
-BASELINE_JAR="$(find "$BASELINE_DIR/target/scala-3.3.7" -maxdepth 1 -name '*.jar' | head -n 1)"
+BASELINE_JAR="$(find "$BASELINE_DIR/target/scala-3.3.7" -maxdepth 1 -name 'textus-samples-11-subsystem_3-*.jar' | head -n 1)"
 
 if [[ -z "${BASELINE_JAR:-}" ]]; then
   echo "Baseline component jar not found. Build ../11-subsystem first." >&2

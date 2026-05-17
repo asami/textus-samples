@@ -25,7 +25,7 @@ Usage:
 
 Current responsibilities:
   - prepare the cozy launcher used by bin/cozy
-  - prepare the local CNCF command used by bin/cncf
+  - verify the coursier-installed cncf command used by bin/cncf
   - verify cozy dependency resolution for the configured version
 EOF
 }
@@ -43,6 +43,32 @@ find_coursier() {
   if command -v coursier >/dev/null 2>&1; then
     command -v coursier
     return
+  fi
+  return 1
+}
+
+canonical_path() {
+  local path="$1"
+  local dir
+  dir="$(cd "$(dirname "$path")" && pwd -P)"
+  printf '%s/%s\n' "$dir" "$(basename "$path")"
+}
+
+find_installed_cncf() {
+  if [[ -n "${CNCF_COMMAND:-}" ]]; then
+    printf '%s\n' "$CNCF_COMMAND"
+    return
+  fi
+  local candidate=""
+  candidate="$(command -v cncf || true)"
+  if [[ -n "$candidate" ]]; then
+    local self candidate_path
+    self="$(canonical_path "$REPO_ROOT/bin/cncf")"
+    candidate_path="$(canonical_path "$candidate")"
+    if [[ "$candidate_path" != "$self" ]]; then
+      printf '%s\n' "$candidate"
+      return
+    fi
   fi
   return 1
 }
@@ -110,30 +136,22 @@ prepare_cncf() {
     echo "java command not found" >&2
     exit 3
   fi
-  local coursier_bin
-  if ! coursier_bin="$(find_coursier)"; then
-    echo "coursier command not found" >&2
-    echo "Install coursier from https://get-coursier.io/ or Homebrew." >&2
+  local cncf_bin
+  if ! cncf_bin="$(find_installed_cncf)"; then
+    echo "installed cncf command not found" >&2
+    echo "Install it with coursier, for example: cs install cncf" >&2
+    echo "If needed, set CNCF_COMMAND=/path/to/cncf." >&2
     exit 3
   fi
-  local expected_version
-  expected_version="$(tr -d '[:space:]' < "$CS_VERSION_FILE")"
-  mkdir -p "$CNCF_COURSIER_CACHE"
   mkdir -p "$(dirname "$state_file")"
+  "$cncf_bin" --help >/dev/null
   printf '%s\n' "$cncf_version" > "$state_file"
   echo "java: $(command -v java)"
-  echo "coursier: $coursier_bin"
-  echo "coursier version: $("$coursier_bin" version)"
-  echo "expected coursier version: $expected_version"
-  echo "coursier cache: ${COURSIER_CACHE:-$HOME/Library/Caches/Coursier/v1}"
-  echo "maven local: $HOME/.m2/repository"
-  echo "ivy local: $HOME/.ivy2/local"
-  echo "prepared local cncf launcher: $REPO_ROOT/bin/launcher"
+  echo "cncf command: $cncf_bin"
   echo "cncf version: $cncf_version"
   echo "cncf server port: $cncf_server_port"
   echo "goldenport-core version: $core_version"
   echo "simplemodeling-model version: $simplemodeling_model_version"
-  echo "cncf launcher cache: $CNCF_COURSIER_CACHE"
 }
 
 main() {
