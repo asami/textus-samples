@@ -12,7 +12,7 @@ def cncfVersion(base: java.io.File): String = {
 
 resolvers += Resolver.defaultLocal
 resolvers += Resolver.mavenLocal
-resolvers += "SimpleModeling.org" at "https://www.simplemodeling.org/maven"
+resolvers += "SimpleModeling.org" at "https://www.simplemodeling.org/repository/maven"
 
 libraryDependencies +=
   "org.goldenport" %% "goldenport-cncf" % cncfVersion(baseDirectory.value)

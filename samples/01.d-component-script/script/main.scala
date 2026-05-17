@@ -1,5 +1,5 @@
 #!/usr/bin/env -S scala-cli shebang
-//> using repository "https://www.simplemodeling.org/maven"
+//> using repository "https://www.simplemodeling.org/repository/maven"
 //> using dep "org.goldenport:goldenport-cncf_3:0.3.14-SNAPSHOT"
 
 import org.goldenport.cncf.dsl.script.*

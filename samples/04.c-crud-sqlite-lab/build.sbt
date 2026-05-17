@@ -28,7 +28,7 @@ lazy val root = (project in file("."))
     resolvers ++= Seq(
       Resolver.defaultLocal,
       Resolver.mavenLocal,
-      "SimpleModeling.org" at "https://www.simplemodeling.org/maven"
+      "SimpleModeling.org" at "https://www.simplemodeling.org/repository/maven"
     ),
     libraryDependencies +=
       "org.goldenport" %% "goldenport-cncf" % cncfVersion(baseDirectory.value),

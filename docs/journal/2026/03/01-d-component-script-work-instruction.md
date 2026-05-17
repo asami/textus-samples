@@ -39,7 +39,7 @@ Important reference shape from the article:
 
 ```scala
 #!/usr/bin/env -S scala-cli shebang
-//> using repository "https://www.simplemodeling.org/maven"
+//> using repository "https://www.simplemodeling.org/repository/maven"
 //> using dep "org.goldenport:goldenport-cncf_3:..."
 import org.goldenport.cncf.dsl.script.*
 @main def main(args: String*): Unit = run(args) { call =>

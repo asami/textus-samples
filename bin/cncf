@@ -10,7 +10,7 @@ DEFAULT_SERVER_PORT="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cncf-server-port
 CACHE_ROOT="${XDG_CACHE_HOME:-$HOME/.cache}"
 LAUNCHER_BIN="$REPO_ROOT/bin/launcher"
 LAUNCHER_CACHE="$REPO_ROOT/.cache/coursier"
-SIMPLEMODELING_REPOSITORY="https://www.simplemodeling.org/maven"
+SIMPLEMODELING_REPOSITORY="https://www.simplemodeling.org/repository/maven"
 
 usage() {
   cat >&2 <<'EOF'

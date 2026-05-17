@@ -14,7 +14,7 @@ lazy val root = (project in file("."))
     cozyDelegateCommand := Seq(baseDirectory.value.toPath.getParent.getParent.resolve("bin/cozy").toFile.getAbsolutePath),
     resolvers ++= Seq(
       Resolver.defaultLocal,
-      "SimpleModeling.org" at "https://www.simplemodeling.org/maven"
+      "SimpleModeling.org" at "https://www.simplemodeling.org/repository/maven"
     ),
     libraryDependencies ++= Seq(
       "org.goldenport" %% "goldenport-cncf" % cncfVersion(baseDirectory.value),
