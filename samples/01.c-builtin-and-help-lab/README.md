@@ -79,7 +79,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command meta.help"
+cncf dev command --project . --component-dev-dir . meta.help
 ```
 
 ### 3. Observe Component-Level Help For `minimal`
@@ -99,7 +99,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command meta.help minimal"
+cncf dev command --project . --component-dev-dir . meta.help minimal
 ```
 
 ### 4. Observe Operation Help Through The `help` Alias
@@ -119,7 +119,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command help minimal.main.hello"
+cncf dev command --project . --component-dev-dir . help minimal.main.hello
 ```
 
 Key distinction:
@@ -144,7 +144,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command admin.system.ping"
+cncf dev command --project . --component-dev-dir . admin.system.ping
 ```
 
 ### 6. Compare Sample-Defined And Builtin Surfaces

@@ -59,19 +59,19 @@ With the current activation policy:
 ### 1. Inspect the generated component
 
 ```bash
-bash ../../bin/cncf --component-car-dir car.d command meta.help component-cml-sample --format yaml
+cncf dev command --project . --no-project-classpath --component-car-dir car.d meta.help component-cml-sample --format yaml
 ```
 
 ### 2. Inspect generated operation help
 
 ```bash
-bash ../../bin/cncf --component-car-dir car.d command help component-cml-sample.greeting.greeting
+cncf dev command --project . --no-project-classpath --component-car-dir car.d help component-cml-sample.greeting.greeting
 ```
 
 ### 3. Inspect generated metadata
 
 ```bash
-bash ../../bin/cncf --component-car-dir car.d command component-cml-sample.meta.describe --format yaml
+cncf dev command --project . --no-project-classpath --component-car-dir car.d component-cml-sample.meta.describe --format yaml
 ```
 
 ## Key Learnings

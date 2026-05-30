@@ -2,8 +2,11 @@
 
 set -eu
 
-bash ../../bin/cncf --discover=classes command help crud.entity.load-item
-bash ../../bin/cncf --discover=classes command help crud.entity.search-item-record
-bash ../../bin/cncf --discover=classes command crud.entity.load-item --id major-minor-entity-item-20260327000000-aaa111
-bash ../../bin/cncf --discover=classes command crud.entity.search-item-record --name alpha
-bash ../../bin/cncf --discover=classes command crud.meta.describe --format yaml
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
+cncf dev command --project . --component-dev-dir . help crud.entity.load-item
+cncf dev command --project . --component-dev-dir . help crud.entity.search-item-record
+cncf dev command --project . --component-dev-dir . crud.entity.load-item --id major-minor-entity-item-20260327000000-aaa111
+cncf dev command --project . --component-dev-dir . crud.entity.search-item-record --name alpha
+cncf dev command --project . --component-dev-dir . crud.meta.describe --format yaml

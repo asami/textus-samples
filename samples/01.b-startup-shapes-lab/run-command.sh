@@ -2,9 +2,5 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-exec bash "$SCRIPT_DIR/../../scripts/sample-runner.sh" \
-  --script-path "$SCRIPT_DIR/run-command.sh" \
-  --discover-classes \
-  --command-path minimal.main.hello \
-  -- \
-  "$@"
+cd "$SCRIPT_DIR"
+exec cncf dev command --project . --component-dev-dir . minimal.main.hello "$@"

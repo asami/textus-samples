@@ -2,7 +2,10 @@
 
 set -eu
 
-bash ../../bin/cncf --discover=classes command help test-sync.item.create-item
-bash ../../bin/cncf --discover=classes command test-sync.meta.describe --format yaml
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
+cncf dev command --project . --component-dev-dir . help test-sync.item.create-item
+cncf dev command --project . --component-dev-dir . test-sync.meta.describe --format yaml
 bash run-default.sh
 bash run-sync.sh

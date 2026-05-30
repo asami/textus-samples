@@ -81,7 +81,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf --discover=classes` will use later.
+Compile the sample and generate the runtime classes that `cncf dev --component-dev-dir .` will use later.
 
 ```bash
 $ cd samples/10.c-view-cache-lab
@@ -108,16 +108,16 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash ../../bin/cncf --discover=classes ...
+bash cncf dev command --project . --component-dev-dir . ...
 ```
 
 Common points:
 
 - `cncf`:
   - the standard CNCF command-line entry point
-  - in this sample repository it is invoked through `../../bin/cncf`
+  - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--discover=classes`:
+- `--component-dev-dir .`:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -132,7 +132,7 @@ Start by asking CNCF what the paged search operation is and how it is exposed on
 ```bash
 $ cd samples/10.c-view-cache-lab
 
-$ ../../bin/cncf --discover=classes \
+$ cncf dev command --project . --component-dev-dir . \
   command help view-cache-sample.view.search-person-summary-record
 ```
 
@@ -186,7 +186,7 @@ Command parameters:
 The first search requests the first page of Tokyo rows with a page size of two.
 
 ```bash
-$ ../../bin/cncf --discover=classes \
+$ cncf dev command --project . --component-dev-dir . \
   command view-cache-sample.view.search-person-summary-record --city Tokyo --query.limit 2 --query.offset 0
 ```
 
@@ -246,7 +246,7 @@ Command parameters:
 The second search moves the offset by one so that the next page overlaps the previous page.
 
 ```bash
-$ ../../bin/cncf --discover=classes \
+$ cncf dev command --project . --component-dev-dir . \
   command view-cache-sample.view.search-person-summary-record --city Tokyo --query.limit 2 --query.offset 1
 ```
 
@@ -306,7 +306,7 @@ Command parameters:
 The third search continues the same pattern.
 
 ```bash
-$ ../../bin/cncf --discover=classes \
+$ cncf dev command --project . --component-dev-dir . \
   command view-cache-sample.view.search-person-summary-record --city Tokyo --query.limit 2 --query.offset 2
 ```
 
@@ -366,7 +366,7 @@ Command parameters:
 Finally, inspect the component metadata exposed by the sample.
 
 ```bash
-$ ../../bin/cncf --discover=classes \
+$ cncf dev command --project . --component-dev-dir . \
   command view-cache-sample.meta.describe --format yaml
 ```
 

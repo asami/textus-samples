@@ -2,6 +2,9 @@
 
 set -eu
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
 job_id="${1:-}"
 
 if [ -z "$job_id" ]; then
@@ -9,4 +12,4 @@ if [ -z "$job_id" ]; then
   exit 1
 fi
 
-exec bash ../../bin/cncf --discover=classes client job-control.job.await-job-result --id "$job_id"
+exec cncf dev client --project . --component-dev-dir . job-control.job.await-job-result --id "$job_id"

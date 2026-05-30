@@ -2,7 +2,10 @@
 
 set -eu
 
-bash ../../bin/cncf --discover=classes command help crud-nested-value-sample.entity.create-person
-bash ../../bin/cncf --discover=classes command help crud-nested-value-sample.entity.load-person
-bash ../../bin/cncf --discover=classes command crud-nested-value-sample.meta.describe --format yaml
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
+cncf dev command --project . --component-dev-dir . help crud-nested-value-sample.entity.create-person
+cncf dev command --project . --component-dev-dir . help crud-nested-value-sample.entity.load-person
+cncf dev command --project . --component-dev-dir . crud-nested-value-sample.meta.describe --format yaml
 bash run-datastore.sh

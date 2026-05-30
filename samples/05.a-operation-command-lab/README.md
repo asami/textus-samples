@@ -67,7 +67,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf --discover=classes` will use later.
+Compile the sample and generate the runtime classes that `cncf dev --component-dev-dir .` will use later.
 
 ```bash
 $ cd samples/05.a-operation-command-lab
@@ -92,14 +92,14 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash ../../bin/cncf --discover=classes ...
+bash cncf dev command --project . --component-dev-dir . ...
 ```
 
 Common points:
 
 - `cncf`:
   - the standard CNCF command-line entry point
-  - in this sample repository it is invoked through `../../bin/cncf`
+  - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
 - `--component-factory-class ...`:
   - use the sample-specific factory that provides executable behavior for the minimal walkthrough
@@ -111,7 +111,7 @@ Common points:
 ### Operation Help
 
 ```bash
-$ bash ../../bin/cncf --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory command help operation-command-contract-sample.greeting.submit-greeting
+$ cncf dev command --project . --no-project-component-dev-dir --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory help operation-command-contract-sample.greeting.submit-greeting
 ```
 
 Parameters:
@@ -149,7 +149,7 @@ This confirms the contract surface:
 ### Metadata Describe
 
 ```bash
-$ bash ../../bin/cncf --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory command operation-command-contract-sample.meta.describe --format yaml
+$ cncf dev command --project . --no-project-component-dev-dir --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory operation-command-contract-sample.meta.describe --format yaml
 ```
 
 Parameters:
@@ -196,13 +196,13 @@ This sample also shows the smallest concrete async command flow.
 Start the server in one shell:
 
 ```bash
-$ bash ../../bin/cncf --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory server
+$ cncf dev server --project . --no-project-component-dev-dir --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory
 ```
 
 Submit the command from another shell:
 
 ```bash
-$ bash ../../bin/cncf --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory client operation-command-contract-sample.greeting.submit-greeting --name Alice
+$ cncf dev client --project . --no-project-component-dev-dir --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory operation-command-contract-sample.greeting.submit-greeting --name Alice
 ```
 
 Output example:
@@ -217,7 +217,7 @@ That is the default command shape in CNCF.
 Then await the result using the returned job id:
 
 ```bash
-$ bash ../../bin/cncf --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory client job-control.job.await-job-result --id cncf-job-job-1775443773441-7COTU1hJrsGkCKUgPXhiCL
+$ cncf dev client --project . --no-project-component-dev-dir --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory job-control.job.await-job-result --id cncf-job-job-1775443773441-7COTU1hJrsGkCKUgPXhiCL
 ```
 
 Output example:

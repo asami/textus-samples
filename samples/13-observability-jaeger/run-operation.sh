@@ -6,8 +6,5 @@ WORKLOAD_DIR="$SCRIPT_DIR/../01.c-builtin-and-help-lab"
 export CNCF_SERVER_PORT="${CNCF_SERVER_PORT:-19613}"
 
 cd "$WORKLOAD_DIR"
-exec bash "$SCRIPT_DIR/../../bin/cncf" \
-  --discover=classes \
-  --textus.config.file "$SCRIPT_DIR/.textus.conf" \
-  client minimal.main.hello \
+exec cncf dev client --project . --component-dev-dir . --textus.config.file "$SCRIPT_DIR/.textus.conf" minimal.main.hello \
   --baseurl "http://127.0.0.1:${CNCF_SERVER_PORT}"

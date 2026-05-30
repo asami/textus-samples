@@ -80,7 +80,7 @@ Prepare the local `cozy` launcher that `sbt-cozy` delegates to during generation
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf --discover=classes` will use later.
+Compile the sample and generate the runtime classes that `cncf dev --component-dev-dir .` will use later.
 
 ```bash
 sbt clean compile
@@ -103,16 +103,16 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash ../../bin/cncf --discover=classes ...
+bash cncf dev command --project . --component-dev-dir . ...
 ```
 
 Common points:
 
 - `cncf`:
   - the standard CNCF command-line entry point
-  - in this sample repository it is invoked through `../../bin/cncf`
+  - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--discover=classes`:
+- `--component-dev-dir .`:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -135,8 +135,8 @@ This step answers:
 - which query reads the visible post-event effect
 
 ```bash
-bash ../../bin/cncf --discover=classes command help event-driven
-bash ../../bin/cncf --discover=classes command help event-driven.event.emit-event
+cncf dev command --project . --component-dev-dir . help event-driven
+cncf dev command --project . --component-dev-dir . help event-driven.event.emit-event
 ```
 
 Parameters:
@@ -177,8 +177,8 @@ This step answers:
 - how to inspect the resulting job history from the shell
 
 ```bash
-bash ../../bin/cncf --discover=classes command help job-control.job.await-job-result
-bash ../../bin/cncf --discover=classes command help job-control.job.load-job-history
+cncf dev command --project . --component-dev-dir . help job-control.job.await-job-result
+cncf dev command --project . --component-dev-dir . help job-control.job.load-job-history
 ```
 
 Parameters:
@@ -206,7 +206,7 @@ This step answers:
 - which command/query split the sample has
 
 ```bash
-bash ../../bin/cncf --discover=classes command event-driven.meta.describe --format yaml
+cncf dev command --project . --component-dev-dir . event-driven.meta.describe --format yaml
 ```
 
 Parameters:
@@ -232,7 +232,7 @@ Now start CNCF in server mode so that state and job information remain available
 This is necessary because this sample is about tracing a routed reaction over multiple shell calls.
 
 ```bash
-bash ../../bin/cncf --discover=classes server
+cncf dev server --project . --component-dev-dir .
 ```
 
 Parameters:
@@ -249,7 +249,7 @@ This step does not return the effect payload directly.
 It returns the job id that represents the routed event-processing work.
 
 ```bash
-bash ../../bin/cncf --discover=classes client event-driven.event.emit-event --name alpha --title Alpha
+cncf dev client --project . --component-dev-dir . event-driven.event.emit-event --name alpha --title Alpha
 ```
 
 Parameters:
@@ -279,7 +279,7 @@ Wait for the submitted job to complete.
 This step confirms that the event was not only submitted, but actually routed and processed.
 
 ```bash
-bash ../../bin/cncf --discover=classes client job-control.job.await-job-result --id cncf-job-job-1775496790693-6ohgPcxKOscZLoGHlK3cgO
+cncf dev client --project . --component-dev-dir . job-control.job.await-job-result --id cncf-job-job-1775496790693-6ohgPcxKOscZLoGHlK3cgO
 ```
 
 Parameters:
@@ -310,7 +310,7 @@ This step is useful when you want one compact view that shows:
 - which request summary the job belongs to
 
 ```bash
-bash ../../bin/cncf --discover=classes client job-control.job.get-job-status --id cncf-job-job-1775496790693-6ohgPcxKOscZLoGHlK3cgO
+cncf dev client --project . --component-dev-dir . job-control.job.get-job-status --id cncf-job-job-1775496790693-6ohgPcxKOscZLoGHlK3cgO
 ```
 
 Parameters:
@@ -342,7 +342,7 @@ Then inspect the full timeline.
 This step makes the execution progression explicit instead of leaving it implicit inside the runtime.
 
 ```bash
-bash ../../bin/cncf --discover=classes client job-control.job.load-job-history --id cncf-job-job-1775496790693-6ohgPcxKOscZLoGHlK3cgO
+cncf dev client --project . --component-dev-dir . job-control.job.load-job-history --id cncf-job-job-1775496790693-6ohgPcxKOscZLoGHlK3cgO
 ```
 
 Parameters:
@@ -385,7 +385,7 @@ This closes the loop:
 - visible effect confirmed
 
 ```bash
-bash ../../bin/cncf --discover=classes client event-driven.event.load-effect
+cncf dev client --project . --component-dev-dir . event-driven.event.load-effect
 ```
 
 Parameters:

@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
 BASELINE_DIR="../11-subsystem"
 BASELINE_JAR="$(find "$BASELINE_DIR/target/scala-3.3.7" -maxdepth 1 -name 'textus-samples-11-subsystem_3-*.jar' | head -n 1)"
 
@@ -41,24 +44,16 @@ COMMON_ARGS=(
 )
 
 echo "--- subsystem help"
-bash ../../bin/cncf \
-  command meta.help --format yaml \
-  "${COMMON_ARGS[@]}"
+cncf dev command --project . --no-project-classpath "${COMMON_ARGS[@]}" meta.help --format yaml
 
 echo
 echo "--- component help"
-bash ../../bin/cncf \
-  command meta.help testcomp --format yaml \
-  "${COMMON_ARGS[@]}"
+cncf dev command --project . --no-project-classpath "${COMMON_ARGS[@]}" meta.help testcomp --format yaml
 
 echo
 echo "--- operation help"
-bash ../../bin/cncf \
-  command help testcomp.main.hello \
-  "${COMMON_ARGS[@]}"
+cncf dev command --project . --no-project-classpath "${COMMON_ARGS[@]}" help testcomp.main.hello
 
 echo
 echo "--- execute"
-bash ../../bin/cncf \
-  command testcomp.main.hello \
-  "${COMMON_ARGS[@]}"
+cncf dev command --project . --no-project-classpath "${COMMON_ARGS[@]}" testcomp.main.hello

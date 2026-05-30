@@ -2,4 +2,7 @@
 
 set -eu
 
-exec bash ../../bin/cncf --discover=classes client event-driven.event.emit-event --name alpha --title Alpha
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
+exec cncf dev client --project . --component-dev-dir . event-driven.event.emit-event --name alpha --title Alpha

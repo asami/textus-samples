@@ -85,7 +85,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf --discover=classes` will use later.
+Compile the sample and generate the runtime classes that `cncf dev --component-dev-dir .` will use later.
 
 ```bash
 $ cd samples/06.a-designed-sync-command-lab
@@ -110,16 +110,16 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash ../../bin/cncf --discover=classes ...
+bash cncf dev command --project . --component-dev-dir . ...
 ```
 
 Common points:
 
 - `cncf`:
   - the standard CNCF command-line entry point
-  - in this sample repository it is invoked through `../../bin/cncf`
+  - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--discover=classes`:
+- `--component-dev-dir .`:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -130,7 +130,7 @@ Common points:
 ### Command Help
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command help designed-sync.item.create-item
+$ cncf dev command --project . --component-dev-dir . help designed-sync.item.create-item
 ```
 
 Output example:
@@ -150,7 +150,7 @@ This confirms the command contract and selector.
 ### Metadata Describe
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command designed-sync.meta.describe --format yaml
+$ cncf dev command --project . --component-dev-dir . designed-sync.meta.describe --format yaml
 ```
 
 Output example:
@@ -169,7 +169,7 @@ This shows that the operation is still modeled as a command.
 ### Execute The Designed-Sync Command
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command designed-sync.item.create-item --name beta --title Beta
+$ cncf dev command --project . --component-dev-dir . designed-sync.item.create-item --name beta --title Beta
 ```
 
 Output example:

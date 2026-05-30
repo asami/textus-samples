@@ -2,4 +2,7 @@
 
 set -eu
 
-exec bash ../../bin/cncf --discover=classes server
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
+exec cncf dev server --project . --component-dev-dir .

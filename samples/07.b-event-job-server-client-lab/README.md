@@ -91,7 +91,7 @@ This step ensures that the sample uses the expected local Cozy version instead o
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf --discover=classes` will use later.
+Compile the sample and generate the runtime classes that `cncf dev --component-dev-dir .` will use later.
 
 This step is required because the walkthrough runs the generated component directly from local compiled classes.
 
@@ -116,16 +116,16 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash ../../bin/cncf --discover=classes ...
+bash cncf dev command --project . --component-dev-dir . ...
 ```
 
 Common points:
 
 - `cncf`:
   - the standard CNCF command-line entry point
-  - in this sample repository it is invoked through `../../bin/cncf`
+  - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--discover=classes`:
+- `--component-dev-dir .`:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -142,7 +142,7 @@ Start CNCF in server mode first.
 This keeps the in-memory event effect and job state available across client requests.
 
 ```bash
-bash ../../bin/cncf --discover=classes server
+cncf dev server --project . --component-dev-dir .
 ```
 
 Parameters:
@@ -163,7 +163,7 @@ Send the event-producing command from another shell.
 This step submits the event-backed work and returns a job id.
 
 ```bash
-bash ../../bin/cncf --discover=classes client event-driven.event.emit-event --name alpha --title Alpha
+cncf dev client --project . --component-dev-dir . event-driven.event.emit-event --name alpha --title Alpha
 ```
 
 Parameters:
@@ -193,7 +193,7 @@ Use the returned job id to wait until the routed reaction completes.
 This is the practical step that prevents a race between event submission and effect loading.
 
 ```bash
-bash ../../bin/cncf --discover=classes client job-control.job.await-job-result --id cncf-job-job-1775498741256-3pl4ERPQi6PkTtsPrJ51fD
+cncf dev client --project . --component-dev-dir . job-control.job.await-job-result --id cncf-job-job-1775498741256-3pl4ERPQi6PkTtsPrJ51fD
 ```
 
 Parameters:
@@ -222,7 +222,7 @@ Now read the visible effect back through the query-side selector.
 This confirms that the event-driven reaction already changed the visible state.
 
 ```bash
-bash ../../bin/cncf --discover=classes client event-driven.event.load-effect
+cncf dev client --project . --component-dev-dir . event-driven.event.load-effect
 ```
 
 Parameters:
@@ -247,13 +247,13 @@ Expected result example:
 If you prefer the helper scripts, they map to the same commands:
 
 - `bash run-server.sh`
-  - `bash ../../bin/cncf --discover=classes server`
+  - `cncf dev server --project . --component-dev-dir .`
 - `bash run-client-emit.sh`
-  - `bash ../../bin/cncf --discover=classes client event-driven.event.emit-event --name alpha --title Alpha`
+  - `cncf dev client --project . --component-dev-dir . event-driven.event.emit-event --name alpha --title Alpha`
 - `bash run-client-await.sh <job-id>`
-  - `bash ../../bin/cncf --discover=classes client job-control.job.await-job-result --id <job-id>`
+  - `cncf dev client --project . --component-dev-dir . job-control.job.await-job-result --id <job-id>`
 - `bash run-client-load.sh`
-  - `bash ../../bin/cncf --discover=classes client event-driven.event.load-effect`
+  - `cncf dev client --project . --component-dev-dir . event-driven.event.load-effect`
 
 ## Parameters And Returns
 

@@ -2,6 +2,9 @@
 
 set -eu
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
 server_log="$(mktemp)"
 cleanup() {
   if [ -n "${server_pid:-}" ]; then
@@ -12,20 +15,20 @@ cleanup() {
 }
 trap cleanup EXIT INT TERM
 
-bash ../../bin/cncf --discover=classes command help event-driven
-bash ../../bin/cncf --discover=classes command help event-driven.event.emit-event
-bash ../../bin/cncf --discover=classes command help job-control.job.await-job-result
-bash ../../bin/cncf --discover=classes command help job-control.job.load-job-history
-bash ../../bin/cncf --discover=classes command event-driven.meta.describe --format yaml
+cncf dev command --project . --component-dev-dir . help event-driven
+cncf dev command --project . --component-dev-dir . help event-driven.event.emit-event
+cncf dev command --project . --component-dev-dir . help job-control.job.await-job-result
+cncf dev command --project . --component-dev-dir . help job-control.job.load-job-history
+cncf dev command --project . --component-dev-dir . event-driven.meta.describe --format yaml
 
-bash ../../bin/cncf --discover=classes server >"$server_log" 2>&1 &
+cncf dev server --project . --component-dev-dir . >"$server_log" 2>&1 &
 server_pid=$!
 sleep 3
 
-job_id="$(bash ../../bin/cncf --discover=classes client event-driven.event.emit-event --name alpha --title Alpha)"
+job_id="$(cncf dev client --project . --component-dev-dir . event-driven.event.emit-event --name alpha --title Alpha)"
 printf '%s\n' "$job_id"
 
-bash ../../bin/cncf --discover=classes client job-control.job.await-job-result --id "$job_id"
-bash ../../bin/cncf --discover=classes client job-control.job.get-job-status --id "$job_id"
-bash ../../bin/cncf --discover=classes client job-control.job.load-job-history --id "$job_id"
-bash ../../bin/cncf --discover=classes client event-driven.event.load-effect
+cncf dev client --project . --component-dev-dir . job-control.job.await-job-result --id "$job_id"
+cncf dev client --project . --component-dev-dir . job-control.job.get-job-status --id "$job_id"
+cncf dev client --project . --component-dev-dir . job-control.job.load-job-history --id "$job_id"
+cncf dev client --project . --component-dev-dir . event-driven.event.load-effect

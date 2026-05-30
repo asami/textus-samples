@@ -88,15 +88,15 @@ It is the batch form of the walkthrough below.
 This sample uses:
 
 ```bash
-bash ../../bin/cncf --discover=classes ...
+bash cncf dev command --project . --component-dev-dir . ...
 ```
 
 Common points:
 
 - `cncf`:
   - the standard CNCF command-line entry point
-  - in this repository it is invoked through `../../bin/cncf`
-- `--discover=classes`:
+  - in this repository it is invoked through `cncf dev`
+- `--component-dev-dir .`:
   - loads the locally generated classes under `target/`
 - `command`:
   - runs one-shot CNCF command execution without starting a persistent server
@@ -106,7 +106,7 @@ Common points:
 ### 1. Inspect the component surface
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command help job-control-lab
+$ cncf dev command --project . --component-dev-dir . help job-control-lab
 ```
 
 Parameters:
@@ -122,7 +122,7 @@ This confirms that the generated component surface still exists, even though the
 ### 2. Inspect the control-ready submit operation
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command help job-control-lab.item.create-item
+$ cncf dev command --project . --component-dev-dir . help job-control-lab.item.create-item
 ```
 
 Parameters:
@@ -138,7 +138,7 @@ This is the same user-facing selector that is exercised more fully in `06.a`.
 ### 3. Inspect component metadata
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command job-control-lab.meta.describe --format yaml
+$ cncf dev command --project . --component-dev-dir . job-control-lab.meta.describe --format yaml
 ```
 
 Parameters:

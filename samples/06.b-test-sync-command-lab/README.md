@@ -93,7 +93,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf --discover=classes` will use later.
+Compile the sample and generate the runtime classes that `cncf dev --component-dev-dir .` will use later.
 
 ```bash
 $ cd samples/06.b-test-sync-command-lab
@@ -118,16 +118,16 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash ../../bin/cncf --discover=classes ...
+bash cncf dev command --project . --component-dev-dir . ...
 ```
 
 Common points:
 
 - `cncf`:
   - the standard CNCF command-line entry point
-  - in this sample repository it is invoked through `../../bin/cncf`
+  - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--discover=classes`:
+- `--component-dev-dir .`:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -138,7 +138,7 @@ Common points:
 ### Command Help
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command help test-sync.item.create-item
+$ cncf dev command --project . --component-dev-dir . help test-sync.item.create-item
 ```
 
 Output example:
@@ -156,7 +156,7 @@ returns:
 ### Metadata Describe
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command test-sync.meta.describe --format yaml
+$ cncf dev command --project . --component-dev-dir . test-sync.meta.describe --format yaml
 ```
 
 Output example:
@@ -175,7 +175,7 @@ The contract is still a normal command contract.
 ### Default Async / Job-Backed Execution
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command TestSync.Item.createItem --name beta --title Beta
+$ cncf dev command --project . --component-dev-dir . TestSync.Item.createItem --name beta --title Beta
 ```
 
 Output example:
@@ -187,7 +187,7 @@ cncf-job-job-...
 Envelope form:
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command TestSync.Item.createItem --name beta --title Beta --textus.output.shape envelope --textus.output.format yaml
+$ cncf dev command --project . --component-dev-dir . TestSync.Item.createItem --name beta --title Beta --textus.output.shape envelope --textus.output.format yaml
 ```
 
 Output example:
@@ -202,7 +202,7 @@ data:
 ### Test Sync Override
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command --textus.command.execution-mode sync-job-async-interface TestSync.Item.createItem --name beta --title Beta
+$ cncf dev command --project . --component-dev-dir . --textus.command.execution-mode sync-job-async-interface TestSync.Item.createItem --name beta --title Beta
 ```
 
 Output example:
@@ -214,7 +214,7 @@ cncf-job-job-...
 Envelope form:
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command --textus.command.execution-mode sync-job-async-interface TestSync.Item.createItem --name beta --title Beta --textus.output.shape envelope --textus.output.format yaml
+$ cncf dev command --project . --component-dev-dir . --textus.command.execution-mode sync-job-async-interface TestSync.Item.createItem --name beta --title Beta --textus.output.shape envelope --textus.output.format yaml
 ```
 
 Output example:

@@ -49,17 +49,17 @@ This is the convenience batch form of the walkthrough below.
 ## Command Walkthrough
 
 The commands below use the standard CNCF CLI entry point.
-In this repository it is invoked as `../../bin/cncf`.
+In this repository it is invoked as `cncf dev`.
 
 The common option is:
 
-- `--discover=classes`
+- `--component-dev-dir .`
   - tells CNCF to discover the sample component from compiled classes and assemble the effective runtime
 
 ### 1. Inspect subsystem help
 
 ```bash
-bash ../../bin/cncf --discover=classes command meta.help --format yaml
+cncf dev command --project . --component-dev-dir . meta.help --format yaml
 ```
 
 Parameters:
@@ -77,7 +77,7 @@ Expected result:
 ### 2. Inspect the discovered component
 
 ```bash
-bash ../../bin/cncf --discover=classes command meta.help subsystem --format yaml
+cncf dev command --project . --component-dev-dir . meta.help subsystem --format yaml
 ```
 
 Parameters:
@@ -93,7 +93,7 @@ Parameters:
 ### 3. Inspect operation help
 
 ```bash
-bash ../../bin/cncf --discover=classes command help subsystem.main.hello
+cncf dev command --project . --component-dev-dir . help subsystem.main.hello
 ```
 
 Parameters:
@@ -107,7 +107,7 @@ Parameters:
 ### 4. Execute the operation
 
 ```bash
-bash ../../bin/cncf --discover=classes command subsystem.main.hello
+cncf dev command --project . --component-dev-dir . subsystem.main.hello
 ```
 
 Parameters:

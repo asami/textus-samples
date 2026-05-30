@@ -108,7 +108,7 @@ With the current activation policy:
 ### 1. Inspect subsystem help
 
 ```bash
-bash ../../bin/cncf command meta.help --format yaml --subsystem-sar-dir sar.d
+cncf dev command --project . meta.help --format yaml --subsystem-sar-dir sar.d
 ```
 
 Parameters:
@@ -124,7 +124,7 @@ Parameters:
 ### 2. Inspect the component
 
 ```bash
-bash ../../bin/cncf command meta.help testcomp --format yaml --subsystem-sar-dir sar.d
+cncf dev command --project . meta.help testcomp --format yaml --subsystem-sar-dir sar.d
 ```
 
 Parameters:
@@ -142,7 +142,7 @@ Parameters:
 ### 3. Inspect operation help
 
 ```bash
-bash ../../bin/cncf command help testcomp.main.hello --subsystem-sar-dir sar.d
+cncf dev command --project . help testcomp.main.hello --subsystem-sar-dir sar.d
 ```
 
 Parameters:
@@ -158,7 +158,7 @@ Parameters:
 ### 4. Execute the operation
 
 ```bash
-bash ../../bin/cncf command testcomp.main.hello --subsystem-sar-dir sar.d
+cncf dev command --project . testcomp.main.hello --subsystem-sar-dir sar.d
 ```
 
 Parameters:

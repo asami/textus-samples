@@ -25,7 +25,7 @@ Usage:
 
 Current responsibilities:
   - prepare the cozy launcher used by bin/cozy
-  - verify the coursier-installed cncf command used by bin/cncf
+  - verify the coursier-installed cncf command used directly by samples
   - verify cozy dependency resolution for the configured version
 EOF
 }

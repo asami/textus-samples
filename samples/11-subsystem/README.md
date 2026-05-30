@@ -178,7 +178,7 @@ It is the ordinary CNCF rule that command-line parameters and config parameters 
 ### 1. Inspect subsystem help
 
 ```bash
-bash ../../bin/cncf command meta.help --format yaml --textus.subsystem=testsubsystem
+cncf dev command --project . meta.help --format yaml --textus.subsystem=testsubsystem
 ```
 
 Parameters:
@@ -194,7 +194,7 @@ Parameters:
 ### 2. Inspect the component
 
 ```bash
-bash ../../bin/cncf command meta.help testcomp --format yaml --textus.subsystem=testsubsystem
+cncf dev command --project . meta.help testcomp --format yaml --textus.subsystem=testsubsystem
 ```
 
 Parameters:
@@ -212,7 +212,7 @@ Parameters:
 ### 3. Inspect operation help
 
 ```bash
-bash ../../bin/cncf command help testcomp.main.hello --textus.subsystem=testsubsystem
+cncf dev command --project . help testcomp.main.hello --textus.subsystem=testsubsystem
 ```
 
 Parameters:
@@ -228,7 +228,7 @@ Parameters:
 ### 4. Execute the operation
 
 ```bash
-bash ../../bin/cncf command testcomp.main.hello --textus.subsystem=testsubsystem
+cncf dev command --project . testcomp.main.hello --textus.subsystem=testsubsystem
 ```
 
 Parameters:

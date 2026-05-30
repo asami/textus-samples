@@ -10,27 +10,21 @@ Its initial goal is to build a catalog of patterns, not to recreate complex busi
 
 ## Local CNCF Command
 
-This repository uses a sample-local `cncf` command.
+This repository uses the installed `cncf` launcher directly.
 
-Prepare it once:
+Install or update it once through Coursier before running samples:
+
+```bash
+cs install cncf
+# or
+cs update cncf
+```
+
+Repository setup still prepares the local `cozy` command and verifies that
+`cncf` is available:
 
 ```bash
 bash bin/setup
-```
-
-This repository-level setup prepares both:
-
-- the local `cozy` command used for sample generation
-- the sample-local `bin/cncf` wrapper, which delegates to the coursier-installed `cncf` command
-
-Use explicit version overrides when needed:
-
-```bash
-bash bin/setup \
-  --cncf-version 0.4.2-SNAPSHOT \
-  --cncf-server-port 19532 \
-  --core-version 0.3.2-SNAPSHOT \
-  --simplemodeling-model-version 0.1.2-SNAPSHOT
 ```
 
 Repository defaults live in:
@@ -41,31 +35,45 @@ Repository defaults live in:
 - `versions/goldenport-core-version.conf`
 - `versions/simplemodeling-model-version.conf`
 
-Install the CNCF launcher once through Coursier before running samples:
+Run samples from each sample directory with `cncf dev` directly.
+
+Launcher roles:
+
+- `textus` is the user/application launcher for running packaged Textus applications.
+- `cncf` is the CNCF development launcher for running components, subsystems,
+  and runtime surfaces while building CNCF samples.
+
+Because these samples execute components that are under development, the
+standard command is `cncf dev ...`, not `textus`. Use `--component-dev-dir .`
+for the ordinary edit/run loop, and use CAR/SAR/repository options only when
+the sample is specifically demonstrating packaged source loading.
+
+
+Published runtime example:
 
 ```bash
-cs install cncf
+cncf dev command --project . --component-dev-dir . minimal.main.hello
 ```
 
-Then each sample can use the compatibility wrapper:
+CNCF core development runtime example:
 
 ```bash
-bash ../../bin/cncf ...
+cncf --runtime-dev-dir /path/to/cloud-native-component-framework \
+  dev command --project . --component-dev-dir . minimal.main.hello
 ```
 
-or explicitly choose the runtime version:
+Packaged source examples:
 
 ```bash
-bash ../../bin/cncf --cncf-version 0.4.2-SNAPSHOT ...
+cncf dev command --project . --no-project-classpath --component-car-dir car.d testcomp.main.hello
+cncf dev command --project . --no-project-classpath --subsystem-sar-dir sar.d testcomp.main.hello
+cncf dev command --project . --no-project-classpath --repository-dir repository.d --textus.component=<component> <operation>
 ```
 
-For CNCF core development, point the wrapper at a local CNCF runtime checkout:
-
-```bash
-bash ../../bin/cncf --runtime-dev-dir /path/to/cloud-native-component-framework --discover=classes ...
-```
-
-`--discover=classes` is retained as a legacy programming-time compatibility input in `bin/cncf`; it uses the wrapper-prepared project classpath and suppresses automatic `component-dev-dir` activation. Prefer explicit repository/component sources for packaged-artifact samples.
+`--discover=classes` and the sample-local `bin/cncf` wrapper are historical
+compatibility mechanisms. Current samples should demonstrate explicit launcher
+sources such as `--component-dev-dir`, `--component-car-dir`,
+`--subsystem-sar-dir`, or `repository.d`.
 
 Development order follows the stages recorded in `docs/journal/2026/03/cncf-samples-project.md`.
 
@@ -76,10 +84,10 @@ Development order follows the stages recorded in `docs/journal/2026/03/cncf-samp
 5. `01.d-component-script`
 6. `02-component`
 7. `02.a-car-dir-lab`
-8. `02.b-discover-classes-lab`
+8. `02.b-discover-classes-lab` (converted to `--component-dev-dir`; directory name is historical)
 9. `03-component-cml`
 10. `03.a-car-dir-cml-lab`
-11. `03.b-discover-classes-cml-lab`
+11. `03.b-discover-classes-cml-lab` (converted to `--component-dev-dir`; directory name is historical)
 12. `03.c-method-execution-cml-lab`
 13. `04-crud`
 14. `04.a-crud-seed-import-lab`
@@ -162,10 +170,10 @@ AI behavior is interpreted in the following order.
 │  ├─ 01.d-component-script/
 │  ├─ 02-component/
 │  ├─ 02.a-car-dir-lab/
-│  ├─ 02.b-discover-classes-lab/
+│  ├─ 02.b-discover-classes-lab/        # historical name; uses --component-dev-dir
 │  ├─ 03-component-cml/
 │  ├─ 03.a-car-dir-cml-lab/
-│  ├─ 03.b-discover-classes-cml-lab/
+│  ├─ 03.b-discover-classes-cml-lab/    # historical name; uses --component-dev-dir
 │  ├─ 03.c-method-execution-cml-lab/
 │  ├─ 04-crud/
 │  ├─ 04.a-crud-seed-import-lab/
@@ -300,31 +308,22 @@ so the usual edit/run form does not need `--textus.component` or
 `--textus.subsystem`:
 
 ```bash
-cncf --component-dev-dir . server
-cncf --subsystem-dev-dir . server
+cncf dev server --project . --component-dev-dir .
+cncf dev server --project . --subsystem-dev-dir .
 ```
 
 Programming-time example:
 
 ```bash
 cd samples/01-minimal
-sbt --batch "runMain org.goldenport.cncf.CncfMain command minimal.main.hello"
+cncf dev command --project . --component-dev-dir . minimal.main.hello
 ```
 
 Deployment-style invocation can also be separated from local verification through `invoke.sh` per sample.
 
-Shared shell utilities live under `scripts/`:
-
-- `scripts/cncf-run-main.sh`
-  - runs `org.goldenport.cncf.CncfMain` by default with sample-local `sbt runMain`
-  - can fall back to a sample-local main class only when needed
-- `scripts/sample-runner.sh`
-  - resolves the sample directory from the calling script and delegates to `cncf-run-main.sh`
-
-Preferred pattern:
-
-- Use the CNCF library main first
-- Introduce a sample-local main only when the CNCF main is insufficient
+Historical shell utilities under `scripts/` are retained only as deprecated
+migration guards. New and maintained samples should call `cncf dev` directly
+from their own `run.sh` / `invoke.sh`.
 
 ## Cozy Generation
 

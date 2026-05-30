@@ -2,10 +2,13 @@
 
 set -eu
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
 ITEM_ID=org-sample-entity-item-$(date +%s)000-gamma111
 
-bash ../../bin/cncf --discover=classes command help cqrs.item.create-item
-bash ../../bin/cncf --discover=classes command help cqrs.entity.create-item-record
-bash ../../bin/cncf --discover=classes command cqrs.meta.describe --format yaml
+cncf dev command --project . --component-dev-dir . help cqrs.item.create-item
+cncf dev command --project . --component-dev-dir . help cqrs.entity.create-item-record
+cncf dev command --project . --component-dev-dir . cqrs.meta.describe --format yaml
 
 sbt --batch "runMain org.sample.cqrs.CqrsSampleRunner $ITEM_ID"

@@ -1,6 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 set -eu
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
 
 mkdir -p repository.d car.d/component
 sbt --batch compile packageBin >/dev/null
@@ -21,23 +24,19 @@ rm -rf car.d/component
 mkdir -p car.d/component
 cp "$TMPDIR/descriptor.yaml" car.d/descriptor.yaml
 cp "$TMPDIR/component/main.jar" car.d/component/main.jar
+COMMON_ARGS=(
+  --no-project-classpath
+  --repository-dir "$REPO_DIR"
+  --textus.component=component-method-execution-sample
+)
 
 echo "--- component help"
-bash ../../bin/cncf \
-  --repository-dir "$REPO_DIR" \
-  --textus.component=component-method-execution-sample \
-  command meta.help component-method-execution-sample --format yaml
+cncf dev command --project . "${COMMON_ARGS[@]}" meta.help component-method-execution-sample --format yaml
 
 echo
 echo "--- operation help"
-bash ../../bin/cncf \
-  --repository-dir "$REPO_DIR" \
-  --textus.component=component-method-execution-sample \
-  command help component-method-execution-sample.greeting.compose-greeting
+cncf dev command --project . "${COMMON_ARGS[@]}" help component-method-execution-sample.greeting.compose-greeting
 
 echo
 echo "--- execute"
-bash ../../bin/cncf \
-  --repository-dir "$REPO_DIR" \
-  --textus.component=component-method-execution-sample \
-  command component-method-execution-sample.greeting.compose-greeting --name Alice
+cncf dev command --project . "${COMMON_ARGS[@]}" component-method-execution-sample.greeting.compose-greeting --name Alice

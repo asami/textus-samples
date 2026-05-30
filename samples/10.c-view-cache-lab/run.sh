@@ -2,13 +2,14 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
 mkdir -p "$SCRIPT_DIR/target/cncf.d"
 
 run_command() {
   local workspace="$1"
-  shift
-  bash "$SCRIPT_DIR/../../bin/cncf" \
-    --discover=classes \
+  local mode="$2"
+  shift 2
+  cncf dev "$mode" --project . --component-dev-dir . \
     --workspace "$SCRIPT_DIR/target/cncf.d/$workspace" \
     "$@"
 }

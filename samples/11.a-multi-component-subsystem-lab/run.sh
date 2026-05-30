@@ -3,6 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 WORK_DIR="$(mktemp -d)"
+cd "$SCRIPT_DIR"
 trap 'rm -rf "$WORK_DIR"' EXIT
 
 sbt --batch compile >/dev/null
@@ -57,28 +58,28 @@ COMMON_ARGS=(
 )
 
 echo "--- subsystem help"
-bash ../../bin/cncf command meta.help --format yaml "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" meta.help --format yaml
 
 echo
 echo "--- alpha component help"
-bash ../../bin/cncf command meta.help alphacomp --format yaml "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" meta.help alphacomp --format yaml
 
 echo
 echo "--- beta component help"
-bash ../../bin/cncf command meta.help betacomp --format yaml "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" meta.help betacomp --format yaml
 
 echo
 echo "--- alpha operation help"
-bash ../../bin/cncf command help alphacomp.main.hello "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" help alphacomp.main.hello
 
 echo
 echo "--- beta operation help"
-bash ../../bin/cncf command help betacomp.main.hello "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" help betacomp.main.hello
 
 echo
 echo "--- execute alpha"
-bash ../../bin/cncf command alphacomp.main.hello "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" alphacomp.main.hello
 
 echo
 echo "--- execute beta"
-bash ../../bin/cncf command betacomp.main.hello "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" betacomp.main.hello

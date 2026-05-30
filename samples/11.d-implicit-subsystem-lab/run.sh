@@ -1,21 +1,20 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
 echo "--- subsystem help"
-bash ../../bin/cncf --discover=classes \
-  command meta.help --format yaml
+cncf dev command --project . --component-dev-dir . meta.help --format yaml
 
 echo
 echo "--- component help"
-bash ../../bin/cncf --discover=classes \
-  command meta.help subsystem --format yaml
+cncf dev command --project . --component-dev-dir . meta.help subsystem --format yaml
 
 echo
 echo "--- operation help"
-bash ../../bin/cncf --discover=classes \
-  command help subsystem.main.hello
+cncf dev command --project . --component-dev-dir . help subsystem.main.hello
 
 echo
 echo "--- execute"
-bash ../../bin/cncf --discover=classes \
-  command subsystem.main.hello
+cncf dev command --project . --component-dev-dir . subsystem.main.hello

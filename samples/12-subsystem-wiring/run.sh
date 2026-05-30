@@ -3,6 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 WORK_DIR="$(mktemp -d)"
+cd "$SCRIPT_DIR"
 trap 'rm -rf "$WORK_DIR"' EXIT
 
 sbt --batch compile >/dev/null
@@ -116,44 +117,44 @@ COMMON_ARGS=(
 )
 
 echo "--- subsystem help"
-bash ../../bin/cncf command meta.help --format yaml "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" meta.help --format yaml
 
 echo
 echo "--- caller component help"
-bash ../../bin/cncf command meta.help callercomp --format yaml "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" meta.help callercomp --format yaml
 
 echo
 echo "--- callee component help"
-bash ../../bin/cncf command meta.help calleecomp --format yaml "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" meta.help calleecomp --format yaml
 
 echo
 echo "--- caller operation help"
-bash ../../bin/cncf command help callercomp.main.hello "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" help callercomp.main.hello
 
 echo
 echo "--- callee operation help"
-bash ../../bin/cncf command help calleecomp.main.hello "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" help calleecomp.main.hello
 
 echo
 echo "--- assembly report"
-bash ../../bin/cncf command admin.assembly.report --format yaml "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" admin.assembly.report --format yaml
 
 echo
 echo "--- assembly descriptor"
-bash ../../bin/cncf command admin.assembly.descriptor --format yaml "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" admin.assembly.descriptor --format yaml
 
 echo
 echo "--- assembly descriptor override"
-bash ../../bin/cncf command admin.assembly.descriptor --format yaml "${COMMON_ARGS[@]}" --textus.assembly.descriptor="$WORK_DIR/override-assembly-descriptor.yaml"
+cncf dev command --project . "${COMMON_ARGS[@]}" --textus.assembly.descriptor="$WORK_DIR/override-assembly-descriptor.yaml" admin.assembly.descriptor --format yaml
 
 echo
 echo "--- assembly diagram"
-bash ../../bin/cncf command admin.assembly.diagram "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" admin.assembly.diagram
 
 echo
 echo "--- execute caller"
-bash ../../bin/cncf command callercomp.main.hello --calltree --format yaml "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" callercomp.main.hello --calltree --format yaml
 
 echo
 echo "--- execute callee"
-bash ../../bin/cncf command calleecomp.main.hello "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" calleecomp.main.hello

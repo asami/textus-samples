@@ -81,13 +81,13 @@ The shell wrappers are intentionally thin, but that also makes their behavior ea
 `run.sh` is the development-time entry point.
 It calls the shared runner with:
 
-- `--discover-classes`
+- `--component-dev-dir .`
 - `--command-path minimal.main.hello`
 
 Conceptually, it becomes:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command minimal.main.hello"
+cncf dev command --project . --component-dev-dir . minimal.main.hello
 ```
 
 Meaning:
@@ -108,7 +108,7 @@ Conceptually, it becomes:
 
 ```bash
 sbt package
-sbt --batch "runMain org.goldenport.cncf.CncfMain --component-dir=../component.d command minimal.main.hello"
+cncf dev command --project . --no-project-classpath --component-dir ../component.d minimal.main.hello
 ```
 
 Meaning:

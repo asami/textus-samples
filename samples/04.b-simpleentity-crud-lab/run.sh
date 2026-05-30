@@ -2,7 +2,10 @@
 
 set -eu
 
-bash ../../bin/cncf --discover=classes command help simple-entity-crud-lab
-bash ../../bin/cncf --discover=classes command help simple-entity-crud-lab.item
-bash ../../bin/cncf --discover=classes command help simple-entity-crud-lab.item.create-item
-bash ../../bin/cncf --discover=classes command simple-entity-crud-lab.meta.describe --format yaml
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
+cncf dev command --project . --component-dev-dir . help simple-entity-crud-lab
+cncf dev command --project . --component-dev-dir . help simple-entity-crud-lab.item
+cncf dev command --project . --component-dev-dir . help simple-entity-crud-lab.item.create-item
+cncf dev command --project . --component-dev-dir . simple-entity-crud-lab.meta.describe --format yaml

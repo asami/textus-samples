@@ -3,6 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 WORK_DIR="$(mktemp -d)"
+cd "$SCRIPT_DIR"
 trap 'rm -rf "$WORK_DIR"' EXIT
 
 sbt --batch compile packageBin >/dev/null
@@ -35,24 +36,16 @@ EOF
 (cd "$WORK_DIR/testsubsystem.sar.d" && zip -qr "$SCRIPT_DIR/component.d/testsubsystem.sar" subsystem-descriptor.yaml)
 
 echo "--- subsystem help"
-bash ../../bin/cncf \
-  command meta.help --format yaml \
-  --textus.subsystem=testsubsystem
+cncf dev command --project . --no-project-classpath --component-dir component.d --textus.subsystem=testsubsystem meta.help --format yaml
 
 echo
 echo "--- component help"
-bash ../../bin/cncf \
-  command meta.help testcomp --format yaml \
-  --textus.subsystem=testsubsystem
+cncf dev command --project . --no-project-classpath --component-dir component.d --textus.subsystem=testsubsystem meta.help testcomp --format yaml
 
 echo
 echo "--- operation help"
-bash ../../bin/cncf \
-  command help testcomp.main.hello \
-  --textus.subsystem=testsubsystem
+cncf dev command --project . --no-project-classpath --component-dir component.d --textus.subsystem=testsubsystem help testcomp.main.hello
 
 echo
 echo "--- execute"
-bash ../../bin/cncf \
-  command testcomp.main.hello \
-  --textus.subsystem=testsubsystem
+cncf dev command --project . --no-project-classpath --component-dir component.d --textus.subsystem=testsubsystem testcomp.main.hello

@@ -1,6 +1,9 @@
 #!/bin/sh
 set -eu
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
 dir="$(CDPATH= cd -- "$(dirname "$0")" && pwd)"
 cd "$dir"
 
@@ -13,7 +16,7 @@ server_pid=""
 if curl -sS "$SERVER_BASEURL/" >/dev/null 2>&1; then
   echo "Reusing existing server on :$SERVER_PORT"
 else
-  bash ../../bin/cncf --discover=classes server >"$logfile" 2>&1 &
+  cncf dev server --project . --component-dev-dir . >"$logfile" 2>&1 &
   server_pid=$!
   cleanup() {
     if [ -n "$server_pid" ]; then
@@ -35,9 +38,9 @@ else
   done
 fi
 
-job_id="$(bash ../../bin/cncf --discover=classes client job-sample.item.create-item --name alpha --title Alpha)"
+job_id="$(cncf dev client --project . --component-dev-dir . job-sample.item.create-item --name alpha --title Alpha)"
 printf '%s\n' "$job_id"
-bash ../../bin/cncf --discover=classes client job-control.job.await-job-result --id "$job_id"
-bash ../../bin/cncf --discover=classes client job-control.job.get-job-result --id "$job_id"
-bash ../../bin/cncf --discover=classes client job-control.job.get-job-status --id "$job_id"
-bash ../../bin/cncf --discover=classes client job-control.job.load-job-history --id "$job_id"
+cncf dev client --project . --component-dev-dir . job-control.job.await-job-result --id "$job_id"
+cncf dev client --project . --component-dev-dir . job-control.job.get-job-result --id "$job_id"
+cncf dev client --project . --component-dev-dir . job-control.job.get-job-status --id "$job_id"
+cncf dev client --project . --component-dev-dir . job-control.job.load-job-history --id "$job_id"

@@ -1,21 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
 sbt --batch compile >/dev/null
 
 echo "--- component help"
-bash ../../bin/cncf \
-  --discover=classes \
-  command meta.help component-cml-sample --format yaml
+cncf dev command --project . --component-dev-dir . meta.help component-cml-sample --format yaml
 
 echo
 echo "--- operation help"
-bash ../../bin/cncf \
-  --discover=classes \
-  command help component-cml-sample.greeting.greeting
+cncf dev command --project . --component-dev-dir . help component-cml-sample.greeting.greeting
 
 echo
 echo "--- metadata"
-bash ../../bin/cncf \
-  --discover=classes \
-  command component-cml-sample.meta.describe --format yaml
+cncf dev command --project . --component-dev-dir . component-cml-sample.meta.describe --format yaml

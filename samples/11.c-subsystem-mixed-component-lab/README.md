@@ -172,7 +172,7 @@ with the same component name, the runtime records an assembly warning instead of
 That warning can be inspected through:
 
 ```bash
-bash ../../bin/cncf command admin.assembly.warnings --format yaml --no-default-components --component-dir <temporary-component-dir> --textus.subsystem=testsubsystemmixed
+cncf dev command --project . admin.assembly.warnings --format yaml --no-default-components --component-dir <temporary-component-dir> --textus.subsystem=testsubsystemmixed
 ```
 
 In the normal walkthrough, no warning should be present.

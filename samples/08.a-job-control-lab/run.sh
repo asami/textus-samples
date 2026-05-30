@@ -13,7 +13,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-bash ../../bin/cncf --discover=classes server >/tmp/06-a-job-control-server.log 2>&1 &
+cncf dev server --project . --component-dev-dir . >/tmp/06-a-job-control-server.log 2>&1 &
 server_pid=$!
 
 for _ in $(seq 1 30); do
@@ -23,20 +23,20 @@ for _ in $(seq 1 30); do
   sleep 1
 done
 
-job_json="$(bash ../../bin/cncf --discover=classes client job-control-lab.item.create-item --name quick --title Quick)"
+job_json="$(cncf dev client --project . --component-dev-dir . job-control-lab.item.create-item --name quick --title Quick)"
 echo "${job_json}"
 job_id="$(printf '%s\n' "${job_json}" | sed -n 's/.*"job_id":"\([^"]*\)".*/\1/p')"
 
-bash ../../bin/cncf --discover=classes client job-control.job-admin.suspend-job --id "${job_id}" --privilege content_admin
-bash ../../bin/cncf --discover=classes client job-control.job.get-job-status --id "${job_id}"
-bash ../../bin/cncf --discover=classes client job-control.job-admin.resume-job --id "${job_id}" --privilege content_admin
+cncf dev client --project . --component-dev-dir . job-control.job-admin.suspend-job --id "${job_id}" --privilege content_admin
+cncf dev client --project . --component-dev-dir . job-control.job.get-job-status --id "${job_id}"
+cncf dev client --project . --component-dev-dir . job-control.job-admin.resume-job --id "${job_id}" --privilege content_admin
 
 await_job_result() {
   local id="$1"
   local result=""
   local i
   for i in $(seq 1 10); do
-    result="$(bash ../../bin/cncf --discover=classes client job-control.job.await-job-result --id "${id}")"
+    result="$(cncf dev client --project . --component-dev-dir . job-control.job.await-job-result --id "${id}")"
     if printf '%s\n' "${result}" | grep -q '"id":"major-minor-entity-item-'; then
       printf '%s\n' "${result}"
       return 0
@@ -48,13 +48,13 @@ await_job_result() {
 }
 
 await_job_result "${job_id}"
-bash ../../bin/cncf --discover=classes client job-control.job.load-job-history --id "${job_id}"
-bash ../../bin/cncf --discover=classes command event.event-admin.load-job-events --id "${job_id}" --privilege content_admin
+cncf dev client --project . --component-dev-dir . job-control.job.load-job-history --id "${job_id}"
+cncf dev command --project . --component-dev-dir . event.event-admin.load-job-events --id "${job_id}" --privilege content_admin
 
-cancel_json="$(bash ../../bin/cncf --discover=classes client job-control-lab.item.create-item --name cancel --title Cancel)"
+cancel_json="$(cncf dev client --project . --component-dev-dir . job-control-lab.item.create-item --name cancel --title Cancel)"
 echo "${cancel_json}"
 cancel_job_id="$(printf '%s\n' "${cancel_json}" | sed -n 's/.*"job_id":"\([^"]*\)".*/\1/p')"
 
-bash ../../bin/cncf --discover=classes client job-control.job-admin.cancel-job --id "${cancel_job_id}" --privilege content_admin
-bash ../../bin/cncf --discover=classes client job-control.job.load-job-history --id "${cancel_job_id}"
-bash ../../bin/cncf --discover=classes command event.event-admin.load-job-events --id "${cancel_job_id}" --privilege content_admin
+cncf dev client --project . --component-dev-dir . job-control.job-admin.cancel-job --id "${cancel_job_id}" --privilege content_admin
+cncf dev client --project . --component-dev-dir . job-control.job.load-job-history --id "${cancel_job_id}"
+cncf dev command --project . --component-dev-dir . event.event-admin.load-job-events --id "${cancel_job_id}" --privilege content_admin

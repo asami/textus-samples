@@ -83,7 +83,7 @@ Prepare the local `cozy` launcher that `sbt-cozy` delegates to during generation
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf --discover=classes` will use later.
+Compile the sample and generate the runtime classes that `cncf dev --component-dev-dir .` will use later.
 
 ```bash
 sbt --batch clean compile
@@ -106,16 +106,16 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash ../../bin/cncf --discover=classes ...
+bash cncf dev command --project . --component-dev-dir . ...
 ```
 
 Common points:
 
 - `cncf`:
   - the standard CNCF command-line entry point
-  - in this sample repository it is invoked through `../../bin/cncf`
+  - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--discover=classes`:
+- `--component-dev-dir .`:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -132,7 +132,7 @@ Common points:
 Start by confirming that the generated component exposes the item command and standard support services.
 
 ```bash
-bash ../../bin/cncf --discover=classes command help job-sample
+cncf dev command --project . --component-dev-dir . help job-sample
 ```
 
 Parameters:
@@ -164,7 +164,7 @@ operationDefinitions:
 Next, inspect the actual command that creates job-managed work.
 
 ```bash
-bash ../../bin/cncf --discover=classes command help job-sample.item.create-item
+cncf dev command --project . --component-dev-dir . help job-sample.item.create-item
 ```
 
 Parameters:
@@ -192,11 +192,11 @@ returns:
 Confirm that the standard `job-control` selectors are available for this command's lifecycle.
 
 ```bash
-bash ../../bin/cncf --discover=classes command help job-control.job
-bash ../../bin/cncf --discover=classes command help job-control.job.await-job-result
-bash ../../bin/cncf --discover=classes command help job-control.job.get-job-result
-bash ../../bin/cncf --discover=classes command help job-control.job.get-job-status
-bash ../../bin/cncf --discover=classes command help job-control.job.load-job-history
+cncf dev command --project . --component-dev-dir . help job-control.job
+cncf dev command --project . --component-dev-dir . help job-control.job.await-job-result
+cncf dev command --project . --component-dev-dir . help job-control.job.get-job-result
+cncf dev command --project . --component-dev-dir . help job-control.job.get-job-status
+cncf dev command --project . --component-dev-dir . help job-control.job.load-job-history
 ```
 
 Parameters:
@@ -226,7 +226,7 @@ It is a standard CNCF operational surface.
 Use metadata to confirm the modeled runtime shape before starting the server.
 
 ```bash
-bash ../../bin/cncf --discover=classes command job-sample.meta.describe --format yaml
+cncf dev command --project . --component-dev-dir . job-sample.meta.describe --format yaml
 ```
 
 Parameters:
@@ -252,7 +252,7 @@ operation_definitions:
 Now start CNCF in server mode so the job state remains available across requests.
 
 ```bash
-bash ../../bin/cncf --discover=classes server
+cncf dev server --project . --component-dev-dir .
 ```
 
 Parameters:
@@ -270,7 +270,7 @@ Ember-Server service bound to address: [::]:8080
 From another shell, submit the create command.
 
 ```bash
-bash ../../bin/cncf --discover=classes client job-sample.item.create-item --name alpha --title Alpha
+cncf dev client --project . --component-dev-dir . job-sample.item.create-item --name alpha --title Alpha
 ```
 
 Parameters:
@@ -298,7 +298,7 @@ cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
 Use the returned job id to wait until the command finishes.
 
 ```bash
-bash ../../bin/cncf --discover=classes client job-control.job.await-job-result --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
+cncf dev client --project . --component-dev-dir . job-control.job.await-job-result --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
 ```
 
 Parameters:
@@ -320,7 +320,7 @@ Expected result example:
 Read the persisted result again through the explicit result selector.
 
 ```bash
-bash ../../bin/cncf --discover=classes client job-control.job.get-job-result --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
+cncf dev client --project . --component-dev-dir . job-control.job.get-job-result --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
 ```
 
 Parameters:
@@ -342,7 +342,7 @@ Expected result example:
 Read the operational summary view for the same job.
 
 ```bash
-bash ../../bin/cncf --discover=classes client job-control.job.get-job-status --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
+cncf dev client --project . --component-dev-dir . job-control.job.get-job-status --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
 ```
 
 Parameters:
@@ -372,7 +372,7 @@ Expected result example:
 Finally, inspect the timeline itself.
 
 ```bash
-bash ../../bin/cncf --discover=classes client job-control.job.load-job-history --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
+cncf dev client --project . --component-dev-dir . job-control.job.load-job-history --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
 ```
 
 Parameters:

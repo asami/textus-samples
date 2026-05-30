@@ -3,6 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 WORK_DIR="$(mktemp -d)"
+cd "$SCRIPT_DIR"
 trap 'rm -rf "$WORK_DIR"' EXIT
 
 sbt --batch compile >/dev/null
@@ -59,28 +60,28 @@ COMMON_ARGS=(
 )
 
 echo "--- subsystem help"
-bash ../../bin/cncf command meta.help --format yaml "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" meta.help --format yaml
 
 echo
 echo "--- generic component help"
-bash ../../bin/cncf command meta.help genericcomp --format yaml "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" meta.help genericcomp --format yaml
 
 echo
 echo "--- bundled component help"
-bash ../../bin/cncf command meta.help bundledcomp --format yaml "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" meta.help bundledcomp --format yaml
 
 echo
 echo "--- generic operation help"
-bash ../../bin/cncf command help genericcomp.main.hello "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" help genericcomp.main.hello
 
 echo
 echo "--- bundled operation help"
-bash ../../bin/cncf command help bundledcomp.main.hello "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" help bundledcomp.main.hello
 
 echo
 echo "--- execute generic"
-bash ../../bin/cncf command genericcomp.main.hello "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" genericcomp.main.hello
 
 echo
 echo "--- execute bundled"
-bash ../../bin/cncf command bundledcomp.main.hello "${COMMON_ARGS[@]}"
+cncf dev command --project . "${COMMON_ARGS[@]}" bundledcomp.main.hello

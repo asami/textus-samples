@@ -11,4 +11,4 @@ fi
 
 job_id="$1"
 
-exec bash ../../bin/cncf --discover=classes client job-control.job.await-job-result --id "$job_id"
+exec cncf dev client --project . --component-dev-dir . job-control.job.await-job-result --id "$job_id"

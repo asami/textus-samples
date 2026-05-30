@@ -63,14 +63,14 @@ Run:
 Observe:
 
 - `run.sh` calls the shared sample runner
-- it enables `--discover=classes`
+- it enables `--component-dev-dir .`
 - it targets `minimal.main.hello`
 - the execution source is the compiled classes in this sample directory
 
 Conceptual shape:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command minimal.main.hello"
+cncf dev command --project . --component-dev-dir . minimal.main.hello
 ```
 
 ### 3. Run The Deployment-Style Path
@@ -91,7 +91,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --component-dir=../component.d command minimal.main.hello"
+cncf dev command --project . --no-project-classpath --component-dir ../component.d minimal.main.hello
 ```
 
 ### 4. Compare The Two Loading Sources

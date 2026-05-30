@@ -9,6 +9,7 @@ SAR_DIR="$WORK_DIR/explicit-subsystem.sar.d"
 CAR_FILE="$WORK_DIR/base.car"
 SAR_FILE="$SCRIPT_DIR/component.d/explicit-subsystem.sar"
 COMPONENT_BINARY="$BASELINE_DIR/target/scala-3.3.7/textus-samples-11-subsystem_3-0.1.0-SNAPSHOT.jar"
+cd "$SCRIPT_DIR"
 
 mkdir -p "$SCRIPT_DIR/component.d"
 rm -rf "$CAR_DIR" "$SAR_DIR"
@@ -39,28 +40,16 @@ EOF
 (cd "$SAR_DIR" && zip -qr "$SAR_FILE" subsystem-descriptor.yaml component)
 
 echo "--- subsystem help"
-bash ../../bin/cncf \
-  command meta.help --format yaml \
-  --no-default-components \
-  --textus.subsystem=testsubsystem
+cncf dev command --project . --no-project-classpath --no-default-components --component-dir component.d --textus.subsystem=testsubsystem meta.help --format yaml
 
 echo
 echo "--- component help"
-bash ../../bin/cncf \
-  command meta.help testcomp --format yaml \
-  --no-default-components \
-  --textus.subsystem=testsubsystem
+cncf dev command --project . --no-project-classpath --no-default-components --component-dir component.d --textus.subsystem=testsubsystem meta.help testcomp --format yaml
 
 echo
 echo "--- operation help"
-bash ../../bin/cncf \
-  command help testcomp.main.hello \
-  --no-default-components \
-  --textus.subsystem=testsubsystem
+cncf dev command --project . --no-project-classpath --no-default-components --component-dir component.d --textus.subsystem=testsubsystem help testcomp.main.hello
 
 echo
 echo "--- execute"
-bash ../../bin/cncf \
-  command testcomp.main.hello \
-  --no-default-components \
-  --textus.subsystem=testsubsystem
+cncf dev command --project . --no-project-classpath --no-default-components --component-dir component.d --textus.subsystem=testsubsystem testcomp.main.hello

@@ -22,7 +22,7 @@ It is meant to show:
 
 - how one entity model becomes a component
 - how one generated service exposes CRUD-oriented operations
-- how to inspect the generated surface through `bin/cncf`
+- how to inspect the generated surface through `cncf dev`
 
 It is not meant to show:
 
@@ -62,7 +62,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf --discover=classes` will use later.
+Compile the sample and generate the runtime classes that `cncf dev --component-dev-dir .` will use later.
 
 ```bash
 $ cd samples/04-crud
@@ -87,16 +87,16 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash ../../bin/cncf --discover=classes ...
+bash cncf dev command --project . --component-dev-dir . ...
 ```
 
 Common points:
 
 - `cncf`:
   - the standard CNCF command-line entry point
-  - in this sample repository it is invoked through `../../bin/cncf`
+  - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--discover=classes`:
+- `--component-dev-dir .`:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -109,7 +109,7 @@ Common points:
 This command shows the generated component surface.
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command help crud
+$ cncf dev command --project . --component-dev-dir . help crud
 ```
 
 Parameters:
@@ -151,7 +151,7 @@ This confirms that the model generated:
 This command shows the generated service surface.
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command help crud.item
+$ cncf dev command --project . --component-dev-dir . help crud.item
 ```
 
 Parameters:
@@ -187,7 +187,7 @@ This is the first point where the generated service contract becomes visible.
 This command shows one generated operation.
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command help crud.item.create-item
+$ cncf dev command --project . --component-dev-dir . help crud.item.create-item
 ```
 
 Parameters:
@@ -227,7 +227,7 @@ This confirms:
 This command shows the generated component metadata.
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command crud.meta.describe --format yaml
+$ cncf dev command --project . --component-dev-dir . crud.meta.describe --format yaml
 ```
 
 Parameters:
@@ -281,5 +281,5 @@ This is useful when you want to confirm the generated runtime contract without r
 Use `04-crud` as the first checkpoint for the `02-*` line:
 
 - the model generates the CRUD surface
-- `bin/cncf` exposes that surface directly
+- `cncf dev` exposes that surface directly
 - later labs add data, runtime behavior, and storage-specific concerns

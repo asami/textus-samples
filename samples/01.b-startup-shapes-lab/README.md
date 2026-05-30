@@ -83,7 +83,7 @@ To stop the process:
 Conceptual shape:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes server"
+cncf dev server --project . --component-dev-dir .
 ```
 
 ### 3. Probe The Running Server With `curl`
@@ -128,7 +128,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain client --help"
+cncf dev client --project . --component-dev-dir . --help
 ```
 
 ### 5. Run The Command Shape Last
@@ -148,7 +148,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-sbt --batch "runMain org.goldenport.cncf.CncfMain --discover=classes command minimal.main.hello"
+cncf dev command --project . --component-dev-dir . minimal.main.hello
 ```
 
 ### 6. Compare The Startup Shapes

@@ -96,9 +96,9 @@ The commands below use these common conventions:
 
 - `cncf`
   - the standard CNCF CLI entry point
-  - in this repository it is invoked as `../../bin/cncf`
+  - in this repository it is invoked directly through the installed `cncf` launcher
   - after a normal installation it is typically available as `cncf`
-- `--discover=classes`
+- `--component-dev-dir .`
   - tells CNCF to discover generated components from the compiled class directory
 - `server`
   - starts the CNCF server runtime for this sample
@@ -112,7 +112,7 @@ The commands below use these common conventions:
 ### 1. Start the server
 
 ```bash
-$ bash ../../bin/cncf --discover=classes server
+$ cncf dev server --project . --component-dev-dir .
 ```
 
 This starts the sample runtime and loads `AggregateSample` through the preferred impl factory.
@@ -124,7 +124,7 @@ Parameters:
 ### 2. Inspect the aggregate command surface
 
 ```bash
-$ bash ../../bin/cncf --discover=classes command help aggregate-sample.order.add-line
+$ cncf dev command --project . --component-dev-dir . help aggregate-sample.order.add-line
 ```
 
 This shows the aggregate command surface that appends one member line to an existing order.
@@ -140,7 +140,7 @@ Parameters:
 ### 3. Create the root order
 
 ```bash
-$ bash ../../bin/cncf --discover=classes client aggregate-sample.entity.create-order-record --name alpha --status Draft
+$ cncf dev client --project . --component-dev-dir . aggregate-sample.entity.create-order-record --name alpha --status Draft
 ```
 
 This creates the root `Order` entity.
@@ -165,7 +165,7 @@ cncf-job-job-1775531118508-7ejVSMHaZhCHd4nrtg7uPx
 ### 4. Await the create result
 
 ```bash
-$ bash ../../bin/cncf --discover=classes client job-control.job.await-job-result --id cncf-job-job-1775531118508-7ejVSMHaZhCHd4nrtg7uPx
+$ cncf dev client --project . --component-dev-dir . job-control.job.await-job-result --id cncf-job-job-1775531118508-7ejVSMHaZhCHd4nrtg7uPx
 ```
 
 This resolves the job and returns the created order id.
@@ -187,7 +187,7 @@ Example result:
 ### 5. Append one aggregate member
 
 ```bash
-$ bash ../../bin/cncf --discover=classes client aggregate-sample.order.add-line --order-id major-minor-entity-order-1775531118546-EwawSPXnjIymHzu8DVknz --line-name pen --quantity 2
+$ cncf dev client --project . --component-dev-dir . aggregate-sample.order.add-line --order-id major-minor-entity-order-1775531118546-EwawSPXnjIymHzu8DVknz --line-name pen --quantity 2
 ```
 
 This executes the aggregate command.
@@ -214,7 +214,7 @@ cncf-job-job-1775531146663-5EuFzAH6P2xv3mhEoG9y3j
 ### 6. Load the aggregate
 
 ```bash
-$ bash ../../bin/cncf --discover=classes client aggregate-sample.order.load-order-aggregate --id major-minor-entity-order-1775531118546-EwawSPXnjIymHzu8DVknz
+$ cncf dev client --project . --component-dev-dir . aggregate-sample.order.load-order-aggregate --id major-minor-entity-order-1775531118546-EwawSPXnjIymHzu8DVknz
 ```
 
 This loads the aggregate-shaped result.

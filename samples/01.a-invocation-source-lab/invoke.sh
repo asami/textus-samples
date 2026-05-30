@@ -7,7 +7,7 @@ sbt package >/dev/null
 PACKAGE_JAR="$(find target/scala-3.3.7 -maxdepth 1 -name '*.jar' | sort | tail -n 1)"
 mkdir -p "$SCRIPT_DIR/../component.d"
 cp "$PACKAGE_JAR" "$SCRIPT_DIR/../component.d/MinimalComponent.jar"
-exec bash "$SCRIPT_DIR/../../bin/cncf" \
+exec cncf dev command --project . --no-project-classpath \
   --component-dir "$SCRIPT_DIR/../component.d" \
-  command minimal.main.hello \
+  minimal.main.hello \
   "$@"

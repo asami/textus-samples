@@ -65,7 +65,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf --discover=classes` will use later.
+Compile the sample and generate the runtime classes that `cncf dev --component-dev-dir .` will use later.
 
 ```bash
 $ cd samples/05.b-operation-entity-lab
@@ -90,14 +90,14 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash ../../bin/cncf --discover=classes ...
+bash cncf dev command --project . --component-dev-dir . ...
 ```
 
 Common points:
 
 - `cncf`:
   - the standard CNCF command-line entry point
-  - in this sample repository it is invoked through `../../bin/cncf`
+  - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
 - `--component-factory-class ...`:
   - use the sample-specific factory that provides executable behavior for the minimal walkthrough
@@ -109,7 +109,7 @@ Common points:
 ### Operation Help
 
 ```bash
-$ bash ../../bin/cncf --component-factory-class org.sample.operationentity.OperationEntitySampleFactory command help operation-entity-sample.person-app.get-person-card
+$ cncf dev command --project . --no-project-component-dev-dir --component-factory-class org.sample.operationentity.OperationEntitySampleFactory help operation-entity-sample.person-app.get-person-card
 ```
 
 Parameters:
@@ -147,7 +147,7 @@ This confirms the contract surface:
 ### Metadata Describe
 
 ```bash
-$ bash ../../bin/cncf --component-factory-class org.sample.operationentity.OperationEntitySampleFactory command operation-entity-sample.meta.describe --format yaml
+$ cncf dev command --project . --no-project-component-dev-dir --component-factory-class org.sample.operationentity.OperationEntitySampleFactory operation-entity-sample.meta.describe --format yaml
 ```
 
 Parameters:
@@ -181,7 +181,7 @@ This confirms that the sample is still operation-oriented even though the compon
 ### Execute The Query Operation
 
 ```bash
-$ bash ../../bin/cncf --component-factory-class org.sample.operationentity.OperationEntitySampleFactory command operation-entity-sample.person-app.get-person-card --person-id major-minor-entity-person-1742198400000-abcd1234
+$ cncf dev command --project . --no-project-component-dev-dir --component-factory-class org.sample.operationentity.OperationEntitySampleFactory operation-entity-sample.person-app.get-person-card --person-id major-minor-entity-person-1742198400000-abcd1234
 ```
 
 Parameters:

@@ -2,10 +2,13 @@
 
 set -eu
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
 dbpath="target/cncf.d/02f-crud-nested-value-lab.sqlite"
 mkdir -p target/cncf.d
 
-exec bash ../../bin/cncf --discover=classes command \
+exec cncf dev command --project . --component-dev-dir . \
   "--cncf.datastore.sqlite.path=$dbpath" \
   --textus.command.execution-mode sync-direct-no-job \
   crud-nested-value-sample.entity.create-person \

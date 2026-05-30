@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
 mkdir -p repository.d car.d/component
 sbt --batch compile packageBin >/dev/null
 JAR="$(find target/scala-3.3.7 -name 'textus-samples-03-component-cml_3-*.jar' | head -n 1)"
@@ -20,23 +23,19 @@ rm -rf car.d/component
 mkdir -p car.d/component
 cp "$TMPDIR/descriptor.yaml" car.d/descriptor.yaml
 cp "$TMPDIR/component/main.jar" car.d/component/main.jar
+COMMON_ARGS=(
+  --no-project-classpath
+  --repository-dir "$REPO_DIR"
+  --textus.component=component-cml-sample
+)
 
 echo "--- component help"
-bash ../../bin/cncf \
-  --repository-dir "$REPO_DIR" \
-  --textus.component=component-cml-sample \
-  command meta.help component-cml-sample --format yaml
+cncf dev command --project . "${COMMON_ARGS[@]}" meta.help component-cml-sample --format yaml
 
 echo
 echo "--- operation help"
-bash ../../bin/cncf \
-  --repository-dir "$REPO_DIR" \
-  --textus.component=component-cml-sample \
-  command help component-cml-sample.greeting.greeting
+cncf dev command --project . "${COMMON_ARGS[@]}" help component-cml-sample.greeting.greeting
 
 echo
 echo "--- metadata"
-bash ../../bin/cncf \
-  --repository-dir "$REPO_DIR" \
-  --textus.component=component-cml-sample \
-  command component-cml-sample.meta.describe --format yaml
+cncf dev command --project . "${COMMON_ARGS[@]}" component-cml-sample.meta.describe --format yaml

@@ -11,4 +11,4 @@ fi
 
 item_id="$1"
 
-exec bash ../../bin/cncf --discover=classes client crud.entity.load-item --id "$item_id"
+exec cncf dev client --project . --component-dev-dir . crud.entity.load-item --id "$item_id"
