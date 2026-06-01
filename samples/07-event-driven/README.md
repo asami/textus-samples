@@ -85,7 +85,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf dev --component-dev-dir .` will use later.
+Compile the sample and generate the runtime classes that `cncf dev` will use later.
 
 ```bash
 $ cd samples/07-event-driven
@@ -110,7 +110,7 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash cncf dev command --project . --component-dev-dir . ...
+bash cncf dev command --project . ...
 ```
 
 Common points:
@@ -119,7 +119,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--component-dev-dir .`:
+- `--project .` auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -130,7 +130,7 @@ Common points:
 ### Component Help
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . help event-driven
+$ cncf dev command --project . help event-driven
 ```
 
 Output example:
@@ -151,7 +151,7 @@ This confirms that the generated component exposes an event-facing service.
 ### Emit Event Help
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . help event-driven.event.emit-event
+$ cncf dev command --project . help event-driven.event.emit-event
 ```
 
 Output example:
@@ -169,7 +169,7 @@ returns:
 ### Load Effect Help
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . help event-driven.event.load-effect
+$ cncf dev command --project . help event-driven.event.load-effect
 ```
 
 Output example:
@@ -187,7 +187,7 @@ returns:
 ### Metadata Describe
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . event-driven.meta.describe --format yaml
+$ cncf dev command --project . event-driven.meta.describe --format yaml
 ```
 
 This lets you inspect the modeled event-facing runtime surface in one place.

@@ -3,49 +3,34 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-COZY_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cozy-version.conf")"
+DEFAULT_COZY_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cozy-version.conf")"
 DEFAULT_CNCF_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cncf-version.conf")"
 DEFAULT_CNCF_SERVER_PORT="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cncf-server-port.conf")"
 DEFAULT_CORE_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/goldenport-core-version.conf")"
 DEFAULT_SIMPLEMODELING_MODEL_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/simplemodeling-model-version.conf")"
-CACHE_ROOT="${XDG_CACHE_HOME:-$HOME/.cache}"
-LAUNCHER_ROOT="$CACHE_ROOT/cncf-samples/cozy-launcher/$COZY_VERSION"
-STATE_FILE="$LAUNCHER_ROOT/.setup-complete"
-CS_VERSION_FILE="$REPO_ROOT/versions/coursier-version.conf"
-CNCF_COURSIER_CACHE="$REPO_ROOT/.cache/coursier"
-
+DEFAULT_SBT_COZY_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/sbt-cozy-version.conf")"
 usage() {
   cat <<'EOF'
 Usage:
   bin/setup
   bin/setup bootstrap
-  bin/setup cozy
+  bin/setup cozy [--cozy-version <version>] [--sbt-cozy-version <version>]
   bin/setup cncf [--cncf-version <version>] [--cncf-server-port <port>] [--core-version <version>] [--simplemodeling-model-version <version>]
   bin/setup all
 
 Current responsibilities:
-  - prepare the cozy launcher used by bin/cozy
+  - verify the installed cozy launcher used by bin/cozy and sbt-cozy delegates
   - verify the coursier-installed cncf command used directly by samples
-  - verify cozy dependency resolution for the configured version
+  - report the configured runtime dependency versions used by sample validation
 EOF
 }
 
+cozy_version="${COZY_VERSION:-$DEFAULT_COZY_VERSION}"
 cncf_version="${CNCF_VERSION:-$DEFAULT_CNCF_VERSION}"
 cncf_server_port="${CNCF_SERVER_PORT:-$DEFAULT_CNCF_SERVER_PORT}"
 core_version="${GOLDENPORT_CORE_VERSION:-$DEFAULT_CORE_VERSION}"
 simplemodeling_model_version="${SIMPLEMODELING_MODEL_VERSION:-$DEFAULT_SIMPLEMODELING_MODEL_VERSION}"
-
-find_coursier() {
-  if command -v cs >/dev/null 2>&1; then
-    command -v cs
-    return
-  fi
-  if command -v coursier >/dev/null 2>&1; then
-    command -v coursier
-    return
-  fi
-  return 1
-}
+sbt_cozy_version="${SBT_COZY_VERSION:-$DEFAULT_SBT_COZY_VERSION}"
 
 canonical_path() {
   local path="$1"
@@ -73,65 +58,50 @@ find_installed_cncf() {
   return 1
 }
 
-cozy_dependency_coords() {
-  printf '"org.simplemodeling" %%%% "cozy" %% "%s"' "$COZY_VERSION"
-}
 
-is_snapshot() {
-  [[ "$COZY_VERSION" == *-SNAPSHOT ]]
-}
-
-write_launcher_files() {
-  mkdir -p "$LAUNCHER_ROOT/project"
-  local resolver_block
-  local dependency_coords
-  dependency_coords="$(cozy_dependency_coords)"
-  if is_snapshot; then
-    resolver_block='  resolvers += Resolver.defaultLocal,
-  resolvers += "GitHab releases 2020" at "https://raw.github.com/asami/maven-repository/2020/releases",
-  resolvers += "GitHab releases 2025" at "https://raw.github.com/asami/maven-repository/2025/releases",
-  resolvers += "GitHub Packages" at "https://maven.pkg.github.com/asami/maven-repository",
-  credentials += Credentials(Path.userHome / ".sbt" / ".credentials"),'
-  else
-    resolver_block='  resolvers += "GitHab releases 2020" at "https://raw.github.com/asami/maven-repository/2020/releases",
-  resolvers += "GitHab releases 2025" at "https://raw.github.com/asami/maven-repository/2025/releases",
-  resolvers += "GitHub Packages" at "https://maven.pkg.github.com/asami/maven-repository",
-  credentials += Credentials(Path.userHome / ".sbt" / ".credentials"),'
+find_installed_cozy() {
+  if [[ -n "${COZY_COMMAND:-}" ]]; then
+    printf '%s\n' "$COZY_COMMAND"
+    return
   fi
-  cat > "$LAUNCHER_ROOT/build.sbt" <<EOF
-ThisBuild / scalaVersion := "2.12.18"
-ThisBuild / evictionErrorLevel := Level.Warn
-
-lazy val root = (project in file(".")).settings(
-$resolver_block
-  libraryDependencies += $dependency_coords,
-  Compile / run / mainClass := Some("cozy.Cozy")
-)
-EOF
-  cat > "$LAUNCHER_ROOT/project/build.properties" <<'EOF'
-sbt.version=1.11.7
-EOF
+  local candidate=""
+  candidate="$(command -v cozy || true)"
+  if [[ -n "$candidate" ]]; then
+    local self candidate_path
+    self="$(canonical_path "$REPO_ROOT/bin/cozy")"
+    candidate_path="$(canonical_path "$candidate")"
+    if [[ "$candidate_path" != "$self" ]]; then
+      printf '%s\n' "$candidate"
+      return
+    fi
+  fi
+  return 1
 }
 
 prepare_cozy() {
-  rm -f "$STATE_FILE"
-  write_launcher_files
-  (
-    cd "$LAUNCHER_ROOT"
-    sbt \
-      --batch \
-      -Dsbt.server.autostart=false \
-      -Dsbt.supershell=false \
-      update
-  )
-  printf '%s\n' "$COZY_VERSION" > "$STATE_FILE"
-  echo "prepared cozy launcher: $LAUNCHER_ROOT"
-  echo "cozy version: $COZY_VERSION"
+  local cozy_bin
+  if ! cozy_bin="$(find_installed_cozy)"; then
+    echo "installed cozy launcher not found" >&2
+    echo "Install or expose it on PATH, or set COZY_COMMAND=/path/to/cozy." >&2
+    exit 3
+  fi
+  "$cozy_bin" help >/dev/null
+  if [[ -n "${COZY_PROJECT_DIR:-}" ]]; then
+    local classpath_file="${COZY_CLASSPATH_FILE:-$COZY_PROJECT_DIR/target/classpath.txt}"
+    if [[ ! -f "$classpath_file" ]]; then
+      echo "cozy source classpath file not found: $classpath_file" >&2
+      echo "Run: cd $COZY_PROJECT_DIR && sbt compile exportClasspath" >&2
+      exit 3
+    fi
+  fi
+  echo "cozy command: $cozy_bin"
+  echo "cozy version: $cozy_version"
+  echo "sbt-cozy version: $sbt_cozy_version"
+  if [[ -n "${COZY_PROJECT_DIR:-}" ]]; then
+    echo "cozy project dir: $COZY_PROJECT_DIR"
+  fi
 }
-
 prepare_cncf() {
-  local state_file="$CACHE_ROOT/cncf-samples/cncf-launcher/$cncf_version/.setup-complete"
-  rm -f "$state_file"
   if ! command -v java >/dev/null 2>&1; then
     echo "java command not found" >&2
     exit 3
@@ -143,9 +113,7 @@ prepare_cncf() {
     echo "If needed, set CNCF_COMMAND=/path/to/cncf." >&2
     exit 3
   fi
-  mkdir -p "$(dirname "$state_file")"
   "$cncf_bin" --help >/dev/null
-  printf '%s\n' "$cncf_version" > "$state_file"
   echo "java: $(command -v java)"
   echo "cncf command: $cncf_bin"
   echo "cncf version: $cncf_version"
@@ -161,6 +129,22 @@ main() {
   fi
   while [[ $# -gt 0 ]]; do
     case "$1" in
+      --cozy-version)
+        cozy_version="${2:-}"
+        shift 2
+        ;;
+      --cozy-version=*)
+        cozy_version="${1#--cozy-version=}"
+        shift
+        ;;
+      --sbt-cozy-version)
+        sbt_cozy_version="${2:-}"
+        shift 2
+        ;;
+      --sbt-cozy-version=*)
+        sbt_cozy_version="${1#--sbt-cozy-version=}"
+        shift
+        ;;
       --cncf-version)
         cncf_version="${2:-}"
         shift 2

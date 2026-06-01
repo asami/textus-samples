@@ -1,15 +1,15 @@
-# 04.b-test-sync-command-lab
+# 06.b-test-sync-command-lab
 
 ## Overview
 
 `06.b-test-sync-command-lab` shows a command that stays async/job-backed by design,
 but can be executed with a synchronous internal mode for test and local verification.
 
-It completes the pair started by `04.a`:
+It completes the pair started by `06.a`:
 
-- `04.a`
+- `06.a`
   - sync is part of the application contract
-- `04.b`
+- `06.b`
   - async remains the application contract
   - sync is used only as a runtime testing/debugging mode
 
@@ -93,7 +93,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf dev --component-dev-dir .` will use later.
+Compile the sample and generate the runtime classes that `cncf dev` will use later.
 
 ```bash
 $ cd samples/06.b-test-sync-command-lab
@@ -118,7 +118,7 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash cncf dev command --project . --component-dev-dir . ...
+bash cncf dev command --project . ...
 ```
 
 Common points:
@@ -127,7 +127,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--component-dev-dir .`:
+- `--project .` auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -138,7 +138,7 @@ Common points:
 ### Command Help
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . help test-sync.item.create-item
+$ cncf dev command --project . help test-sync.item.create-item
 ```
 
 Output example:
@@ -156,7 +156,7 @@ returns:
 ### Metadata Describe
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . test-sync.meta.describe --format yaml
+$ cncf dev command --project . test-sync.meta.describe --format yaml
 ```
 
 Output example:
@@ -175,7 +175,7 @@ The contract is still a normal command contract.
 ### Default Async / Job-Backed Execution
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . TestSync.Item.createItem --name beta --title Beta
+$ cncf dev command --project . TestSync.Item.createItem --name beta --title Beta
 ```
 
 Output example:
@@ -187,7 +187,7 @@ cncf-job-job-...
 Envelope form:
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . TestSync.Item.createItem --name beta --title Beta --textus.output.shape envelope --textus.output.format yaml
+$ cncf dev command --project . TestSync.Item.createItem --name beta --title Beta --textus.output.shape envelope --textus.output.format yaml
 ```
 
 Output example:
@@ -202,7 +202,7 @@ data:
 ### Test Sync Override
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . --textus.command.execution-mode sync-job-async-interface TestSync.Item.createItem --name beta --title Beta
+$ cncf dev command --project . TestSync.Item.createItem --name beta --title Beta --textus.command.execution-mode sync-job-async-interface
 ```
 
 Output example:
@@ -214,7 +214,7 @@ cncf-job-job-...
 Envelope form:
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . --textus.command.execution-mode sync-job-async-interface TestSync.Item.createItem --name beta --title Beta --textus.output.shape envelope --textus.output.format yaml
+$ cncf dev command --project . TestSync.Item.createItem --name beta --title Beta --textus.command.execution-mode sync-job-async-interface --textus.output.shape envelope --textus.output.format yaml
 ```
 
 Output example:

@@ -7,12 +7,12 @@ cd "$SCRIPT_DIR"
 sbt --batch compile >/dev/null
 
 echo "--- component help"
-cncf dev command --project . --component-dev-dir . meta.help testcomp --format yaml
+cncf dev command --project . meta.help testcomp --format yaml
 
 echo
 echo "--- operation help"
-cncf dev command --project . --component-dev-dir . help testcomp.main.hello
+cncf dev command --project . help testcomp.main.hello
 
 echo
 echo "--- execute"
-cncf dev command --project . --component-dev-dir . testcomp.main.hello
+cncf dev command --project . testcomp.main.hello

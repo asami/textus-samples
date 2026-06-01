@@ -54,7 +54,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf dev --component-dev-dir .` will use later.
+Compile the sample and generate the runtime classes that `cncf dev` will use later.
 
 ```bash
 $ cd samples/04.a-crud-seed-import-lab
@@ -79,7 +79,7 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash cncf dev command --project . --component-dev-dir . ...
+bash cncf dev command --project . ...
 ```
 
 Common points:
@@ -88,7 +88,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--component-dev-dir .`:
+- `--project .` auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -101,7 +101,7 @@ Common points:
 This command shows the generated entity load operation.
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . help crud.entity.load-item
+$ cncf dev command --project . help crud.entity.load-item
 ```
 
 Parameters:
@@ -134,7 +134,7 @@ This confirms that the generated entity service exposes a load route for the imp
 This command shows the generated entity search operation.
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . help crud.entity.search-item-record
+$ cncf dev command --project . help crud.entity.search-item-record
 ```
 
 Parameters:
@@ -165,7 +165,7 @@ returns:
 This command loads one known seeded record by id.
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . crud.entity.load-item --id major-minor-entity-item-20260327000000-aaa111
+$ cncf dev command --project . crud.entity.load-item --id major-minor-entity-item-20260327000000-aaa111
 ```
 
 Parameters:
@@ -196,7 +196,7 @@ This confirms that the seed import ran and that the imported `alpha` item is ava
 This command searches the imported records by domain attribute.
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . crud.entity.search-item-record --name alpha
+$ cncf dev command --project . crud.entity.search-item-record --name alpha
 ```
 
 Parameters:
@@ -237,7 +237,7 @@ This confirms that:
 This command shows the generated component metadata.
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . crud.meta.describe --format yaml
+$ cncf dev command --project . crud.meta.describe --format yaml
 ```
 
 Parameters:

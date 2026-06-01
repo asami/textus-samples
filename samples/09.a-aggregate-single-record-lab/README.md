@@ -72,7 +72,7 @@ The commands below use these common conventions:
   - the standard CNCF CLI entry point
   - in this repository it is invoked directly through the installed `cncf` launcher
   - after a normal installation it is typically available as `cncf`
-- `--component-dev-dir .`
+- `--project .` auto activation
   - tells CNCF to discover generated components from the compiled class directory
 - `command`
   - runs one-shot CNCF command execution
@@ -82,7 +82,7 @@ The commands below use these common conventions:
 ### 1. Inspect the component surface
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . help single-record-sample
+$ cncf dev command --project . help single-record-sample
 ```
 
 This shows that the generated component exposes aggregate, entity, meta, system, and view services.
@@ -98,7 +98,7 @@ Parameters:
 ### 2. Inspect the aggregate load operation
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . help single-record-sample.aggregate.load-order
+$ cncf dev command --project . help single-record-sample.aggregate.load-order
 ```
 
 This shows the aggregate-oriented load surface for the single-record pattern.
@@ -114,7 +114,7 @@ Parameters:
 ### 3. Inspect component metadata
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . single-record-sample.meta.describe --format yaml
+$ cncf dev command --project . single-record-sample.meta.describe --format yaml
 ```
 
 This shows the generated component metadata.

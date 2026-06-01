@@ -4,6 +4,9 @@
 
 This is a distributed sample that deploys multiple subsystems separately with a Docker-based setup.
 
+This sample is not implemented yet.
+It is excluded from the normal sample execution verification target until the runtime source, Docker setup, and executable command path are defined.
+
 ## Structure
 
 - Multi-subsystem deployment
@@ -12,7 +15,8 @@ This is a distributed sample that deploys multiple subsystems separately with a 
 
 ## How To Run
 
-In addition to CLI execution, this sample is intended to support `docker compose up`.
+No executable `run.sh` is provided yet.
+When implemented, this sample is intended to support `docker compose up` in addition to CLI execution.
 
 ## Example Commands
 

@@ -11,7 +11,9 @@ if [ "$#" -ne 1 ]; then
 fi
 
 item_id="$1"
+SERVER_PORT="${CNCF_SAMPLE_SERVER_PORT:-19543}"
 
-exec cncf dev client --project . --component-dev-dir . \
+exec cncf dev client --project . \
   crud.entity.load-item \
+  --baseurl "http://localhost:${SERVER_PORT}" \
   --id "${item_id}"

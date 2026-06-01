@@ -12,35 +12,41 @@ SERVER_BASEURL="http://127.0.0.1:${SERVER_PORT}"
 logfile="$(mktemp)"
 trap 'rm -f "$logfile"' EXIT
 
-server_pid=""
-if curl -sS "$SERVER_BASEURL/" >/dev/null 2>&1; then
-  echo "Reusing existing server on :$SERVER_PORT"
-else
-  cncf dev server --project . --component-dev-dir . >"$logfile" 2>&1 &
-  server_pid=$!
-  cleanup() {
-    if [ -n "$server_pid" ]; then
-      kill "$server_pid" >/dev/null 2>&1 || true
-      wait "$server_pid" >/dev/null 2>&1 || true
-    fi
-  }
-  trap cleanup EXIT
+for pid in $(lsof -ti "tcp:${SERVER_PORT}" 2>/dev/null || true); do
+  kill "$pid" >/dev/null 2>&1 || true
+done
 
-  for _ in $(seq 1 30); do
-    if curl -sS "$SERVER_BASEURL/" >/dev/null 2>&1; then
-      break
-    fi
-    if ! kill -0 "$server_pid" >/dev/null 2>&1; then
-      cat "$logfile"
-      exit 1
-    fi
-    sleep 1
-  done
+server_pid=""
+cncf dev server --project . >"$logfile" 2>&1 &
+server_pid=$!
+cleanup() {
+  if [ -n "$server_pid" ]; then
+    kill "$server_pid" >/dev/null 2>&1 || true
+    wait "$server_pid" >/dev/null 2>&1 || true
+  fi
+}
+trap cleanup EXIT
+
+server_ready=0
+for _ in $(seq 1 30); do
+  if curl -sS "$SERVER_BASEURL/" >/dev/null 2>&1; then
+    server_ready=1
+    break
+  fi
+  if ! kill -0 "$server_pid" >/dev/null 2>&1; then
+    cat "$logfile"
+    exit 1
+  fi
+  sleep 1
+done
+if [ "$server_ready" -ne 1 ]; then
+  cat "$logfile"
+  exit 1
 fi
 
-job_id="$(cncf dev client --project . --component-dev-dir . job-sample.item.create-item --name alpha --title Alpha)"
+job_id="$(cncf dev client --project . job-sample.item.create-item --name alpha --title Alpha)"
 printf '%s\n' "$job_id"
-cncf dev client --project . --component-dev-dir . job-control.job.await-job-result --id "$job_id"
-cncf dev client --project . --component-dev-dir . job-control.job.get-job-result --id "$job_id"
-cncf dev client --project . --component-dev-dir . job-control.job.get-job-status --id "$job_id"
-cncf dev client --project . --component-dev-dir . job-control.job.load-job-history --id "$job_id"
+cncf dev client --project . job-control.job.await-job-result --id "$job_id"
+cncf dev client --project . job-control.job.get-job-result --id "$job_id"
+cncf dev client --project . job-control.job.get-job-status --id "$job_id"
+cncf dev client --project . job-control.job.load-job-history --id "$job_id"

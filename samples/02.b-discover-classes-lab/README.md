@@ -1,14 +1,14 @@
 # 02.b-discover-classes-lab
 
 This directory name is historical. The sample now demonstrates the current
-launcher-based development source form: `cncf dev ... --component-dev-dir .`.
+launcher-based development source form: `cncf dev ...`.
 
 ## Overview
 
 CNCF samples use two launchers with different roles: `textus` is for
 application/user execution, while `cncf` is the development launcher for CNCF
 components and runtime surfaces. This sample runs a Scala component that is under
-development, so it uses `cncf dev ... --component-dev-dir .` directly.
+development, so it uses `cncf dev ...` directly.
 
 Use this sample when you are actively developing a Scala component and want CNCF
 to run it from the component development directory without packaging a CAR.
@@ -38,19 +38,19 @@ bash run.sh
 ### 1. Inspect the component
 
 ```bash
-cncf dev command --project . --component-dev-dir . meta.help testcomp --format yaml
+cncf dev command --project . meta.help testcomp --format yaml
 ```
 
 ### 2. Inspect operation help
 
 ```bash
-cncf dev command --project . --component-dev-dir . help testcomp.main.hello
+cncf dev command --project . help testcomp.main.hello
 ```
 
 ### 3. Execute the operation
 
 ```bash
-cncf dev command --project . --component-dev-dir . testcomp.main.hello
+cncf dev command --project . testcomp.main.hello
 ```
 
 Expected result:
@@ -61,6 +61,6 @@ Hello from testcomp
 
 ## Key Learnings
 
-- `--component-dev-dir .` is the current component edit/run loop.
+- `--project .` auto activation is the current component edit/run loop.
 - The component selector is the same as packaged CAR execution.
 - The old class-discovery flag is not part of the current sample path.

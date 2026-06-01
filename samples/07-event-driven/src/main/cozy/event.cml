@@ -47,6 +47,20 @@ EmitEvent
 ###### TYPE
 EmitEventResult
 
+###### VALUE
+
+####### EmitEventResult
+
+######## EXTENDS
+
+OperationResult
+
+######## ATTRIBUTE
+
+| name    | type   | multiplicity |
+|---------+--------+--------------|
+| message | string | ?            |
+
 #### recordEffect
 
 ##### DESCRIPTION
@@ -72,6 +86,20 @@ RecordEffect
 ###### TYPE
 RecordEffectResult
 
+###### VALUE
+
+####### RecordEffectResult
+
+######## EXTENDS
+
+OperationResult
+
+######## ATTRIBUTE
+
+| name    | type   | multiplicity |
+|---------+--------+--------------|
+| message | string | ?            |
+
 #### loadEffect
 
 ##### DESCRIPTION
@@ -93,6 +121,22 @@ LoadEffect
 
 ###### TYPE
 LoadEffectResult
+
+###### VALUE
+
+####### LoadEffectResult
+
+######## EXTENDS
+
+OperationResult
+
+######## ATTRIBUTE
+
+| name    | type   | multiplicity |
+|---------+--------+--------------|
+| name    | name   | ?            |
+| title   | string | ?            |
+| message | string | ?            |
 
 # ENTITY
 

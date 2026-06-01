@@ -7,12 +7,12 @@ cd "$SCRIPT_DIR"
 sbt --batch compile >/dev/null
 
 echo "--- component help"
-cncf dev command --project . --component-dev-dir . meta.help component-cml-sample --format yaml
+cncf dev command --project . meta.help component-cml-sample --format yaml
 
 echo
 echo "--- operation help"
-cncf dev command --project . --component-dev-dir . help component-cml-sample.greeting.greeting
+cncf dev command --project . help component-cml-sample.greeting.greeting
 
 echo
 echo "--- metadata"
-cncf dev command --project . --component-dev-dir . component-cml-sample.meta.describe --format yaml
+cncf dev command --project . component-cml-sample.meta.describe --format yaml

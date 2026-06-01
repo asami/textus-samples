@@ -20,7 +20,7 @@ In the `02` line, the forms are split like this:
   - expanded `car.d`
   - CAR loader/debug form
 - `02.b-discover-classes-lab`
-  - `--component-dev-dir .`
+  - `--project .` auto activation
   - development-time implicit component construction
 
 ## Intended Use Case
@@ -181,7 +181,7 @@ Parameters:
 - `component.d/*.car` is the baseline distribution form
 - packaged CARs are explicit runtime inputs, not always-on defaults
 - explicit activation is now expressed by component name rather than by repository option
-- `--component-dev-dir .` is the classpath-based development variant
+- `--project .` auto activation is the classpath-based development variant
 - `car.d` is the expanded archive inspection variant
 - `--component-dev-dir` is the preferred component edit/run loop; `car.d` is for expanded archive inspection
 - the `02` baseline focuses on packaging and surface inspection; `02.b` is where the same component is executed via class discovery

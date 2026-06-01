@@ -15,20 +15,41 @@ cleanup() {
 }
 trap cleanup EXIT INT TERM
 
-cncf dev command --project . --component-dev-dir . help event-driven
-cncf dev command --project . --component-dev-dir . help event-driven.event.emit-event
-cncf dev command --project . --component-dev-dir . help job-control.job.await-job-result
-cncf dev command --project . --component-dev-dir . help job-control.job.load-job-history
-cncf dev command --project . --component-dev-dir . event-driven.meta.describe --format yaml
+cncf dev command --project . help event-driven
+cncf dev command --project . help event-driven.event.emit-event
+cncf dev command --project . help job-control.job.await-job-result
+cncf dev command --project . help job-control.job.load-job-history
+cncf dev command --project . event-driven.meta.describe --format yaml
 
-cncf dev server --project . --component-dev-dir . >"$server_log" 2>&1 &
+ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+SERVER_PORT="$(tr -d '[:space:]' < "$ROOT_DIR/versions/cncf-server-port.conf")"
+for pid in $(lsof -ti "tcp:${SERVER_PORT}" 2>/dev/null || true); do
+  kill "$pid" >/dev/null 2>&1 || true
+done
+
+cncf dev server --project . >"$server_log" 2>&1 &
 server_pid=$!
-sleep 3
+server_ready=0
+for _ in $(seq 1 30); do
+  if grep -q "Ember-Server service bound to address" "$server_log"; then
+    server_ready=1
+    break
+  fi
+  if ! kill -0 "$server_pid" >/dev/null 2>&1; then
+    cat "$server_log"
+    exit 1
+  fi
+  sleep 1
+done
+if [ "$server_ready" -ne 1 ]; then
+  cat "$server_log"
+  exit 1
+fi
 
-job_id="$(cncf dev client --project . --component-dev-dir . event-driven.event.emit-event --name alpha --title Alpha)"
+job_id="$(cncf dev client --project . event-driven.event.emit-event --name alpha --title Alpha)"
 printf '%s\n' "$job_id"
 
-cncf dev client --project . --component-dev-dir . job-control.job.await-job-result --id "$job_id"
-cncf dev client --project . --component-dev-dir . job-control.job.get-job-status --id "$job_id"
-cncf dev client --project . --component-dev-dir . job-control.job.load-job-history --id "$job_id"
-cncf dev client --project . --component-dev-dir . event-driven.event.load-effect
+cncf dev client --project . job-control.job.await-job-result --id "$job_id"
+cncf dev client --project . job-control.job.get-job-status --id "$job_id"
+cncf dev client --project . job-control.job.load-job-history --id "$job_id"
+cncf dev client --project . event-driven.event.load-effect

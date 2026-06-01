@@ -6,4 +6,4 @@ WORKLOAD_DIR="$SCRIPT_DIR/../01.c-builtin-and-help-lab"
 export CNCF_SERVER_PORT="${CNCF_SERVER_PORT:-19614}"
 
 cd "$WORKLOAD_DIR"
-exec cncf dev server --project . --component-dev-dir . --textus.config.file "$SCRIPT_DIR/.textus.conf"
+exec cncf dev server --project . --textus.config.file "$SCRIPT_DIR/.textus.conf"

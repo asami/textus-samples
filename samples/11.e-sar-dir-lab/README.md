@@ -49,22 +49,22 @@ sbt --batch compile
 
 ### Prepare the expanded SAR directory
 
-The main form in this lab is a directly expanded SAR:
+The main form in this lab is a directly expanded SAR. The run commands select it explicitly with `--subsystem-sar-dir sar.d --textus.subsystem=testsubsystem`:
 
 ```text
 sar.d
-  component/base.car
+  component/testcomp.car
   subsystem-descriptor.yaml
 ```
 
 This is the debug/inspection interpretation of an unpacked subsystem artifact.
-In this repository, `run.sh` generates `base.car` from the neighboring `11-subsystem` sample before running the walkthrough.
+In this repository, `run.sh` generates `testcomp.car` from the neighboring `11-subsystem` sample before running the walkthrough.
 
 For convenience, the repository code can also scan nested expanded forms such as:
 
 ```text
 sar.d/explicit-subsystem
-  component/base.car
+  component/testcomp.car
   subsystem-descriptor.yaml
 ```
 

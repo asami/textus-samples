@@ -15,7 +15,7 @@ bash ../../bin/setup cncf
 
 - `repository.d/*.car`
 - `car.d`
-- `--component-dev-dir .`
+- `--project .` auto activation
 
 `03` keeps the same three runtime shapes, but replaces the hand-written Scala
 component with a `component.cml` source model that Cozy generates into runtime
@@ -30,7 +30,7 @@ In the `03` line, the forms are split like this:
   - expanded generated `car.d`
   - CAR loader/debug form
 - `03.b-discover-classes-cml-lab`
-  - `--component-dev-dir .`
+  - `--project .` auto activation
   - development-time implicit loading of generated classes
 
 ## Intended Use Case
@@ -181,7 +181,7 @@ Parameters:
 - the source of truth is now `component.cml`, not a hand-written Scala component
 - generation changes the authoring method, not the CNCF help surface
 - packaged generated CARs are explicit runtime inputs, not always-on defaults
-- `03` mirrors the same `CAR / car.d / --component-dev-dir .` comparison shape as `02`
+- `03` mirrors the same `CAR / car.d /` comparison shape as `02`
 - `--component-dev-dir` is the preferred Cozy/sbt edit/run loop; `car.d` is for expanded archive inspection
 
 ## Key Learnings

@@ -8,9 +8,11 @@ def repoRoot(dir: File): File = {
 }
 
 def sbtCozyVersion: String = {
-  val versionFile = new File(repoRoot(new File(".").getCanonicalFile), "versions/sbt-cozy-version.conf")
-  val version = scala.io.Source.fromFile(versionFile).mkString.trim
-  if (version.nonEmpty) version else sys.error("sbt-cozy version is empty")
+  sys.env.get("SBT_COZY_VERSION").filter(_.nonEmpty).getOrElse {
+    val versionFile = new File(repoRoot(new File(".").getCanonicalFile), "versions/sbt-cozy-version.conf")
+    val version = scala.io.Source.fromFile(versionFile).mkString.trim
+    if (version.nonEmpty) version else sys.error("sbt-cozy version is empty")
+  }
 }
 
 resolvers += "GitHab releases 2025" at "https://raw.github.com/asami/maven-repository/2025/releases"

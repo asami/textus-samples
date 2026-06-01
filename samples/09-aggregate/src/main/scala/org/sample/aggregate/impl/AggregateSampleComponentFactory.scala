@@ -194,7 +194,9 @@ final class AggregateSampleComponentFactory extends org.sample.aggregate.Aggrega
     final case class Instance(core: ActionCall.Core) extends AddLineAggregateBehavior
   }
 
-  sealed trait AddLineAggregateBehavior extends AggregateBehavior[Record] {
+  sealed trait AddLineAggregateBehavior
+      extends AggregateBehavior[Record]
+      with org.goldenport.cncf.action.ActionBehavior {
     protected def build_Program(target: Record): ExecUowM[OperationResponse] = {
       for {
         orderId <- exec_pure(_order_id_c(target).TAKE)

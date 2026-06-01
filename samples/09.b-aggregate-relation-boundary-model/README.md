@@ -93,7 +93,7 @@ The commands below use these common conventions:
   - the standard CNCF CLI entry point
   - in this repository it is invoked directly through the installed `cncf` launcher
   - after a normal installation it is typically available as `cncf`
-- `--component-dev-dir .`
+- `--project .` auto activation
   - tells CNCF to discover generated components from the compiled class directory
 - `command`
   - runs one-shot CNCF command execution
@@ -103,7 +103,7 @@ The commands below use these common conventions:
 ### 1. Inspect the component surface
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . help aggregate-relation-boundary-sample
+$ cncf dev command --project . help aggregate-relation-boundary-sample
 ```
 
 This shows that the generated component exposes aggregate, entity, meta, system, and view services.
@@ -119,7 +119,7 @@ Parameters:
 ### 2. Inspect the aggregate service
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . help aggregate-relation-boundary-sample.aggregate
+$ cncf dev command --project . help aggregate-relation-boundary-sample.aggregate
 ```
 
 This shows the generated aggregate-oriented operations.
@@ -136,7 +136,7 @@ Parameters:
 ### 3. Inspect component metadata
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . aggregate-relation-boundary-sample.meta.describe --format yaml
+$ cncf dev command --project . aggregate-relation-boundary-sample.meta.describe --format yaml
 ```
 
 This shows the generated component metadata.

@@ -3,4 +3,4 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
-exec cncf dev command --project . --component-dev-dir . admin.system.ping "$@"
+exec cncf dev command --project . admin.system.ping "$@"

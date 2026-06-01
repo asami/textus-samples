@@ -8,7 +8,7 @@ cd "$SCRIPT_DIR"
 dbpath="target/cncf.d/02f-crud-nested-value-lab.sqlite"
 mkdir -p target/cncf.d
 
-exec cncf dev command --project . --component-dev-dir . \
+exec cncf dev command --project . \
   "--cncf.datastore.sqlite.path=$dbpath" \
   --textus.command.execution-mode sync-direct-no-job \
   crud-nested-value-sample.entity.create-person \

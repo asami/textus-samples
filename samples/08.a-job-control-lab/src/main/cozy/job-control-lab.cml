@@ -78,3 +78,23 @@ Command that creates a job-control demo item.
 |-------+--------+--------------|
 | name  | name   | 1            |
 | title | string | 1            |
+
+# VALUE
+
+## CreateItemResult
+
+### FEATURES
+
+extends = ["OperationResult"]
+
+### DESCRIPTION
+
+Result returned after the job-control sample creates an item.
+
+### ATTRIBUTE
+
+| name  | type     | multiplicity |
+|-------+----------+--------------|
+| id    | entityid | 1            |
+| name  | name     | 1            |
+| title | string   | 1            |

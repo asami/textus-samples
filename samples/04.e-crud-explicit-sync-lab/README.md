@@ -99,7 +99,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf dev --component-dev-dir .` will use later.
+Compile the sample and generate the runtime classes that `cncf dev` will use later.
 
 ```bash
 $ cd samples/04.e-crud-explicit-sync-lab
@@ -124,7 +124,7 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash cncf dev command --project . --component-dev-dir . ...
+bash cncf dev command --project . ...
 ```
 
 Common points:
@@ -133,7 +133,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--component-dev-dir .`:
+- `--project .` auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -148,7 +148,7 @@ Common points:
 ### Component Help
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . help crud
+$ cncf dev command --project . help crud
 ```
 
 Parameters:
@@ -179,7 +179,7 @@ operation_definitions:
 ### Entity Service Help
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . help crud.entity
+$ cncf dev command --project . help crud.entity
 ```
 
 Parameters:
@@ -208,7 +208,7 @@ children:
 ### Create Help
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . help crud.entity.create-item
+$ cncf dev command --project . help crud.entity.create-item
 ```
 
 Parameters:
@@ -235,7 +235,7 @@ returns:
 ### Load Help
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . help crud.entity.load-item
+$ cncf dev command --project . help crud.entity.load-item
 ```
 
 Parameters:
@@ -262,7 +262,7 @@ returns:
 ### Metadata Describe
 
 ```bash
-$ cncf dev command --project . --component-dev-dir . crud.meta.describe --format yaml
+$ cncf dev command --project . crud.meta.describe --format yaml
 ```
 
 Parameters:

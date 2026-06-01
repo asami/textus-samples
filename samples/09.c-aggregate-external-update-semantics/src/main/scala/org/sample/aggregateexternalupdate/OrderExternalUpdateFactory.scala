@@ -62,7 +62,9 @@ final class OrderExternalUpdateFactory extends AggregateExternalUpdateSampleComp
     final case class Instance(core: ActionCall.Core) extends CancelOrderAggregateBehavior
   }
 
-  sealed trait CancelOrderAggregateBehavior extends AggregateBehavior[Record] {
+  sealed trait CancelOrderAggregateBehavior
+      extends AggregateBehavior[Record]
+      with org.goldenport.cncf.action.ActionBehavior {
     protected def build_Program(target: Record): ExecUowM[OperationResponse] = {
       for {
         orderId <- exec_pure(_order_id(target).TAKE)

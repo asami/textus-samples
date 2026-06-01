@@ -3,36 +3,40 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-EXPECTED_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cozy-version.conf")"
-CACHE_ROOT="${XDG_CACHE_HOME:-$HOME/.cache}"
-LAUNCHER_ROOT="$CACHE_ROOT/cncf-samples/cozy-launcher/$EXPECTED_VERSION"
-SETUP_STATE_FILE="$LAUNCHER_ROOT/.setup-complete"
+DEFAULT_COZY_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cozy-version.conf")"
+COZY_VERSION="${COZY_VERSION:-$DEFAULT_COZY_VERSION}"
 
-quoted_args=()
-for arg in "$@"; do
-  quoted_args+=("$(printf '%q' "$arg")")
-done
+canonical_path() {
+  local path="$1"
+  local dir
+  dir="$(cd "$(dirname "$path")" && pwd -P)"
+  printf '%s/%s\n' "$dir" "$(basename "$path")"
+}
 
-command="runMain cozy.Cozy ${quoted_args[*]}"
+find_installed_cozy() {
+  if [[ -n "${COZY_COMMAND:-}" ]]; then
+    printf '%s\n' "$COZY_COMMAND"
+    return
+  fi
+  local candidate=""
+  candidate="$(command -v cozy || true)"
+  if [[ -n "$candidate" ]]; then
+    local self candidate_path
+    self="$(canonical_path "$REPO_ROOT/bin/cozy")"
+    candidate_path="$(canonical_path "$candidate")"
+    if [[ "$candidate_path" != "$self" ]]; then
+      printf '%s\n' "$candidate"
+      return
+    fi
+  fi
+  return 1
+}
 
-if [[ -n "${COZY_PROJECT_DIR:-}" ]]; then
-  cd "$COZY_PROJECT_DIR"
-  exec sbt \
-    --batch \
-    -Dsbt.server.autostart=false \
-    -Dsbt.supershell=false \
-    "$command"
-fi
-
-if [[ ! -f "$SETUP_STATE_FILE" ]]; then
-  echo "cozy launcher is not prepared for $EXPECTED_VERSION" >&2
-  echo "run: $REPO_ROOT/bin/setup cozy" >&2
+if ! cozy_bin="$(find_installed_cozy)"; then
+  echo "installed cozy launcher not found" >&2
+  echo "Install or expose it on PATH, or set COZY_COMMAND=/path/to/cozy." >&2
   exit 1
 fi
 
-cd "$LAUNCHER_ROOT"
-exec sbt \
-  --batch \
-  -Dsbt.server.autostart=false \
-  -Dsbt.supershell=false \
-  "$command"
+export COZY_VERSION
+exec "$cozy_bin" "$@"

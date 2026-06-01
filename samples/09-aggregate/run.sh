@@ -2,26 +2,22 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
-SERVER_PORT="$(tr -d '[:space:]' < "$ROOT_DIR/versions/cncf-server-port.conf")"
+SERVER_PORT="${CNCF_SAMPLE_SERVER_PORT:-19549}"
 SERVER_BASEURL="http://127.0.0.1:${SERVER_PORT}"
-SERVER_LOG="${TMPDIR:-/tmp}/07-aggregate-server.log"
+SERVER_LOG="${TMPDIR:-/tmp}/09-aggregate-server.log"
 cd "$SCRIPT_DIR"
 
 sbt --batch compile >/dev/null
 
-ps -ax \
-  | grep -F "cncf.launcher.CncfLauncherMain dev server" \
-  | grep -v grep \
-  | awk '{print $1}' \
-  | xargs kill >/dev/null 2>&1 || true
-
-cncf dev server --project . --component-dev-dir . >"$SERVER_LOG" 2>&1 &
+cncf dev server --project . --textus.server.port "$SERVER_PORT" >"$SERVER_LOG" 2>&1 &
 SERVER_PID=$!
 trap 'kill "$SERVER_PID" >/dev/null 2>&1 || true' EXIT
 
+server_ready=0
 for _ in $(seq 1 30); do
-  if cncf dev client --project . --component-dev-dir . aggregate-sample.meta.describe --format yaml >/dev/null 2>&1; then
+  ready_output="$(cncf dev client --project . aggregate-sample.meta.describe --baseurl "$SERVER_BASEURL" --format yaml 2>&1 || true)"
+  if printf '%s\n' "$ready_output" | grep -q "type: component"; then
+    server_ready=1
     break
   fi
   if ! kill -0 "$SERVER_PID" >/dev/null 2>&1; then
@@ -30,10 +26,58 @@ for _ in $(seq 1 30); do
   fi
   sleep 1
 done
+if [[ "$server_ready" -ne 1 ]]; then
+  cat "$SERVER_LOG"
+  exit 1
+fi
+
+extract_result_id() {
+  python3 -c 'import json,re,sys
+text=sys.stdin.read()
+lines=[line.strip() for line in text.splitlines() if line.strip()]
+for line in lines:
+    if line.startswith("cncf-job-"):
+        print(line)
+        raise SystemExit(0)
+payloads=[line for line in lines if line.startswith("{") and line.endswith("}")]
+if payloads:
+    obj=json.loads(payloads[-1])
+    def find(o):
+        if isinstance(o, dict):
+            for key in ("id", "job_id", "jobId"):
+                v=o.get(key)
+                if isinstance(v, str) and v:
+                    return v
+            for key in ("data", "record", "result", "job"):
+                if key in o:
+                    v=find(o[key])
+                    if v:
+                        return v
+        return None
+    value=find(obj)
+    if value:
+        print(value)
+        raise SystemExit(0)
+for line in lines:
+    m=re.match(r"id:\s*(\S+)", line)
+    if m:
+        print(m.group(1))
+        raise SystemExit(0)
+raise SystemExit(f"id not found in {text!r}")'
+}
+
+await_if_job() {
+  local value="$1"
+  if [[ "$value" == cncf-job-* ]]; then
+    cncf dev client --project . job-control.job.await-job-result --baseurl "$SERVER_BASEURL" --id "$value" | extract_result_id
+  else
+    printf '%s\n' "$value"
+  fi
+}
 
 ORDER_NAME="alpha-$(date +%s)"
-CREATE_JOB_ID="$(cncf dev client --project . --component-dev-dir . aggregate-sample.entity.create-order-record --name "$ORDER_NAME" --status Draft)"
-ORDER_ID="$(cncf dev client --project . --component-dev-dir . job-control.job.await-job-result --id "$CREATE_JOB_ID" | python3 -c 'import json,sys; print(json.load(sys.stdin)["id"])')"
-ADD_LINE_JOB_ID="$(cncf dev client --project . --component-dev-dir . aggregate-sample.order.add-line --order-id "$ORDER_ID" --line-name pen --quantity 2)"
-cncf dev client --project . --component-dev-dir . job-control.job.await-job-result --id "$ADD_LINE_JOB_ID" >/dev/null
-cncf dev client --project . --component-dev-dir . aggregate-sample.order.load-order-aggregate --id "$ORDER_ID"
+CREATE_RESULT_ID="$(cncf dev client --project . aggregate-sample.entity.create-order-record --baseurl "$SERVER_BASEURL" --name "$ORDER_NAME" --status Draft | extract_result_id)"
+ORDER_ID="$(await_if_job "$CREATE_RESULT_ID")"
+ADD_LINE_RESULT_ID="$(cncf dev client --project . aggregate-sample.order.add-line --baseurl "$SERVER_BASEURL" --orderId "$ORDER_ID" --lineName pen --quantity 2 | extract_result_id)"
+await_if_job "$ADD_LINE_RESULT_ID" >/dev/null
+cncf dev client --project . aggregate-sample.order.load-order-aggregate --baseurl "$SERVER_BASEURL" --id "$ORDER_ID"

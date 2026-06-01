@@ -28,8 +28,8 @@ subsystem: testsubsystem
 EOF
 (cd "$WORK_DIR/base.car.d" && zip -qr "$WORK_DIR/base.car" component-descriptor.yaml component)
 
-cp "$WORK_DIR/base.car" sar.d/component/base.car
-cp "$WORK_DIR/base.car" sar.d/explicit-subsystem/component/base.car
+cp "$WORK_DIR/base.car" sar.d/component/testcomp.car
+cp "$WORK_DIR/base.car" sar.d/explicit-subsystem/component/testcomp.car
 cat > sar.d/subsystem-descriptor.yaml <<'EOF'
 subsystem: testsubsystem
 version: 0.1.0
@@ -40,7 +40,9 @@ EOF
 cp sar.d/subsystem-descriptor.yaml sar.d/explicit-subsystem/subsystem-descriptor.yaml
 
 COMMON_ARGS=(
+  --no-default-components
   --subsystem-sar-dir sar.d
+  --textus.subsystem=testsubsystem
 )
 
 echo "--- subsystem help"

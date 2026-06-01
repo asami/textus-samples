@@ -81,13 +81,13 @@ The shell wrappers are intentionally thin, but that also makes their behavior ea
 `run.sh` is the development-time entry point.
 It calls the shared runner with:
 
-- `--component-dev-dir .`
+- `--project .` auto activation
 - `--command-path minimal.main.hello`
 
 Conceptually, it becomes:
 
 ```bash
-cncf dev command --project . --component-dev-dir . minimal.main.hello
+cncf dev command --project . minimal.main.hello
 ```
 
 Meaning:

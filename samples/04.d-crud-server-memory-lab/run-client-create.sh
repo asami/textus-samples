@@ -4,4 +4,10 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
 
-exec cncf dev client --project . --component-dev-dir . crud.entity.create-item --name alpha --title Alpha
+SERVER_PORT="${CNCF_SAMPLE_SERVER_PORT:-19542}"
+
+exec cncf dev client --project . \
+  crud.entity.create-item \
+  --baseurl "http://localhost:${SERVER_PORT}" \
+  --name alpha \
+  --title Alpha

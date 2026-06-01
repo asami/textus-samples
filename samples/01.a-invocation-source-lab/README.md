@@ -63,14 +63,14 @@ Run:
 Observe:
 
 - `run.sh` calls the shared sample runner
-- it enables `--component-dev-dir .`
+- it enables `--project .` auto activation
 - it targets `minimal.main.hello`
 - the execution source is the compiled classes in this sample directory
 
 Conceptual shape:
 
 ```bash
-cncf dev command --project . --component-dev-dir . minimal.main.hello
+cncf dev command --project . minimal.main.hello
 ```
 
 ### 3. Run The Deployment-Style Path

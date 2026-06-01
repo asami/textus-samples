@@ -75,7 +75,7 @@ Shared defaults are read from:
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf dev --component-dev-dir .` will use later.
+Compile the sample and generate the runtime classes that `cncf dev` will use later.
 
 ```bash
 $ cd samples/10-view
@@ -102,7 +102,7 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash cncf dev command --project . --component-dev-dir . ...
+bash cncf dev command --project . ...
 ```
 
 Common points:
@@ -111,7 +111,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--component-dev-dir .`:
+- `--project .` auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -126,7 +126,7 @@ Start by asking CNCF what the generated view load operation looks like on the CL
 ```bash
 $ cd samples/10-view
 
-$ bash cncf dev command --project . --component-dev-dir . \
+$ bash cncf dev command --project . \
   command help view-sample.view.load-person
 ```
 
@@ -201,7 +201,7 @@ Return shape:
 Next, load one projected person record by id.
 
 ```bash
-$ bash cncf dev command --project . --component-dev-dir . \
+$ bash cncf dev command --project . \
   command view-sample.view.load-person \
   --id tokyo-sales-entity-person-1742198400000-abcd1234
 ```
@@ -250,7 +250,7 @@ Return shape:
 Finally, search the same view using a query-side condition.
 
 ```bash
-$ bash cncf dev command --project . --component-dev-dir . \
+$ bash cncf dev command --project . \
   command view-sample.view.search-person-record --name Alice
 ```
 

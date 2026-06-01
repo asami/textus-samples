@@ -18,12 +18,22 @@ cleanup() {
 }
 trap cleanup EXIT
 
+server_ready=0
 for _ in $(seq 1 30); do
   if grep -q "Ember-Server service bound to address" "$logfile"; then
+    server_ready=1
     break
+  fi
+  if ! kill -0 "$server_pid" >/dev/null 2>&1; then
+    cat "$logfile"
+    exit 1
   fi
   sleep 1
 done
+if [ "$server_ready" -ne 1 ]; then
+  cat "$logfile"
+  exit 1
+fi
 
 grep "Ember-Server service bound to address" "$logfile"
 

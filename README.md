@@ -44,7 +44,7 @@ Launcher roles:
   and runtime surfaces while building CNCF samples.
 
 Because these samples execute components that are under development, the
-standard command is `cncf dev ...`, not `textus`. Use `--component-dev-dir .`
+standard command is `cncf dev ...`, not `textus`. Use `--project .` auto activation
 for the ordinary edit/run loop, and use CAR/SAR/repository options only when
 the sample is specifically demonstrating packaged source loading.
 
@@ -52,14 +52,14 @@ the sample is specifically demonstrating packaged source loading.
 Published runtime example:
 
 ```bash
-cncf dev command --project . --component-dev-dir . minimal.main.hello
+cncf dev command --project . minimal.main.hello
 ```
 
 CNCF core development runtime example:
 
 ```bash
 cncf --runtime-dev-dir /path/to/cloud-native-component-framework \
-  dev command --project . --component-dev-dir . minimal.main.hello
+  dev command --project . minimal.main.hello
 ```
 
 Packaged source examples:
@@ -71,9 +71,10 @@ cncf dev command --project . --no-project-classpath --repository-dir repository.
 ```
 
 `--discover=classes` and the sample-local `bin/cncf` wrapper are historical
-compatibility mechanisms. Current samples should demonstrate explicit launcher
-sources such as `--component-dev-dir`, `--component-car-dir`,
-`--subsystem-sar-dir`, or `repository.d`.
+compatibility mechanisms. Current samples should use `--project .` for the main development project.
+Use `--component-dev-dir <dir>` only when a sample intentionally injects a
+separate development component dependency; use `--component-car-dir`,
+`--subsystem-sar-dir`, or `repository.d` only for packaged-source samples.
 
 Development order follows the stages recorded in `docs/journal/2026/03/cncf-samples-project.md`.
 
@@ -84,10 +85,10 @@ Development order follows the stages recorded in `docs/journal/2026/03/cncf-samp
 5. `01.d-component-script`
 6. `02-component`
 7. `02.a-car-dir-lab`
-8. `02.b-discover-classes-lab` (converted to `--component-dev-dir`; directory name is historical)
+8. `02.b-discover-classes-lab` (historical name; now uses `cncf dev --project .`)
 9. `03-component-cml`
 10. `03.a-car-dir-cml-lab`
-11. `03.b-discover-classes-cml-lab` (converted to `--component-dev-dir`; directory name is historical)
+11. `03.b-discover-classes-cml-lab` (historical name; now uses `cncf dev --project .`)
 12. `03.c-method-execution-cml-lab`
 13. `04-crud`
 14. `04.a-crud-seed-import-lab`
@@ -124,7 +125,7 @@ Development order follows the stages recorded in `docs/journal/2026/03/cncf-samp
 45. `11.e-sar-dir-lab`
 46. `11.f-subsystem-parameter-lab`
 47. `12-subsystem-wiring`
-48. `101-distributed`
+48. `101-distributed` (planned; excluded from normal execution verification until implemented)
 
 ## AI Directive
 
@@ -170,10 +171,10 @@ AI behavior is interpreted in the following order.
 │  ├─ 01.d-component-script/
 │  ├─ 02-component/
 │  ├─ 02.a-car-dir-lab/
-│  ├─ 02.b-discover-classes-lab/        # historical name; uses --component-dev-dir
+│  ├─ 02.b-discover-classes-lab/        # historical name; uses cncf dev --project .
 │  ├─ 03-component-cml/
 │  ├─ 03.a-car-dir-cml-lab/
-│  ├─ 03.b-discover-classes-cml-lab/    # historical name; uses --component-dev-dir
+│  ├─ 03.b-discover-classes-cml-lab/    # historical name; uses cncf dev --project .
 │  ├─ 03.c-method-execution-cml-lab/
 │  ├─ 04-crud/
 │  ├─ 04.a-crud-seed-import-lab/
@@ -287,8 +288,11 @@ cd samples/01-minimal
 
 For development, the preferred working style is:
 
+- `--project <project>`
+  - standard launcher entry for ordinary samples and the main development project
+  - auto-activates the component/subsystem being edited
 - `--component-dev-dir <project>`
-  - runs a component development directory without building a CAR first
+  - injects a separate component development directory as a dependency override
   - reads runtime classpath data from `target/cncf.d/runtime-classpath.txt`
   - reads CAR-root resources from `src/main/car`
 - `--subsystem-dev-dir <project>`
@@ -308,7 +312,7 @@ so the usual edit/run form does not need `--textus.component` or
 `--textus.subsystem`:
 
 ```bash
-cncf dev server --project . --component-dev-dir .
+cncf dev server --project .
 cncf dev server --project . --subsystem-dev-dir .
 ```
 
@@ -316,7 +320,7 @@ Programming-time example:
 
 ```bash
 cd samples/01-minimal
-cncf dev command --project . --component-dev-dir . minimal.main.hello
+cncf dev command --project . minimal.main.hello
 ```
 
 Deployment-style invocation can also be separated from local verification through `invoke.sh` per sample.
@@ -335,12 +339,13 @@ Sample generation is fixed to the following shape for now:
   - uses `cozyDelegateCommand`
   - calls [bin/cozy](bin/cozy)
 - [bin/setup](bin/setup)
-  - prepares the cozy launcher for the configured version
-  - verifies dependency resolution before samples use it
+  - verifies the installed `cozy` launcher and reports the configured versions
 - [bin/cozy](bin/cozy)
-  - reads the target `cozy` version from [cozy-version.conf](versions/cozy-version.conf)
-  - uses the prepared launcher created by [bin/setup](bin/setup)
-  - executes `cozy.Cozy` through `sbt runMain`
+  - reads the target `cozy` version from [cozy-version.conf](versions/cozy-version.conf) or `COZY_VERSION`
+  - delegates to the installed `cozy` launcher from `PATH` or `COZY_COMMAND`
+  - passes through `COZY_PROJECT_DIR` for source-checkout Cozy runtime testing
+- [with-launchers.sh](scripts/with-launchers.sh)
+  - runs any validation command with one-shot CNCF/Cozy launcher version overrides
 
 Current intent:
 
@@ -350,9 +355,24 @@ Current intent:
 
 Current operating rule:
 
-1. run `bin/setup cozy`
+1. run `bin/setup all` to verify installed `cncf` and `cozy` launchers
 2. run sample build or sample script
-3. `bin/cozy` uses the prepared launcher
+3. `bin/cozy` delegates to the installed `cozy` launcher
+
+Version-matrix validation can be run without editing version files:
+
+```bash
+scripts/with-launchers.sh \
+  --cncf-version 0.4.10-SNAPSHOT \
+  --cncf-runtime-dev-dir /Users/asami/src/dev2025/cloud-native-component-framework \
+  --cozy-version 0.2.20-SNAPSHOT \
+  --cozy-project-dir /Users/asami/src/dev2025/cozy \
+  --sbt-cozy-version 0.1.6 \
+  -- bash samples/03-component-cml/run.sh
+```
+
+For published runtime validation, use `--cncf-version <version>` and
+`--cozy-version <version>` instead of the source checkout options.
 
 Resolver policy:
 
@@ -362,14 +382,14 @@ Resolver policy:
   - resolve from Ivy local first
   - this assumes the matching `cozy` version has already been `publishLocal`ed
 
-This is a development-stage operating mode.
-The intended later path is:
 
-1. local command wrapper
-2. local published artifact or equivalent packaged runtime
-3. Docker-based `cozy` command
+Launcher maturity path:
 
-The purpose of the current stage is to preserve development efficiency without coupling each sample directly to one handwritten `cozyDelegateProjectDir` setting.
+1. installed `cozy` command for normal sample generation
+2. local published artifact or equivalent packaged runtime for `-SNAPSHOT` testing
+3. Docker-based `cozy` command when containerized generation becomes necessary
+
+The purpose of the current stage is to preserve development efficiency while keeping each sample independent from one handwritten `cozyDelegateProjectDir` setting.
 
 ## Using sbt-cozy
 
@@ -403,7 +423,7 @@ Deployment guidance in this repository assumes:
 - optional deployment from a local repository or shared component directory
 - sample-level deployment simulation from `samples/component.d` or `samples/repository.d`
 
-If a sample is not implemented yet, its `run.sh` exits with a clear message until the sample-specific command path is defined.
+If a sample is not implemented yet, it does not provide `run.sh` and is excluded from normal execution verification until the sample-specific command path is defined.
 
 ## Site Publication
 
