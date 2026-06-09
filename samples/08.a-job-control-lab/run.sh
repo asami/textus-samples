@@ -21,7 +21,7 @@ done
 
 server_log="${TMPDIR:-/tmp}/08-a-job-control-server.log"
 : >"${server_log}"
-cncf dev server --project . >"${server_log}" 2>&1 &
+cncf dev server --project-dev . >"${server_log}" 2>&1 &
 server_pid=$!
 
 server_ready=0
@@ -71,21 +71,21 @@ for line in lines:
 raise SystemExit(f"job id not found in {text!r}")'
 }
 
-job_json="$(cncf dev client --project . job-control-lab.item.create-item --name quick --title Quick)"
+job_json="$(cncf dev client --project-dev . job-control-lab.item.create-item --name quick --title Quick)"
 echo "${job_json}"
 outer_job_id="$(printf '%s\n' "${job_json}" | extract_job_id)"
-job_id="$(cncf dev client --project . job-control.job.await-job-result --id "${outer_job_id}" | extract_job_id)"
+job_id="$(cncf dev client --project-dev . job-control.job.await-job-result --id "${outer_job_id}" | extract_job_id)"
 
-cncf dev client --project . job-control.job-admin.suspend-job --id "${job_id}" --privilege content_admin
-cncf dev client --project . job-control.job.get-job-status --id "${job_id}"
-cncf dev client --project . job-control.job-admin.resume-job --id "${job_id}" --privilege content_admin
+cncf dev client --project-dev . job-control.job-admin.suspend-job --id "${job_id}" --privilege content_admin
+cncf dev client --project-dev . job-control.job.get-job-status --id "${job_id}"
+cncf dev client --project-dev . job-control.job-admin.resume-job --id "${job_id}" --privilege content_admin
 
 await_job_result() {
   local id="$1"
   local result=""
   local i
   for i in $(seq 1 10); do
-    result="$(cncf dev client --project . job-control.job.await-job-result --id "${id}")"
+    result="$(cncf dev client --project-dev . job-control.job.await-job-result --id "${id}")"
     if printf '%s\n' "${result}" | grep -Eq '("id":|"id"[[:space:]]*:|^id:[[:space:]])'; then
       printf '%s\n' "${result}"
       return 0
@@ -97,14 +97,14 @@ await_job_result() {
 }
 
 await_job_result "${job_id}"
-cncf dev client --project . job-control.job.load-job-history --id "${job_id}"
-cncf dev command --project . event.event-admin.load-job-events --id "${job_id}" --privilege content_admin
+cncf dev client --project-dev . job-control.job.load-job-history --id "${job_id}"
+cncf dev command --project-dev . event.event-admin.load-job-events --id "${job_id}" --privilege content_admin
 
-cancel_json="$(cncf dev client --project . job-control-lab.item.create-item --name cancel --title Cancel)"
+cancel_json="$(cncf dev client --project-dev . job-control-lab.item.create-item --name cancel --title Cancel)"
 echo "${cancel_json}"
 cancel_outer_job_id="$(printf '%s\n' "${cancel_json}" | extract_job_id)"
-cancel_job_id="$(cncf dev client --project . job-control.job.await-job-result --id "${cancel_outer_job_id}" | extract_job_id)"
+cancel_job_id="$(cncf dev client --project-dev . job-control.job.await-job-result --id "${cancel_outer_job_id}" | extract_job_id)"
 
-cncf dev client --project . job-control.job-admin.cancel-job --id "${cancel_job_id}" --privilege content_admin
-cncf dev client --project . job-control.job.load-job-history --id "${cancel_job_id}"
-cncf dev command --project . event.event-admin.load-job-events --id "${cancel_job_id}" --privilege content_admin
+cncf dev client --project-dev . job-control.job-admin.cancel-job --id "${cancel_job_id}" --privilege content_admin
+cncf dev client --project-dev . job-control.job.load-job-history --id "${cancel_job_id}"
+cncf dev command --project-dev . event.event-admin.load-job-events --id "${cancel_job_id}" --privilege content_admin

@@ -131,7 +131,7 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash cncf dev command --project . ...
+bash cncf dev command --project-dev . ...
 ```
 
 Common points:
@@ -140,7 +140,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--project .` auto activation:
+- `--project-dev .` auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -151,7 +151,7 @@ Common points:
 ### Command-Side Help
 
 ```bash
-$ cncf dev command --project . help cqrs.item.create-item
+$ cncf dev command --project-dev . help cqrs.item.create-item
 ```
 
 This confirms the modeled command-side operation contract.
@@ -171,7 +171,7 @@ returns:
 ### Entity Write Surface Help
 
 ```bash
-$ cncf dev command --project . help cqrs.entity.create-item-record
+$ cncf dev command --project-dev . help cqrs.entity.create-item-record
 ```
 
 This shows the concrete entity write selector used in the executable flow.
@@ -191,7 +191,7 @@ returns:
 ### Metadata Describe
 
 ```bash
-$ cncf dev command --project . cqrs.meta.describe --format yaml
+$ cncf dev command --project-dev . cqrs.meta.describe --format yaml
 ```
 
 Output example:

@@ -8,23 +8,48 @@ Each sample demonstrates a structural pattern rather than a business domain and 
 This repository is a foundation for arranging CNCF structural patterns as small samples that are easy to compare.
 Its initial goal is to build a catalog of patterns, not to recreate complex business domains.
 
-## Local CNCF Command
+## Local Launchers
 
-This repository uses the installed `cncf` launcher directly.
+This repository uses the installed stable launchers directly. `cncf` is the
+primary command for running samples, while `cozy` is used by CML/model
+generation and publication tasks. `textus` is documented here because it is the
+user/application launcher that shares the same published CNCF runtime line.
 
-Install or update it once through Coursier before running samples:
+Install or update the launchers once through Coursier before running samples:
 
 ```bash
-cs install cncf
-# or
-cs update cncf
+cs install --force cozy \
+  --channel https://www.simplemodeling.org/repository/cozy/coursier-channel.json
+
+cs install --force cncf \
+  --channel https://www.simplemodeling.org/repository/textus/coursier-channel.json
+
+cs install --force textus \
+  --channel https://www.simplemodeling.org/repository/textus/coursier-channel.json
+```
+
+Refresh runtime catalogs explicitly when a newly published stable runtime should
+become `recommended`:
+
+```bash
+cozy runtime refresh
+cncf runtime refresh
+textus runtime refresh
+
+cozy launcher version
+cozy runtime current
+cncf launcher version
+cncf runtime current
+textus launcher version
+textus runtime current
 ```
 
 Repository setup still prepares the local `cozy` command and verifies that
-`cncf` is available:
+`cncf` is available. Use `all` when you also want to check `textus`:
 
 ```bash
 bash bin/setup
+bash bin/setup all
 ```
 
 Repository defaults live in:
@@ -44,7 +69,7 @@ Launcher roles:
   and runtime surfaces while building CNCF samples.
 
 Because these samples execute components that are under development, the
-standard command is `cncf dev ...`, not `textus`. Use `--project .` auto activation
+standard command is `cncf dev ...`, not `textus`. Use `--project-dev .` auto activation
 for the ordinary edit/run loop, and use CAR/SAR/repository options only when
 the sample is specifically demonstrating packaged source loading.
 
@@ -52,26 +77,26 @@ the sample is specifically demonstrating packaged source loading.
 Published runtime example:
 
 ```bash
-cncf dev command --project . minimal.main.hello
+cncf dev command --project-dev . minimal.main.hello
 ```
 
 CNCF core development runtime example:
 
 ```bash
 cncf --runtime-dev-dir /path/to/cloud-native-component-framework \
-  dev command --project . minimal.main.hello
+  dev command --project-dev . minimal.main.hello
 ```
 
 Packaged source examples:
 
 ```bash
-cncf dev command --project . --no-project-classpath --component-car-dir car.d testcomp.main.hello
-cncf dev command --project . --no-project-classpath --subsystem-sar-dir sar.d testcomp.main.hello
-cncf dev command --project . --no-project-classpath --repository-dir repository.d --textus.component=<component> <operation>
+cncf dev command --project-dev . --no-project-classpath --component-car-dir car.d testcomp.main.hello
+cncf dev command --project-dev . --no-project-classpath --subsystem-sar-dir sar.d testcomp.main.hello
+cncf dev command --project-dev . --no-project-classpath --repository-dir repository.d --textus.component=<component> <operation>
 ```
 
 `--discover=classes` and the sample-local `bin/cncf` wrapper are historical
-compatibility mechanisms. Current samples should use `--project .` for the main development project.
+compatibility mechanisms. Current samples should use `--project-dev .` for the main development project.
 Use `--component-dev-dir <dir>` only when a sample intentionally injects a
 separate development component dependency; use `--component-car-dir`,
 `--subsystem-sar-dir`, or `repository.d` only for packaged-source samples.
@@ -85,10 +110,10 @@ Development order follows the stages recorded in `docs/journal/2026/03/cncf-samp
 5. `01.d-component-script`
 6. `02-component`
 7. `02.a-car-dir-lab`
-8. `02.b-discover-classes-lab` (historical name; now uses `cncf dev --project .`)
+8. `02.b-discover-classes-lab` (historical name; now uses `cncf dev --project-dev .`)
 9. `03-component-cml`
 10. `03.a-car-dir-cml-lab`
-11. `03.b-discover-classes-cml-lab` (historical name; now uses `cncf dev --project .`)
+11. `03.b-discover-classes-cml-lab` (historical name; now uses `cncf dev --project-dev .`)
 12. `03.c-method-execution-cml-lab`
 13. `04-crud`
 14. `04.a-crud-seed-import-lab`
@@ -171,10 +196,10 @@ AI behavior is interpreted in the following order.
 │  ├─ 01.d-component-script/
 │  ├─ 02-component/
 │  ├─ 02.a-car-dir-lab/
-│  ├─ 02.b-discover-classes-lab/        # historical name; uses cncf dev --project .
+│  ├─ 02.b-discover-classes-lab/        # historical name; uses cncf dev --project-dev .
 │  ├─ 03-component-cml/
 │  ├─ 03.a-car-dir-cml-lab/
-│  ├─ 03.b-discover-classes-cml-lab/    # historical name; uses cncf dev --project .
+│  ├─ 03.b-discover-classes-cml-lab/    # historical name; uses cncf dev --project-dev .
 │  ├─ 03.c-method-execution-cml-lab/
 │  ├─ 04-crud/
 │  ├─ 04.a-crud-seed-import-lab/
@@ -288,7 +313,7 @@ cd samples/01-minimal
 
 For development, the preferred working style is:
 
-- `--project <project>`
+- `--project-dev <project>`
   - standard launcher entry for ordinary samples and the main development project
   - auto-activates the component/subsystem being edited
 - `--component-dev-dir <project>`
@@ -312,15 +337,15 @@ so the usual edit/run form does not need `--textus.component` or
 `--textus.subsystem`:
 
 ```bash
-cncf dev server --project .
-cncf dev server --project . --subsystem-dev-dir .
+cncf dev server --project-dev .
+cncf dev server --project-dev . --subsystem-dev-dir .
 ```
 
 Programming-time example:
 
 ```bash
 cd samples/01-minimal
-cncf dev command --project . minimal.main.hello
+cncf dev command --project-dev . minimal.main.hello
 ```
 
 Deployment-style invocation can also be separated from local verification through `invoke.sh` per sample.
@@ -363,10 +388,8 @@ Version-matrix validation can be run without editing version files:
 
 ```bash
 scripts/with-launchers.sh \
-  --cncf-version 0.4.10-SNAPSHOT \
-  --cncf-runtime-dev-dir /Users/asami/src/dev2025/cloud-native-component-framework \
-  --cozy-version 0.2.20-SNAPSHOT \
-  --cozy-project-dir /Users/asami/src/dev2025/cozy \
+  --cncf-version 0.4.10 \
+  --cozy-version 0.2.21 \
   --sbt-cozy-version 0.1.6 \
   -- bash samples/03-component-cml/run.sh
 ```

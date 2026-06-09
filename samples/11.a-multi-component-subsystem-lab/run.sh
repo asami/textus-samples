@@ -58,28 +58,28 @@ COMMON_ARGS=(
 )
 
 echo "--- subsystem help"
-cncf dev command --project . "${COMMON_ARGS[@]}" meta.help --format yaml
+cncf dev command --project-dev . "${COMMON_ARGS[@]}" meta.help --format yaml
 
 echo
 echo "--- alpha component help"
-cncf dev command --project . "${COMMON_ARGS[@]}" meta.help alphacomp --format yaml
+cncf dev command --project-dev . "${COMMON_ARGS[@]}" meta.help alphacomp --format yaml
 
 echo
 echo "--- beta component help"
-cncf dev command --project . "${COMMON_ARGS[@]}" meta.help betacomp --format yaml
+cncf dev command --project-dev . "${COMMON_ARGS[@]}" meta.help betacomp --format yaml
 
 echo
 echo "--- alpha operation help"
-cncf dev command --project . "${COMMON_ARGS[@]}" help alphacomp.main.hello
+cncf dev command --project-dev . "${COMMON_ARGS[@]}" help alphacomp.main.hello
 
 echo
 echo "--- beta operation help"
-cncf dev command --project . "${COMMON_ARGS[@]}" help betacomp.main.hello
+cncf dev command --project-dev . "${COMMON_ARGS[@]}" help betacomp.main.hello
 
 echo
 echo "--- execute alpha"
-cncf dev command --project . "${COMMON_ARGS[@]}" alphacomp.main.hello
+cncf dev command --project-dev . "${COMMON_ARGS[@]}" alphacomp.main.hello
 
 echo
 echo "--- execute beta"
-cncf dev command --project . "${COMMON_ARGS[@]}" betacomp.main.hello
+cncf dev command --project-dev . "${COMMON_ARGS[@]}" betacomp.main.hello

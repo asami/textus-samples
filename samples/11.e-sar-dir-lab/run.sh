@@ -46,16 +46,16 @@ COMMON_ARGS=(
 )
 
 echo "--- subsystem help"
-cncf dev command --project . --no-project-classpath "${COMMON_ARGS[@]}" meta.help --format yaml
+cncf dev command --project-dev . --no-project-classpath "${COMMON_ARGS[@]}" meta.help --format yaml
 
 echo
 echo "--- component help"
-cncf dev command --project . --no-project-classpath "${COMMON_ARGS[@]}" meta.help testcomp --format yaml
+cncf dev command --project-dev . --no-project-classpath "${COMMON_ARGS[@]}" meta.help testcomp --format yaml
 
 echo
 echo "--- operation help"
-cncf dev command --project . --no-project-classpath "${COMMON_ARGS[@]}" help testcomp.main.hello
+cncf dev command --project-dev . --no-project-classpath "${COMMON_ARGS[@]}" help testcomp.main.hello
 
 echo
 echo "--- execute"
-cncf dev command --project . --no-project-classpath "${COMMON_ARGS[@]}" testcomp.main.hello
+cncf dev command --project-dev . --no-project-classpath "${COMMON_ARGS[@]}" testcomp.main.hello

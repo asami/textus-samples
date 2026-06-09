@@ -18,7 +18,8 @@ to run it from the component development directory without packaging a CAR.
 Install the CNCF launcher once:
 
 ```bash
-cs install cncf
+cs install --force cncf \
+  --channel https://www.simplemodeling.org/repository/textus/coursier-channel.json
 ```
 
 Compile the sample:
@@ -38,19 +39,19 @@ bash run.sh
 ### 1. Inspect the component
 
 ```bash
-cncf dev command --project . meta.help testcomp --format yaml
+cncf dev command --project-dev . meta.help testcomp --format yaml
 ```
 
 ### 2. Inspect operation help
 
 ```bash
-cncf dev command --project . help testcomp.main.hello
+cncf dev command --project-dev . help testcomp.main.hello
 ```
 
 ### 3. Execute the operation
 
 ```bash
-cncf dev command --project . testcomp.main.hello
+cncf dev command --project-dev . testcomp.main.hello
 ```
 
 Expected result:
@@ -61,6 +62,6 @@ Hello from testcomp
 
 ## Key Learnings
 
-- `--project .` auto activation is the current component edit/run loop.
+- `--project-dev .` auto activation is the current component edit/run loop.
 - The component selector is the same as packaged CAR execution.
 - The old class-discovery flag is not part of the current sample path.

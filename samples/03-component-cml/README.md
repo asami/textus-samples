@@ -15,7 +15,7 @@ bash ../../bin/setup cncf
 
 - `repository.d/*.car`
 - `car.d`
-- `--project .` auto activation
+- `--project-dev .` auto activation
 
 `03` keeps the same three runtime shapes, but replaces the hand-written Scala
 component with a `component.cml` source model that Cozy generates into runtime
@@ -30,7 +30,7 @@ In the `03` line, the forms are split like this:
   - expanded generated `car.d`
   - CAR loader/debug form
 - `03.b-discover-classes-cml-lab`
-  - `--project .` auto activation
+  - `--project-dev .` auto activation
   - development-time implicit loading of generated classes
 
 ## Intended Use Case
@@ -122,7 +122,7 @@ With the current activation policy:
 ### 1. Inspect the generated component
 
 ```bash
-cncf dev command --project . --no-project-classpath --repository-dir /absolute/path/to/repository.d --textus.component=component-cml-sample command meta.help component-cml-sample --format yaml
+cncf dev command --project-dev . --no-project-classpath --repository-dir /absolute/path/to/repository.d --textus.component=component-cml-sample command meta.help component-cml-sample --format yaml
 ```
 
 Parameters:
@@ -142,7 +142,7 @@ Parameters:
 ### 2. Inspect generated operation help
 
 ```bash
-cncf dev command --project . --no-project-classpath --repository-dir /absolute/path/to/repository.d --textus.component=component-cml-sample command help component-cml-sample.greeting.greeting
+cncf dev command --project-dev . --no-project-classpath --repository-dir /absolute/path/to/repository.d --textus.component=component-cml-sample command help component-cml-sample.greeting.greeting
 ```
 
 Parameters:
@@ -160,7 +160,7 @@ Parameters:
 ### 3. Inspect generated metadata
 
 ```bash
-cncf dev command --project . --no-project-classpath --repository-dir /absolute/path/to/repository.d --textus.component=component-cml-sample command component-cml-sample.meta.describe --format yaml
+cncf dev command --project-dev . --no-project-classpath --repository-dir /absolute/path/to/repository.d --textus.component=component-cml-sample command component-cml-sample.meta.describe --format yaml
 ```
 
 Parameters:

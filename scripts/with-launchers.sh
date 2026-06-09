@@ -34,10 +34,8 @@ Options:
 
 Example:
   scripts/with-launchers.sh \
-    --cncf-version 0.4.10-SNAPSHOT \
-    --cncf-runtime-dev-dir /Users/asami/src/dev2025/cloud-native-component-framework \
-    --cozy-version 0.2.20-SNAPSHOT \
-    --cozy-project-dir /Users/asami/src/dev2025/cozy \
+    --cncf-version 0.4.10 \
+    --cozy-version 0.2.21 \
     --sbt-cozy-version 0.1.6 \
     -- bash samples/03-component-cml/run.sh
 EOF

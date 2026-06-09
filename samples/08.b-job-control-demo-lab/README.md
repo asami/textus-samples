@@ -88,7 +88,7 @@ It is the batch form of the walkthrough below.
 This sample uses:
 
 ```bash
-bash cncf dev command --project . ...
+bash cncf dev command --project-dev . ...
 ```
 
 Common points:
@@ -96,7 +96,7 @@ Common points:
 - `cncf`:
   - the standard CNCF command-line entry point
   - in this repository it is invoked through `cncf dev`
-- `--project .` auto activation:
+- `--project-dev .` auto activation:
   - loads the locally generated classes under `target/`
 - `command`:
   - runs one-shot CNCF command execution without starting a persistent server
@@ -106,7 +106,7 @@ Common points:
 ### 1. Inspect the component surface
 
 ```bash
-$ cncf dev command --project . help job-control-lab
+$ cncf dev command --project-dev . help job-control-lab
 ```
 
 Parameters:
@@ -122,7 +122,7 @@ This confirms that the generated component surface still exists, even though the
 ### 2. Inspect the control-ready submit operation
 
 ```bash
-$ cncf dev command --project . help job-control-lab.item.create-item
+$ cncf dev command --project-dev . help job-control-lab.item.create-item
 ```
 
 Parameters:
@@ -138,7 +138,7 @@ This is the same user-facing selector that is exercised more fully in `06.a`.
 ### 3. Inspect component metadata
 
 ```bash
-$ cncf dev command --project . job-control-lab.meta.describe --format yaml
+$ cncf dev command --project-dev . job-control-lab.meta.describe --format yaml
 ```
 
 Parameters:

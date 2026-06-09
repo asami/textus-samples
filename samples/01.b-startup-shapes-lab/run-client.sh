@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
 
 if [[ $# -eq 0 ]]; then
-  exec cncf dev client --project . --help
+  exec cncf dev client --project-dev . --help
 fi
 
-exec cncf dev client --project . "$@"
+exec cncf dev client --project-dev . "$@"

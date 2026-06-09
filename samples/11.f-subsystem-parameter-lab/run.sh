@@ -25,16 +25,16 @@ EOF
 (cd "$WORK_DIR/testcomp.car.d" && zip -qr "$WORK_DIR/component.d/testcomp.car" component-descriptor.yaml component)
 
 echo "--- subsystem help"
-cncf dev command --project . --no-project-classpath --textus.subsystem.descriptor=../11-subsystem/subsystem.cml --component-dir "$WORK_DIR/component.d" meta.help --format yaml
+cncf dev command --project-dev . --no-project-classpath --textus.subsystem.descriptor=../11-subsystem/subsystem.cml --component-dir "$WORK_DIR/component.d" meta.help --format yaml
 
 echo
 echo "--- component help"
-cncf dev command --project . --no-project-classpath --textus.subsystem.descriptor=../11-subsystem/subsystem.cml --component-dir "$WORK_DIR/component.d" meta.help testcomp --format yaml
+cncf dev command --project-dev . --no-project-classpath --textus.subsystem.descriptor=../11-subsystem/subsystem.cml --component-dir "$WORK_DIR/component.d" meta.help testcomp --format yaml
 
 echo
 echo "--- operation help"
-cncf dev command --project . --no-project-classpath --textus.subsystem.descriptor=../11-subsystem/subsystem.cml --component-dir "$WORK_DIR/component.d" help testcomp.main.hello
+cncf dev command --project-dev . --no-project-classpath --textus.subsystem.descriptor=../11-subsystem/subsystem.cml --component-dir "$WORK_DIR/component.d" help testcomp.main.hello
 
 echo
 echo "--- execute"
-cncf dev command --project . --no-project-classpath --textus.subsystem.descriptor=../11-subsystem/subsystem.cml --component-dir "$WORK_DIR/component.d" testcomp.main.hello
+cncf dev command --project-dev . --no-project-classpath --textus.subsystem.descriptor=../11-subsystem/subsystem.cml --component-dir "$WORK_DIR/component.d" testcomp.main.hello

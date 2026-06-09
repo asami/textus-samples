@@ -7,12 +7,12 @@ cd "$SCRIPT_DIR"
 LOAD_ID="tokyo-sales-entity-person-1742198400000-abcd1234"
 
 echo "--- help"
-cncf dev command --project . help view-sample.view.load-person
+cncf dev command --project-dev . help view-sample.view.load-person
 
 echo
 echo "--- load"
-cncf dev command --project . view-sample.view.load-person --id "$LOAD_ID"
+cncf dev command --project-dev . view-sample.view.load-person --id "$LOAD_ID"
 
 echo
 echo "--- search"
-cncf dev command --project . view-sample.view.search-person-record --name Alice
+cncf dev command --project-dev . view-sample.view.search-person-record --name Alice

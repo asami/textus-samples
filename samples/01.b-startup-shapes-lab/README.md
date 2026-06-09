@@ -83,7 +83,7 @@ To stop the process:
 Conceptual shape:
 
 ```bash
-cncf dev server --project .
+cncf dev server --project-dev .
 ```
 
 ### 3. Probe The Running Server With `curl`
@@ -128,7 +128,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-cncf dev client --project . --help
+cncf dev client --project-dev . --help
 ```
 
 ### 5. Run The Command Shape Last
@@ -148,7 +148,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-cncf dev command --project . minimal.main.hello
+cncf dev command --project-dev . minimal.main.hello
 ```
 
 ### 6. Compare The Startup Shapes

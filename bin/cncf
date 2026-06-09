@@ -6,13 +6,13 @@ cncf-samples/bin/cncf is deprecated.
 
 Use the installed CNCF launcher directly from each sample directory, for example:
 
-  cncf dev command --project . <component.service.operation>
-  cncf dev command --project . --no-project-classpath --component-car-dir car.d <operation>
-  cncf dev command --project . --no-project-classpath --subsystem-sar-dir sar.d <operation>
+  cncf dev command --project-dev . <component.service.operation>
+  cncf dev command --project-dev . --no-project-classpath --component-car-dir car.d <operation>
+  cncf dev command --project-dev . --no-project-classpath --subsystem-sar-dir sar.d <operation>
 
 Install or update the launcher with Coursier when needed:
 
-  cs install cncf
-  cs update cncf
+  cs install --force cncf --channel https://www.simplemodeling.org/repository/textus/coursier-channel.json
+  cncf runtime refresh
 MSG
 exit 2

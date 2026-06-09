@@ -19,12 +19,12 @@ COMMON_ARGS=(
 )
 
 echo "--- component help"
-cncf dev command --project . "${COMMON_ARGS[@]}" meta.help component-cml-sample --format yaml
+cncf dev command --project-dev . "${COMMON_ARGS[@]}" meta.help component-cml-sample --format yaml
 
 echo
 echo "--- operation help"
-cncf dev command --project . "${COMMON_ARGS[@]}" help component-cml-sample.greeting.greeting
+cncf dev command --project-dev . "${COMMON_ARGS[@]}" help component-cml-sample.greeting.greeting
 
 echo
 echo "--- metadata"
-cncf dev command --project . "${COMMON_ARGS[@]}" component-cml-sample.meta.describe --format yaml
+cncf dev command --project-dev . "${COMMON_ARGS[@]}" component-cml-sample.meta.describe --format yaml

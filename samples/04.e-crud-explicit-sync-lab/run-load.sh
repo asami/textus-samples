@@ -12,6 +12,6 @@ fi
 
 item_id="$1"
 
-exec cncf dev command --project . \
+exec cncf dev command --project-dev . \
   crud.entity.load-item \
   --id "${item_id}"

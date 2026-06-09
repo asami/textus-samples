@@ -90,7 +90,7 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash cncf dev command --project . ...
+bash cncf dev command --project-dev . ...
 ```
 
 Common points:
@@ -109,7 +109,7 @@ Common points:
 ### Operation Help
 
 ```bash
-$ cncf dev command --project . --no-project-component-dev-dir --component-factory-class org.sample.operationentity.OperationEntitySampleFactory help operation-entity-sample.person-app.get-person-card
+$ cncf dev command --project-dev . --no-project-component-dev-dir --component-factory-class org.sample.operationentity.OperationEntitySampleFactory help operation-entity-sample.person-app.get-person-card
 ```
 
 Parameters:
@@ -147,7 +147,7 @@ This confirms the contract surface:
 ### Metadata Describe
 
 ```bash
-$ cncf dev command --project . --no-project-component-dev-dir --component-factory-class org.sample.operationentity.OperationEntitySampleFactory operation-entity-sample.meta.describe --format yaml
+$ cncf dev command --project-dev . --no-project-component-dev-dir --component-factory-class org.sample.operationentity.OperationEntitySampleFactory operation-entity-sample.meta.describe --format yaml
 ```
 
 Parameters:
@@ -181,7 +181,7 @@ This confirms that the sample is still operation-oriented even though the compon
 ### Execute The Query Operation
 
 ```bash
-$ cncf dev command --project . --no-project-component-dev-dir --component-factory-class org.sample.operationentity.OperationEntitySampleFactory operation-entity-sample.person-app.get-person-card --person-id major-minor-entity-person-1742198400000-abcd1234
+$ cncf dev command --project-dev . --no-project-component-dev-dir --component-factory-class org.sample.operationentity.OperationEntitySampleFactory operation-entity-sample.person-app.get-person-card --person-id major-minor-entity-person-1742198400000-abcd1234
 ```
 
 Parameters:

@@ -88,7 +88,7 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash cncf dev command --project . ...
+bash cncf dev command --project-dev . ...
 ```
 
 Common points:
@@ -97,7 +97,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--project .` auto activation:
+- `--project-dev .` auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -108,7 +108,7 @@ Common points:
 ### Operation Help
 
 ```bash
-$ cncf dev command --project . help operation-contract-sample.greeting.greeting
+$ cncf dev command --project-dev . help operation-contract-sample.greeting.greeting
 ```
 
 Parameters:
@@ -144,7 +144,7 @@ This confirms the user-facing contract surface:
 ### Metadata Describe
 
 ```bash
-$ cncf dev command --project . operation-contract-sample.meta.describe --format yaml
+$ cncf dev command --project-dev . operation-contract-sample.meta.describe --format yaml
 ```
 
 Parameters:

@@ -19,7 +19,8 @@ packaging a CAR.
 Install the CNCF launcher once:
 
 ```bash
-cs install cncf
+cs install --force cncf \
+  --channel https://www.simplemodeling.org/repository/textus/coursier-channel.json
 ```
 
 Compile the generated sample:
@@ -39,23 +40,23 @@ bash run.sh
 ### 1. Inspect the generated component
 
 ```bash
-cncf dev command --project . meta.help component-cml-sample --format yaml
+cncf dev command --project-dev . meta.help component-cml-sample --format yaml
 ```
 
 ### 2. Inspect generated operation help
 
 ```bash
-cncf dev command --project . help component-cml-sample.greeting.greeting
+cncf dev command --project-dev . help component-cml-sample.greeting.greeting
 ```
 
 ### 3. Inspect generated metadata
 
 ```bash
-cncf dev command --project . component-cml-sample.meta.describe --format yaml
+cncf dev command --project-dev . component-cml-sample.meta.describe --format yaml
 ```
 
 ## Key Learnings
 
-- `--project .` auto activation is the current generated component edit/run loop.
+- `--project-dev .` auto activation is the current generated component edit/run loop.
 - CAR and `car.d` remain the packaged-source inspection paths.
 - The old class-discovery flag is not part of the current sample path.

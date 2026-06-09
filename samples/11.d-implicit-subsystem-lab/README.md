@@ -53,13 +53,13 @@ In this repository it is invoked as `cncf dev`.
 
 The common option is:
 
-- `--project .` auto activation
+- `--project-dev .` auto activation
   - tells CNCF to discover the sample component from compiled classes and assemble the effective runtime
 
 ### 1. Inspect subsystem help
 
 ```bash
-cncf dev command --project . meta.help --format yaml
+cncf dev command --project-dev . meta.help --format yaml
 ```
 
 Parameters:
@@ -77,7 +77,7 @@ Expected result:
 ### 2. Inspect the discovered component
 
 ```bash
-cncf dev command --project . meta.help subsystem --format yaml
+cncf dev command --project-dev . meta.help subsystem --format yaml
 ```
 
 Parameters:
@@ -93,7 +93,7 @@ Parameters:
 ### 3. Inspect operation help
 
 ```bash
-cncf dev command --project . help subsystem.main.hello
+cncf dev command --project-dev . help subsystem.main.hello
 ```
 
 Parameters:
@@ -107,7 +107,7 @@ Parameters:
 ### 4. Execute the operation
 
 ```bash
-cncf dev command --project . subsystem.main.hello
+cncf dev command --project-dev . subsystem.main.hello
 ```
 
 Parameters:

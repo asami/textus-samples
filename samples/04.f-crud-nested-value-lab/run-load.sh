@@ -12,7 +12,7 @@ fi
 dbpath="target/cncf.d/02f-crud-nested-value-lab.sqlite"
 mkdir -p target/cncf.d
 
-exec cncf dev command --project . \
+exec cncf dev command --project-dev . \
   "--cncf.datastore.sqlite.path=$dbpath" \
   crud-nested-value-sample.entity.load-person \
   --id "$1"

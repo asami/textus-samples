@@ -9,10 +9,10 @@ sbt --batch compile >/dev/null
 
 echo
 echo '--- help aggregate-relation-boundary-sample ---'
-cncf dev command --project . help aggregate-relation-boundary-sample
+cncf dev command --project-dev . help aggregate-relation-boundary-sample
 echo
 echo '--- help aggregate service ---'
-cncf dev command --project . help aggregate-relation-boundary-sample.aggregate
+cncf dev command --project-dev . help aggregate-relation-boundary-sample.aggregate
 echo
 echo '--- meta describe ---'
-cncf dev command --project . aggregate-relation-boundary-sample.meta.describe --format yaml
+cncf dev command --project-dev . aggregate-relation-boundary-sample.meta.describe --format yaml

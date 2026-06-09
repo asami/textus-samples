@@ -17,7 +17,7 @@ for pid in $(lsof -ti "tcp:${SERVER_PORT}" 2>/dev/null || true); do
 done
 
 server_pid=""
-cncf dev server --project . >"$logfile" 2>&1 &
+cncf dev server --project-dev . >"$logfile" 2>&1 &
 server_pid=$!
 cleanup() {
   if [ -n "$server_pid" ]; then
@@ -44,9 +44,9 @@ if [ "$server_ready" -ne 1 ]; then
   exit 1
 fi
 
-job_id="$(cncf dev client --project . job-sample.item.create-item --name alpha --title Alpha)"
+job_id="$(cncf dev client --project-dev . job-sample.item.create-item --name alpha --title Alpha)"
 printf '%s\n' "$job_id"
-cncf dev client --project . job-control.job.await-job-result --id "$job_id"
-cncf dev client --project . job-control.job.get-job-result --id "$job_id"
-cncf dev client --project . job-control.job.get-job-status --id "$job_id"
-cncf dev client --project . job-control.job.load-job-history --id "$job_id"
+cncf dev client --project-dev . job-control.job.await-job-result --id "$job_id"
+cncf dev client --project-dev . job-control.job.get-job-result --id "$job_id"
+cncf dev client --project-dev . job-control.job.get-job-status --id "$job_id"
+cncf dev client --project-dev . job-control.job.load-job-history --id "$job_id"

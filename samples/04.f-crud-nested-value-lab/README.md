@@ -106,7 +106,7 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash cncf dev command --project . ...
+bash cncf dev command --project-dev . ...
 ```
 
 Common points:
@@ -115,7 +115,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--project .` auto activation:
+- `--project-dev .` auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -126,7 +126,7 @@ Common points:
 ### Create Help
 
 ```bash
-$ cncf dev command --project . help crud-nested-value-sample.entity.create-person
+$ cncf dev command --project-dev . help crud-nested-value-sample.entity.create-person
 ```
 
 Parameters:
@@ -153,7 +153,7 @@ returns:
 ### Load Help
 
 ```bash
-$ cncf dev command --project . help crud-nested-value-sample.entity.load-person
+$ cncf dev command --project-dev . help crud-nested-value-sample.entity.load-person
 ```
 
 Parameters:
@@ -169,7 +169,7 @@ Parameters:
 ### Metadata Describe
 
 ```bash
-$ cncf dev command --project . crud-nested-value-sample.meta.describe --format yaml
+$ cncf dev command --project-dev . crud-nested-value-sample.meta.describe --format yaml
 ```
 
 Parameters:

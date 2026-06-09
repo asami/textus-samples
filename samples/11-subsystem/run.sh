@@ -36,16 +36,16 @@ EOF
 (cd "$WORK_DIR/testsubsystem.sar.d" && zip -qr "$SCRIPT_DIR/component.d/testsubsystem.sar" subsystem-descriptor.yaml)
 
 echo "--- subsystem help"
-cncf dev command --project . --no-project-classpath --component-dir component.d --textus.subsystem=testsubsystem meta.help --format yaml
+cncf dev command --project-dev . --no-project-classpath --component-dir component.d --textus.subsystem=testsubsystem meta.help --format yaml
 
 echo
 echo "--- component help"
-cncf dev command --project . --no-project-classpath --component-dir component.d --textus.subsystem=testsubsystem meta.help testcomp --format yaml
+cncf dev command --project-dev . --no-project-classpath --component-dir component.d --textus.subsystem=testsubsystem meta.help testcomp --format yaml
 
 echo
 echo "--- operation help"
-cncf dev command --project . --no-project-classpath --component-dir component.d --textus.subsystem=testsubsystem help testcomp.main.hello
+cncf dev command --project-dev . --no-project-classpath --component-dir component.d --textus.subsystem=testsubsystem help testcomp.main.hello
 
 echo
 echo "--- execute"
-cncf dev command --project . --no-project-classpath --component-dir component.d --textus.subsystem=testsubsystem testcomp.main.hello
+cncf dev command --project-dev . --no-project-classpath --component-dir component.d --textus.subsystem=testsubsystem testcomp.main.hello

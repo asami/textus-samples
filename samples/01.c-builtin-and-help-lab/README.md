@@ -79,7 +79,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-cncf dev command --project . meta.help
+cncf dev command --project-dev . meta.help
 ```
 
 ### 3. Observe Component-Level Help For `minimal`
@@ -99,7 +99,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-cncf dev command --project . meta.help minimal
+cncf dev command --project-dev . meta.help minimal
 ```
 
 ### 4. Observe Operation Help Through The `help` Alias
@@ -119,7 +119,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-cncf dev command --project . help minimal.main.hello
+cncf dev command --project-dev . help minimal.main.hello
 ```
 
 Key distinction:
@@ -144,7 +144,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-cncf dev command --project . admin.system.ping
+cncf dev command --project-dev . admin.system.ping
 ```
 
 ### 6. Compare Sample-Defined And Builtin Surfaces

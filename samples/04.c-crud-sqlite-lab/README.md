@@ -103,7 +103,7 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash cncf dev command --project . ...
+bash cncf dev command --project-dev . ...
 ```
 
 Common points:
@@ -112,7 +112,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--project .` auto activation:
+- `--project-dev .` auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -123,7 +123,7 @@ Common points:
 ### Load Help
 
 ```bash
-$ cncf dev command --project . help crud.entity.load-item
+$ cncf dev command --project-dev . help crud.entity.load-item
 ```
 
 Parameters:
@@ -152,7 +152,7 @@ returns:
 ### Search Help
 
 ```bash
-$ cncf dev command --project . help crud.entity.search-item-record
+$ cncf dev command --project-dev . help crud.entity.search-item-record
 ```
 
 Parameters:
@@ -168,7 +168,7 @@ Parameters:
 ### Load Seeded Record Through SQLite
 
 ```bash
-$ cncf dev command --project . \
+$ cncf dev command --project-dev . \
     --cncf.datastore.sqlite.path=target/cncf.d/02c-crud-sqlite-lab.sqlite \
     crud.entity.load-item \
     --id major-minor-entity-item-20260328000000-aaa111
@@ -202,7 +202,7 @@ This confirms that the seeded record is available through the SQLite-backed read
 ### Search Seeded Record Through SQLite
 
 ```bash
-$ cncf dev command --project . \
+$ cncf dev command --project-dev . \
     --cncf.datastore.sqlite.path=target/cncf.d/02c-crud-sqlite-lab.sqlite \
     crud.entity.search-item-record \
     --name alpha
@@ -241,7 +241,7 @@ fetched_count: 1
 
 ```bash
 $ created_id=$(
-    cncf dev command --project . \
+    cncf dev command --project-dev . \
       --textus.command.execution-mode sync-direct-no-job \
       --cncf.datastore.sqlite.path=target/cncf.d/02c-crud-sqlite-lab.sqlite \
       crud.entity.create-item \
@@ -250,7 +250,7 @@ $ created_id=$(
       | awk '/^id: / {print $2}'
   )
 
-$ cncf dev command --project . \
+$ cncf dev command --project-dev . \
     --cncf.datastore.sqlite.path=target/cncf.d/02c-crud-sqlite-lab.sqlite \
     crud.entity.load-item \
     --id "$created_id"
@@ -316,7 +316,7 @@ The natural point to move away from SQLite is when concurrent writes become a ma
 ### Metadata Describe
 
 ```bash
-$ cncf dev command --project . crud.meta.describe --format yaml
+$ cncf dev command --project-dev . crud.meta.describe --format yaml
 ```
 
 Parameters:

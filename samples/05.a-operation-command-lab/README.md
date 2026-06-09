@@ -92,7 +92,7 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash cncf dev command --project . ...
+bash cncf dev command --project-dev . ...
 ```
 
 Common points:
@@ -111,7 +111,7 @@ Common points:
 ### Operation Help
 
 ```bash
-$ cncf dev command --project . --no-project-component-dev-dir --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory help operation-command-contract-sample.greeting.submit-greeting
+$ cncf dev command --project-dev . --no-project-component-dev-dir --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory help operation-command-contract-sample.greeting.submit-greeting
 ```
 
 Parameters:
@@ -149,7 +149,7 @@ This confirms the contract surface:
 ### Metadata Describe
 
 ```bash
-$ cncf dev command --project . --no-project-component-dev-dir --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory operation-command-contract-sample.meta.describe --format yaml
+$ cncf dev command --project-dev . --no-project-component-dev-dir --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory operation-command-contract-sample.meta.describe --format yaml
 ```
 
 Parameters:
@@ -196,13 +196,13 @@ This sample also shows the smallest concrete async command flow.
 Start the server in one shell:
 
 ```bash
-$ cncf dev server --project . --no-project-component-dev-dir --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory
+$ cncf dev server --project-dev . --no-project-component-dev-dir --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory
 ```
 
 Submit the command from another shell:
 
 ```bash
-$ cncf dev client --project . --no-project-component-dev-dir --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory operation-command-contract-sample.greeting.submit-greeting --name Alice
+$ cncf dev client --project-dev . --no-project-component-dev-dir --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory operation-command-contract-sample.greeting.submit-greeting --name Alice
 ```
 
 Output example:
@@ -217,7 +217,7 @@ That is the default command shape in CNCF.
 Then await the result using the returned job id:
 
 ```bash
-$ cncf dev client --project . --no-project-component-dev-dir --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory job-control.job.await-job-result --id cncf-job-job-1775443773441-7COTU1hJrsGkCKUgPXhiCL
+$ cncf dev client --project-dev . --no-project-component-dev-dir --component-factory-class org.sample.operationcommand.OperationCommandContractSampleFactory job-control.job.await-job-result --id cncf-job-job-1775443773441-7COTU1hJrsGkCKUgPXhiCL
 ```
 
 Output example:

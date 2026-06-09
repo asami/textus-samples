@@ -116,7 +116,7 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash cncf dev command --project . ...
+bash cncf dev command --project-dev . ...
 ```
 
 Common points:
@@ -125,7 +125,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--project .` auto activation:
+- `--project-dev .` auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -142,7 +142,7 @@ Start CNCF in server mode first.
 This keeps the in-memory event effect and job state available across client requests.
 
 ```bash
-cncf dev server --project .
+cncf dev server --project-dev .
 ```
 
 Parameters:
@@ -163,7 +163,7 @@ Send the event-producing command from another shell.
 This step submits the event-backed work and returns a job id.
 
 ```bash
-cncf dev client --project . event-driven.event.emit-event --name alpha --title Alpha
+cncf dev client --project-dev . event-driven.event.emit-event --name alpha --title Alpha
 ```
 
 Parameters:
@@ -193,7 +193,7 @@ Use the returned job id to wait until the routed reaction completes.
 This is the practical step that prevents a race between event submission and effect loading.
 
 ```bash
-cncf dev client --project . job-control.job.await-job-result --id cncf-job-job-1775498741256-3pl4ERPQi6PkTtsPrJ51fD
+cncf dev client --project-dev . job-control.job.await-job-result --id cncf-job-job-1775498741256-3pl4ERPQi6PkTtsPrJ51fD
 ```
 
 Parameters:
@@ -222,7 +222,7 @@ Now read the visible effect back through the query-side selector.
 This confirms that the event-driven reaction already changed the visible state.
 
 ```bash
-cncf dev client --project . event-driven.event.load-effect
+cncf dev client --project-dev . event-driven.event.load-effect
 ```
 
 Parameters:
@@ -247,13 +247,13 @@ Expected result example:
 If you prefer the helper scripts, they map to the same commands:
 
 - `bash run-server.sh`
-  - `cncf dev server --project .`
+  - `cncf dev server --project-dev .`
 - `bash run-client-emit.sh`
-  - `cncf dev client --project . event-driven.event.emit-event --name alpha --title Alpha`
+  - `cncf dev client --project-dev . event-driven.event.emit-event --name alpha --title Alpha`
 - `bash run-client-await.sh <job-id>`
-  - `cncf dev client --project . job-control.job.await-job-result --id <job-id>`
+  - `cncf dev client --project-dev . job-control.job.await-job-result --id <job-id>`
 - `bash run-client-load.sh`
-  - `cncf dev client --project . event-driven.event.load-effect`
+  - `cncf dev client --project-dev . event-driven.event.load-effect`
 
 ## Parameters And Returns
 

@@ -93,7 +93,7 @@ The commands below use these common conventions:
   - the standard CNCF CLI entry point
   - in this repository it is invoked directly through the installed `cncf` launcher
   - after a normal installation it is typically available as `cncf`
-- `--project .` auto activation
+- `--project-dev .` auto activation
   - tells CNCF to discover generated components from the compiled class directory
 - `command`
   - runs one-shot CNCF command execution
@@ -103,7 +103,7 @@ The commands below use these common conventions:
 ### 1. Inspect the component surface
 
 ```bash
-$ cncf dev command --project . help aggregate-external-update-sample
+$ cncf dev command --project-dev . help aggregate-external-update-sample
 ```
 
 This shows that the generated component exposes:
@@ -122,7 +122,7 @@ Parameters:
 ### 2. Inspect the aggregate-facing command
 
 ```bash
-$ cncf dev command --project . help aggregate-external-update-sample.order.cancel-order
+$ cncf dev command --project-dev . help aggregate-external-update-sample.order.cancel-order
 ```
 
 This shows the command contract that represents the aggregate-side update semantic.
@@ -138,7 +138,7 @@ Parameters:
 ### 3. Inspect component metadata
 
 ```bash
-$ cncf dev command --project . aggregate-external-update-sample.meta.describe --format yaml
+$ cncf dev command --project-dev . aggregate-external-update-sample.meta.describe --format yaml
 ```
 
 This shows the generated metadata.

@@ -12,7 +12,7 @@ fi
 job_id="$1"
 SERVER_PORT="${CNCF_SAMPLE_SERVER_PORT:-19542}"
 
-exec cncf dev client --project . \
+exec cncf dev client --project-dev . \
   job-control.job.await-job-result \
   --baseurl "http://localhost:${SERVER_PORT}" \
   --id "$job_id"

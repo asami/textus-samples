@@ -81,13 +81,13 @@ The shell wrappers are intentionally thin, but that also makes their behavior ea
 `run.sh` is the development-time entry point.
 It calls the shared runner with:
 
-- `--project .` auto activation
+- `--project-dev .` auto activation
 - `--command-path minimal.main.hello`
 
 Conceptually, it becomes:
 
 ```bash
-cncf dev command --project . minimal.main.hello
+cncf dev command --project-dev . minimal.main.hello
 ```
 
 Meaning:
@@ -108,7 +108,7 @@ Conceptually, it becomes:
 
 ```bash
 sbt package
-cncf dev command --project . --no-project-classpath --component-dir ../component.d minimal.main.hello
+cncf dev command --project-dev . --no-project-classpath --component-dir ../component.d minimal.main.hello
 ```
 
 Meaning:

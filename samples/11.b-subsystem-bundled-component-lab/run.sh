@@ -40,16 +40,16 @@ EOF
 (cd "$SAR_DIR" && zip -qr "$SAR_FILE" subsystem-descriptor.yaml component)
 
 echo "--- subsystem help"
-cncf dev command --project . --no-project-classpath --no-default-components --component-dir component.d --textus.subsystem=testsubsystem meta.help --format yaml
+cncf dev command --project-dev . --no-project-classpath --no-default-components --component-dir component.d --textus.subsystem=testsubsystem meta.help --format yaml
 
 echo
 echo "--- component help"
-cncf dev command --project . --no-project-classpath --no-default-components --component-dir component.d --textus.subsystem=testsubsystem meta.help testcomp --format yaml
+cncf dev command --project-dev . --no-project-classpath --no-default-components --component-dir component.d --textus.subsystem=testsubsystem meta.help testcomp --format yaml
 
 echo
 echo "--- operation help"
-cncf dev command --project . --no-project-classpath --no-default-components --component-dir component.d --textus.subsystem=testsubsystem help testcomp.main.hello
+cncf dev command --project-dev . --no-project-classpath --no-default-components --component-dir component.d --textus.subsystem=testsubsystem help testcomp.main.hello
 
 echo
 echo "--- execute"
-cncf dev command --project . --no-project-classpath --no-default-components --component-dir component.d --textus.subsystem=testsubsystem testcomp.main.hello
+cncf dev command --project-dev . --no-project-classpath --no-default-components --component-dir component.d --textus.subsystem=testsubsystem testcomp.main.hello

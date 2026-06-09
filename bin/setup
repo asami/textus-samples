@@ -16,12 +16,19 @@ Usage:
   bin/setup bootstrap
   bin/setup cozy [--cozy-version <version>] [--sbt-cozy-version <version>]
   bin/setup cncf [--cncf-version <version>] [--cncf-server-port <port>] [--core-version <version>] [--simplemodeling-model-version <version>]
+  bin/setup textus
   bin/setup all
 
 Current responsibilities:
   - verify the installed cozy launcher used by bin/cozy and sbt-cozy delegates
   - verify the coursier-installed cncf command used directly by samples
+  - verify the optional textus launcher used for packaged Textus applications
   - report the configured runtime dependency versions used by sample validation
+
+Install/update stable launchers:
+  cs install --force cozy --channel https://www.simplemodeling.org/repository/cozy/coursier-channel.json
+  cs install --force cncf --channel https://www.simplemodeling.org/repository/textus/coursier-channel.json
+  cs install --force textus --channel https://www.simplemodeling.org/repository/textus/coursier-channel.json
 EOF
 }
 
@@ -78,6 +85,14 @@ find_installed_cozy() {
   return 1
 }
 
+find_installed_textus() {
+  if [[ -n "${TEXTUS_COMMAND:-}" ]]; then
+    printf '%s\n' "$TEXTUS_COMMAND"
+    return
+  fi
+  command -v textus || return 1
+}
+
 prepare_cozy() {
   local cozy_bin
   if ! cozy_bin="$(find_installed_cozy)"; then
@@ -96,6 +111,8 @@ prepare_cozy() {
   fi
   echo "cozy command: $cozy_bin"
   echo "cozy version: $cozy_version"
+  echo "cozy launcher: $("$cozy_bin" launcher version)"
+  echo "cozy runtime current: $("$cozy_bin" runtime current)"
   echo "sbt-cozy version: $sbt_cozy_version"
   if [[ -n "${COZY_PROJECT_DIR:-}" ]]; then
     echo "cozy project dir: $COZY_PROJECT_DIR"
@@ -109,7 +126,8 @@ prepare_cncf() {
   local cncf_bin
   if ! cncf_bin="$(find_installed_cncf)"; then
     echo "installed cncf command not found" >&2
-    echo "Install it with coursier, for example: cs install cncf" >&2
+    echo "Install it with coursier:" >&2
+    echo "  cs install --force cncf --channel https://www.simplemodeling.org/repository/textus/coursier-channel.json" >&2
     echo "If needed, set CNCF_COMMAND=/path/to/cncf." >&2
     exit 3
   fi
@@ -117,9 +135,26 @@ prepare_cncf() {
   echo "java: $(command -v java)"
   echo "cncf command: $cncf_bin"
   echo "cncf version: $cncf_version"
+  echo "cncf launcher: $("$cncf_bin" launcher version)"
+  echo "cncf runtime current: $("$cncf_bin" runtime current)"
   echo "cncf server port: $cncf_server_port"
   echo "goldenport-core version: $core_version"
   echo "simplemodeling-model version: $simplemodeling_model_version"
+}
+
+prepare_textus() {
+  local textus_bin
+  if ! textus_bin="$(find_installed_textus)"; then
+    echo "installed textus command not found" >&2
+    echo "Install it with coursier:" >&2
+    echo "  cs install --force textus --channel https://www.simplemodeling.org/repository/textus/coursier-channel.json" >&2
+    echo "If needed, set TEXTUS_COMMAND=/path/to/textus." >&2
+    exit 3
+  fi
+  "$textus_bin" --help >/dev/null
+  echo "textus command: $textus_bin"
+  echo "textus launcher: $("$textus_bin" launcher version)"
+  echo "textus runtime current: $("$textus_bin" runtime current)"
 }
 
 main() {
@@ -188,11 +223,20 @@ main() {
     cncf)
       prepare_cncf
       ;;
-    cozy|all|bootstrap)
+    textus)
+      prepare_textus
+      ;;
+    cozy)
       prepare_cozy
-      if [[ "$mode" != "cozy" ]]; then
-        prepare_cncf
-      fi
+      ;;
+    bootstrap)
+      prepare_cozy
+      prepare_cncf
+      ;;
+    all)
+      prepare_cozy
+      prepare_cncf
+      prepare_textus
       ;;
     -h|--help|help)
       usage

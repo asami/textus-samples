@@ -87,7 +87,7 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash cncf dev command --project . ...
+bash cncf dev command --project-dev . ...
 ```
 
 Common points:
@@ -96,7 +96,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--project .` auto activation:
+- `--project-dev .` auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -109,7 +109,7 @@ Common points:
 This command shows the generated component surface.
 
 ```bash
-$ cncf dev command --project . help crud
+$ cncf dev command --project-dev . help crud
 ```
 
 Parameters:
@@ -151,7 +151,7 @@ This confirms that the model generated:
 This command shows the generated service surface.
 
 ```bash
-$ cncf dev command --project . help crud.item
+$ cncf dev command --project-dev . help crud.item
 ```
 
 Parameters:
@@ -187,7 +187,7 @@ This is the first point where the generated service contract becomes visible.
 This command shows one generated operation.
 
 ```bash
-$ cncf dev command --project . help crud.item.create-item
+$ cncf dev command --project-dev . help crud.item.create-item
 ```
 
 Parameters:
@@ -227,7 +227,7 @@ This confirms:
 This command shows the generated component metadata.
 
 ```bash
-$ cncf dev command --project . crud.meta.describe --format yaml
+$ cncf dev command --project-dev . crud.meta.describe --format yaml
 ```
 
 Parameters:

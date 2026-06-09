@@ -95,7 +95,7 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash cncf dev command --project . ...
+bash cncf dev command --project-dev . ...
 ```
 
 Common points:
@@ -104,7 +104,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--project .` auto activation:
+- `--project-dev .` auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -119,7 +119,7 @@ Start by asking CNCF how the named summary load route is exposed on the CLI.
 ```bash
 $ cd samples/10.a-view-definition-lab
 
-$ bash cncf dev command --project . \
+$ bash cncf dev command --project-dev . \
   command help named-view-sample.view.load-person-summary
 ```
 
@@ -194,7 +194,7 @@ Return shape:
 Next, load one projected summary record by id.
 
 ```bash
-$ bash cncf dev command --project . \
+$ bash cncf dev command --project-dev . \
   command named-view-sample.view.load-person-summary \
   --id tokyo-sales-entity-person-1742198400000-abcd1234
 ```
@@ -243,7 +243,7 @@ Return shape:
 Search the summary projection by city.
 
 ```bash
-$ bash cncf dev command --project . \
+$ bash cncf dev command --project-dev . \
   command named-view-sample.view.search-person-summary-record --city Tokyo
 ```
 
@@ -307,7 +307,7 @@ Return shape:
 Run the custom `VIEW > QUERY` alias that filters by city.
 
 ```bash
-$ bash cncf dev command --project . \
+$ bash cncf dev command --project-dev . \
   command named-view-sample.view.search-person --view search_by_city --city Tokyo
 ```
 
@@ -373,7 +373,7 @@ Return shape:
 Load the projection-fixed detail route for the same person.
 
 ```bash
-$ bash cncf dev command --project . \
+$ bash cncf dev command --project-dev . \
   command named-view-sample.view.load-person-detail \
   --id tokyo-sales-entity-person-1742198400000-abcd1234
 ```
@@ -421,7 +421,7 @@ Return shape:
 Finally, inspect the metadata that describes the named view line.
 
 ```bash
-$ bash cncf dev command --project . \
+$ bash cncf dev command --project-dev . \
   command named-view-sample.meta.describe --format yaml
 ```
 

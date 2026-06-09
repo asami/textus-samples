@@ -106,7 +106,7 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash cncf dev command --project . ...
+bash cncf dev command --project-dev . ...
 ```
 
 Common points:
@@ -115,7 +115,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--project .` auto activation:
+- `--project-dev .` auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -132,7 +132,7 @@ Common points:
 Start by confirming that the generated component exposes the item command and standard support services.
 
 ```bash
-cncf dev command --project . help job-sample
+cncf dev command --project-dev . help job-sample
 ```
 
 Parameters:
@@ -164,7 +164,7 @@ operationDefinitions:
 Next, inspect the actual command that creates job-managed work.
 
 ```bash
-cncf dev command --project . help job-sample.item.create-item
+cncf dev command --project-dev . help job-sample.item.create-item
 ```
 
 Parameters:
@@ -192,11 +192,11 @@ returns:
 Confirm that the standard `job-control` selectors are available for this command's lifecycle.
 
 ```bash
-cncf dev command --project . help job-control.job
-cncf dev command --project . help job-control.job.await-job-result
-cncf dev command --project . help job-control.job.get-job-result
-cncf dev command --project . help job-control.job.get-job-status
-cncf dev command --project . help job-control.job.load-job-history
+cncf dev command --project-dev . help job-control.job
+cncf dev command --project-dev . help job-control.job.await-job-result
+cncf dev command --project-dev . help job-control.job.get-job-result
+cncf dev command --project-dev . help job-control.job.get-job-status
+cncf dev command --project-dev . help job-control.job.load-job-history
 ```
 
 Parameters:
@@ -226,7 +226,7 @@ It is a standard CNCF operational surface.
 Use metadata to confirm the modeled runtime shape before starting the server.
 
 ```bash
-cncf dev command --project . job-sample.meta.describe --format yaml
+cncf dev command --project-dev . job-sample.meta.describe --format yaml
 ```
 
 Parameters:
@@ -252,7 +252,7 @@ operation_definitions:
 Now start CNCF in server mode so the job state remains available across requests.
 
 ```bash
-cncf dev server --project .
+cncf dev server --project-dev .
 ```
 
 Parameters:
@@ -270,7 +270,7 @@ Ember-Server service bound to address: [::]:8080
 From another shell, submit the create command.
 
 ```bash
-cncf dev client --project . job-sample.item.create-item --name alpha --title Alpha
+cncf dev client --project-dev . job-sample.item.create-item --name alpha --title Alpha
 ```
 
 Parameters:
@@ -298,7 +298,7 @@ cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
 Use the returned job id to wait until the command finishes.
 
 ```bash
-cncf dev client --project . job-control.job.await-job-result --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
+cncf dev client --project-dev . job-control.job.await-job-result --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
 ```
 
 Parameters:
@@ -320,7 +320,7 @@ Expected result example:
 Read the persisted result again through the explicit result selector.
 
 ```bash
-cncf dev client --project . job-control.job.get-job-result --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
+cncf dev client --project-dev . job-control.job.get-job-result --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
 ```
 
 Parameters:
@@ -342,7 +342,7 @@ Expected result example:
 Read the operational summary view for the same job.
 
 ```bash
-cncf dev client --project . job-control.job.get-job-status --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
+cncf dev client --project-dev . job-control.job.get-job-status --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
 ```
 
 Parameters:
@@ -372,7 +372,7 @@ Expected result example:
 Finally, inspect the timeline itself.
 
 ```bash
-cncf dev client --project . job-control.job.load-job-history --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
+cncf dev client --project-dev . job-control.job.load-job-history --id cncf-job-job-1775515879226-1rYQNxHkvryh5M1PjJ9ADt
 ```
 
 Parameters:

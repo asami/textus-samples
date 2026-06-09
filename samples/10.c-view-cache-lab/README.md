@@ -108,7 +108,7 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash cncf dev command --project . ...
+bash cncf dev command --project-dev . ...
 ```
 
 Common points:
@@ -117,7 +117,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--project .` auto activation:
+- `--project-dev .` auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -132,7 +132,7 @@ Start by asking CNCF what the paged search operation is and how it is exposed on
 ```bash
 $ cd samples/10.c-view-cache-lab
 
-$ cncf dev command --project . \
+$ cncf dev command --project-dev . \
   command help view-cache-sample.view.search-person-summary-record
 ```
 
@@ -186,7 +186,7 @@ Command parameters:
 The first search requests the first page of Tokyo rows with a page size of two.
 
 ```bash
-$ cncf dev command --project . \
+$ cncf dev command --project-dev . \
   command view-cache-sample.view.search-person-summary-record --city Tokyo --query.limit 2 --query.offset 0
 ```
 
@@ -246,7 +246,7 @@ Command parameters:
 The second search moves the offset by one so that the next page overlaps the previous page.
 
 ```bash
-$ cncf dev command --project . \
+$ cncf dev command --project-dev . \
   command view-cache-sample.view.search-person-summary-record --city Tokyo --query.limit 2 --query.offset 1
 ```
 
@@ -306,7 +306,7 @@ Command parameters:
 The third search continues the same pattern.
 
 ```bash
-$ cncf dev command --project . \
+$ cncf dev command --project-dev . \
   command view-cache-sample.view.search-person-summary-record --city Tokyo --query.limit 2 --query.offset 2
 ```
 
@@ -366,7 +366,7 @@ Command parameters:
 Finally, inspect the component metadata exposed by the sample.
 
 ```bash
-$ cncf dev command --project . \
+$ cncf dev command --project-dev . \
   command view-cache-sample.meta.describe --format yaml
 ```
 
