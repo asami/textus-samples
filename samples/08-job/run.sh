@@ -4,9 +4,6 @@ set -eu
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
 
-dir="$(CDPATH= cd -- "$(dirname "$0")" && pwd)"
-cd "$dir"
-
 SERVER_PORT="$(tr -d '[:space:]' < ../../versions/cncf-server-port.conf)"
 SERVER_BASEURL="http://127.0.0.1:${SERVER_PORT}"
 logfile="$(mktemp)"

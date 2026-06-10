@@ -46,10 +46,10 @@ if [ "$server_ready" -ne 1 ]; then
   exit 1
 fi
 
-job_id="$(cncf dev client --project-dev . event-driven.event.emit-event --name alpha --title Alpha)"
+job_id="$(cncf dev client --project-dev . event-driven.event.emit-event --name alpha --title Alpha --privilege content_admin)"
 printf '%s\n' "$job_id"
 
-cncf dev client --project-dev . job-control.job.await-job-result --id "$job_id"
-cncf dev client --project-dev . job-control.job.get-job-status --id "$job_id"
-cncf dev client --project-dev . job-control.job.load-job-history --id "$job_id"
-cncf dev client --project-dev . event-driven.event.load-effect
+cncf dev client --project-dev . job-control.job.await-job-result --id "$job_id" --privilege content_admin
+cncf dev client --project-dev . job-control.job.get-job-status --id "$job_id" --privilege content_admin
+cncf dev client --project-dev . job-control.job.load-job-history --id "$job_id" --privilege content_admin
+cncf dev client --project-dev . event-driven.event.load-effect --privilege content_admin

@@ -5,7 +5,7 @@ import org.goldenport.protocol.operation.OperationResponse
 import org.goldenport.cncf.action.ActionCall
 import org.goldenport.cncf.unitofwork.ExecUowM
 
-final class OperationCommandContractSampleFactory extends OperationCommandContractSampleComponent.Factory {
+class OperationCommandContractSampleFactory extends OperationCommandContractSampleComponent.Factory {
   override val Greeting: OperationCommandContractSampleComponent.GreetingServiceFactory =
     new GreetingServiceFactory
 
@@ -40,3 +40,5 @@ final class OperationCommandContractSampleFactory extends OperationCommandContra
     }
   }
 }
+
+final class OperationCommandContractSampleComponentFactory extends OperationCommandContractSampleFactory

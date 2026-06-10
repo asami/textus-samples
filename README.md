@@ -384,6 +384,17 @@ Current operating rule:
 2. run sample build or sample script
 3. `bin/cozy` delegates to the installed `cozy` launcher
 
+Run every sample script with:
+
+```bash
+bash scripts/run-all-samples.sh
+```
+
+The runner executes each `samples/**/run.sh` directly, writes per-sample logs
+under `target/all-sample-validation-*`, and records a `summary.tsv` with
+`PASS` / `FAIL` rows. Set `CNCF_SAMPLE_TIMEOUT_SECONDS` to adjust the per-sample
+timeout when validating slower environments.
+
 Version-matrix validation can be run without editing version files:
 
 ```bash

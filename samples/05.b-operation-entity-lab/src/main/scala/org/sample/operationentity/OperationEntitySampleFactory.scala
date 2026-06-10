@@ -5,10 +5,17 @@ import org.goldenport.Consequence
 import org.goldenport.datatype.Name
 import org.goldenport.protocol.operation.OperationResponse
 import org.goldenport.cncf.action.ActionCall
+import org.goldenport.cncf.component.Component
 import org.goldenport.cncf.unitofwork.ExecUowM
 import org.simplemodeling.model.datatype.EntityId
 
-final class OperationEntitySampleFactory extends OperationEntitySampleComponent.Factory {
+class OperationEntitySampleFactory
+    extends OperationEntitySampleComponent.Factory
+    with Component.PrimaryComponentFactory
+    with Component.BundleFactory {
+  override def primaryFactory: Component.PrimaryComponentFactory = this
+  override def componentletFactories: Vector[Component.ComponentletFactory] = Vector.empty
+
   override val PersonApp: OperationEntitySampleComponent.PersonAppServiceFactory =
     new PersonAppServiceFactory
 
@@ -47,3 +54,5 @@ final class OperationEntitySampleFactory extends OperationEntitySampleComponent.
     }
   }
 }
+
+final class OperationEntitySampleComponentFactory extends OperationEntitySampleFactory

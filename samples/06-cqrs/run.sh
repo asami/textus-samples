@@ -5,7 +5,7 @@ set -eu
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
 
-ITEM_ID=org-sample-entity-item-$(date +%s)000-gamma111
+ITEM_ID=major-minor-entity-item-$(date +%s)000-gamma111
 
 cncf dev command --project-dev . help cqrs.item.create-item
 cncf dev command --project-dev . help cqrs.entity.create-item-record

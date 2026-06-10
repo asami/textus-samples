@@ -249,12 +249,15 @@ This step does not return the effect payload directly.
 It returns the job id that represents the routed event-processing work.
 
 ```bash
-cncf dev client --project-dev . event-driven.event.emit-event --name alpha --title Alpha
+cncf dev client --project-dev . event-driven.event.emit-event --name alpha --title Alpha --privilege content_admin
 ```
 
 Parameters:
 - `client`
   - sends the request to the running local CNCF server
+
+- `--privilege content_admin`
+  - grants this development sample access to the protected event/job surfaces used by the trace flow
 
 - `event-driven.event.emit-event`: emitting command selector
 - `--name alpha`: logical item name carried by the emitted event
@@ -279,12 +282,15 @@ Wait for the submitted job to complete.
 This step confirms that the event was not only submitted, but actually routed and processed.
 
 ```bash
-cncf dev client --project-dev . job-control.job.await-job-result --id cncf-job-job-1775496790693-6ohgPcxKOscZLoGHlK3cgO
+cncf dev client --project-dev . job-control.job.await-job-result --id cncf-job-job-1775496790693-6ohgPcxKOscZLoGHlK3cgO --privilege content_admin
 ```
 
 Parameters:
 - `client`
   - sends the request to the running local CNCF server
+
+- `--privilege content_admin`
+  - grants this development sample access to the protected job-control surface
 
 - `job-control.job.await-job-result`: wait until the submitted job reaches a final result
 - `--id ...`: the job id returned by `emit-event`
@@ -310,12 +316,15 @@ This step is useful when you want one compact view that shows:
 - which request summary the job belongs to
 
 ```bash
-cncf dev client --project-dev . job-control.job.get-job-status --id cncf-job-job-1775496790693-6ohgPcxKOscZLoGHlK3cgO
+cncf dev client --project-dev . job-control.job.get-job-status --id cncf-job-job-1775496790693-6ohgPcxKOscZLoGHlK3cgO --privilege content_admin
 ```
 
 Parameters:
 - `client`
   - sends the request to the running local CNCF server
+
+- `--privilege content_admin`
+  - grants this development sample access to the protected job-control surface
 
 - `job-control.job.get-job-status`: fetch the summarized job state
 - `--id ...`: target job id
@@ -342,12 +351,15 @@ Then inspect the full timeline.
 This step makes the execution progression explicit instead of leaving it implicit inside the runtime.
 
 ```bash
-cncf dev client --project-dev . job-control.job.load-job-history --id cncf-job-job-1775496790693-6ohgPcxKOscZLoGHlK3cgO
+cncf dev client --project-dev . job-control.job.load-job-history --id cncf-job-job-1775496790693-6ohgPcxKOscZLoGHlK3cgO --privilege content_admin
 ```
 
 Parameters:
 - `client`
   - sends the request to the running local CNCF server
+
+- `--privilege content_admin`
+  - grants this development sample access to the protected job-control surface
 
 - `job-control.job.load-job-history`: fetch the detailed job timeline
 - `--id ...`: target job id
@@ -385,12 +397,15 @@ This closes the loop:
 - visible effect confirmed
 
 ```bash
-cncf dev client --project-dev . event-driven.event.load-effect
+cncf dev client --project-dev . event-driven.event.load-effect --privilege content_admin
 ```
 
 Parameters:
 - `client`
   - sends the request to the running local CNCF server
+
+- `--privilege content_admin`
+  - grants this development sample access to the protected event query used by the trace flow
 
 - `event-driven.event.load-effect`: read the visible post-event effect
 - no explicit arguments: this sample keeps only the latest visible effect payload

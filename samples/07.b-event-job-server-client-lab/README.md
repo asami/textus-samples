@@ -163,7 +163,7 @@ Send the event-producing command from another shell.
 This step submits the event-backed work and returns a job id.
 
 ```bash
-cncf dev client --project-dev . event-driven.event.emit-event --name alpha --title Alpha
+cncf dev client --project-dev . event-driven.event.emit-event --name alpha --title Alpha --privilege content_admin
 ```
 
 Parameters:
@@ -179,6 +179,8 @@ Parameters:
   - field name: `title`
   - meaning: additional descriptive payload carried by the same event
   - sample value: `Alpha`
+- `--privilege content_admin`:
+  - grants access to the protected event command in this development sample
 
 Expected result example:
 
@@ -193,7 +195,7 @@ Use the returned job id to wait until the routed reaction completes.
 This is the practical step that prevents a race between event submission and effect loading.
 
 ```bash
-cncf dev client --project-dev . job-control.job.await-job-result --id cncf-job-job-1775498741256-3pl4ERPQi6PkTtsPrJ51fD
+cncf dev client --project-dev . job-control.job.await-job-result --id cncf-job-job-1775498741256-3pl4ERPQi6PkTtsPrJ51fD --privilege content_admin
 ```
 
 Parameters:
@@ -208,6 +210,8 @@ Parameters:
   - field name: `id`
   - meaning: the job id returned by `event-driven.event.emit-event`
   - expected shape: `cncf-job-...`
+- `--privilege content_admin`:
+  - grants access to the protected job result reader in this development sample
 
 Expected result example:
 
@@ -222,7 +226,7 @@ Now read the visible effect back through the query-side selector.
 This confirms that the event-driven reaction already changed the visible state.
 
 ```bash
-cncf dev client --project-dev . event-driven.event.load-effect
+cncf dev client --project-dev . event-driven.event.load-effect --privilege content_admin
 ```
 
 Parameters:
@@ -235,6 +239,8 @@ Parameters:
 - no explicit arguments:
   - this sample keeps one current visible effect snapshot
   - the selector simply reads that snapshot after the routed reaction finishes
+- `--privilege content_admin`:
+  - grants access to the protected event query in this development sample
 
 Expected result example:
 
@@ -249,11 +255,11 @@ If you prefer the helper scripts, they map to the same commands:
 - `bash run-server.sh`
   - `cncf dev server --project-dev .`
 - `bash run-client-emit.sh`
-  - `cncf dev client --project-dev . event-driven.event.emit-event --name alpha --title Alpha`
+  - `cncf dev client --project-dev . event-driven.event.emit-event --name alpha --title Alpha --privilege content_admin`
 - `bash run-client-await.sh <job-id>`
-  - `cncf dev client --project-dev . job-control.job.await-job-result --id <job-id>`
+  - `cncf dev client --project-dev . job-control.job.await-job-result --id <job-id> --privilege content_admin`
 - `bash run-client-load.sh`
-  - `cncf dev client --project-dev . event-driven.event.load-effect`
+  - `cncf dev client --project-dev . event-driven.event.load-effect --privilege content_admin`
 
 ## Parameters And Returns
 

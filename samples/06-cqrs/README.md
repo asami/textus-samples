@@ -220,13 +220,13 @@ This is the conceptual CQRS split in the model.
 The executable flow uses `CqrsSampleRunner` so the write and read happen in one embedded CNCF runtime. This keeps the in-memory sample state visible to the read side without packaging or starting an HTTP server.
 
 ```bash
-$ sbt --batch "runMain org.sample.cqrs.CqrsSampleRunner org-sample-entity-item-1775457600000-gamma111"
+$ sbt --batch "runMain org.sample.cqrs.CqrsSampleRunner major-minor-entity-item-1775457600000-gamma111"
 ```
 
 Output example:
 
 ```json
-{"created":"id: org-sample-entity-item-1775457600000-gamma111\n","loaded":"id: org-sample-entity-item-1775457600000-gamma111\nname: gamma\ntitle: Gamma\n"}
+{"created":"id: major-minor-entity-item-1775457600000-gamma111\n","loaded":"id: major-minor-entity-item-1775457600000-gamma111\nname: gamma\ntitle: Gamma\n"}
 ```
 
 ### Execute The Read Side

@@ -24,6 +24,16 @@ Grafana default credentials are `admin` / `admin`.
 
 ## Run
 
+Quick smoke run:
+
+```bash
+bash run.sh
+```
+
+`run.sh` starts the CNCF sample server, runs one sample operation, and stops the
+server. It does not start or stop the observability backend stack; use the
+manual steps below when you want to inspect Jaeger, Prometheus, or Grafana.
+
 Terminal 1: start the observability backend stack.
 
 ```bash
