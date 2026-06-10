@@ -35,7 +35,10 @@ so generated classes and `src/main/car` are used directly.
 sbt --batch compile packageBin
 ```
 
-## Run The Whole Scenario
+## Shortcut: Run The Whole Scenario
+This is the shortcut verification path, not the teaching path.
+For learning, read the explicit command sequence in `Command Walkthrough` first and type those commands by hand.
+`run.sh` should be treated as the batch form that replays the documented commands.
 
 This command runs the full expanded generated-CAR walkthrough in one shot.
 

@@ -294,17 +294,21 @@ Directive policy:
 Stage-oriented execution model:
 
 - Programming time: run from the sample directory through `sbt`
-- Local verification: use `run.sh` or `run-sample.sh`
+- Learning walkthrough: type the explicit `cncf ...` / `sbt ...` commands shown
+  in each sample README
+- Local verification shortcut: use `run.sh` or `run-sample.sh` after the
+  command sequence is understood
 - Local deployment: use `invoke.sh` with local packaged-source assumptions when needed
 - Final deployment: prefer remote Component Repository loading
 
-Use the root dispatcher to run a sample:
+Use the root dispatcher to verify a sample quickly:
 
 ```bash
 ./run-sample.sh 01-minimal
 ```
 
-Each sample also owns its local runner:
+Each sample also owns its local runner. Treat it as a shortcut, not as the
+primary teaching path:
 
 ```bash
 cd samples/01-minimal
@@ -348,6 +352,10 @@ cd samples/01-minimal
 cncf dev command --project-dev . minimal.main.hello
 ```
 
+This is the preferred form for learning because it exposes the launcher mode,
+the development project argument, and the selector being executed. The sample
+README then explains each parameter and the expected output fields.
+
 Deployment-style invocation can also be separated from local verification through `invoke.sh` per sample.
 
 Historical shell utilities under `scripts/` are retained only as deprecated
@@ -384,7 +392,7 @@ Current operating rule:
 2. run sample build or sample script
 3. `bin/cozy` delegates to the installed `cozy` launcher
 
-Run every sample script with:
+Run every sample script with the batch runner only for smoke verification:
 
 ```bash
 bash scripts/run-all-samples.sh

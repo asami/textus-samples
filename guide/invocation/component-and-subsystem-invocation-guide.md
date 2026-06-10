@@ -335,7 +335,7 @@ When this happens:
 Each sample may define these entry points:
 
 - `run.sh`
-  - development-time verification
+  - development-time verification shortcut
 - `invoke.sh`
   - deployment-style invocation
 
@@ -349,8 +349,12 @@ This keeps sample scripts declarative and short.
 
 The role split should be understood together with the stage split:
 
-- programming-time execution: direct `sbt runMain --discover=classes` from the sample directory
-- local verification execution: `run.sh` or `run-sample.sh`
+- learning walkthrough: type the explicit `cncf ...` / `sbt ...` commands from
+  the sample README and read each parameter
+- programming-time execution: direct `cncf dev ...` or `sbt runMain ...` from
+  the sample directory
+- local verification execution: `run.sh` or `run-sample.sh` after the manual
+  command sequence is understood
 - local deployment execution: `invoke.sh` with local repository assumptions
 - remote repository deployment execution: deployed runtime calling the same logical command path through published artifacts
 
@@ -364,7 +368,7 @@ For `01-minimal`, the desired model is:
 - command path: `minimal.main.hello`
 - runtime entry point: `org.goldenport.cncf.CncfMain`
 
-Development-time expectation:
+Shortcut verification expectation:
 
 ```bash
 ./run-sample.sh 01-minimal
@@ -377,9 +381,18 @@ cd samples/01-minimal
 ./run.sh
 ```
 
-The second form is the preferred development-time mental model because it makes `cwd/component.d` the active local component source.
+These shortcut forms are useful for regression checks, but they are not the
+primary teaching form. For learning, type the underlying command directly so the
+launcher mode, project argument, and selector are visible:
 
-Programming-time expectation:
+Manual learning expectation:
+
+```bash
+cd samples/01-minimal
+cncf dev command --project-dev . minimal.main.hello
+```
+
+Lower-level programming-time expectation:
 
 ```bash
 cd samples/01-minimal
@@ -398,9 +411,10 @@ In a final deployment model, the same logical command should preferably be backe
 - a remote repository artifact by default
 - a local repository artifact when remote distribution is not desired
 
-Even if both scripts currently route through the same underlying CNCF main, they represent different responsibilities:
+Even if scripts route through the same underlying CNCF main, they represent different responsibilities:
 
-- `run.sh` is for implementers
+- explicit command lines are for learning and documentation
+- `run.sh` is for implementer verification after the command line is understood
 - `invoke.sh` is for the intended calling contract
 
 ## Practical Rule For Implementers

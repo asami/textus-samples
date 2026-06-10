@@ -72,7 +72,10 @@ $ sbt --batch clean compile
 
 This generates the component surface from `job-control-lab.cml`.
 
-## Run The Whole Scenario
+## Shortcut: Run The Whole Scenario
+This is the shortcut verification path, not the teaching path.
+For learning, read the explicit command sequence in `Command Walkthrough` first and type those commands by hand.
+`run.sh` should be treated as the batch form that replays the documented commands.
 
 ```bash
 $ cd samples/08.b-job-control-demo-lab

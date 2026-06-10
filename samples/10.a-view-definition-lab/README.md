@@ -75,7 +75,10 @@ $ cd samples/10.a-view-definition-lab
 $ sbt --batch clean compile
 ```
 
-## Run The Whole Scenario
+## Shortcut: Run The Whole Scenario
+This is the shortcut verification path, not the teaching path.
+For learning, read the explicit command sequence in `Command Walkthrough` first and type those commands by hand.
+`run.sh` should be treated as the batch form that replays the documented commands.
 
 If you want the entire scenario in one shot, use:
 
@@ -84,11 +87,8 @@ $ cd samples/10.a-view-definition-lab
 $ bash run.sh
 ```
 
-`run.sh` is only a convenience batch runner.
+`run.sh` is only a convenience batch runner. It exists so you can replay the documented command sequence after you understand it.
 
-It is the batch form of the walkthrough below.
-
-The main learning path is still the explicit shell sequence in `Command Walkthrough`.
 
 ## Command Walkthrough
 

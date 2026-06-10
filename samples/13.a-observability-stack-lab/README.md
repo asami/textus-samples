@@ -24,15 +24,9 @@ Grafana default credentials are `admin` / `admin`.
 
 ## Run
 
-Quick smoke run:
-
-```bash
-bash run.sh
-```
-
-`run.sh` starts the CNCF sample server, runs one sample operation, and stops the
-server. It does not start or stop the observability backend stack; use the
-manual steps below when you want to inspect Jaeger, Prometheus, or Grafana.
+Use the manual terminal sequence first when learning the sample. It separates
+the backend stack, CNCF server, operation call, and metrics export so each
+observable surface can be inspected.
 
 Terminal 1: start the observability backend stack.
 
@@ -53,6 +47,16 @@ from the same live CNCF runtime.
 bash run-operation.sh
 bash export-metrics.sh
 ```
+
+Shortcut smoke run:
+
+```bash
+bash run.sh
+```
+
+`run.sh` starts the CNCF sample server, runs one sample operation, and stops the
+server. It is only a verification shortcut after the manual sequence is
+understood. It does not start or stop the observability backend stack.
 
 Inspect CNCF first:
 

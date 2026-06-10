@@ -17,15 +17,8 @@ Jaeger receives only the exported trace projection.
 
 ## Run
 
-Quick smoke run:
-
-```bash
-bash run.sh
-```
-
-`run.sh` starts the CNCF sample server, runs one sample operation, and stops the
-server. It does not start or stop Jaeger; use the manual steps below when you
-want to inspect exported traces.
+Use the manual terminal sequence first when learning the sample. It makes the
+backend, CNCF server, and operation call separate enough to inspect.
 
 Terminal 1: start Jaeger.
 
@@ -44,6 +37,16 @@ Terminal 3: run a sample operation through the CNCF client.
 ```bash
 bash run-operation.sh
 ```
+
+Shortcut smoke run:
+
+```bash
+bash run.sh
+```
+
+`run.sh` starts the CNCF sample server, runs one sample operation, and stops the
+server. It is only a verification shortcut after the manual sequence is
+understood. It does not start or stop Jaeger.
 
 Then inspect CNCF first:
 

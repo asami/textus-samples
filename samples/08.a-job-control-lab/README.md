@@ -78,14 +78,17 @@ $ sbt --batch clean compile
 
 This generates the sample component from `job-control-lab.cml` and compiles the sample-specific impl factory.
 
-## Run The Whole Scenario
+## Shortcut: Run The Whole Scenario
+This is the shortcut verification path, not the teaching path.
+For learning, read the explicit command sequence in `Command Walkthrough` first and type those commands by hand.
+`run.sh` should be treated as the batch form that replays the documented commands.
 
 ```bash
 $ cd samples/08.a-job-control-lab
 $ bash run.sh
 ```
 
-`run.sh` is the batch form of the walkthrough below. Read `Command Walkthrough` first if you want to understand each step.
+`run.sh` is the batch form of the walkthrough below. Read and type `Command Walkthrough` first if you want to understand each step.
 
 ## Command Walkthrough
 

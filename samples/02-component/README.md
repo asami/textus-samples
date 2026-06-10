@@ -109,7 +109,10 @@ cd car.d/testcomp
 unzip -q ../../component.d/testcomp.car
 ```
 
-## Run The Whole Scenario
+## Shortcut: Run The Whole Scenario
+This is the shortcut verification path, not the teaching path.
+For learning, read the explicit command sequence in `Command Walkthrough` first and type those commands by hand.
+`run.sh` should be treated as the batch form that replays the documented commands.
 
 This command runs the full baseline component walkthrough in one shot.
 It is the batch form of the step-by-step `Command Walkthrough` below.

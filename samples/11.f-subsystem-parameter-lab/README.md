@@ -47,7 +47,10 @@ This lab reuses:
 The descriptor comes from `11-subsystem`.
 `run.sh` creates a temporary `component.d/testcomp.car` from the neighboring baseline component jar before starting the walkthrough.
 
-## Run The Whole Scenario
+## Shortcut: Run The Whole Scenario
+This is the shortcut verification path, not the teaching path.
+For learning, read the explicit command sequence in `Command Walkthrough` first and type those commands by hand.
+`run.sh` should be treated as the batch form that replays the documented commands.
 
 This command runs the full descriptor-direct subsystem walkthrough in one shot.
 It is the batch form of the step-by-step `Command Walkthrough` below.
