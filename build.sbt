@@ -1,5 +1,5 @@
 ThisBuild / organization := "org.example.textussamples"
-ThisBuild / version := "0.1.0"
+ThisBuild / version := "0.1.1"
 ThisBuild / scalaVersion := "3.3.6"
 
 enablePlugins(org.goldenport.cozy.CozyPlugin)
