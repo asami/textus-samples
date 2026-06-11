@@ -197,3 +197,38 @@ Command to add one order line.
 | orderId  | entityid | 1            |
 | lineName | name     | 1            |
 | quantity | int      | 1            |
+
+# VALUE
+
+## LoadOrderAggregateResult
+
+### ATTRIBUTE
+
+| name   | type      | multiplicity |
+|--------+-----------+--------------|
+| id     | entityid  | 1            |
+| name   | name      | 1            |
+| status | string    | 1            |
+| lines  | OrderLine | *            |
+
+## SearchOrderAggregateResult
+
+### ATTRIBUTE
+
+| name   | type  | multiplicity |
+|--------+-------+--------------|
+| orders | Order | *            |
+
+## AddLineResult
+
+### EXTENDS
+
+OperationResult
+
+### ATTRIBUTE
+
+| name     | type     | multiplicity |
+|----------+----------+--------------|
+| orderId  | entityid | 1            |
+| lineName | name     | 1            |
+| quantity | int      | 1            |

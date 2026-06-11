@@ -1,5 +1,5 @@
 ThisBuild / scalaVersion := "3.3.7"
-name := "textus-samples-09-a-subsystem-bundled-component-lab"
+name := "textus-samples-11-b-subsystem-bundled-component-lab"
 
 def cncfVersion(base: java.io.File): String = {
   sys.env.get("CNCF_VERSION")

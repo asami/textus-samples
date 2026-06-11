@@ -13,7 +13,7 @@ cleanup() {
 }
 trap cleanup EXIT INT TERM
 
-"$SCRIPT_DIR/run-server.sh" >"$server_log" 2>&1 &
+bash "$SCRIPT_DIR/run-server.sh" >"$server_log" 2>&1 &
 server_pid=$!
 
 server_ready=0
@@ -34,4 +34,4 @@ if [ "$server_ready" -ne 1 ]; then
   exit 1
 fi
 
-"$SCRIPT_DIR/run-operation.sh"
+bash "$SCRIPT_DIR/run-operation.sh"

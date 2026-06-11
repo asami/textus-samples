@@ -3,15 +3,10 @@ package org.sample.componentmethodexecution
 import org.goldenport.record.Record
 import org.goldenport.protocol.operation.OperationResponse
 import org.goldenport.cncf.action.ActionCall
-import org.goldenport.cncf.component.Component
 import org.goldenport.cncf.unitofwork.ExecUowM
 
 class ComponentMethodExecutionSampleFactory
-    extends ComponentMethodExecutionSampleComponent.Factory
-    with Component.PrimaryComponentFactory
-    with Component.BundleFactory {
-  override def primaryFactory: Component.PrimaryComponentFactory = this
-  override def componentletFactories: Vector[Component.ComponentletFactory] = Vector.empty
+    extends ComponentMethodExecutionSampleComponent.Factory {
 
   override val Greeting: ComponentMethodExecutionSampleComponent.GreetingServiceFactory =
     new GreetingServiceFactory

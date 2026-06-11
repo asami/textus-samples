@@ -7,11 +7,11 @@ ThisBuild / scalaVersion := "3.3.7"
 lazy val root = (project in file("."))
   .enablePlugins(org.goldenport.cozy.CozyPlugin)
   .settings(
-    name := "textus-samples-08-b-simpleentity-view-lab",
+    name := "textus-samples-10-b-simpleentity-view-lab",
     scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked"),
     cozyGeneratorBackend := "cozy",
     cozyDelegateProjectDir := None,
-    cozyDelegateCommand := Seq(baseDirectory.value.toPath.getParent.getParent.resolve("bin/cozy").toFile.getAbsolutePath),
+    cozyDelegateCommand := Seq("bash", baseDirectory.value.toPath.getParent.getParent.resolve("bin/cozy").toFile.getAbsolutePath),
     resolvers ++= Seq(
       Resolver.defaultLocal,
       Resolver.mavenLocal,

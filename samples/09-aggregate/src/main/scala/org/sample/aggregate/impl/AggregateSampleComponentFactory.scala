@@ -2,9 +2,9 @@ package org.sample.aggregate.impl
 
 import cats.implicits.*
 import org.goldenport.Consequence
-import org.goldenport.cncf.action.{ActionCall, AggregateBehavior}
-import org.goldenport.cncf.component.Component
+import org.goldenport.cncf.action.ActionCall
 import org.goldenport.cncf.directive.Query
+import org.goldenport.cncf.entity.{EntityQuery, EntitySearchScope}
 import org.goldenport.cncf.entity.aggregate.AggregateDefinition
 import org.goldenport.cncf.unitofwork.ExecUowM
 import org.goldenport.protocol.operation.OperationResponse
@@ -20,20 +20,8 @@ final class AggregateSampleComponentFactory extends org.sample.aggregate.Aggrega
       throw new IllegalStateException("Missing aggregate definition: order")
     )
 
-  private lazy val _add_line_command_name: String =
-    _order_aggregate_definition.commands.find(_.name == "addLine").map(_.name).getOrElse("addLine")
-
   private lazy val _quantity_positive_invariant_name: String =
     _order_aggregate_definition.invariants.find(_.name == "quantityPositive").map(_.name).getOrElse("quantityPositive")
-
-  override def create_aggregate_behavior(
-    action: org.goldenport.cncf.action.Action,
-    core: ActionCall.Core
-  ): Option[AggregateBehavior[?]] =
-    action.request.operation match {
-      case name if name == _add_line_command_name => Some(AddLineAggregateBehavior(core))
-      case _ => super.create_aggregate_behavior(action, core)
-    }
 
   class OrderAggregateServiceFactory extends org.sample.aggregate.AggregateSampleComponent.OrderServiceFactory {
     override def createLoadOrderAggregateActionCall(
@@ -69,9 +57,27 @@ final class AggregateSampleComponentFactory extends org.sample.aggregate.Aggrega
       protected def build_Program: ExecUowM[OperationResponse] = {
         for {
           id <- exec_pure(_entity_id_c(action.request.toRecord).TAKE)
-          r <- aggregate_load_option[org.sample.aggregate.entity.aggregate.Order](id)
-        } yield OperationResponse.create(r.map(_.toRecord()))
+          r <- _load_order_aggregate_record_option(id)
+        } yield OperationResponse.create(r)
       }
+
+      private def _load_order_aggregate_record_option(id: EntityId): ExecUowM[Option[Record]] =
+        entity_load_option[org.sample.aggregate.entity.Order](id).flatMap {
+          case Some(order) => _order_aggregate_record(order).map(Some(_))
+          case None => exec_pure(None)
+        }
+
+      private def _order_aggregate_record(order: org.sample.aggregate.entity.Order): ExecUowM[Record] =
+        for {
+          lines <- _order_lines(order.id)
+        } yield order.toRecord() ++ Record.data("lines" -> lines.map(_.toRecord()))
+
+      private def _order_lines(orderId: EntityId): ExecUowM[Vector[org.sample.aggregate.entity.OrderLine]] =
+        entity_search_internal[org.sample.aggregate.entity.OrderLine](EntityQuery(
+          org.sample.aggregate.entity.query.OrderLine.collectionId,
+          Query.fromRecord(Record.empty),
+          EntitySearchScope.Store
+        )).map(_.data.filter(_.orderId == orderId).toVector)
     }
   }
 
@@ -95,7 +101,7 @@ final class AggregateSampleComponentFactory extends org.sample.aggregate.Aggrega
             Query.fromRecord(Record.empty)
           )
           filtered = r.data.filter(_matches_order_query(_, queryRecord))
-          data <- filtered.toList.traverse(x => aggregate_load_option[org.sample.aggregate.entity.aggregate.Order](x.id)).map(_.flatten.toVector)
+          data <- filtered.toList.traverse(x => _load_order_aggregate_record_option(x.id)).map(_.flatten.toVector)
         } yield OperationResponse.create(
           org.goldenport.cncf.directive.SearchResult(
             query,
@@ -107,6 +113,24 @@ final class AggregateSampleComponentFactory extends org.sample.aggregate.Aggrega
           )
         )
       }
+
+      private def _load_order_aggregate_record_option(id: EntityId): ExecUowM[Option[Record]] =
+        entity_load_option[org.sample.aggregate.entity.Order](id).flatMap {
+          case Some(order) => _order_aggregate_record(order).map(Some(_))
+          case None => exec_pure(None)
+        }
+
+      private def _order_aggregate_record(order: org.sample.aggregate.entity.Order): ExecUowM[Record] =
+        for {
+          lines <- _order_lines(order.id)
+        } yield order.toRecord() ++ Record.data("lines" -> lines.map(_.toRecord()))
+
+      private def _order_lines(orderId: EntityId): ExecUowM[Vector[org.sample.aggregate.entity.OrderLine]] =
+        entity_search_internal[org.sample.aggregate.entity.OrderLine](EntityQuery(
+          org.sample.aggregate.entity.query.OrderLine.collectionId,
+          Query.fromRecord(Record.empty),
+          EntitySearchScope.Store
+        )).map(_.data.filter(_.orderId == orderId).toVector)
     }
   }
 
@@ -124,16 +148,35 @@ final class AggregateSampleComponentFactory extends org.sample.aggregate.Aggrega
       protected def build_Program: ExecUowM[OperationResponse] = {
         for {
           orderId <- exec_pure(_order_id_c(action.record).TAKE)
-          behavior <- exec_from(resolve_aggregate_behavior().map(_.asInstanceOf[AggregateBehavior[Record]]))
-          _ <- exec_from(invoke_aggregate_behavior(behavior, _normalized_record(action.record)))
+          lineName <- exec_pure(_line_name_c(action.record).TAKE)
+          quantity <- exec_pure(Consequence.successOrRecordNotFound[Int]("quantity", action.record).TAKE)
+          _ <- exec_from(_validate_quantity_positive(quantity))
+          entity <- exec_pure(
+            org.sample.aggregate.entity.create.OrderLine.Builder()
+              .withOrderId(orderId)
+              .withName(lineName)
+              .withQuantity(quantity)
+              .build()
+          )
+          _ <- entity_create(entity)
           aggregate <- _load_order_aggregate_record(orderId)
         } yield OperationResponse.RecordResponse(aggregate)
       }
 
       private def _load_order_aggregate_record(id: EntityId): ExecUowM[Record] =
-        exec_from(
-          aggregate_load_c[org.sample.aggregate.entity.aggregate.Order]("order", id).map(_.toRecord())
-        )
+        entity_load[org.sample.aggregate.entity.Order](id).flatMap(_order_aggregate_record)
+
+      private def _order_aggregate_record(order: org.sample.aggregate.entity.Order): ExecUowM[Record] =
+        for {
+          lines <- _order_lines(order.id)
+        } yield order.toRecord() ++ Record.data("lines" -> lines.map(_.toRecord()))
+
+      private def _order_lines(orderId: EntityId): ExecUowM[Vector[org.sample.aggregate.entity.OrderLine]] =
+        entity_search_internal[org.sample.aggregate.entity.OrderLine](EntityQuery(
+          org.sample.aggregate.entity.query.OrderLine.collectionId,
+          Query.fromRecord(Record.empty),
+          EntitySearchScope.Store
+        )).map(_.data.filter(_.orderId == orderId).toVector)
     }
   }
 
@@ -189,32 +232,6 @@ final class AggregateSampleComponentFactory extends org.sample.aggregate.Aggrega
     }
   }
 
-  object AddLineAggregateBehavior {
-    def apply(core: ActionCall.Core): AddLineAggregateBehavior = Instance(core)
-    final case class Instance(core: ActionCall.Core) extends AddLineAggregateBehavior
-  }
-
-  sealed trait AddLineAggregateBehavior
-      extends AggregateBehavior[Record]
-      with org.goldenport.cncf.action.ActionBehavior {
-    protected def build_Program(target: Record): ExecUowM[OperationResponse] = {
-      for {
-        orderId <- exec_pure(_order_id_c(target).TAKE)
-        lineName <- exec_pure(_line_name_c(target).TAKE)
-        quantity <- exec_pure(Consequence.successOrRecordNotFound[Int]("quantity", target).TAKE)
-        _ <- exec_from(_validate_quantity_positive(quantity))
-        entity <- exec_pure(
-          org.sample.aggregate.entity.create.OrderLine.Builder()
-            .withOrderId(orderId)
-            .withName(lineName)
-            .withQuantity(quantity)
-            .build()
-        )
-        created <- entity_create(entity)
-      } yield OperationResponse.RecordResponse(Record.data("id" -> created.id.print))
-    }
-  }
-
   private def _validate_quantity_positive(quantity: Int): Consequence[Unit] =
     if (quantity > 0) Consequence.unit
     else Consequence.failure(s"${_quantity_positive_invariant_name}: quantity must be > 0")
@@ -233,15 +250,6 @@ final class AggregateSampleComponentFactory extends org.sample.aggregate.Aggrega
       .map(Consequence.success)
       .getOrElse(Consequence.failRecordNotFound("id", record))
   }
-
-  private def _normalized_record(record: Record): Record =
-    _line_name_alias(_order_id_alias(record))
-
-  private def _order_id_alias(record: Record): Record =
-    record.getAny("order-id").map(v => record ++ Record.data("orderId" -> v)).getOrElse(record)
-
-  private def _line_name_alias(record: Record): Record =
-    record.getAny("line-name").map(v => record ++ Record.data("lineName" -> v)).getOrElse(record)
 
   private def _search_record(record: Record): Record =
     Record(record.fields.filterNot(_.key == "textus"))

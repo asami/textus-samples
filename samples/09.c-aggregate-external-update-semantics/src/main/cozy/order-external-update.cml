@@ -123,3 +123,30 @@ CancelOrderResult
 | name    | type     | multiplicity |
 |---------+----------+--------------|
 | orderId | entityid | 1            |
+
+# VALUE
+
+## LoadOrderAggregateResult
+
+### ATTRIBUTE
+
+| name           | type          | multiplicity |
+|----------------+---------------+--------------|
+| id             | entityid      | 1            |
+| name           | name          | 1            |
+| status         | string        | 1            |
+| shipmentOrders | ShipmentOrder | *            |
+| user           | User          | ?            |
+
+## CancelOrderResult
+
+### EXTENDS
+
+OperationResult
+
+### ATTRIBUTE
+
+| name    | type     | multiplicity |
+|---------+----------+--------------|
+| orderId | entityid | 1            |
+| status  | string   | 1            |

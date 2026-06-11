@@ -122,3 +122,29 @@ Query to read an item.
 | name | type     | multiplicity |
 |------|----------|--------------|
 | id   | entityid | 1            |
+
+# VALUE
+
+## CreateItemResult
+
+### EXTENDS
+
+OperationResult
+
+### ATTRIBUTE
+
+| name  | type     | multiplicity |
+|-------+----------+--------------|
+| id    | entityid | 1            |
+| name  | name     | 1            |
+| title | string   | 1            |
+
+## ItemResult
+
+### ATTRIBUTE
+
+| name  | type     | multiplicity |
+|-------+----------+--------------|
+| id    | entityid | 1            |
+| name  | name     | 1            |
+| title | string   | 1            |

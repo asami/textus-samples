@@ -85,3 +85,19 @@ Command to create an item immediately.
 |-------+--------+--------------|
 | name  | name   | 1            |
 | title | string | 1            |
+
+# VALUE
+
+## CreateItemResult
+
+### EXTENDS
+
+OperationResult
+
+### ATTRIBUTE
+
+| name  | type     | multiplicity |
+|-------+----------+--------------|
+| id    | entityid | 1            |
+| name  | name     | 1            |
+| title | string   | 1            |

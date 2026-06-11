@@ -6,12 +6,12 @@ ThisBuild / version := "0.1.0-SNAPSHOT"
 lazy val root = (project in file("."))
   .enablePlugins(org.goldenport.cozy.CozyPlugin)
   .settings(
-    name := "textus-samples-02f-crud-nested-value-lab",
+    name := "textus-samples-04-f-crud-nested-value-lab",
     scalaVersion := "3.3.7",
     scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked"),
     cozyGeneratorBackend := "cozy",
     cozyDelegateProjectDir := None,
-    cozyDelegateCommand := Seq(baseDirectory.value.toPath.getParent.getParent.resolve("bin/cozy").toFile.getAbsolutePath),
+    cozyDelegateCommand := Seq("bash", baseDirectory.value.toPath.getParent.getParent.resolve("bin/cozy").toFile.getAbsolutePath),
     resolvers ++= Seq(
       Resolver.defaultLocal,
       Resolver.mavenLocal,

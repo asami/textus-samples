@@ -172,3 +172,37 @@ Query to list item records.
 |--------|------|------------------|
 | offset | int  | ?                |
 | limit  | int  | ?                |
+
+# VALUE
+
+## CreateItemResult
+
+### EXTENDS
+
+OperationResult
+
+### ATTRIBUTE
+
+| name  | type     | multiplicity |
+|-------+----------+--------------|
+| id    | entityid | 1            |
+| name  | name     | 1            |
+| title | string   | 1            |
+
+## ItemResult
+
+### ATTRIBUTE
+
+| name  | type     | multiplicity |
+|-------+----------+--------------|
+| id    | entityid | 1            |
+| name  | name     | 1            |
+| title | string   | 1            |
+
+## ListItemsResult
+
+### ATTRIBUTE
+
+| name  | type | multiplicity |
+|-------+------+--------------|
+| items | Item | *            |

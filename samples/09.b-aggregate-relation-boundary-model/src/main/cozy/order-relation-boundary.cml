@@ -126,3 +126,25 @@ SearchOrderAggregateResult
 | name | type | multiplicity |
 |------|------|--------------|
 | name | name | ?            |
+
+# VALUE
+
+## LoadOrderAggregateResult
+
+### ATTRIBUTE
+
+| name           | type          | multiplicity |
+|----------------+---------------+--------------|
+| id             | entityid      | 1            |
+| name           | name          | 1            |
+| status         | string        | 1            |
+| shipmentOrders | ShipmentOrder | *            |
+| user           | User          | ?            |
+
+## SearchOrderAggregateResult
+
+### ATTRIBUTE
+
+| name   | type  | multiplicity |
+|--------+-------+--------------|
+| orders | Order | *            |

@@ -20,11 +20,11 @@ def cncfVersion(base: java.io.File): String = {
 lazy val root = (project in file("."))
   .enablePlugins(org.goldenport.cozy.CozyPlugin)
   .settings(
-    name := "textus-samples-02-crud",
+    name := "textus-samples-04-crud",
     scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked"),
     cozyGeneratorBackend := "cozy",
     cozyDelegateProjectDir := None,
-    cozyDelegateCommand := Seq(baseDirectory.value.toPath.getParent.getParent.resolve("bin/cozy").toFile.getAbsolutePath),
+    cozyDelegateCommand := Seq("bash", baseDirectory.value.toPath.getParent.getParent.resolve("bin/cozy").toFile.getAbsolutePath),
     resolvers ++= Seq(
       Resolver.defaultLocal,
       Resolver.mavenLocal,
