@@ -3,8 +3,6 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-DEFAULT_COZY_VERSION="$(tr -d '[:space:]' < "$REPO_ROOT/versions/cozy-version.conf")"
-COZY_VERSION="${COZY_VERSION:-$DEFAULT_COZY_VERSION}"
 
 canonical_path() {
   local path="$1"
@@ -38,5 +36,4 @@ if ! cozy_bin="$(find_installed_cozy)"; then
   exit 1
 fi
 
-export COZY_VERSION
 exec "$cozy_bin" "$@"

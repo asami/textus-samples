@@ -50,6 +50,8 @@ project/**/bsp.log
 .DS_Store
 .env
 .cozy/
+.cncf/
+.textus/
 
 ### IntelliJ IDEA ###
 .idea/

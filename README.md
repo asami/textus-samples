@@ -60,6 +60,34 @@ Repository defaults live in:
 - `versions/goldenport-core-version.conf`
 - `versions/simplemodeling-model-version.conf`
 
+Workspace-local launcher overrides can be placed once at the repository root and
+are inherited by every sample directory:
+
+- `.cncf/launcher.yaml`
+- `.cozy/launcher.yaml`
+- `.textus/config.yaml`
+
+These directories are intentionally ignored by git. Use them for local
+pre-release validation, for example to point installed development launchers at
+runtime development checkouts:
+
+```yaml
+# .cncf/launcher.yaml
+runtime:
+  dev-dir: /path/to/cloud-native-component-framework
+```
+
+```yaml
+# .cozy/launcher.yaml
+runtime:
+  dev-dir: /path/to/cozy
+```
+
+Use `cncf.launcher.dev.dir` or `cozy.launcher.dev.dir` only when developing the
+launcher itself. For `cncf.launcher.dev.dir`, refresh the launcher checkout's
+`target/cncf.d/runtime-classpath.txt` first; stale files are rejected before
+delegation.
+
 Run samples from each sample directory with `cncf dev` directly.
 
 Launcher roles:

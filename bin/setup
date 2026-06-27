@@ -109,11 +109,19 @@ prepare_cozy() {
       exit 3
     fi
   fi
+  local runtime_current
+  runtime_current="$("$cozy_bin" runtime current)"
   echo "cozy command: $cozy_bin"
   echo "cozy version: $cozy_version"
   echo "cozy launcher: $("$cozy_bin" launcher version)"
-  echo "cozy runtime current: $("$cozy_bin" runtime current)"
+  echo "cozy runtime current: $runtime_current"
   echo "sbt-cozy version: $sbt_cozy_version"
+  if [[ "$runtime_current" != "$cozy_version" ]]; then
+    echo "warning: recommended cozy runtime is $cozy_version but launcher current is $runtime_current" >&2
+  fi
+  if [[ -f "$REPO_ROOT/.cozy/launcher.yaml" ]]; then
+    echo "cozy workspace config: $REPO_ROOT/.cozy/launcher.yaml"
+  fi
   if [[ -n "${COZY_PROJECT_DIR:-}" ]]; then
     echo "cozy project dir: $COZY_PROJECT_DIR"
   fi
@@ -132,14 +140,22 @@ prepare_cncf() {
     exit 3
   fi
   "$cncf_bin" --help >/dev/null
+  local runtime_current
+  runtime_current="$("$cncf_bin" runtime current)"
   echo "java: $(command -v java)"
   echo "cncf command: $cncf_bin"
   echo "cncf version: $cncf_version"
   echo "cncf launcher: $("$cncf_bin" launcher version)"
-  echo "cncf runtime current: $("$cncf_bin" runtime current)"
+  echo "cncf runtime current: $runtime_current"
   echo "cncf server port: $cncf_server_port"
   echo "goldenport-core version: $core_version"
   echo "simplemodeling-model version: $simplemodeling_model_version"
+  if [[ "$runtime_current" != "$cncf_version" ]]; then
+    echo "warning: recommended cncf runtime is $cncf_version but launcher current is $runtime_current" >&2
+  fi
+  if [[ -f "$REPO_ROOT/.cncf/launcher.yaml" ]]; then
+    echo "cncf workspace config: $REPO_ROOT/.cncf/launcher.yaml"
+  fi
 }
 
 prepare_textus() {
@@ -152,9 +168,14 @@ prepare_textus() {
     exit 3
   fi
   "$textus_bin" --help >/dev/null
+  local runtime_current
+  runtime_current="$("$textus_bin" runtime current)"
   echo "textus command: $textus_bin"
   echo "textus launcher: $("$textus_bin" launcher version)"
-  echo "textus runtime current: $("$textus_bin" runtime current)"
+  echo "textus runtime current: $runtime_current"
+  if [[ -f "$REPO_ROOT/.textus/config.yaml" ]]; then
+    echo "textus workspace config: $REPO_ROOT/.textus/config.yaml"
+  fi
 }
 
 main() {

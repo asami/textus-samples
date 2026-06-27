@@ -17,4 +17,8 @@ def sbtCozyVersion: String = {
 
 resolvers += "GitHab releases 2025" at "https://raw.github.com/asami/maven-repository/2025/releases"
 
+resolvers += Resolver.defaultLocal
+
+resolvers += "simplemodeling-maven" at "https://www.simplemodeling.org/repository/maven"
+
 addSbtPlugin("org.goldenport" % "sbt-cozy" % sbtCozyVersion)
