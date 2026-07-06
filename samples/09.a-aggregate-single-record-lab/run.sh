@@ -9,10 +9,10 @@ sbt --batch compile >/dev/null
 
 echo
 echo '--- help single-record-sample ---'
-cncf dev command --project-dev . help single-record-sample
+cncf command help single-record-sample
 echo
 echo '--- help aggregate load-order ---'
-cncf dev command --project-dev . help single-record-sample.aggregate.load-order
+cncf command help single-record-sample.aggregate.load-order
 echo
 echo '--- meta describe ---'
-cncf dev command --project-dev . single-record-sample.meta.describe --format yaml
+cncf command single-record-sample.meta.describe --format yaml

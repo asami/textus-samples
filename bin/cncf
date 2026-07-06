@@ -6,9 +6,9 @@ cncf-samples/bin/cncf is deprecated.
 
 Use the installed CNCF launcher directly from each sample directory, for example:
 
-  cncf dev command --project-dev . <component.service.operation>
-  cncf dev command --project-dev . --no-project-classpath --component-car-dir car.d <operation>
-  cncf dev command --project-dev . --no-project-classpath --subsystem-sar-dir sar.d <operation>
+  cncf command <component.service.operation>
+  cncf command --no-project-classpath --component-car-dir car.d <operation>
+  cncf command --no-project-classpath --subsystem-sar-dir sar.d <operation>
 
 Install or update the launcher with Coursier when needed:
 

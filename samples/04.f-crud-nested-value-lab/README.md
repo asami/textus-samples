@@ -81,7 +81,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf dev` will use later.
+Compile the sample and generate the runtime classes that `cncf` will use later.
 
 ```bash
 $ cd samples/04.f-crud-nested-value-lab
@@ -106,7 +106,7 @@ $ bash run.sh
 This sample uses:
 
 ```bash
-bash cncf dev command --project-dev . ...
+cncf command ...
 ```
 
 Common points:
@@ -115,7 +115,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--project-dev .` auto activation:
+- current-directory project auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -126,7 +126,7 @@ Common points:
 ### Create Help
 
 ```bash
-$ cncf dev command --project-dev . help crud-nested-value-sample.entity.create-person
+$ cncf command help crud-nested-value-sample.entity.create-person
 ```
 
 Parameters:
@@ -153,7 +153,7 @@ returns:
 ### Load Help
 
 ```bash
-$ cncf dev command --project-dev . help crud-nested-value-sample.entity.load-person
+$ cncf command help crud-nested-value-sample.entity.load-person
 ```
 
 Parameters:
@@ -169,7 +169,7 @@ Parameters:
 ### Metadata Describe
 
 ```bash
-$ cncf dev command --project-dev . crud-nested-value-sample.meta.describe --format yaml
+$ cncf command crud-nested-value-sample.meta.describe --format yaml
 ```
 
 Parameters:

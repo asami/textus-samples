@@ -96,8 +96,8 @@ The commands below use these common tokens:
 
 - `cncf`
   - the standard CNCF CLI entry point
-  - in this repo it is invoked as `cncf dev`
-- `--project-dev .` auto activation
+  - in this repo it is invoked as `cncf`
+- current-directory project auto activation
   - loads generated sample classes from the local `target` tree
 - `server`
   - starts the sample runtime as an HTTP server
@@ -109,7 +109,7 @@ The commands below use these common tokens:
 ### 1. Start the server
 
 ```bash
-$ cncf dev server --project-dev .
+$ cncf server
 ```
 
 This starts the runtime that will host the controllable jobs.
@@ -121,7 +121,7 @@ Parameters:
 ### 2. Inspect the control-ready submit operation
 
 ```bash
-$ cncf dev command --project-dev . help job-control-lab.item.create-item
+$ cncf command help job-control-lab.item.create-item
 ```
 
 This shows the sample-specific submit entry point that returns a controllable `job_id`.
@@ -137,7 +137,7 @@ Parameters:
 ### 3. Submit a controllable job
 
 ```bash
-$ cncf dev client --project-dev . job-control-lab.item.create-item --name quick --title Quick
+$ cncf client job-control-lab.item.create-item --name quick --title Quick
 ```
 
 Example result:
@@ -159,7 +159,7 @@ Parameters:
 ### 4. Suspend the running job
 
 ```bash
-$ cncf dev client --project-dev . job-control.job-admin.suspend-job --id cncf-job-job-1775523947840-3JgfELQBaYtc3yhMeTZs76 --privilege content_admin
+$ cncf client job-control.job-admin.suspend-job --id cncf-job-job-1775523947840-3JgfELQBaYtc3yhMeTZs76 --privilege content_admin
 ```
 
 Example result:
@@ -184,7 +184,7 @@ Parameters:
 ### 5. Inspect the current job status
 
 ```bash
-$ cncf dev client --project-dev . job-control.job.get-job-status --id cncf-job-job-1775523947840-3JgfELQBaYtc3yhMeTZs76
+$ cncf client job-control.job.get-job-status --id cncf-job-job-1775523947840-3JgfELQBaYtc3yhMeTZs76
 ```
 
 This confirms that the job moved through `Suspended` and can later return to `Running`.
@@ -200,7 +200,7 @@ Parameters:
 ### 6. Resume the suspended job
 
 ```bash
-$ cncf dev client --project-dev . job-control.job-admin.resume-job --id cncf-job-job-1775523947840-3JgfELQBaYtc3yhMeTZs76 --privilege content_admin
+$ cncf client job-control.job-admin.resume-job --id cncf-job-job-1775523947840-3JgfELQBaYtc3yhMeTZs76 --privilege content_admin
 ```
 
 Example result:
@@ -225,7 +225,7 @@ Parameters:
 ### 7. Await the final result
 
 ```bash
-$ cncf dev client --project-dev . job-control.job.await-job-result --id cncf-job-job-1775523947840-3JgfELQBaYtc3yhMeTZs76
+$ cncf client job-control.job.await-job-result --id cncf-job-job-1775523947840-3JgfELQBaYtc3yhMeTZs76
 ```
 
 Example result:
@@ -245,7 +245,7 @@ Parameters:
 ### 8. Load the job history
 
 ```bash
-$ cncf dev client --project-dev . job-control.job.load-job-history --id cncf-job-job-1775523947840-3JgfELQBaYtc3yhMeTZs76
+$ cncf client job-control.job.load-job-history --id cncf-job-job-1775523947840-3JgfELQBaYtc3yhMeTZs76
 ```
 
 Example result:
@@ -273,7 +273,7 @@ Parameters:
 ### 9. Load job-related events
 
 ```bash
-$ cncf dev command --project-dev . event.event-admin.load-job-events --id cncf-job-job-1775523947840-3JgfELQBaYtc3yhMeTZs76 --privilege content_admin
+$ cncf command event.event-admin.load-job-events --id cncf-job-job-1775523947840-3JgfELQBaYtc3yhMeTZs76 --privilege content_admin
 ```
 
 Example result:
@@ -296,8 +296,8 @@ Parameters:
 ### 10. Submit and cancel another job
 
 ```bash
-$ cncf dev client --project-dev . job-control-lab.item.create-item --name cancel --title Cancel
-$ cncf dev client --project-dev . job-control.job-admin.cancel-job --id cncf-job-job-1775524097115-1otiOMA68eDfhpzSal9CAi --privilege content_admin
+$ cncf client job-control-lab.item.create-item --name cancel --title Cancel
+$ cncf client job-control.job-admin.cancel-job --id cncf-job-job-1775524097115-1otiOMA68eDfhpzSal9CAi --privilege content_admin
 ```
 
 Example cancel result:

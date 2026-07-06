@@ -11,4 +11,4 @@ for pid in $(lsof -ti "tcp:${SERVER_PORT}" 2>/dev/null || true); do
   kill "$pid" >/dev/null 2>&1 || true
 done
 
-exec cncf dev server --project-dev .
+exec cncf server

@@ -7,7 +7,12 @@ It intentionally carries the same minimal source locally so the learner can focu
 
 - how does the startup line change between `command`, `server`, and `client`?
 
-Its role is to help a learner understand how CNCF uses different startup shapes for different runtime roles, especially:
+Its role inside the `01` line is to teach Textus runtime roles after the
+learner has already seen the minimal command selector.
+It still does not introduce CML.
+
+This lab helps a learner understand how Textus uses different startup shapes
+for different runtime roles, especially:
 
 - `command`
 - `server`
@@ -18,6 +23,7 @@ Its role is to help a learner understand how CNCF uses different startup shapes 
 - Local working copy of the `01-minimal` source
 - Focused on startup mode comparison
 - Compares runtime entry shapes rather than loading sources
+- Positioned after `01.a`, which covers development-directory startup vs component repository startup
 
 ## How To Run
 
@@ -83,7 +89,7 @@ To stop the process:
 Conceptual shape:
 
 ```bash
-cncf dev server --project-dev .
+cncf server
 ```
 
 ### 3. Probe The Running Server With `curl`
@@ -128,7 +134,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-cncf dev client --project-dev . --help
+cncf client --help
 ```
 
 ### 5. Run The Command Shape Last
@@ -148,7 +154,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-cncf dev command --project-dev . minimal.main.hello
+cncf command minimal.main.hello
 ```
 
 ### 6. Compare The Startup Shapes

@@ -9,7 +9,7 @@ run_command() {
   local workspace="$1"
   local mode="$2"
   shift 2
-  cncf dev "$mode" --project-dev . \
+  cncf "$mode" \
     --workspace "$SCRIPT_DIR/target/cncf.d/$workspace" \
     "$@"
 }

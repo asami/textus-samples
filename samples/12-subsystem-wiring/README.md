@@ -211,7 +211,7 @@ This keeps the phase 12 walkthrough concrete while moving the sample closer to t
 This sample still shows how to retrieve the current assembly result from the admin surface.
 
 ```bash
-cncf dev command --project-dev . admin.assembly.report --format yaml --component-dir <temporary-component-dir> --textus.subsystem=testsubsystemwiring --textus.subsystem.file=<temporary-subsystem-sar>
+cncf command admin.assembly.report --format yaml --component-dir <temporary-component-dir> --textus.subsystem=testsubsystemwiring --textus.subsystem.file=<temporary-subsystem-sar>
 ```
 
 The report currently includes:
@@ -245,7 +245,7 @@ which is the intended foundation for later descriptor export or standalone assem
 This sample also retrieves the resolved assembly in a descriptor-oriented form.
 
 ```bash
-cncf dev command --project-dev . admin.assembly.descriptor --format yaml --component-dir <temporary-component-dir> --textus.subsystem=testsubsystemwiring --textus.subsystem.file=<temporary-subsystem-sar>
+cncf command admin.assembly.descriptor --format yaml --component-dir <temporary-component-dir> --textus.subsystem=testsubsystemwiring --textus.subsystem.file=<temporary-subsystem-sar>
 ```
 
 The descriptor export currently includes:
@@ -283,7 +283,7 @@ When this override is supplied, `source.assembly_descriptor.source` becomes `con
 This sample also retrieves a visual projection of the same resolved assembly model.
 
 ```bash
-cncf dev command --project-dev . admin.assembly.diagram --component-dir <temporary-component-dir> --textus.subsystem=testsubsystemwiring --textus.subsystem.file=<temporary-subsystem-sar>
+cncf command admin.assembly.diagram --component-dir <temporary-component-dir> --textus.subsystem=testsubsystemwiring --textus.subsystem.file=<temporary-subsystem-sar>
 ```
 
 The current output is a Mermaid `flowchart`.

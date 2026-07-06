@@ -63,7 +63,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf dev` will use later.
+Compile the sample and generate the runtime classes that `cncf` will use later.
 
 ```bash
 $ cd samples/05-operation
@@ -88,7 +88,7 @@ $ bash run.sh
 This sample uses:
 
 ```bash
-bash cncf dev command --project-dev . ...
+cncf command ...
 ```
 
 Common points:
@@ -97,7 +97,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--project-dev .` auto activation:
+- current-directory project auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -108,7 +108,7 @@ Common points:
 ### Operation Help
 
 ```bash
-$ cncf dev command --project-dev . help operation-contract-sample.greeting.greeting
+$ cncf command help operation-contract-sample.greeting.greeting
 ```
 
 Parameters:
@@ -144,7 +144,7 @@ This confirms the user-facing contract surface:
 ### Metadata Describe
 
 ```bash
-$ cncf dev command --project-dev . operation-contract-sample.meta.describe --format yaml
+$ cncf command operation-contract-sample.meta.describe --format yaml
 ```
 
 Parameters:

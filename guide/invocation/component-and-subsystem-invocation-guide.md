@@ -351,7 +351,7 @@ The role split should be understood together with the stage split:
 
 - learning walkthrough: type the explicit `cncf ...` / `sbt ...` commands from
   the sample README and read each parameter
-- programming-time execution: direct `cncf dev ...` or `sbt runMain ...` from
+- programming-time execution: direct `cncf ...` or `sbt runMain ...` from
   the sample directory
 - local verification execution: `run.sh` or `run-sample.sh` after the manual
   command sequence is understood
@@ -389,7 +389,7 @@ Manual learning expectation:
 
 ```bash
 cd samples/01-minimal
-cncf dev command --project-dev . minimal.main.hello
+cncf command minimal.main.hello
 ```
 
 Lower-level programming-time expectation:

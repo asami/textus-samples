@@ -92,7 +92,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf dev` will use later.
+Compile the sample and generate the runtime classes that `cncf` will use later.
 
 ```bash
 $ cd samples/04.d-crud-server-memory-lab
@@ -117,7 +117,7 @@ $ bash run.sh
 This sample uses:
 
 ```bash
-bash cncf dev command --project-dev . ...
+cncf command ...
 ```
 
 Common points:
@@ -126,7 +126,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--project-dev .` auto activation:
+- current-directory project auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -141,7 +141,7 @@ Common points:
 ### Component Help
 
 ```bash
-$ cncf dev command --project-dev . help crud
+$ cncf command help crud
 ```
 
 Parameters:
@@ -172,7 +172,7 @@ operationDefinitions:
 ### Entity Service Help
 
 ```bash
-$ cncf dev command --project-dev . help crud.entity
+$ cncf command help crud.entity
 ```
 
 Parameters:
@@ -201,7 +201,7 @@ children:
 ### Create Help
 
 ```bash
-$ cncf dev command --project-dev . help crud.entity.create-item
+$ cncf command help crud.entity.create-item
 ```
 
 Parameters:
@@ -228,7 +228,7 @@ returns:
 ### Await Job Result Help
 
 ```bash
-$ cncf dev command --project-dev . help job-control.job.await-job-result
+$ cncf command help job-control.job.await-job-result
 ```
 
 Parameters:
@@ -340,7 +340,7 @@ This confirms that:
 ### Metadata Describe
 
 ```bash
-$ cncf dev command --project-dev . crud.meta.describe --format yaml
+$ cncf command crud.meta.describe --format yaml
 ```
 
 Parameters:

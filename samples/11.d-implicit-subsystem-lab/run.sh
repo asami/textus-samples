@@ -5,16 +5,16 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
 
 echo "--- subsystem help"
-cncf dev command --project-dev . meta.help --format yaml
+cncf command meta.help --format yaml
 
 echo
 echo "--- component help"
-cncf dev command --project-dev . meta.help subsystem --format yaml
+cncf command meta.help subsystem --format yaml
 
 echo
 echo "--- operation help"
-cncf dev command --project-dev . help subsystem.main.hello
+cncf command help subsystem.main.hello
 
 echo
 echo "--- execute"
-cncf dev command --project-dev . subsystem.main.hello
+cncf command subsystem.main.hello

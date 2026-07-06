@@ -5,7 +5,7 @@ set -eu
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
 
-cncf dev command --project-dev . help crud-nested-value-sample.entity.create-person
-cncf dev command --project-dev . help crud-nested-value-sample.entity.load-person
-cncf dev command --project-dev . crud-nested-value-sample.meta.describe --format yaml
+cncf command help crud-nested-value-sample.entity.create-person
+cncf command help crud-nested-value-sample.entity.load-person
+cncf command crud-nested-value-sample.meta.describe --format yaml
 bash run-datastore.sh

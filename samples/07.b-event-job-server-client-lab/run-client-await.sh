@@ -12,4 +12,4 @@ if [ -z "$job_id" ]; then
   exit 1
 fi
 
-exec cncf dev client --project-dev . job-control.job.await-job-result --id "$job_id" --privilege content_admin
+exec cncf client job-control.job.await-job-result --id "$job_id" --privilege content_admin

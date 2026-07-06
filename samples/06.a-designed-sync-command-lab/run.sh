@@ -5,6 +5,6 @@ set -eu
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
 
-cncf dev command --project-dev . help designed-sync.item.create-item
-cncf dev command --project-dev . designed-sync.meta.describe --format yaml
-cncf dev command --project-dev . designed-sync.item.create-item --name beta --title Beta
+cncf command help designed-sync.item.create-item
+cncf command designed-sync.meta.describe --format yaml
+cncf command designed-sync.item.create-item --name beta --title Beta

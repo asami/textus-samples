@@ -8,11 +8,21 @@ It intentionally keeps the same minimal source locally so the learner can observ
 - the sample-defined component `minimal`
 - runtime-provided builtin and help-oriented command surfaces
 
+Its role inside the `01` line is to teach Textus runtime discovery and
+management surfaces after the learner has already seen:
+
+- the minimal selector in `01-minimal`
+- Component startup sources in `01.a`
+- runtime roles in `01.b`
+
+It still does not introduce CML.
+
 ## Structure
 
 - Local working copy of the `01-minimal` source
 - Focused on runtime-provided command surfaces
 - Distinguishes sample-defined commands from builtin ones
+- Positioned before the CML authoring samples, so the learner can inspect runtime surfaces first
 
 ## How To Run
 
@@ -79,7 +89,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-cncf dev command --project-dev . meta.help
+cncf command meta.help
 ```
 
 ### 3. Observe Component-Level Help For `minimal`
@@ -99,7 +109,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-cncf dev command --project-dev . meta.help minimal
+cncf command meta.help minimal
 ```
 
 ### 4. Observe Operation Help Through The `help` Alias
@@ -119,7 +129,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-cncf dev command --project-dev . help minimal.main.hello
+cncf command help minimal.main.hello
 ```
 
 Key distinction:
@@ -144,7 +154,7 @@ Observe:
 Conceptual shape:
 
 ```bash
-cncf dev command --project-dev . admin.system.ping
+cncf command admin.system.ping
 ```
 
 ### 6. Compare Sample-Defined And Builtin Surfaces

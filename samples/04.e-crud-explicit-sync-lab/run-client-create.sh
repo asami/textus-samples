@@ -7,7 +7,7 @@ cd "$SCRIPT_DIR"
 
 SERVER_PORT="${CNCF_SAMPLE_SERVER_PORT:-19543}"
 
-exec cncf dev client --project-dev . \
+exec cncf client \
   --textus.command.execution-mode sync-direct-no-job \
   crud.entity.create-item \
   --baseurl "http://localhost:${SERVER_PORT}" \

@@ -20,7 +20,7 @@ In the `02` line, the forms are split like this:
   - expanded `car.d`
   - CAR loader/debug form
 - `02.b-discover-classes-lab`
-  - `--project-dev .` auto activation
+  - current-directory project auto activation
   - development-time implicit component construction
 
 ## Intended Use Case
@@ -146,7 +146,7 @@ With the current activation policy:
 ### 1. Inspect the component
 
 ```bash
-cncf dev command --project-dev . --no-project-classpath --component-dir component.d --textus.component=testcomp meta.help testcomp --format yaml
+cncf command --no-project-classpath --component-dir component.d --textus.component=testcomp meta.help testcomp --format yaml
 ```
 
 Parameters:
@@ -164,7 +164,7 @@ Parameters:
 ### 2. Inspect operation help
 
 ```bash
-cncf dev command --project-dev . --no-project-classpath --component-dir component.d --textus.component=testcomp help testcomp.main.hello
+cncf command --no-project-classpath --component-dir component.d --textus.component=testcomp help testcomp.main.hello
 ```
 
 Parameters:
@@ -184,7 +184,7 @@ Parameters:
 - `component.d/*.car` is the baseline distribution form
 - packaged CARs are explicit runtime inputs, not always-on defaults
 - explicit activation is now expressed by component name rather than by repository option
-- `--project-dev .` auto activation is the classpath-based development variant
+- current-directory project auto activation is the classpath-based development variant
 - `car.d` is the expanded archive inspection variant
 - `--component-dev-dir` is the preferred component edit/run loop; `car.d` is for expanded archive inspection
 - the `02` baseline focuses on packaging and surface inspection; `02.b` is where the same component is executed via class discovery

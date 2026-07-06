@@ -28,6 +28,12 @@ cs install --force textus \
   --channel https://www.simplemodeling.org/repository/textus/coursier-channel.json
 ```
 
+Run launcher commands from the project directory. In this repository each
+sample directory is a project directory, so `cncf` and `textus` infer the
+project from the current directory and normal commands do not need `--project`.
+Use `--project <dir>` only when intentionally launching from outside the
+project directory.
+
 Refresh runtime catalogs explicitly when a newly published stable runtime should
 become `recommended`:
 
@@ -88,7 +94,7 @@ launcher itself. For `cncf.launcher.dev.dir`, refresh the launcher checkout's
 `target/cncf.d/runtime-classpath.txt` first; stale files are rejected before
 delegation.
 
-Run samples from each sample directory with `cncf dev` directly.
+Run samples from each sample directory with `cncf` directly.
 
 Launcher roles:
 
@@ -97,7 +103,7 @@ Launcher roles:
   and runtime surfaces while building CNCF samples.
 
 Because these samples execute components that are under development, the
-standard command is `cncf dev ...`, not `textus`. Use `--project-dev .` auto activation
+standard command is `cncf ...`, not `textus`. Use current-directory project auto activation
 for the ordinary edit/run loop, and use CAR/SAR/repository options only when
 the sample is specifically demonstrating packaged source loading.
 
@@ -105,31 +111,53 @@ the sample is specifically demonstrating packaged source loading.
 Published runtime example:
 
 ```bash
-cncf dev command --project-dev . minimal.main.hello
+cncf command minimal.main.hello
 ```
 
 CNCF core development runtime example:
 
 ```bash
 cncf --runtime-dev-dir /path/to/cloud-native-component-framework \
-  dev command --project-dev . minimal.main.hello
+  command minimal.main.hello
 ```
 
 Packaged source examples:
 
 ```bash
-cncf dev command --project-dev . --no-project-classpath --component-car-dir car.d testcomp.main.hello
-cncf dev command --project-dev . --no-project-classpath --subsystem-sar-dir sar.d testcomp.main.hello
-cncf dev command --project-dev . --no-project-classpath --repository-dir repository.d --textus.component=<component> <operation>
+cncf command --no-project-classpath --component-car-dir car.d testcomp.main.hello
+cncf command --no-project-classpath --subsystem-sar-dir sar.d testcomp.main.hello
+cncf command --no-project-classpath --repository-dir repository.d --textus.component=<component> <operation>
 ```
 
 `--discover=classes` and the sample-local `bin/cncf` wrapper are historical
-compatibility mechanisms. Current samples should use `--project-dev .` for the main development project.
+compatibility mechanisms. Current samples should rely on current-directory
+project auto activation for the main development project.
 Use `--component-dev-dir <dir>` only when a sample intentionally injects a
 separate development component dependency; use `--component-car-dir`,
 `--subsystem-sar-dir`, or `repository.d` only for packaged-source samples.
 
 Development order follows the stages recorded in `docs/journal/2026/03/cncf-samples-project.md`.
+
+The first three lines have distinct learning roles:
+
+- `01`: Textus operation without CML
+  - command selector execution
+  - development-directory startup vs component repository startup
+  - `command` / `server` / `client`
+  - help, builtin, and admin runtime surfaces
+  - script DSL as a special operational form
+- `02`: Textus Component without CML
+  - Component / Service / Operation structure
+  - low-level Scala Component API
+  - CAR and class-discovery loading forms
+- `03`: Textus Component with CML
+  - the first normal model-driven Component authoring line
+  - CML source as the Component definition
+  - generated component packaging and loading
+
+In current guidance, normal Component definition starts at `03` with CML.
+The `01` and `02` lines intentionally avoid CML so the learner can understand
+Textus operation and the Component runtime model before seeing CML.
 
 1. `01-minimal`
 2. `01.a-invocation-source-lab`
@@ -138,10 +166,10 @@ Development order follows the stages recorded in `docs/journal/2026/03/cncf-samp
 5. `01.d-component-script`
 6. `02-component`
 7. `02.a-car-dir-lab`
-8. `02.b-discover-classes-lab` (historical name; now uses `cncf dev --project-dev .`)
+8. `02.b-discover-classes-lab` (historical name; now uses `cncf`)
 9. `03-component-cml`
 10. `03.a-car-dir-cml-lab`
-11. `03.b-discover-classes-cml-lab` (historical name; now uses `cncf dev --project-dev .`)
+11. `03.b-discover-classes-cml-lab` (historical name; now uses `cncf`)
 12. `03.c-method-execution-cml-lab`
 13. `04-crud`
 14. `04.a-crud-seed-import-lab`
@@ -224,10 +252,10 @@ AI behavior is interpreted in the following order.
 │  ├─ 01.d-component-script/
 │  ├─ 02-component/
 │  ├─ 02.a-car-dir-lab/
-│  ├─ 02.b-discover-classes-lab/        # historical name; uses cncf dev --project-dev .
+│  ├─ 02.b-discover-classes-lab/        # historical name; uses cncf
 │  ├─ 03-component-cml/
 │  ├─ 03.a-car-dir-cml-lab/
-│  ├─ 03.b-discover-classes-cml-lab/    # historical name; uses cncf dev --project-dev .
+│  ├─ 03.b-discover-classes-cml-lab/    # historical name; uses cncf
 │  ├─ 03.c-method-execution-cml-lab/
 │  ├─ 04-crud/
 │  ├─ 04.a-crud-seed-import-lab/
@@ -345,7 +373,7 @@ cd samples/01-minimal
 
 For development, the preferred working style is:
 
-- `--project-dev <project>`
+- `--project <project>`
   - standard launcher entry for ordinary samples and the main development project
   - auto-activates the component/subsystem being edited
 - `--component-dev-dir <project>`
@@ -369,15 +397,15 @@ so the usual edit/run form does not need `--textus.component` or
 `--textus.subsystem`:
 
 ```bash
-cncf dev server --project-dev .
-cncf dev server --project-dev . --subsystem-dev-dir .
+cncf server
+cncf server --subsystem-dev-dir .
 ```
 
 Programming-time example:
 
 ```bash
 cd samples/01-minimal
-cncf dev command --project-dev . minimal.main.hello
+cncf command minimal.main.hello
 ```
 
 This is the preferred form for learning because it exposes the launcher mode,
@@ -387,7 +415,7 @@ README then explains each parameter and the expected output fields.
 Deployment-style invocation can also be separated from local verification through `invoke.sh` per sample.
 
 Historical shell utilities under `scripts/` are retained only as deprecated
-migration guards. New and maintained samples should call `cncf dev` directly
+migration guards. New and maintained samples should call `cncf` directly
 from their own `run.sh` / `invoke.sh`.
 
 ## Cozy Generation

@@ -9,13 +9,13 @@ cd "$SCRIPT_DIR"
 
 sbt --batch compile >/dev/null
 
-cncf dev server --project-dev . --textus.server.port "$SERVER_PORT" >"$SERVER_LOG" 2>&1 &
+cncf server --textus.server.port "$SERVER_PORT" >"$SERVER_LOG" 2>&1 &
 SERVER_PID=$!
 trap 'kill "$SERVER_PID" >/dev/null 2>&1 || true' EXIT
 
 server_ready=0
 for _ in $(seq 1 30); do
-  ready_output="$(cncf dev client --project-dev . aggregate-sample.meta.describe --baseurl "$SERVER_BASEURL" --format yaml 2>&1 || true)"
+  ready_output="$(cncf client aggregate-sample.meta.describe --baseurl "$SERVER_BASEURL" --format yaml 2>&1 || true)"
   if printf '%s\n' "$ready_output" | grep -q "type: component"; then
     server_ready=1
     break
@@ -69,15 +69,15 @@ raise SystemExit(f"id not found in {text!r}")'
 await_if_job() {
   local value="$1"
   if [[ "$value" == cncf-job-* ]]; then
-    cncf dev client --project-dev . job-control.job.await-job-result --baseurl "$SERVER_BASEURL" --id "$value" | extract_result_id
+    cncf client job-control.job.await-job-result --baseurl "$SERVER_BASEURL" --id "$value" | extract_result_id
   else
     printf '%s\n' "$value"
   fi
 }
 
 ORDER_NAME="alpha-$(date +%s)"
-CREATE_RESULT_ID="$(cncf dev client --project-dev . aggregate-sample.entity.create-order-record --baseurl "$SERVER_BASEURL" --name "$ORDER_NAME" --status Draft | extract_result_id)"
+CREATE_RESULT_ID="$(cncf client aggregate-sample.entity.create-order-record --baseurl "$SERVER_BASEURL" --name "$ORDER_NAME" --status Draft | extract_result_id)"
 ORDER_ID="$(await_if_job "$CREATE_RESULT_ID")"
-ADD_LINE_RESULT_ID="$(cncf dev client --project-dev . aggregate-sample.order.add-line --baseurl "$SERVER_BASEURL" --orderId "$ORDER_ID" --lineName pen --quantity 2 | extract_result_id)"
+ADD_LINE_RESULT_ID="$(cncf client aggregate-sample.order.add-line --baseurl "$SERVER_BASEURL" --orderId "$ORDER_ID" --lineName pen --quantity 2 | extract_result_id)"
 await_if_job "$ADD_LINE_RESULT_ID" >/dev/null
-cncf dev client --project-dev . aggregate-sample.order.load-order-aggregate --baseurl "$SERVER_BASEURL" --id "$ORDER_ID"
+cncf client aggregate-sample.order.load-order-aggregate --baseurl "$SERVER_BASEURL" --id "$ORDER_ID"

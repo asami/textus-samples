@@ -85,7 +85,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf dev` will use later.
+Compile the sample and generate the runtime classes that `cncf` will use later.
 
 ```bash
 $ cd samples/07-event-driven
@@ -110,7 +110,7 @@ $ bash run.sh
 This sample uses:
 
 ```bash
-bash cncf dev command --project-dev . ...
+cncf command ...
 ```
 
 Common points:
@@ -119,7 +119,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--project-dev .` auto activation:
+- current-directory project auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -130,7 +130,7 @@ Common points:
 ### Component Help
 
 ```bash
-$ cncf dev command --project-dev . help event-driven
+$ cncf command help event-driven
 ```
 
 Output example:
@@ -151,7 +151,7 @@ This confirms that the generated component exposes an event-facing service.
 ### Emit Event Help
 
 ```bash
-$ cncf dev command --project-dev . help event-driven.event.emit-event
+$ cncf command help event-driven.event.emit-event
 ```
 
 Output example:
@@ -169,7 +169,7 @@ returns:
 ### Load Effect Help
 
 ```bash
-$ cncf dev command --project-dev . help event-driven.event.load-effect
+$ cncf command help event-driven.event.load-effect
 ```
 
 Output example:
@@ -187,7 +187,7 @@ returns:
 ### Metadata Describe
 
 ```bash
-$ cncf dev command --project-dev . event-driven.meta.describe --format yaml
+$ cncf command event-driven.meta.describe --format yaml
 ```
 
 This lets you inspect the modeled event-facing runtime surface in one place.

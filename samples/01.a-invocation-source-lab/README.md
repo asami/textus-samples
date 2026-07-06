@@ -5,16 +5,22 @@
 This is a guided hands-on lab derived from `01-minimal`.
 It intentionally carries the same minimal source locally so the learner can experiment in this directory without moving back to `../01-minimal`.
 
-Its role is to help a learner understand how the same selector is invoked through two different loading paths:
+Its role is to help a learner understand how the same Textus selector is
+invoked through two different Component startup sources:
 
-- development-time class discovery
-- deployment-style repository loading
+- development-directory startup
+- component repository startup
+
+This lab is not about comparing `run.sh` and `invoke.sh` as shell scripts.
+Those files are only convenience entry points.
+The learning target is where the active Component comes from.
 
 ## Structure
 
 - Local working copy of the `01-minimal` source
-- Focused on `run.sh` vs `invoke.sh`
-- Compares loading sources rather than startup modes
+- Focused on active Component source
+- Compares development-directory startup with component repository startup
+- Does not introduce CML
 
 This lab does not introduce a new Component design.
 It reuses the same `minimal.main.hello` example so the learner can isolate one question:
@@ -31,8 +37,8 @@ The point of the lab is that both commands execute the same selector against the
 By the end of this lab, the learner should understand:
 
 - selector format
-- `run.sh` vs `invoke.sh`
-- class discovery vs repository loading
+- development-directory startup
+- component repository startup
 - which parts of the command stay stable when the loading source changes
 
 ## Guided Steps
@@ -42,7 +48,6 @@ By the end of this lab, the learner should understand:
 Open these files first:
 
 - `src/main/scala/minimal/MinimalComponent.scala`
-- `component.d/minimal.md`
 - `run.sh`
 - `invoke.sh`
 
@@ -51,8 +56,9 @@ Confirm these points:
 - the Scala implementation class is `MinimalComponent`
 - the runtime Component name is `minimal`
 - the selector stays `minimal.main.hello`
+- CML is intentionally not used in the `01` line
 
-### 2. Run The Development-Time Path
+### 2. Start From The Development Directory
 
 Run:
 
@@ -62,18 +68,17 @@ Run:
 
 Observe:
 
-- `run.sh` calls the shared sample runner
-- it enables `--project-dev .` auto activation
-- it targets `minimal.main.hello`
-- the execution source is the compiled classes in this sample directory
+- the startup target is the current sample directory
+- the Component is loaded from the actively developed project
+- the selector is `minimal.main.hello`
 
 Conceptual shape:
 
-```bash
-cncf dev command --project-dev . minimal.main.hello
+```text
+cncf command minimal.main.hello
 ```
 
-### 3. Run The Deployment-Style Path
+### 3. Start From The Component Repository
 
 Run:
 
@@ -83,18 +88,18 @@ Run:
 
 Observe:
 
-- `invoke.sh` first runs `sbt package`
-- it copies the built jar into `samples/component.d`
-- then it activates that directory through `--component-dir ../component.d`
+- the sample is packaged first
+- the packaged Component is placed in the repository-style artifact directory
+- the active Component is loaded from that repository source
 - the selector is still `minimal.main.hello`
 
 Conceptual shape:
 
-```bash
-cncf dev command --project-dev . --no-project-classpath --component-dir ../component.d minimal.main.hello
+```text
+cncf command --no-project-classpath --component-dir ../component.d minimal.main.hello
 ```
 
-### 4. Compare The Two Loading Sources
+### 4. Compare The Two Startup Sources
 
 What stays stable:
 
@@ -106,14 +111,14 @@ What stays stable:
 
 What changes:
 
-- active loading source
+- active Component source
 - packaging step
-- whether the jar is copied into the virtual repository
+- whether the startup uses the development directory or the component repository
 
 This is the key lesson of this lab:
 
 - one logical selector
-- two different loading paths
+- two different Component startup sources
 - same functional result
 
 ### 5. Continue To The Next Labs
@@ -143,7 +148,7 @@ Recommended reading order:
 ## Key Learnings
 
 - selector format
-- development-time vs deployment-style invocation
-- class discovery vs repository loading
+- development-directory startup
+- component repository startup
 - one local source tree can support both observations
 - stable selector semantics across loading sources

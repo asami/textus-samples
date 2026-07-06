@@ -1,14 +1,14 @@
 # 03.b-discover-classes-cml-lab
 
 This directory name is historical. The sample now demonstrates the current
-launcher-based CML development source form: `cncf dev ...`.
+launcher-based CML development source form: `cncf ...`.
 
 ## Overview
 
 CNCF samples use two launchers with different roles: `textus` is for
 application/user execution, while `cncf` is the development launcher for CNCF
 components and runtime surfaces. This sample runs a generated CML component that is under
-development, so it uses `cncf dev ...` directly.
+development, so it uses `cncf ...` directly.
 
 Use this sample when you are actively editing `component.cml` and want CNCF to
 run the generated component from the component development directory without
@@ -43,23 +43,23 @@ bash run.sh
 ### 1. Inspect the generated component
 
 ```bash
-cncf dev command --project-dev . meta.help component-cml-sample --format yaml
+cncf command meta.help component-cml-sample --format yaml
 ```
 
 ### 2. Inspect generated operation help
 
 ```bash
-cncf dev command --project-dev . help component-cml-sample.greeting.greeting
+cncf command help component-cml-sample.greeting.greeting
 ```
 
 ### 3. Inspect generated metadata
 
 ```bash
-cncf dev command --project-dev . component-cml-sample.meta.describe --format yaml
+cncf command component-cml-sample.meta.describe --format yaml
 ```
 
 ## Key Learnings
 
-- `--project-dev .` auto activation is the current generated component edit/run loop.
+- current-directory project auto activation is the current generated component edit/run loop.
 - CAR and `car.d` remain the packaged-source inspection paths.
 - The old class-discovery flag is not part of the current sample path.

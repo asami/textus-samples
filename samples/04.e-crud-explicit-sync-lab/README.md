@@ -99,7 +99,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf dev` will use later.
+Compile the sample and generate the runtime classes that `cncf` will use later.
 
 ```bash
 $ cd samples/04.e-crud-explicit-sync-lab
@@ -124,7 +124,7 @@ $ bash run.sh
 This sample uses:
 
 ```bash
-bash cncf dev command --project-dev . ...
+cncf command ...
 ```
 
 Common points:
@@ -133,7 +133,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--project-dev .` auto activation:
+- current-directory project auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -148,7 +148,7 @@ Common points:
 ### Component Help
 
 ```bash
-$ cncf dev command --project-dev . help crud
+$ cncf command help crud
 ```
 
 Parameters:
@@ -179,7 +179,7 @@ operation_definitions:
 ### Entity Service Help
 
 ```bash
-$ cncf dev command --project-dev . help crud.entity
+$ cncf command help crud.entity
 ```
 
 Parameters:
@@ -208,7 +208,7 @@ children:
 ### Create Help
 
 ```bash
-$ cncf dev command --project-dev . help crud.entity.create-item
+$ cncf command help crud.entity.create-item
 ```
 
 Parameters:
@@ -235,7 +235,7 @@ returns:
 ### Load Help
 
 ```bash
-$ cncf dev command --project-dev . help crud.entity.load-item
+$ cncf command help crud.entity.load-item
 ```
 
 Parameters:
@@ -262,7 +262,7 @@ returns:
 ### Metadata Describe
 
 ```bash
-$ cncf dev command --project-dev . crud.meta.describe --format yaml
+$ cncf command crud.meta.describe --format yaml
 ```
 
 Parameters:

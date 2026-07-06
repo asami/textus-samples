@@ -2,13 +2,49 @@
 
 ## Overview
 
-This is the smallest executable CNCF sample.
-It implements one Component, one user-defined Service, and one user-defined Operation.
-It also acts as the first reference point for the CNCF command-path execution model.
+This is the first Textus operation sample.
+It intentionally does not introduce CML yet.
+The purpose of the `01` line is to learn how to operate Textus before learning
+how to define a Component with CML.
+
+This sample implements the smallest executable Textus Component shape:
+
+- one Component
+- one user-defined Service
+- one user-defined Operation
+- one command selector
+
+The selector is:
+
+```text
+minimal.main.hello
+```
+
+Later samples introduce the normal CML authoring path.
+This sample stays below that level so the runtime operation model is visible
+without also teaching CML syntax.
 The CNCF dependency version is controlled by `../../versions/cncf-version.conf`, with `CNCF_VERSION` as an override.
 
-This README is intentionally short.
-Its job is to explain the minimal sample itself and point you to the next documents when you want to learn more than "run this and get Hello CNCF".
+## Position In The 01 Line
+
+`01` is the Textus operation chapter.
+It is not the CML chapter.
+
+- `01-minimal`
+  - the smallest command selector execution
+  - introduces Component / Service / Operation as runtime concepts
+- `01.a-invocation-source-lab`
+  - compares development-directory startup with component repository startup
+  - keeps the selector stable while the Component loading source changes
+- `01.b-startup-shapes-lab`
+  - compares `command`, `server`, and `client`
+  - keeps the same minimal Component while the runtime role changes
+- `01.c-builtin-and-help-lab`
+  - introduces `meta.help`, `help`, and builtin/admin surfaces
+  - distinguishes sample-defined operations from runtime-provided operations
+- `01.d-component-script`
+  - shows the script DSL as a special operational form
+  - remains outside the normal Component/CML authoring line
 
 ## Structure
 
@@ -23,13 +59,12 @@ Its job is to explain the minimal sample itself and point you to the next docume
 - Selector: `minimal.main.hello`
 The Scala implementation class lives in `src/main/scala/minimal/MinimalComponent.scala`.
 The CNCF component name exposed to the runtime is `minimal`.
-
-This README intentionally keeps those definitions short.
-Use the linked lab and guide documents for the fuller model.
+This is deliberate for the `01` line: the sample is explaining Textus operation
+first, not Component authoring by CML.
 
 ## Execution Modes
 
-CNCF is not only about `command` execution.
+Textus is not only about `command` execution.
 The same internal model is expected to support multiple runtime modes, including:
 
 - `command`
@@ -37,23 +72,19 @@ The same internal model is expected to support multiple runtime modes, including
 - `client`
 - `script`
 
-This sample mainly demonstrates the `command` entry point first.
+This sample demonstrates the `command` entry point first.
 The surrounding documents explain how the same model extends into the other modes.
 
 ## How To Run
 
-Development-time execution uses `run.sh`.
-It is intended for programming-time work and local verification.
-The active component is loaded from compiled classes, and repository components may still come from `cwd/component.d`.
-The CNCF runtime itself comes from the published `goldenport-cncf` dependency resolved through sbt.
+Run the minimal command from this directory:
 
 ```bash
 ./run.sh
 ```
 
-Deployment-style execution uses `invoke.sh`.
-It is intended to simulate active packaged loading.
-The script packages the sample jar into `samples/component.d/MinimalComponent.jar` and uses that directory as the active component source.
+Use repository-style invocation only when you want to see the packaged loading
+path:
 
 ```bash
 ./invoke.sh
@@ -72,65 +103,39 @@ Programming-time direct execution:
 ./run.sh
 ```
 
-## What The Scripts Actually Do
+## Startup Sources
 
-The shell wrappers are intentionally thin, but that also makes their behavior easy to miss.
+The new `cncf` launcher line is expected to keep these roles visible:
 
 ### `run.sh`
 
-`run.sh` is the development-time entry point.
-It calls the shared runner with:
+`run.sh` is the development-directory startup.
+The Component is loaded from the current sample project.
 
-- `--project-dev .` auto activation
-- `--command-path minimal.main.hello`
+Current conceptual shape:
 
-Conceptually, it becomes:
-
-```bash
-cncf dev command --project-dev . minimal.main.hello
+```text
+cncf command minimal.main.hello
 ```
-
-Meaning:
-
-- run the CNCF main directly
-- discover the actively developed Component from compiled classes
-- execute the selector `minimal.main.hello`
 
 ### `invoke.sh`
 
-`invoke.sh` is the deployment-style entry point.
-It first packages the sample jar, copies it into the virtual repository, and then calls the shared runner with:
+`invoke.sh` is the component repository startup.
+It packages the sample and loads the Component from the repository-style
+artifact directory instead of the development directory.
 
-- `--component-dir ../component.d`
-- `--command-path minimal.main.hello`
+Current conceptual shape:
 
-Conceptually, it becomes:
-
-```bash
+```text
 sbt package
-cncf dev command --project-dev . --no-project-classpath --component-dir ../component.d minimal.main.hello
+cncf command --no-project-classpath --component-dir ../component.d minimal.main.hello
 ```
 
-Meaning:
+The important point is not the script names.
+The important point is the source of the active Component:
 
-- build the sample artifact
-- place that artifact into the sample active component directory
-- run the CNCF main directly
-- load the Component from the active packaged directory instead of from active class discovery
-
-### Why The Two Scripts Differ
-
-The point of the split is to make two different execution models visible:
-
-- `run.sh`
-  - development-time execution
-  - class discovery for the active Component
-- `invoke.sh`
-  - deployment-style execution
-  - repository-based loading
-
-If you only read the script names, this difference is easy to miss.
-This section exists to make the underlying `sbt` / CNCF main parameters explicit.
+- development directory
+- component repository
 
 ## Behavior
 
@@ -151,14 +156,14 @@ The `hello` operation should remain:
 ## Where To Go Next
 
 If you only want the minimum executable sample, this README is enough.
-If you want to understand the surrounding execution and deployment model, continue with the documents below.
+If you want to understand the surrounding execution and repository startup
+model, continue with the documents below.
 
 ### Learn By Operating The Sample
 
 - `../01.a-invocation-source-lab/README.md`
   - guided hands-on learning path based on `01-minimal`
-  - focuses on `run.sh` vs `invoke.sh`
-  - explains development-time class loading vs deployment-style repository loading
+  - explains development-directory startup vs component repository startup
 
 - `../01.b-startup-shapes-lab/README.md`
   - compares `command`, `server`, and `client` startup styles
@@ -175,7 +180,7 @@ If you want to understand the surrounding execution and deployment model, contin
 
 - `../../guide/invocation/component-and-subsystem-invocation-guide.md`
   - development-time execution
-  - deployment-style invocation
+  - component repository startup
   - repository-based loading model
   - subsystem / component / service / operation relationship
   - command / server / client execution framing
@@ -200,7 +205,7 @@ If you want to understand the surrounding execution and deployment model, contin
 Use this order if you want a structured learning path:
 
 1. Read this README
-2. Run `./run.sh` and `./invoke.sh`
+2. Run the development-directory startup and the component repository startup
 3. Read `../01.a-invocation-source-lab/README.md`
 4. Read `../01.b-startup-shapes-lab/README.md`
 5. Read `../01.c-builtin-and-help-lab/README.md`
@@ -212,6 +217,6 @@ Use this order if you want a structured learning path:
 
 - The smallest unit of Component / Service / Operation
 - Selector format: `<component>.<service>.<operation>`
-- CNCF execution is broader than `command` alone
-- Development-time class loading vs deployment-time repository loading
-- The basic shape of an executable sample
+- Textus execution is broader than `command` alone
+- Development-directory startup vs component repository startup
+- Why `01` does not introduce CML yet

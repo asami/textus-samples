@@ -73,21 +73,21 @@ The common parameters are:
 
 ```bash
 REPO_DIR="$PWD/repository.d"
-cncf dev command --project-dev . --no-project-classpath --repository-dir "$REPO_DIR" --textus.component=component-method-execution-sample command meta.help component-method-execution-sample --format yaml
+cncf command --no-project-classpath --repository-dir "$REPO_DIR" --textus.component=component-method-execution-sample meta.help component-method-execution-sample --format yaml
 ```
 
 ### 2. Inspect operation help
 
 ```bash
 REPO_DIR="$PWD/repository.d"
-cncf dev command --project-dev . --no-project-classpath --repository-dir "$REPO_DIR" --textus.component=component-method-execution-sample command help component-method-execution-sample.greeting.compose-greeting
+cncf command --no-project-classpath --repository-dir "$REPO_DIR" --textus.component=component-method-execution-sample help component-method-execution-sample.greeting.compose-greeting
 ```
 
 ### 3. Execute the method
 
 ```bash
 REPO_DIR="$PWD/repository.d"
-cncf dev command --project-dev . --no-project-classpath --repository-dir "$REPO_DIR" --textus.component=component-method-execution-sample command component-method-execution-sample.greeting.compose-greeting --name Alice
+cncf command --no-project-classpath --repository-dir "$REPO_DIR" --textus.component=component-method-execution-sample component-method-execution-sample.greeting.compose-greeting --name Alice
 ```
 
 Expected result:

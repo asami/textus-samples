@@ -6,4 +6,4 @@ cd "$SCRIPT_DIR"
 
 SERVER_PORT="${CNCF_SAMPLE_SERVER_PORT:-19542}"
 
-exec cncf dev server --project-dev . --textus.server.port "$SERVER_PORT"
+exec cncf server --textus.server.port "$SERVER_PORT"

@@ -9,6 +9,15 @@ Each sample document is intended to be updated independently:
 - README completion
 - sample-specific exit criteria
 
+Line roles:
+
+- `01`: Textus operation without CML
+- `02`: Textus Component without CML
+- `03`: Textus Component with CML
+
+`01` intentionally teaches launcher usage, selectors, startup sources, runtime
+roles, help/admin surfaces, and the script form before CML appears.
+
 Current sample documents:
 
 - `01-minimal.md`

@@ -85,7 +85,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf dev` will use later.
+Compile the sample and generate the runtime classes that `cncf` will use later.
 
 ```bash
 $ cd samples/06.a-designed-sync-command-lab
@@ -110,7 +110,7 @@ $ bash run.sh
 This sample uses:
 
 ```bash
-bash cncf dev command --project-dev . ...
+cncf command ...
 ```
 
 Common points:
@@ -119,7 +119,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--project-dev .` auto activation:
+- current-directory project auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -130,7 +130,7 @@ Common points:
 ### Command Help
 
 ```bash
-$ cncf dev command --project-dev . help designed-sync.item.create-item
+$ cncf command help designed-sync.item.create-item
 ```
 
 Output example:
@@ -150,7 +150,7 @@ This confirms the command contract and selector.
 ### Metadata Describe
 
 ```bash
-$ cncf dev command --project-dev . designed-sync.meta.describe --format yaml
+$ cncf command designed-sync.meta.describe --format yaml
 ```
 
 Output example:
@@ -169,7 +169,7 @@ This shows that the operation is still modeled as a command.
 ### Execute The Designed-Sync Command
 
 ```bash
-$ cncf dev command --project-dev . designed-sync.item.create-item --name beta --title Beta
+$ cncf command designed-sync.item.create-item --name beta --title Beta
 ```
 
 Output example:

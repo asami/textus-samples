@@ -65,7 +65,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf dev` will use later.
+Compile the sample and generate the runtime classes that `cncf` will use later.
 
 ```bash
 $ cd samples/05.b-operation-entity-lab
@@ -90,7 +90,7 @@ $ bash run.sh
 This sample uses:
 
 ```bash
-bash cncf dev command --project-dev . ...
+cncf command ...
 ```
 
 Common points:
@@ -109,7 +109,7 @@ Common points:
 ### Operation Help
 
 ```bash
-$ cncf dev command --project-dev . --component-factory-class org.sample.operationentity.OperationEntitySampleFactory help operation-entity-sample.person-app.get-person-card
+$ cncf command --component-factory-class org.sample.operationentity.OperationEntitySampleFactory help operation-entity-sample.person-app.get-person-card
 ```
 
 Parameters:
@@ -147,7 +147,7 @@ This confirms the contract surface:
 ### Metadata Describe
 
 ```bash
-$ cncf dev command --project-dev . --component-factory-class org.sample.operationentity.OperationEntitySampleFactory operation-entity-sample.meta.describe --format yaml
+$ cncf command --component-factory-class org.sample.operationentity.OperationEntitySampleFactory operation-entity-sample.meta.describe --format yaml
 ```
 
 Parameters:
@@ -181,7 +181,7 @@ This confirms that the sample is still operation-oriented even though the compon
 ### Execute The Query Operation
 
 ```bash
-$ cncf dev command --project-dev . --component-factory-class org.sample.operationentity.OperationEntitySampleFactory operation-entity-sample.person-app.get-person-card --personId major-minor-entity-person-1742198400000-abcd1234
+$ cncf command --component-factory-class org.sample.operationentity.OperationEntitySampleFactory operation-entity-sample.person-app.get-person-card --personId major-minor-entity-person-1742198400000-abcd1234
 ```
 
 Parameters:

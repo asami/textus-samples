@@ -15,11 +15,11 @@ cleanup() {
 }
 trap cleanup EXIT INT TERM
 
-cncf dev command --project-dev . help event-driven
-cncf dev command --project-dev . help event-driven.event.emit-event
-cncf dev command --project-dev . help job-control.job.await-job-result
-cncf dev command --project-dev . help job-control.job.load-job-history
-cncf dev command --project-dev . event-driven.meta.describe --format yaml
+cncf command help event-driven
+cncf command help event-driven.event.emit-event
+cncf command help job-control.job.await-job-result
+cncf command help job-control.job.load-job-history
+cncf command event-driven.meta.describe --format yaml
 
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 SERVER_PORT="$(tr -d '[:space:]' < "$ROOT_DIR/versions/cncf-server-port.conf")"
@@ -27,7 +27,7 @@ for pid in $(lsof -ti "tcp:${SERVER_PORT}" 2>/dev/null || true); do
   kill "$pid" >/dev/null 2>&1 || true
 done
 
-cncf dev server --project-dev . >"$server_log" 2>&1 &
+cncf server >"$server_log" 2>&1 &
 server_pid=$!
 server_ready=0
 for _ in $(seq 1 30); do
@@ -46,10 +46,10 @@ if [ "$server_ready" -ne 1 ]; then
   exit 1
 fi
 
-job_id="$(cncf dev client --project-dev . event-driven.event.emit-event --name alpha --title Alpha --privilege content_admin)"
+job_id="$(cncf client event-driven.event.emit-event --name alpha --title Alpha --privilege content_admin)"
 printf '%s\n' "$job_id"
 
-cncf dev client --project-dev . job-control.job.await-job-result --id "$job_id" --privilege content_admin
-cncf dev client --project-dev . job-control.job.get-job-status --id "$job_id" --privilege content_admin
-cncf dev client --project-dev . job-control.job.load-job-history --id "$job_id" --privilege content_admin
-cncf dev client --project-dev . event-driven.event.load-effect --privilege content_admin
+cncf client job-control.job.await-job-result --id "$job_id" --privilege content_admin
+cncf client job-control.job.get-job-status --id "$job_id" --privilege content_admin
+cncf client job-control.job.load-job-history --id "$job_id" --privilege content_admin
+cncf client event-driven.event.load-effect --privilege content_admin

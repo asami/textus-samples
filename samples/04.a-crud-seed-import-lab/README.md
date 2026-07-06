@@ -54,7 +54,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf dev` will use later.
+Compile the sample and generate the runtime classes that `cncf` will use later.
 
 ```bash
 $ cd samples/04.a-crud-seed-import-lab
@@ -79,7 +79,7 @@ $ bash run.sh
 This sample uses:
 
 ```bash
-bash cncf dev command --project-dev . ...
+cncf command ...
 ```
 
 Common points:
@@ -88,7 +88,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--project-dev .` auto activation:
+- current-directory project auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -101,7 +101,7 @@ Common points:
 This command shows the generated entity load operation.
 
 ```bash
-$ cncf dev command --project-dev . help crud.entity.load-item
+$ cncf command help crud.entity.load-item
 ```
 
 Parameters:
@@ -134,7 +134,7 @@ This confirms that the generated entity service exposes a load route for the imp
 This command shows the generated entity search operation.
 
 ```bash
-$ cncf dev command --project-dev . help crud.entity.search-item-record
+$ cncf command help crud.entity.search-item-record
 ```
 
 Parameters:
@@ -165,7 +165,7 @@ returns:
 This command loads one known seeded record by id.
 
 ```bash
-$ cncf dev command --project-dev . crud.entity.load-item --id major-minor-entity-item-20260327000000-aaa111
+$ cncf command crud.entity.load-item --id major-minor-entity-item-20260327000000-aaa111
 ```
 
 Parameters:
@@ -196,7 +196,7 @@ This confirms that the seed import ran and that the imported `alpha` item is ava
 This command searches the imported records by domain attribute.
 
 ```bash
-$ cncf dev command --project-dev . crud.entity.search-item-record --name alpha
+$ cncf command crud.entity.search-item-record --name alpha
 ```
 
 Parameters:
@@ -237,7 +237,7 @@ This confirms that:
 This command shows the generated component metadata.
 
 ```bash
-$ cncf dev command --project-dev . crud.meta.describe --format yaml
+$ cncf command crud.meta.describe --format yaml
 ```
 
 Parameters:

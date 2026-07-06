@@ -117,44 +117,44 @@ COMMON_ARGS=(
 )
 
 echo "--- subsystem help"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" meta.help --format yaml
+cncf command "${COMMON_ARGS[@]}" meta.help --format yaml
 
 echo
 echo "--- caller component help"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" meta.help callercomp --format yaml
+cncf command "${COMMON_ARGS[@]}" meta.help callercomp --format yaml
 
 echo
 echo "--- callee component help"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" meta.help calleecomp --format yaml
+cncf command "${COMMON_ARGS[@]}" meta.help calleecomp --format yaml
 
 echo
 echo "--- caller operation help"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" help callercomp.main.hello
+cncf command "${COMMON_ARGS[@]}" help callercomp.main.hello
 
 echo
 echo "--- callee operation help"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" help calleecomp.main.hello
+cncf command "${COMMON_ARGS[@]}" help calleecomp.main.hello
 
 echo
 echo "--- assembly report"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" admin.assembly.report --format yaml
+cncf command "${COMMON_ARGS[@]}" admin.assembly.report --format yaml
 
 echo
 echo "--- assembly descriptor"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" admin.assembly.descriptor --format yaml
+cncf command "${COMMON_ARGS[@]}" admin.assembly.descriptor --format yaml
 
 echo
 echo "--- assembly descriptor override"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" --textus.assembly.descriptor="$WORK_DIR/override-assembly-descriptor.yaml" admin.assembly.descriptor --format yaml
+cncf command "${COMMON_ARGS[@]}" --textus.assembly.descriptor="$WORK_DIR/override-assembly-descriptor.yaml" admin.assembly.descriptor --format yaml
 
 echo
 echo "--- assembly diagram"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" admin.assembly.diagram
+cncf command "${COMMON_ARGS[@]}" admin.assembly.diagram
 
 echo
 echo "--- execute caller"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" callercomp.main.hello --calltree --format yaml
+cncf command "${COMMON_ARGS[@]}" callercomp.main.hello --calltree --format yaml
 
 echo
 echo "--- execute callee"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" calleecomp.main.hello
+cncf command "${COMMON_ARGS[@]}" calleecomp.main.hello

@@ -12,7 +12,7 @@ fi
 item_id="$1"
 SERVER_PORT="${CNCF_SAMPLE_SERVER_PORT:-19542}"
 
-exec cncf dev client --project-dev . \
+exec cncf client \
   crud.entity.load-item \
   --baseurl "http://localhost:${SERVER_PORT}" \
   --id "$item_id"

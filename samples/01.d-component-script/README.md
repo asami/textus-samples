@@ -5,12 +5,19 @@
 This sample is centered on one `scala-cli` script file.
 It shows how a small management program can stay in a single script while still running on CNCF runtime behavior.
 
+Its role inside the `01` line is special.
+It is not a normal Component authoring sample and it is not a CML sample.
+It shows the script-style operational form after the learner has seen command
+selectors, startup sources, startup roles, and help/admin surfaces.
+
 The concrete script example is:
 
 - `script/main.scala`
 
 This sample is intentionally script-first.
 It is not presented as an sbt-based multi-file Component project.
+For normal Component definition, continue to the CML line instead of copying
+this script form.
 
 ## What It Demonstrates
 
@@ -61,10 +68,10 @@ It is a CNCF-backed management program in script form.
 ## Relation To Other Labs
 
 - `01-minimal` shows the minimal Component contract
-- `01.a` focuses on invocation source
-- `01.b` focuses on startup shapes
-- `01.c` focuses on builtin/help surfaces
-- `01.d` focuses on single-file script form
+- `01.a` focuses on development-directory startup vs component repository startup
+- `01.b` focuses on command/server/client startup roles
+- `01.c` focuses on builtin/help/admin runtime surfaces
+- `01.d` focuses on the special single-file script form
 
 ## Result
 

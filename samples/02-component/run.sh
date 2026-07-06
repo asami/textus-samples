@@ -27,8 +27,8 @@ COMMON_ARGS=(
 )
 
 echo "--- component help"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" meta.help testcomp --format yaml
+cncf command "${COMMON_ARGS[@]}" meta.help testcomp --format yaml
 
 echo
 echo "--- operation help"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" help testcomp.main.hello
+cncf command "${COMMON_ARGS[@]}" help testcomp.main.hello

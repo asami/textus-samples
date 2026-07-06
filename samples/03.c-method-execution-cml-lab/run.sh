@@ -31,12 +31,12 @@ COMMON_ARGS=(
 )
 
 echo "--- component help"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" meta.help component-method-execution-sample --format yaml
+cncf command "${COMMON_ARGS[@]}" meta.help component-method-execution-sample --format yaml
 
 echo
 echo "--- operation help"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" help component-method-execution-sample.greeting.compose-greeting
+cncf command "${COMMON_ARGS[@]}" help component-method-execution-sample.greeting.compose-greeting
 
 echo
 echo "--- execute"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" component-method-execution-sample.greeting.compose-greeting --name Alice
+cncf command "${COMMON_ARGS[@]}" component-method-execution-sample.greeting.compose-greeting --name Alice

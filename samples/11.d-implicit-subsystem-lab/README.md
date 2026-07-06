@@ -52,17 +52,17 @@ This is the convenience batch form of the walkthrough below.
 ## Command Walkthrough
 
 The commands below use the standard CNCF CLI entry point.
-In this repository it is invoked as `cncf dev`.
+In this repository it is invoked as `cncf`.
 
 The common option is:
 
-- `--project-dev .` auto activation
+- current-directory project auto activation
   - tells CNCF to discover the sample component from compiled classes and assemble the effective runtime
 
 ### 1. Inspect subsystem help
 
 ```bash
-cncf dev command --project-dev . meta.help --format yaml
+cncf command meta.help --format yaml
 ```
 
 Parameters:
@@ -80,7 +80,7 @@ Expected result:
 ### 2. Inspect the discovered component
 
 ```bash
-cncf dev command --project-dev . meta.help subsystem --format yaml
+cncf command meta.help subsystem --format yaml
 ```
 
 Parameters:
@@ -96,7 +96,7 @@ Parameters:
 ### 3. Inspect operation help
 
 ```bash
-cncf dev command --project-dev . help subsystem.main.hello
+cncf command help subsystem.main.hello
 ```
 
 Parameters:
@@ -110,7 +110,7 @@ Parameters:
 ### 4. Execute the operation
 
 ```bash
-cncf dev command --project-dev . subsystem.main.hello
+cncf command subsystem.main.hello
 ```
 
 Parameters:

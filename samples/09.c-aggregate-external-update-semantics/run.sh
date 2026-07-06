@@ -9,10 +9,10 @@ sbt --batch compile >/dev/null
 
 echo
 echo '--- help aggregate-external-update-sample ---'
-cncf dev command --project-dev . help aggregate-external-update-sample
+cncf command help aggregate-external-update-sample
 echo
 echo '--- help cancel-order ---'
-cncf dev command --project-dev . help aggregate-external-update-sample.order.cancel-order
+cncf command help aggregate-external-update-sample.order.cancel-order
 echo
 echo '--- meta describe ---'
-cncf dev command --project-dev . aggregate-external-update-sample.meta.describe --format yaml
+cncf command aggregate-external-update-sample.meta.describe --format yaml

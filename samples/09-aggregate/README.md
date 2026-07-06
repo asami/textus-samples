@@ -101,7 +101,7 @@ The commands below use these common conventions:
   - the standard CNCF CLI entry point
   - in this repository it is invoked directly through the installed `cncf` launcher
   - after a normal installation it is typically available as `cncf`
-- `--project-dev .` auto activation
+- current-directory project auto activation
   - tells CNCF to discover generated components from the compiled class directory
 - `server`
   - starts the CNCF server runtime for this sample
@@ -115,7 +115,7 @@ The commands below use these common conventions:
 ### 1. Start the server
 
 ```bash
-$ cncf dev server --project-dev .
+$ cncf server
 ```
 
 This starts the sample runtime and loads `AggregateSample` through the preferred impl factory.
@@ -127,7 +127,7 @@ Parameters:
 ### 2. Inspect the aggregate command surface
 
 ```bash
-$ cncf dev command --project-dev . help aggregate-sample.order.add-line
+$ cncf command help aggregate-sample.order.add-line
 ```
 
 This shows the aggregate command surface that appends one member line to an existing order.
@@ -143,7 +143,7 @@ Parameters:
 ### 3. Create the root order
 
 ```bash
-$ cncf dev client --project-dev . aggregate-sample.entity.create-order-record --name alpha --status Draft
+$ cncf client aggregate-sample.entity.create-order-record --name alpha --status Draft
 ```
 
 This creates the root `Order` entity.
@@ -168,7 +168,7 @@ cncf-job-job-1775531118508-7ejVSMHaZhCHd4nrtg7uPx
 ### 4. Await the create result
 
 ```bash
-$ cncf dev client --project-dev . job-control.job.await-job-result --id cncf-job-job-1775531118508-7ejVSMHaZhCHd4nrtg7uPx
+$ cncf client job-control.job.await-job-result --id cncf-job-job-1775531118508-7ejVSMHaZhCHd4nrtg7uPx
 ```
 
 This resolves the job and returns the created order id.
@@ -190,7 +190,7 @@ Example result:
 ### 5. Append one aggregate member
 
 ```bash
-$ cncf dev client --project-dev . aggregate-sample.order.add-line --orderId major-minor-entity-order-1775531118546-EwawSPXnjIymHzu8DVknz --lineName pen --quantity 2
+$ cncf client aggregate-sample.order.add-line --orderId major-minor-entity-order-1775531118546-EwawSPXnjIymHzu8DVknz --lineName pen --quantity 2
 ```
 
 This executes the aggregate command.
@@ -217,7 +217,7 @@ cncf-job-job-1775531146663-5EuFzAH6P2xv3mhEoG9y3j
 ### 6. Load the aggregate
 
 ```bash
-$ cncf dev client --project-dev . aggregate-sample.order.load-order-aggregate --id major-minor-entity-order-1775531118546-EwawSPXnjIymHzu8DVknz
+$ cncf client aggregate-sample.order.load-order-aggregate --id major-minor-entity-order-1775531118546-EwawSPXnjIymHzu8DVknz
 ```
 
 This loads the aggregate-shaped result.

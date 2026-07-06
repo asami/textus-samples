@@ -71,7 +71,7 @@ With the current activation policy:
 ### 1. Inspect the component
 
 ```bash
-cncf dev command --project-dev . --no-project-classpath --component-car-dir car.d meta.help testcomp --format yaml
+cncf command --no-project-classpath --component-car-dir car.d meta.help testcomp --format yaml
 ```
 
 Parameters:
@@ -87,7 +87,7 @@ Parameters:
 ### 2. Inspect operation help
 
 ```bash
-cncf dev command --project-dev . --no-project-classpath --component-car-dir car.d help testcomp.main.hello
+cncf command --no-project-classpath --component-car-dir car.d help testcomp.main.hello
 ```
 
 Parameters:
@@ -101,7 +101,7 @@ Parameters:
 ### 3. Execute the operation
 
 ```bash
-cncf dev command --project-dev . --no-project-classpath --component-car-dir car.d testcomp.main.hello
+cncf command --no-project-classpath --component-car-dir car.d testcomp.main.hello
 ```
 
 Parameters:

@@ -60,28 +60,28 @@ COMMON_ARGS=(
 )
 
 echo "--- subsystem help"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" meta.help --format yaml
+cncf command "${COMMON_ARGS[@]}" meta.help --format yaml
 
 echo
 echo "--- generic component help"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" meta.help genericcomp --format yaml
+cncf command "${COMMON_ARGS[@]}" meta.help genericcomp --format yaml
 
 echo
 echo "--- bundled component help"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" meta.help bundledcomp --format yaml
+cncf command "${COMMON_ARGS[@]}" meta.help bundledcomp --format yaml
 
 echo
 echo "--- generic operation help"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" help genericcomp.main.hello
+cncf command "${COMMON_ARGS[@]}" help genericcomp.main.hello
 
 echo
 echo "--- bundled operation help"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" help bundledcomp.main.hello
+cncf command "${COMMON_ARGS[@]}" help bundledcomp.main.hello
 
 echo
 echo "--- execute generic"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" genericcomp.main.hello
+cncf command "${COMMON_ARGS[@]}" genericcomp.main.hello
 
 echo
 echo "--- execute bundled"
-cncf dev command --project-dev . "${COMMON_ARGS[@]}" bundledcomp.main.hello
+cncf command "${COMMON_ARGS[@]}" bundledcomp.main.hello

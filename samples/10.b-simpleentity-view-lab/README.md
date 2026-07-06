@@ -58,7 +58,7 @@ $ ../../bin/setup cozy
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf dev` will use later.
+Compile the sample and generate the runtime classes that `cncf` will use later.
 
 ```bash
 $ cd samples/10.b-simpleentity-view-lab
@@ -85,7 +85,7 @@ $ bash run.sh
 This sample uses:
 
 ```bash
-bash cncf dev command --project-dev . ...
+cncf command ...
 ```
 
 Common points:
@@ -94,7 +94,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--project-dev .` auto activation:
+- current-directory project auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -109,7 +109,7 @@ Start by asking CNCF how the generated view load operation is exposed on the CLI
 ```bash
 $ cd samples/10.b-simpleentity-view-lab
 
-$ bash cncf dev command --project-dev . \
+$ cncf command \
   command help simple-entity-view-sample.view.load-person
 ```
 
@@ -157,7 +157,7 @@ Command parameters:
 Next, load one projected person record by id.
 
 ```bash
-$ bash cncf dev command --project-dev . \
+$ cncf command \
   command simple-entity-view-sample.view.load-person \
   --id tokyo-sales-entity-person-1742198400000-abcd1234
 ```
@@ -206,7 +206,7 @@ Return shape:
 Finally, search the same view using a query-side condition.
 
 ```bash
-$ bash cncf dev command --project-dev . \
+$ cncf command \
   command simple-entity-view-sample.view.search-person-record --name Alice
 ```
 
@@ -270,7 +270,7 @@ Return shape:
 You can also inspect the generated component metadata for this line.
 
 ```bash
-$ bash cncf dev command --project-dev . \
+$ cncf command \
   command simple-entity-view-sample.meta.describe --format yaml
 ```
 

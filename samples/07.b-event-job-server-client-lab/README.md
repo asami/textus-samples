@@ -91,7 +91,7 @@ This step ensures that the sample uses the expected local Cozy version instead o
 
 ### 2. Build the generated sample
 
-Compile the sample and generate the runtime classes that `cncf dev` will use later.
+Compile the sample and generate the runtime classes that `cncf` will use later.
 
 This step is required because the walkthrough runs the generated component directly from local compiled classes.
 
@@ -119,7 +119,7 @@ The main learning path is still the explicit shell sequence in `Command Walkthro
 This sample uses:
 
 ```bash
-bash cncf dev command --project-dev . ...
+cncf command ...
 ```
 
 Common points:
@@ -128,7 +128,7 @@ Common points:
   - the standard CNCF command-line entry point
   - in this sample repository it is invoked directly through the installed `cncf` launcher
   - after a normal CNCF installation, the same command is expected to be available as `cncf`
-- `--project-dev .` auto activation:
+- current-directory project auto activation:
   - use the locally compiled generated classes under `target/`
   - this is the local sample-friendly way to run the generated component without first packaging and installing a separate artifact
 - `command`:
@@ -145,7 +145,7 @@ Start CNCF in server mode first.
 This keeps the in-memory event effect and job state available across client requests.
 
 ```bash
-cncf dev server --project-dev .
+cncf server
 ```
 
 Parameters:
@@ -166,7 +166,7 @@ Send the event-producing command from another shell.
 This step submits the event-backed work and returns a job id.
 
 ```bash
-cncf dev client --project-dev . event-driven.event.emit-event --name alpha --title Alpha --privilege content_admin
+cncf client event-driven.event.emit-event --name alpha --title Alpha --privilege content_admin
 ```
 
 Parameters:
@@ -198,7 +198,7 @@ Use the returned job id to wait until the routed reaction completes.
 This is the practical step that prevents a race between event submission and effect loading.
 
 ```bash
-cncf dev client --project-dev . job-control.job.await-job-result --id cncf-job-job-1775498741256-3pl4ERPQi6PkTtsPrJ51fD --privilege content_admin
+cncf client job-control.job.await-job-result --id cncf-job-job-1775498741256-3pl4ERPQi6PkTtsPrJ51fD --privilege content_admin
 ```
 
 Parameters:
@@ -229,7 +229,7 @@ Now read the visible effect back through the query-side selector.
 This confirms that the event-driven reaction already changed the visible state.
 
 ```bash
-cncf dev client --project-dev . event-driven.event.load-effect --privilege content_admin
+cncf client event-driven.event.load-effect --privilege content_admin
 ```
 
 Parameters:
@@ -256,13 +256,13 @@ Expected result example:
 If you prefer the helper scripts, they map to the same commands:
 
 - `bash run-server.sh`
-  - `cncf dev server --project-dev .`
+  - `cncf server`
 - `bash run-client-emit.sh`
-  - `cncf dev client --project-dev . event-driven.event.emit-event --name alpha --title Alpha --privilege content_admin`
+  - `cncf client event-driven.event.emit-event --name alpha --title Alpha --privilege content_admin`
 - `bash run-client-await.sh <job-id>`
-  - `cncf dev client --project-dev . job-control.job.await-job-result --id <job-id> --privilege content_admin`
+  - `cncf client job-control.job.await-job-result --id <job-id> --privilege content_admin`
 - `bash run-client-load.sh`
-  - `cncf dev client --project-dev . event-driven.event.load-effect --privilege content_admin`
+  - `cncf client event-driven.event.load-effect --privilege content_admin`
 
 ## Parameters And Returns
 
