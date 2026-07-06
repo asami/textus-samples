@@ -34,9 +34,9 @@ Options:
 
 Example:
   scripts/with-launchers.sh \
-    --cncf-version 0.4.10 \
-    --cozy-version 0.2.21 \
-    --sbt-cozy-version 0.1.6 \
+    --cncf-version 0.4.12 \
+    --cozy-version 0.2.23 \
+    --sbt-cozy-version 0.1.10 \
     -- bash samples/03-component-cml/run.sh
 EOF
 }

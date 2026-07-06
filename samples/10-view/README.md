@@ -62,9 +62,9 @@ The CNCF setup step is also where the shared runtime library versions can be pin
 
 ```bash
 $ ../../bin/setup cncf \
-  --cncf-version 0.4.2-SNAPSHOT \
-  --core-version 0.3.2-SNAPSHOT \
-  --simplemodeling-model-version 0.1.2-SNAPSHOT
+  --cncf-version 0.4.12 \
+  --core-version 0.3.7 \
+  --simplemodeling-model-version 0.1.7
 ```
 
 Shared defaults are read from:
